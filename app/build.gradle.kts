@@ -1,17 +1,17 @@
 plugins {
-    id("com.android.application")
-    kotlin("android")
-    kotlin("android.extensions")
+    id(BuildPlugins.androidApplication)
+    id(BuildPlugins.kotlinAndroid)
+    id(BuildPlugins.kotlinAndroidExtensions)
 }
 
 android {
-    compileSdkVersion(29)
-    buildToolsVersion("29.0.3")
+    compileSdkVersion(AndroidSdk.compileSdkVersion)
+    buildToolsVersion(AndroidSdk.buildToolsVersion)
 
     defaultConfig {
         applicationId = "in.dimigo.dimigoin"
-        minSdkVersion(21)
-        targetSdkVersion(29)
+        minSdkVersion(AndroidSdk.minSdkVersion)
+        targetSdkVersion(AndroidSdk.targetSdkVersion)
         versionCode = 1
         versionName = "1.0"
 
@@ -21,17 +21,14 @@ android {
     buildTypes {
         getByName("release") {
             isMinifyEnabled = true
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
 }
 
 dependencies {
-    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.3.72")
-    implementation("androidx.core:core-ktx:1.3.0")
-    implementation("androidx.appcompat:appcompat:1.1.0")
-    implementation("androidx.constraintlayout:constraintlayout:1.1.3")
+    implementation(Dependencies.kotlinStandard)
+    implementation(Dependencies.androidKtx)
+    implementation(Dependencies.appCompat)
+    implementation(Dependencies.constraintLayout)
 }
