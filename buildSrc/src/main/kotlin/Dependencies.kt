@@ -12,4 +12,7 @@ object Dependencies {
 
     // Designs
     const val constraintLayout = "androidx.constraintlayout:constraintlayout:${Versions.constraintLayout}"
+
+    // Testing
+    const val testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 }

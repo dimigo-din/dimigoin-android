@@ -11,10 +11,10 @@ android {
     defaultConfig {
         minSdkVersion(AndroidSdk.minSdkVersion)
         targetSdkVersion(AndroidSdk.targetSdkVersion)
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = AndroidSdk.versionCode
+        versionName = AndroidSdk.versionName
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = Dependencies.testInstrumentationRunner
     }
 
     buildTypes {
