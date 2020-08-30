@@ -26,6 +26,8 @@ android {
 }
 
 dependencies {
+    implementation(project(":domain"))
+
     implementation(Dependencies.kotlinStandard)
     implementation(Dependencies.androidKtx)
     implementation(Dependencies.appCompat)
