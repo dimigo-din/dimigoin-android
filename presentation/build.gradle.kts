@@ -29,4 +29,5 @@ dependencies {
     implementation(Dependencies.kotlinStandard)
     implementation(Dependencies.androidKtx)
     implementation(Dependencies.appCompat)
+    implementation(Dependencies.constraintLayout)
 }
