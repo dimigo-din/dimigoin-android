@@ -27,6 +27,10 @@ android {
 }
 
 dependencies {
+    implementation(project(":domain"))
+    implementation(project(":data"))
+    implementation(project(":presentation"))
+
     implementation(Dependencies.kotlinStandard)
     implementation(Dependencies.androidKtx)
     implementation(Dependencies.appCompat)
