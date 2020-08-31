@@ -1,9 +1,9 @@
 object Dependencies {
     object Versions {
-        const val kotlin = "1.3.72"
-        const val ktx = "1.3.0"
-        const val appCompat = "1.1.0"
-        const val constraintLayout = "1.1.3"
+        const val kotlin = "1.4.0"
+        const val ktx = "1.3.1"
+        const val appCompat = "1.2.0"
+        const val constraintLayout = "2.0.1"
         const val materialComponents = "1.2.0"
     }
 
