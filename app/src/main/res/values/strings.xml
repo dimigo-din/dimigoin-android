@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">디미고인</string>
+
+    <string name="id">아이디</string>
+    <string name="password">비밀번호</string>
+    <string name="login">로그인</string>
 </resources>
