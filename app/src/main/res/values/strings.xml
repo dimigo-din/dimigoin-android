@@ -4,4 +4,6 @@
     <string name="id">아이디</string>
     <string name="password">비밀번호</string>
     <string name="login">로그인</string>
+    <string name="today_meals">오늘의 급식</string>
+    <string name="more">더보기</string>
 </resources>

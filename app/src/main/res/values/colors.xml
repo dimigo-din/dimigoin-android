@@ -4,4 +4,6 @@
     <color name="red_400">#E96051</color>
     <color name="grey_50">#FBFBFB</color>
     <color name="grey_300">#D1D1D1</color>
+    <color name="grey_500">#8A8A8A</color>
+    <color name="black">#000000</color>
 </resources>
