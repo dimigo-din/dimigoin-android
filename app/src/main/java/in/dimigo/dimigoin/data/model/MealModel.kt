@@ -1,6 +1,6 @@
 package `in`.dimigo.dimigoin.data.model
 
-data class MealsModel(
+data class MealModel(
     val breakfast: String,
     val lunch: String,
     val dinner: String,
