@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/transparent"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -21,6 +22,100 @@
         android:layout_marginStart="10dp"
         android:text="@string/more"
         app:layout_constraintBottom_toBottomOf="@+id/title"
-        app:layout_constraintStart_toEndOf="@+id/title"/>
+        app:layout_constraintStart_toEndOf="@+id/title" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:background="@drawable/bg_round_corner_square"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_left_blue_border_stroke"
+            android:orientation="vertical"
+            android:padding="30dp">
+
+            <TextView
+                style="@style/TextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/bold"
+                android:text="@string/breakfast"
+                android:textColor="@color/blue_a400"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/breakfast"
+                style="@style/TextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:lineSpacingExtra="5sp"
+                android:textSize="16sp"
+                tools:text="베이컨&amp;소시지구이 | 치킨너겟 | 스트링치즈 | 잡곡밥 | 건새우아욱국 | 모듬과일 | 포기김치 | 오이소박이 | 야채죽 |" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="30dp">
+
+            <TextView
+                style="@style/TextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/bold"
+                android:text="@string/lunch"
+                android:textColor="@color/blue_a400"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/lunch"
+                style="@style/TextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:lineSpacingExtra="5sp"
+                android:textSize="16sp"
+                tools:text="베이컨&amp;소시지구이 | 치킨너겟 | 스트링치즈 | 잡곡밥 | 건새우아욱국 | 모듬과일 | 포기김치 | 오이소박이 | 야채죽 |" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="30dp">
+
+            <TextView
+                style="@style/TextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/bold"
+                android:text="@string/dinner"
+                android:textColor="@color/blue_a400"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/dinner"
+                style="@style/TextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:lineSpacingExtra="5sp"
+                android:textSize="16sp"
+                tools:text="베이컨&amp;소시지구이 | 치킨너겟 | 스트링치즈 | 잡곡밥 | 건새우아욱국 | 모듬과일 | 포기김치 | 오이소박이 | 야채죽 |" />
+
+        </LinearLayout>
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,6 +1,7 @@
 package `in`.dimigo.dimigoin
 
 import `in`.dimigo.dimigoin.di.appModule
+import `in`.dimigo.dimigoin.di.networkModule
 import android.app.Application
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -13,7 +14,7 @@ class App : Application() {
         startKoin {
             androidLogger()
             androidContext(this@App)
-            modules(appModule)
+            modules(appModule, networkModule)
         }
     }
 }

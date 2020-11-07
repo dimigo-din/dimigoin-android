@@ -4,6 +4,10 @@
     <string name="id">아이디</string>
     <string name="password">비밀번호</string>
     <string name="login">로그인</string>
+    <string name="login_failed">로그인에 실패했습니다. 아이디 비밀번호를 확인해주세요.</string>
     <string name="today_meals">오늘의 급식</string>
     <string name="more">더보기</string>
+    <string name="dinner">저녁</string>
+    <string name="lunch">점심</string>
+    <string name="breakfast">아침</string>
 </resources>
