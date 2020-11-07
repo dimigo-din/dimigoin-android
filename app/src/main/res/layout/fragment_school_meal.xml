@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/transparent"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <TextView
         style="@style/TextStyle.Title"
@@ -12,6 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/today_meals"
+        android:layout_marginStart="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -19,17 +20,19 @@
         style="@style/TextStyle.Sub"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
         android:text="@string/more"
+        android:layout_marginEnd="16dp"
         app:layout_constraintBottom_toBottomOf="@+id/title"
-        app:layout_constraintStart_toEndOf="@+id/title" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="14dp"
+        android:layout_margin="16dp"
         android:background="@drawable/bg_round_corner_square"
+        android:elevation="4dp"
         android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title">
@@ -58,7 +61,7 @@
                 android:layout_marginTop="12dp"
                 android:lineSpacingExtra="5sp"
                 android:textSize="16sp"
-                tools:text="베이컨&amp;소시지구이 | 치킨너겟 | 스트링치즈 | 잡곡밥 | 건새우아욱국 | 모듬과일 | 포기김치 | 오이소박이 | 야채죽 |" />
+                tools:text="@string/example_meals" />
 
         </LinearLayout>
 
@@ -85,7 +88,7 @@
                 android:layout_marginTop="12dp"
                 android:lineSpacingExtra="5sp"
                 android:textSize="16sp"
-                tools:text="베이컨&amp;소시지구이 | 치킨너겟 | 스트링치즈 | 잡곡밥 | 건새우아욱국 | 모듬과일 | 포기김치 | 오이소박이 | 야채죽 |" />
+                tools:text="@string/example_meals" />
 
         </LinearLayout>
 
@@ -112,7 +115,7 @@
                 android:layout_marginTop="12dp"
                 android:lineSpacingExtra="5sp"
                 android:textSize="16sp"
-                tools:text="베이컨&amp;소시지구이 | 치킨너겟 | 스트링치즈 | 잡곡밥 | 건새우아욱국 | 모듬과일 | 포기김치 | 오이소박이 | 야채죽 |" />
+                tools:text="@string/example_meals" />
 
         </LinearLayout>
 

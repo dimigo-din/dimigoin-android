@@ -20,7 +20,7 @@
     </style>
 
     <style name="TextStyle.Title">
-        <item name="android:textSize">26sp</item>
+        <item name="android:textSize">24sp</item>
         <item name="android:fontFamily">@font/extra_bold</item>
     </style>
 
