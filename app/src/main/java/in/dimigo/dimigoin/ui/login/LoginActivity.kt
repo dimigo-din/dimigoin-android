@@ -3,7 +3,9 @@ package `in`.dimigo.dimigoin.ui.login
 import `in`.dimigo.dimigoin.R
 import `in`.dimigo.dimigoin.data.model.AuthModel
 import `in`.dimigo.dimigoin.databinding.ActivityLoginBinding
+import `in`.dimigo.dimigoin.ui.main.MainActivity
 import `in`.dimigo.dimigoin.ui.util.observeEvent
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.widget.Toast
@@ -34,7 +36,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun loginFinished() {
-        // TODO : start activity
+        startActivity(Intent(this, MainActivity::class.java))
         finish()
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
     }
