@@ -19,7 +19,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
-                tools:layout="@layout/fragment_school_meal" />
+                tools:layout="@layout/fragment_todays_meal" />
 
         </LinearLayout>
 
