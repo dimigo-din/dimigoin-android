@@ -2,7 +2,10 @@ package `in`.dimigo.dimigoin.di
 
 import `in`.dimigo.dimigoin.data.usecase.AuthUseCase
 import `in`.dimigo.dimigoin.data.usecase.AuthUseCaseImpl
+import `in`.dimigo.dimigoin.data.usecase.meal.MealUseCase
+import `in`.dimigo.dimigoin.data.usecase.meal.MealUseCaseImpl
 import `in`.dimigo.dimigoin.ui.login.LoginViewModel
+import `in`.dimigo.dimigoin.ui.main.fragment.TodaysMealViewModel
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.security.crypto.EncryptedSharedPreferences
@@ -13,8 +16,10 @@ import org.koin.dsl.module
 
 val appModule = module {
     factory<AuthUseCase> { AuthUseCaseImpl(get()) }
+    factory<MealUseCase> { MealUseCaseImpl(get()) }
 
     viewModel { LoginViewModel(get()) }
+    viewModel { TodaysMealViewModel(get()) }
 
     single { createEncryptedSharedPreferences(androidContext()) }
 }

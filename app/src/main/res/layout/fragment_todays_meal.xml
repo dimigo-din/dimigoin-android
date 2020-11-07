@@ -5,6 +5,9 @@
 
     <data>
 
+        <variable
+            name="vm"
+            type="in.dimigo.dimigoin.ui.main.fragment.TodaysMealViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -36,7 +39,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
             android:background="@drawable/bg_round_corner_square"
-            android:elevation="4dp"
+            android:elevation="10dp"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -64,9 +67,10 @@
                     style="@style/TextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
+                    android:layout_marginTop="10dp"
                     android:lineSpacingExtra="5sp"
                     android:textSize="16sp"
+                    android:text="@{vm.meal.breakfast}"
                     tools:text="@string/example_meals" />
 
             </LinearLayout>
@@ -91,9 +95,10 @@
                     style="@style/TextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
+                    android:layout_marginTop="10dp"
                     android:lineSpacingExtra="5sp"
                     android:textSize="16sp"
+                    android:text="@{vm.meal.lunch}"
                     tools:text="@string/example_meals" />
 
             </LinearLayout>
@@ -118,9 +123,10 @@
                     style="@style/TextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
+                    android:layout_marginTop="10dp"
                     android:lineSpacingExtra="5sp"
                     android:textSize="16sp"
+                    android:text="@{vm.meal.dinner}"
                     tools:text="@string/example_meals" />
 
             </LinearLayout>
