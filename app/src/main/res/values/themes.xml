@@ -8,4 +8,8 @@
         <item name="android:windowLightStatusBar">true</item>
         <item name="android:windowBackground">@color/grey_50</item>
     </style>
+
+    <style name="Theme.App.Splash" parent="Theme.App">
+        <item name="android:windowBackground">@drawable/bg_splash</item>
+    </style>
 </resources>

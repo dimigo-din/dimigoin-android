@@ -14,6 +14,7 @@ class LoginActivity : AppCompatActivity() {
     private val viewModel: LoginViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        setTheme(R.style.Theme_App)
         super.onCreate(savedInstanceState)
         DataBindingUtil.setContentView<ActivityLoginBinding>(this, R.layout.activity_login).apply {
             lifecycleOwner = this@LoginActivity
