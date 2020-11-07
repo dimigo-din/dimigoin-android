@@ -54,4 +54,7 @@ dependencies {
     // Retrofit
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+
+    // Security
+    implementation "androidx.security:security-crypto:1.1.0-alpha02"
 }
