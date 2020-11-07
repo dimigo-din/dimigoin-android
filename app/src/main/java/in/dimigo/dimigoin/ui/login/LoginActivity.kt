@@ -1,5 +1,6 @@
-package `in`.dimigo.dimigoin
+package `in`.dimigo.dimigoin.ui.login
 
+import `in`.dimigo.dimigoin.R
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 
