@@ -4,6 +4,7 @@ import `in`.dimigo.dimigoin.data.usecase.AuthUseCase
 import `in`.dimigo.dimigoin.data.usecase.AuthUseCaseImpl
 import `in`.dimigo.dimigoin.ui.login.LoginViewModel
 import android.content.Context
+import android.content.SharedPreferences
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
 import org.koin.android.ext.koin.androidContext
@@ -18,11 +19,11 @@ val appModule = module {
     single { createEncryptedSharedPreferences(androidContext()) }
 }
 
-private fun createEncryptedSharedPreferences(context: Context) {
+private fun createEncryptedSharedPreferences(context: Context): SharedPreferences {
     val masterKey = MasterKey.Builder(context, MasterKey.DEFAULT_MASTER_KEY_ALIAS)
         .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
         .build()
-    EncryptedSharedPreferences.create(
+    return EncryptedSharedPreferences.create(
         context,
         "app_preferences",
         masterKey,
