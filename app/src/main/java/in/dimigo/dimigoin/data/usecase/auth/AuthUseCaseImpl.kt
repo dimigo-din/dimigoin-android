@@ -1,4 +1,4 @@
-package `in`.dimigo.dimigoin.data.usecase
+package `in`.dimigo.dimigoin.data.usecase.auth
 
 import `in`.dimigo.dimigoin.data.api.DimigoinApi
 import `in`.dimigo.dimigoin.data.model.AuthModel

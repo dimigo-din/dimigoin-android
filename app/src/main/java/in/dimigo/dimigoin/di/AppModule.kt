@@ -1,7 +1,7 @@
 package `in`.dimigo.dimigoin.di
 
-import `in`.dimigo.dimigoin.data.usecase.AuthUseCase
-import `in`.dimigo.dimigoin.data.usecase.AuthUseCaseImpl
+import `in`.dimigo.dimigoin.data.usecase.auth.AuthUseCase
+import `in`.dimigo.dimigoin.data.usecase.auth.AuthUseCaseImpl
 import `in`.dimigo.dimigoin.data.usecase.meal.MealUseCase
 import `in`.dimigo.dimigoin.data.usecase.meal.MealUseCaseImpl
 import `in`.dimigo.dimigoin.ui.login.LoginViewModel

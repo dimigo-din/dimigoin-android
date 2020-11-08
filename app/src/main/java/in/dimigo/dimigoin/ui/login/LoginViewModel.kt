@@ -1,7 +1,7 @@
 package `in`.dimigo.dimigoin.ui.login
 
 import `in`.dimigo.dimigoin.data.model.LoginRequestModel
-import `in`.dimigo.dimigoin.data.usecase.AuthUseCase
+import `in`.dimigo.dimigoin.data.usecase.auth.AuthUseCase
 import `in`.dimigo.dimigoin.ui.util.EventWrapper
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
