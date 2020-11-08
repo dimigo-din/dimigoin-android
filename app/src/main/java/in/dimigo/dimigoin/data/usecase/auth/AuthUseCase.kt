@@ -5,4 +5,5 @@ import `in`.dimigo.dimigoin.data.model.LoginRequestModel
 
 interface AuthUseCase {
     suspend fun login(loginRequestModel: LoginRequestModel): AuthModel
+    suspend fun refreshToken(refreshToken: String): AuthModel
 }
