@@ -3,7 +3,6 @@ package `in`.dimigo.dimigoin.data.usecase.auth
 import `in`.dimigo.dimigoin.data.api.DimigoinApi
 import `in`.dimigo.dimigoin.data.model.AuthModel
 import `in`.dimigo.dimigoin.data.model.LoginRequestModel
-import kotlinx.coroutines.delay
 import retrofit2.await
 
 class AuthUseCaseImpl(private val api: DimigoinApi) : AuthUseCase {
