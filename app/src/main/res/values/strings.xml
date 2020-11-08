@@ -11,6 +11,8 @@
     <string name="dinner">저녁</string>
     <string name="lunch">점심</string>
     <string name="breakfast">아침</string>
-    <string name="example_meals"><![CDATA[베이컨&소시지구이 | 치킨너겟 | 스트링치즈 | 잡곡밥 | 건새우아욱국 |]]></string>
     <string name="notice">공지</string>
+
+    <string name="example_meals"><![CDATA[베이컨&소시지구이 | 치킨너겟 | 스트링치즈 | 잡곡밥 | 건새우아욱국 |]]></string>
+    <string name="example_notice">방과 후 수강신청 중 너무 많은 동시 접속자로 인해 잠시 서버가 다운되는 문제가 있었으나 방금 전 복구되었습니다. 스포츠를 제외한 방과 후 신청은 새로 일정을 공지해드릴 예정입니다.</string>
 </resources>

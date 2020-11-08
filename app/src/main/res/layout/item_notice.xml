@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_left_blue_border_stroke"
+        android:elevation="16dp"
+        android:padding="30dp">
+
+        <TextView
+            style="@style/TextStyle.Content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:lineSpacingExtra="8dp"
+            android:text="@string/example_notice" />
+
+    </FrameLayout>
+
+</layout>
