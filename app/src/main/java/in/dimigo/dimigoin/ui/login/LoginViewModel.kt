@@ -11,14 +11,20 @@ import kotlinx.coroutines.launch
 
 class LoginViewModel(private val useCase: AuthUseCase) : ViewModel() {
     private val _event = MutableLiveData<EventWrapper<LoginActivity.Event>>()
+    private val _isLoginRequested = MutableLiveData<Boolean>()
 
     val id = MutableLiveData<String>()
     val password = MutableLiveData<String>()
     val event: LiveData<EventWrapper<LoginActivity.Event>> = _event
+    val isLoginRequested: LiveData<Boolean> = _isLoginRequested
 
     fun onLoginButtonClick() {
         val loginRequestModel = LoginRequestModel(id.value ?: "", password.value ?: "")
-        viewModelScope.launch { login(loginRequestModel) }
+        viewModelScope.launch {
+            _isLoginRequested.value = true
+            login(loginRequestModel)
+            _isLoginRequested.value = false
+        }
     }
 
     private suspend fun login(loginRequestModel: LoginRequestModel) {
