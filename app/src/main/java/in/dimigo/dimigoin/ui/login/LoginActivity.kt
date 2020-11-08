@@ -22,8 +22,6 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        if (tryAutoLogin()) loginFinished()
-
         DataBindingUtil.setContentView<ActivityLoginBinding>(this, R.layout.activity_login).apply {
             lifecycleOwner = this@LoginActivity
             vm = viewModel
@@ -38,10 +36,6 @@ class LoginActivity : AppCompatActivity() {
         startActivity(Intent(this, MainActivity::class.java))
         finish()
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
-    }
-
-    private fun tryAutoLogin(): Boolean {
-        return sharedPreferences.getString(KEY_TOKEN, null) != null
     }
 
     private fun handleEvent(event: Event) = when (event) {
@@ -63,7 +57,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     companion object {
-        private const val KEY_TOKEN = "id"
-        private const val KEY_REFRESH_TOKEN = "password"
+        const val KEY_TOKEN = "id"
+        const val KEY_REFRESH_TOKEN = "password"
     }
 }
