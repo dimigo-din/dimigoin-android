@@ -15,16 +15,18 @@ class TodaysMealViewModel(private val useCase: MealUseCase) : ViewModel() {
     val time: LiveData<Int> = _time
 
     suspend fun getTodaysMeal() {
+        val calendar = Calendar.getInstance()
+
         try {
-            _meal.value = useCase.getTodaysMeal()
+            _meal.value = useCase.getMeal(calendar.time)
         } catch (e: Exception) {
             e.printStackTrace()
         }
-        _time.value = getCurrentTime()
+        _time.value = getCurrentTime(calendar)
     }
 
-    private fun getCurrentTime(): Int {
-        return when (Calendar.getInstance()[Calendar.HOUR_OF_DAY]) {
+    private fun getCurrentTime(calendar: Calendar): Int {
+        return when (calendar[Calendar.HOUR_OF_DAY]) {
             in 0..8 -> 0
             in 9..13 -> 1
             in 14..19 -> 2
