@@ -16,7 +16,7 @@
 
             <fragment
                 android:id="@+id/todaysMealFragment"
-                android:name="in.dimigo.dimigoin.ui.main.fragment.TodaysMealFragment"
+                android:name="in.dimigo.dimigoin.ui.main.fragment.meal.TodaysMealFragment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"

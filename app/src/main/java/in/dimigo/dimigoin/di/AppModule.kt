@@ -5,7 +5,7 @@ import `in`.dimigo.dimigoin.data.usecase.auth.AuthUseCaseImpl
 import `in`.dimigo.dimigoin.data.usecase.meal.MealUseCase
 import `in`.dimigo.dimigoin.data.usecase.meal.MealUseCaseImpl
 import `in`.dimigo.dimigoin.ui.login.LoginViewModel
-import `in`.dimigo.dimigoin.ui.main.fragment.TodaysMealViewModel
+import `in`.dimigo.dimigoin.ui.main.fragment.meal.TodaysMealViewModel
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.security.crypto.EncryptedSharedPreferences

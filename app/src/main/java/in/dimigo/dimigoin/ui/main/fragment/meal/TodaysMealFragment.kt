@@ -1,4 +1,4 @@
-package `in`.dimigo.dimigoin.ui.main.fragment
+package `in`.dimigo.dimigoin.ui.main.fragment.meal
 
 import `in`.dimigo.dimigoin.databinding.FragmentTodaysMealBinding
 import android.os.Bundle

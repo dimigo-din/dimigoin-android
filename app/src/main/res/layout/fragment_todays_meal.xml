@@ -7,7 +7,7 @@
 
         <variable
             name="vm"
-            type="in.dimigo.dimigoin.ui.main.fragment.TodaysMealViewModel" />
+            type="in.dimigo.dimigoin.ui.main.fragment.meal.TodaysMealViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
