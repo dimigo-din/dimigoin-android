@@ -4,5 +4,5 @@ import `in`.dimigo.dimigoin.data.model.MealModel
 import java.util.*
 
 interface MealUseCase {
-    suspend fun getMeal(date: Date): MealModel
+    suspend fun getTodaysMeal(calendar: Calendar): MealModel
 }

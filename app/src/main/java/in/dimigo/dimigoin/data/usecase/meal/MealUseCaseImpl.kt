@@ -7,8 +7,8 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class MealUseCaseImpl(private val api: DimigoinApi) : MealUseCase {
-    override suspend fun getMeal(date: Date): MealModel {
-        val formattedDate = SimpleDateFormat("yyyyMMdd", Locale.getDefault()).format(date)
+    override suspend fun getTodaysMeal(calendar: Calendar): MealModel {
+        val formattedDate = SimpleDateFormat("yyyyMMdd", Locale.getDefault()).format(calendar.time)
         return api.getMeal(formattedDate).await()
     }
 }

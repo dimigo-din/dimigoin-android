@@ -18,7 +18,7 @@ class TodaysMealViewModel(private val useCase: MealUseCase) : ViewModel() {
         val calendar = Calendar.getInstance()
 
         try {
-            _meal.value = useCase.getMeal(calendar.time)
+            _meal.value = useCase.getTodaysMeal(calendar)
         } catch (e: Exception) {
             e.printStackTrace()
         }
