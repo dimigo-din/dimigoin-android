@@ -12,4 +12,5 @@
     <string name="lunch">점심</string>
     <string name="breakfast">아침</string>
     <string name="example_meals"><![CDATA[베이컨&소시지구이 | 치킨너겟 | 스트링치즈 | 잡곡밥 | 건새우아욱국 |]]></string>
+    <string name="notice">공지</string>
 </resources>
