@@ -6,11 +6,15 @@ import `in`.dimigo.dimigoin.data.model.MealModel
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.Header
 import retrofit2.http.POST
 
 interface DimigoinApi {
     @POST("auth")
     fun login(@Body loginRequestModel: LoginRequestModel): Call<AuthModel>
+
+    @POST("auth/token/refresh")
+    fun refreshToken(@Header("Authorization") refreshToken: String): Call<AuthModel>
 
     @GET("dimibobs/today/")
     fun getTodaysMeal(): Call<MealModel>

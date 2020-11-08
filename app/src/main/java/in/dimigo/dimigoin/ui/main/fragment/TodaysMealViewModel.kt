@@ -2,19 +2,25 @@ package `in`.dimigo.dimigoin.ui.main.fragment
 
 import `in`.dimigo.dimigoin.data.model.MealModel
 import `in`.dimigo.dimigoin.data.usecase.meal.MealUseCase
-import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import java.util.*
 
 class TodaysMealViewModel(private val useCase: MealUseCase) : ViewModel() {
-    val meal = MutableLiveData<MealModel>()
-    var time = MutableLiveData<Int>()
+    private val _meal = MutableLiveData<MealModel>()
+    private val _time = MutableLiveData<Int>()
+
+    val meal: LiveData<MealModel> = _meal
+    val time: LiveData<Int> = _time
 
     suspend fun getTodaysMeal() {
-        meal.value = useCase.getTodaysMeal()
-        time.value = getCurrentTime()
-        Log.d("Time", "time: $time")
+        try {
+            _meal.value = useCase.getTodaysMeal()
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        _time.value = getCurrentTime()
     }
 
     private fun getCurrentTime(): Int {

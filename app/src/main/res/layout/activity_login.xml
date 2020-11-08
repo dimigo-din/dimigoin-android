@@ -5,6 +5,8 @@
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
             name="vm"
             type="in.dimigo.dimigoin.ui.login.LoginViewModel" />
@@ -88,19 +90,37 @@
                 android:text="@={vm.password}"
                 android:textColor="@android:color/black" />
 
-            <Button
-                android:id="@+id/loginButton"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="24dp"
                 android:layout_marginTop="32dp"
-                android:layout_marginBottom="16dp"
-                android:fontFamily="@font/bold"
-                android:onClick="@{() -> vm.onLoginButtonClick()}"
-                android:paddingVertical="16dp"
-                android:text="@string/login"
-                android:textColor="@android:color/white"
-                android:textSize="16sp" />
+                android:layout_marginBottom="16dp">
+
+                <Button
+                    android:id="@+id/loginButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="@{!vm.isLoginRequested}"
+                    android:fontFamily="@font/bold"
+                    android:onClick="@{() -> vm.onLoginButtonClick()}"
+                    android:paddingVertical="16dp"
+                    android:text="@string/login"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ProgressBar
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_marginStart="8dp"
+                    android:elevation="10dp"
+                    android:indeterminateTint="@color/white"
+                    android:visibility="@{vm.isLoginRequested ? View.VISIBLE : View.INVISIBLE}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
 
         <ImageView
