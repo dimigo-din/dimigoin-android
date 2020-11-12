@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/my_info"
+        android:title="@string/my_info" />
+
+    <item
+        android:id="@+id/ingang"
+        android:icon="@drawable/ic_ingang"
+        android:title="@string/ingang" />
+
+    <item
+        android:id="@+id/main"
+        android:icon="@drawable/ic_main"
+        android:title="@string/main" />
+
+    <item
+        android:id="@+id/meal"
+        android:title="@string/meal" />
+
+    <item
+        android:id="@+id/timetable"
+        android:title="@string/timetable" />
+</menu>

@@ -1,6 +1,12 @@
 <resources>
     <string name="app_name">디미고인</string>
 
+    <string name="my_info">내 정보</string>
+    <string name="ingang">인강실</string>
+    <string name="main">메인</string>
+    <string name="meal">급식</string>
+    <string name="timetable">시간표</string>
+
     <string name="id">아이디</string>
     <string name="password">비밀번호</string>
     <string name="login">로그인</string>
