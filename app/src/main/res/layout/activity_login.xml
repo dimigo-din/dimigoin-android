@@ -115,7 +115,7 @@
             android:adjustViewBounds="true"
             android:alpha="0.3"
             android:contentDescription="@null"
-            android:src="@drawable/bg_login"
+            android:src="@drawable/bg_dimigo"
             app:layout_constraintBottom_toBottomOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
