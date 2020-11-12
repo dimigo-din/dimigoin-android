@@ -21,33 +21,19 @@
         android:orientation="vertical"
         tools:context=".ui.login.LoginActivity">
 
-        <LinearLayout
-            android:id="@+id/logoLayout"
+        <ImageView
+            android:id="@+id/logo"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="68dp"
             android:layout_marginHorizontal="24dp"
             android:layout_marginBottom="28dp"
+            android:adjustViewBounds="true"
+            android:contentDescription="@null"
+            android:src="@drawable/logo"
             app:layout_constraintBottom_toTopOf="@id/loginFormLayout"
             app:layout_constraintStart_toStartOf="@id/loginFormLayout"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_chainStyle="packed">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="68dp"
-                android:adjustViewBounds="true"
-                android:contentDescription="@null"
-                android:src="@drawable/logo" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:layout_gravity="bottom"
-                android:layout_marginStart="24dp"
-                android:adjustViewBounds="true"
-                android:contentDescription="@null"
-                android:src="@drawable/logo_text" />
-        </LinearLayout>
+            app:layout_constraintVertical_chainStyle="packed" />
 
         <LinearLayout
             android:id="@+id/loginFormLayout"
@@ -57,7 +43,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/logoLayout"
+            app:layout_constraintTop_toBottomOf="@id/logo"
             app:layout_constraintWidth_max="400dp">
 
             <EditText

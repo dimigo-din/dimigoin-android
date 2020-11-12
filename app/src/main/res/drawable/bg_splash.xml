@@ -5,16 +5,8 @@
     </item>
 
     <item
-        android:width="60dp"
-        android:height="68dp"
+        android:width="68dp"
+        android:height="64.31dp"
         android:drawable="@drawable/logo"
-        android:end="184dp"
         android:gravity="center" />
-
-    <item
-        android:width="160dp"
-        android:height="50dp"
-        android:drawable="@drawable/logo_text"
-        android:gravity="center"
-        android:start="84dp" />
 </layer-list>
