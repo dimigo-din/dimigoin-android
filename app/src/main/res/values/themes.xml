@@ -1,9 +1,9 @@
 <resources>
 
     <style name="Theme.App" parent="Theme.MaterialComponents.Light.NoActionBar">
-        <item name="colorPrimary">@color/blue_a400</item>
-        <item name="colorPrimaryVariant">@color/red_400</item>
-        <item name="colorSecondary">@color/blue_a400</item>
+        <item name="colorPrimary">@color/pink_400</item>
+        <item name="colorPrimaryVariant">@color/grey_800</item>
+        <item name="colorSecondary">@color/pink_400</item>
         <item name="android:statusBarColor">@color/grey_50</item>
         <item name="android:windowLightStatusBar">true</item>
         <item name="android:windowBackground">@color/grey_50</item>
