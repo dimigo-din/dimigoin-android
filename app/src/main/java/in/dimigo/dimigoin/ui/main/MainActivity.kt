@@ -5,6 +5,8 @@ import `in`.dimigo.dimigoin.databinding.ActivityMainBinding
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.setupWithNavController
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -15,6 +17,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initView(binding: ActivityMainBinding) {
-        binding.mainBottomNav.selectedItemId = R.id.main
+        val fragment = supportFragmentManager.findFragmentById(R.id.mainFragmentContainer) as NavHostFragment
+        val navController = fragment.navController
+        binding.mainBottomNav.apply {
+            setupWithNavController(navController)
+            selectedItemId = R.id.main
+        }
     }
 }

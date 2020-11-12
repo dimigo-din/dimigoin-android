@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bottom_nav_graph"
+    app:startDestination="@id/main">
+
+    <fragment
+        android:id="@+id/my_info"
+        android:name="in.dimigo.dimigoin.ui.main.fragment.myinfo.MyInfoFragment"
+        android:label="@string/my_info"
+        tools:layout="@layout/fragment_my_info" />
+
+    <fragment
+        android:id="@+id/ingang"
+        android:name="in.dimigo.dimigoin.ui.main.fragment.ingang.IngangFragment"
+        android:label="@string/ingang"
+        tools:layout="@layout/fragment_ingang" />
+
+    <fragment
+        android:id="@+id/main"
+        android:name="in.dimigo.dimigoin.ui.main.fragment.main.MainFragment"
+        android:label="@string/main"
+        tools:layout="@layout/fragment_main" />
+
+    <fragment
+        android:id="@+id/meal"
+        android:name="in.dimigo.dimigoin.ui.main.fragment.meal.MealFragment"
+        android:label="@string/meal"
+        tools:layout="@layout/fragment_meal" />
+
+    <fragment
+        android:id="@+id/timetable"
+        android:name="in.dimigo.dimigoin.ui.main.fragment.timetable.TimetableFragment"
+        android:label="@string/timetable"
+        tools:layout="@layout/fragment_timetable" />
+</navigation>
