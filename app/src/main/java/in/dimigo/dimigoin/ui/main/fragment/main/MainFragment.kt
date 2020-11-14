@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.viewpager2.widget.ViewPager2
 
 class MainFragment : Fragment() {
     private lateinit var binding: FragmentMainBinding
@@ -28,6 +29,12 @@ class MainFragment : Fragment() {
                 page.translationX = offset
             }
             adapter = MealCardAdapter(this@MainFragment)
+
+            registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+                override fun onPageSelected(position: Int) {
+                    mealPageIndicator.selection = position
+                }
+            })
         }
     }
 }
