@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import org.koin.android.viewmodel.ext.android.viewModel
+import java.text.SimpleDateFormat
+import java.util.*
 
 class MealFragment : Fragment() {
     private val viewModel: MealViewModel by viewModel()
@@ -15,6 +17,10 @@ class MealFragment : Fragment() {
         val binding = FragmentMealBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.vm = viewModel
+
+        viewModel.date.observe(viewLifecycleOwner) {
+            binding.date = SimpleDateFormat("MM월 dd일 E요일", Locale.KOREA).format(it)
+        }
 
         return binding.root
     }
