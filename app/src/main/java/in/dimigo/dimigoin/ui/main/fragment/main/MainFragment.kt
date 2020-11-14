@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
+import java.util.*
 
 class MainFragment : Fragment() {
     private lateinit var binding: FragmentMainBinding
@@ -35,6 +36,15 @@ class MainFragment : Fragment() {
                     mealPageIndicator.selection = position
                 }
             })
+
+            currentItem = getCurrentMealTime().ordinal
         }
+    }
+
+    private fun getCurrentMealTime() = when (Calendar.getInstance().get(Calendar.HOUR_OF_DAY)) {
+        in 0..8 -> MealTime.BREAKFAST
+        in 9..13 -> MealTime.LUNCH
+        in 14..19 -> MealTime.DINNER
+        else -> MealTime.BREAKFAST
     }
 }
