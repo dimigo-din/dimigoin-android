@@ -24,4 +24,5 @@
     <string name="example_notice">방과 후 수강신청 중 너무 많은 동시 접속자로 인해 잠시 서버가 다운되는 문제가 있었으나 방금 전 복구되었습니다. 스포츠를 제외한 방과 후 신청은 새로 일정을 공지해드릴 예정입니다.</string>
     <string name="example_date">7월 11일</string>
     <string name="example_date_with_day_of_the_week">7월 11일 토요일</string>
+    <string name="example_time">오전 8시 10분</string>
 </resources>
