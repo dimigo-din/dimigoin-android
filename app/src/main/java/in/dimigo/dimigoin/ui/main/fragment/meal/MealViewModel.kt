@@ -11,8 +11,9 @@ import java.util.*
 
 class MealViewModel(private val useCase: MealUseCase) : ViewModel() {
     private val _meal = MutableLiveData<MealModel>()
-    val date = MutableLiveData<Date>()
+    private val _date = MutableLiveData<Date>()
     val meal: LiveData<MealModel> = _meal
+    val date: LiveData<Date> = _date
 
     init {
         val time = Calendar.getInstance().time
@@ -22,7 +23,7 @@ class MealViewModel(private val useCase: MealUseCase) : ViewModel() {
     }
 
     suspend fun updateMeal(time: Date) {
-        date.value = time
+        _date.value = time
         _meal.value = useCase.getMeal(time)
     }
 }
