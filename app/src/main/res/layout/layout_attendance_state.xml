@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:layout_height="wrap_content">
+
+        <include
+            android:id="@+id/location_class"
+            layout="@layout/item_attendance_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:enabled="@{false}"
+            app:icon="@{@drawable/ic_location_class}"
+            app:layout_constraintEnd_toStartOf="@id/location_health"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintStart_toStartOf="parent"
+            app:name="@{@string/location_class}" />
+
+        <include
+            android:id="@+id/location_health"
+            layout="@layout/item_attendance_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:enabled="@{false}"
+            app:icon="@{@drawable/ic_location_health}"
+            app:layout_constraintEnd_toStartOf="@id/location_ingang"
+            app:layout_constraintStart_toEndOf="@id/location_class"
+            app:name="@{@string/location_health}" />
+
+        <include
+            android:id="@+id/location_ingang"
+            layout="@layout/item_attendance_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:enabled="@{false}"
+            app:icon="@{@drawable/ic_location_ingang}"
+            app:layout_constraintEnd_toStartOf="@id/location_laundry"
+            app:layout_constraintStart_toEndOf="@id/location_health"
+            app:name="@{@string/location_ingang}" />
+
+        <include
+            android:id="@+id/location_laundry"
+            layout="@layout/item_attendance_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:enabled="@{false}"
+            app:icon="@{@drawable/ic_location_laundry}"
+            app:layout_constraintEnd_toStartOf="@id/location_club"
+            app:layout_constraintStart_toEndOf="@id/location_ingang"
+            app:name="@{@string/location_laundry}" />
+
+        <include
+            android:id="@+id/location_club"
+            layout="@layout/item_attendance_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:enabled="@{false}"
+            app:icon="@{@drawable/ic_location_club}"
+            app:layout_constraintEnd_toStartOf="@id/location_etc"
+            app:layout_constraintStart_toEndOf="@id/location_laundry"
+            app:name="@{@string/location_club}" />
+
+        <include
+            android:id="@+id/location_etc"
+            layout="@layout/item_attendance_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:enabled="@{false}"
+            app:icon="@{@drawable/ic_location_etc}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/location_club"
+            app:name="@{@string/location_etc}" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -42,6 +42,35 @@
             app:layout_constraintTop_toTopOf="@id/logoImage" />
 
         <TextView
+            android:id="@+id/attendanceStateTitleTag"
+            style="@style/TextStyle.Sub.Tag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/default_horizontal_margin"
+            android:layout_marginTop="16dp"
+            android:text="@string/night_study_1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/dimigoBackgroundImage" />
+
+        <TextView
+            android:id="@+id/attendanceStateTitle"
+            style="@style/TextStyle.Sub"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/default_horizontal_margin"
+            android:text="@string/attendance_state"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/attendanceStateTitleTag" />
+
+        <include
+            layout="@layout/layout_attendance_state"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/default_horizontal_margin"
+            android:layout_marginTop="20dp"
+            app:layout_constraintTop_toBottomOf="@id/attendanceStateTitle" />
+
+        <TextView
             style="@style/TextStyle.Sub"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
