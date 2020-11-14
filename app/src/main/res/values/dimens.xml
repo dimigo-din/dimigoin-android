@@ -2,5 +2,5 @@
 <resources>
     <dimen name="default_horizontal_margin">20dp</dimen>
     <dimen name="default_title_top_margin">68dp</dimen>
-    <dimen name="default_cardview_margin">8dp</dimen>
+    <dimen name="default_cardview_elevation">4dp</dimen>
 </resources>
