@@ -19,7 +19,7 @@ val appModule = module {
     single<MealUseCase> { MealUseCaseImpl(get()) }
 
     viewModel { LoginViewModel(get()) }
-    viewModel { MealViewModel() }
+    viewModel { MealViewModel(get()) }
 
     single { createEncryptedSharedPreferences(androidContext()) }
 }

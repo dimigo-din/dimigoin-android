@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="24dp"
             android:text="@{date}"
-            tools:text="@string/example_date" />
+            tools:text="@string/example_time" />
 
         <TextView
             style="@style/TextStyle.Sub"
@@ -46,9 +46,9 @@
             android:layout_marginTop="16dp"
             android:layout_marginBottom="20dp"
             android:background="@drawable/bg_left_pink_border_stroke"
-            android:elevation="@dimen/default_cardview_margin"
+            android:elevation="@dimen/default_cardview_elevation"
             android:lineSpacingExtra="8dp"
-            android:padding="30dp"
+            android:padding="36dp"
             android:text="@{meal}"
             tools:text="@string/example_meals" />
 
