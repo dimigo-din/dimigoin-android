@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import java.util.*
 
@@ -30,6 +31,9 @@ class MainFragment : Fragment() {
                 page.translationX = offset
             }
             adapter = MealCardAdapter(this@MainFragment)
+
+            val child = getChildAt(0)
+            if (child is RecyclerView) child.overScrollMode = View.OVER_SCROLL_NEVER
 
             registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
                 override fun onPageSelected(position: Int) {
