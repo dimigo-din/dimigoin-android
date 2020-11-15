@@ -30,19 +30,19 @@
                 app:title="@{@string/meal}" />
 
             <include
-                layout="@layout/layout_meal_card"
+                layout="@layout/layout_meal_section"
                 app:date="@{@string/example_time}"
                 app:meal="@{vm.meal.breakfast}"
                 app:title="@{@string/breakfast}" />
 
             <include
-                layout="@layout/layout_meal_card"
+                layout="@layout/layout_meal_section"
                 app:date="@{@string/example_time}"
                 app:meal="@{vm.meal.lunch}"
                 app:title="@{@string/lunch}" />
 
             <include
-                layout="@layout/layout_meal_card"
+                layout="@layout/layout_meal_section"
                 app:date="@{@string/example_time}"
                 app:meal="@{vm.meal.dinner}"
                 app:title="@{@string/dinner}" />
