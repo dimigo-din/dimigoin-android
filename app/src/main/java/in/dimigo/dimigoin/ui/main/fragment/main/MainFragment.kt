@@ -2,6 +2,7 @@ package `in`.dimigo.dimigoin.ui.main.fragment.main
 
 import `in`.dimigo.dimigoin.R
 import `in`.dimigo.dimigoin.databinding.FragmentMainBinding
+import `in`.dimigo.dimigoin.ui.util.sharedGraphViewModel
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,12 +11,11 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
-import org.koin.android.viewmodel.ext.android.viewModel
 import java.util.*
 
 class MainFragment : Fragment() {
     private lateinit var binding: FragmentMainBinding
-    private val viewModel: MainFragmentViewModel by viewModel()
+    private val viewModel: MainFragmentViewModel by sharedGraphViewModel(R.id.main_nav_graph)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_main, container, false)
