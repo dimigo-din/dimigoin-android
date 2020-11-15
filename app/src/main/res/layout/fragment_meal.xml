@@ -4,6 +4,8 @@
 
     <data>
 
+        <import type="in.dimigo.dimigoin.ui.main.fragment.meal.MealTime" />
+
         <variable
             name="vm"
             type="in.dimigo.dimigoin.ui.main.fragment.meal.MealViewModel" />
@@ -36,21 +38,21 @@
 
             <include
                 layout="@layout/layout_meal_section"
-                app:date="@{`오전 8시 10분`}"
                 app:meal="@{activityVM.todayMeal.breakfast}"
-                app:title="@{@string/breakfast}" />
+                app:time="@{`오전 8시 10분`}"
+                app:mealTime="@{MealTime.BREAKFAST}" />
 
             <include
                 layout="@layout/layout_meal_section"
-                app:date="@{`오후 1시 27분`}"
                 app:meal="@{activityVM.todayMeal.lunch}"
-                app:title="@{@string/lunch}" />
+                app:time="@{`오후 1시 27분`}"
+                app:mealTime="@{MealTime.LUNCH}" />
 
             <include
                 layout="@layout/layout_meal_section"
-                app:date="@{`오후 7시 21분`}"
                 app:meal="@{activityVM.todayMeal.dinner}"
-                app:title="@{@string/dinner}" />
+                app:time="@{`오후 7시 21분`}"
+                app:mealTime="@{MealTime.DINNER}" />
 
         </LinearLayout>
 

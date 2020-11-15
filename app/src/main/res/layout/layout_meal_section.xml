@@ -5,12 +5,12 @@
     <data>
 
         <variable
-            name="date"
+            name="time"
             type="String" />
 
         <variable
-            name="title"
-            type="String" />
+            name="mealTime"
+            type="in.dimigo.dimigoin.ui.main.fragment.meal.MealTime" />
 
         <variable
             name="meal"
@@ -27,7 +27,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/default_horizontal_margin"
-            android:text="@{date}"
+            android:text="@{time}"
             tools:text="오전 8시 10분" />
 
         <TextView
@@ -35,7 +35,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/default_horizontal_margin"
-            android:text="@{title}"
+            android:text="@{mealTime.stringId}"
             tools:text="@string/breakfast" />
 
         <TextView
