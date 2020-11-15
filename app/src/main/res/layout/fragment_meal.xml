@@ -11,10 +11,6 @@
             type="in.dimigo.dimigoin.ui.main.fragment.meal.MealViewModel" />
 
         <variable
-            name="activityVM"
-            type="in.dimigo.dimigoin.ui.main.MainViewModel" />
-
-        <variable
             name="date"
             type="String" />
     </data>
@@ -38,21 +34,21 @@
 
             <include
                 layout="@layout/layout_meal_section"
-                app:meal="@{activityVM.todayMeal.breakfast}"
-                app:time="@{`오전 8시 10분`}"
-                app:mealTime="@{MealTime.BREAKFAST}" />
+                app:meal="@{vm.todayMeal.breakfast}"
+                app:mealTime="@{MealTime.BREAKFAST}"
+                app:time="@{`오전 8시 10분`}" />
 
             <include
                 layout="@layout/layout_meal_section"
-                app:meal="@{activityVM.todayMeal.lunch}"
-                app:time="@{`오후 1시 27분`}"
-                app:mealTime="@{MealTime.LUNCH}" />
+                app:meal="@{vm.todayMeal.lunch}"
+                app:mealTime="@{MealTime.LUNCH}"
+                app:time="@{`오후 1시 27분`}" />
 
             <include
                 layout="@layout/layout_meal_section"
-                app:meal="@{activityVM.todayMeal.dinner}"
-                app:time="@{`오후 7시 21분`}"
-                app:mealTime="@{MealTime.DINNER}" />
+                app:meal="@{vm.todayMeal.dinner}"
+                app:mealTime="@{MealTime.DINNER}"
+                app:time="@{`오후 7시 21분`}" />
 
         </LinearLayout>
 
