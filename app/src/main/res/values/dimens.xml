@@ -2,7 +2,7 @@
 <resources>
     <dimen name="default_horizontal_margin">20dp</dimen>
     <dimen name="default_title_top_margin">40dp</dimen>
-    <dimen name="default_cardview_elevation">4dp</dimen>
+    <dimen name="default_card_elevation">4dp</dimen>
     <dimen name="meal_view_pager_page_gap">2dp</dimen>
     <dimen name="meal_view_pager_page_offset">24dp</dimen>
     <dimen name="meal_view_pager_page_gap_offset">26dp</dimen>

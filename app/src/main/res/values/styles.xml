@@ -24,7 +24,8 @@
     </style>
 
     <style name="TextStyle.Sub.Tag">
-        <item name="android:textSize">14sp</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:fontFamily">@font/medium</item>
         <item name="android:textColor">@color/pink_400</item>
     </style>
 

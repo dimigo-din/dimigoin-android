@@ -61,7 +61,7 @@
 
         <TextView
             android:id="@+id/attendanceStateTitle"
-            style="@style/TextStyle.Sub"
+            style="@style/TextStyle.Sub.Big"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/default_horizontal_margin"

@@ -13,7 +13,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/meal_view_pager_page_gap_offset"
             app:cardCornerRadius="8dp"
-            app:cardElevation="4dp"
+            app:cardElevation="@dimen/default_card_elevation"
             app:cardUseCompatPadding="true">
 
             <LinearLayout
