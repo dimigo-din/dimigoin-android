@@ -41,13 +41,15 @@ class MainFragment : Fragment() {
             val child = getChildAt(0)
             if (child is RecyclerView) child.overScrollMode = View.OVER_SCROLL_NEVER
 
+            val currentCardPosition = getCurrentMealTime().ordinal
+            setCurrentItem(currentCardPosition, false)
+            mealPageIndicator.setSelected(currentCardPosition)
+
             registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
                 override fun onPageSelected(position: Int) {
                     mealPageIndicator.selection = position
                 }
             })
-
-            currentItem = getCurrentMealTime().ordinal
         }
     }
 
