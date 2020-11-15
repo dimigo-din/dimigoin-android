@@ -10,13 +10,19 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
+import org.koin.android.viewmodel.ext.android.viewModel
 import java.util.*
 
 class MainFragment : Fragment() {
     private lateinit var binding: FragmentMainBinding
+    private val viewModel: MainFragmentViewModel by viewModel()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_main, container, false)
+        binding.apply {
+            lifecycleOwner = this@MainFragment
+            vm = viewModel
+        }
         initView(binding)
         return binding.root
     }
