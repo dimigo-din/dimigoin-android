@@ -31,11 +31,11 @@ class MainFragment : Fragment() {
 
     private fun initView(binding: FragmentMainBinding) = with(binding) {
         mealViewPager.apply {
+            adapter = MealCardAdapter(this@MainFragment)
             disableOverScrollMode()
             setDefaultSelectedItem(mealPageIndicator)
             applyPageIndicator(mealPageIndicator)
             applyCarouselEffect()
-            adapter = MealCardAdapter(this@MainFragment)
         }
     }
 
