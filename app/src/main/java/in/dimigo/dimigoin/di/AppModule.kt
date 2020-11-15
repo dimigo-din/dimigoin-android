@@ -23,7 +23,7 @@ val appModule = module {
     viewModel { LoginViewModel(get()) }
     viewModel { MainViewModel(get()) }
     viewModel { MainFragmentViewModel() }
-    viewModel { MealViewModel(get()) }
+    viewModel { MealViewModel() }
 
     single { createEncryptedSharedPreferences(androidContext()) }
 }
