@@ -1,15 +1,117 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/main"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <data>
+
+        <variable
+            name="vm"
+            type="in.dimigo.dimigoin.ui.main.fragment.main.MainFragmentViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/logoImage"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginStart="@dimen/default_horizontal_margin"
+            android:layout_marginTop="@dimen/default_title_top_margin"
+            android:adjustViewBounds="true"
+            android:contentDescription="@null"
+            android:src="@drawable/logo"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/dimigoBackgroundImage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="88dp"
+            android:adjustViewBounds="true"
+            android:alpha="0.3"
+            android:contentDescription="@null"
+            android:src="@drawable/bg_dimigo"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profileImage"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="@dimen/default_horizontal_margin"
+            android:src="@color/white"
+            app:civ_border_color="?attr/colorPrimary"
+            app:civ_border_width="2dp"
+            app:layout_constraintBottom_toBottomOf="@id/logoImage"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/logoImage" />
+
+        <TextView
+            android:id="@+id/attendanceStateTitleTag"
+            style="@style/TextStyle.Sub.Tag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/default_horizontal_margin"
+            android:layout_marginTop="16dp"
+            android:text="@string/night_study_1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/dimigoBackgroundImage" />
+
+        <TextView
+            android:id="@+id/attendanceStateTitle"
+            style="@style/TextStyle.Sub"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/default_horizontal_margin"
+            android:text="@string/attendance_state"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/attendanceStateTitleTag" />
+
+        <include
+            layout="@layout/layout_attendance_state"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/default_horizontal_margin"
+            android:layout_marginTop="20dp"
+            app:layout_constraintTop_toBottomOf="@id/attendanceStateTitle"
+            app:vm="@{vm}" />
+
+        <TextView
+            style="@style/TextStyle.Sub"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/today_meal"
+            app:layout_constraintBottom_toTopOf="@id/mealViewPager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/mealViewPager"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:outlineProvider="bounds"
+            app:layout_constraintBottom_toTopOf="@id/mealPageIndicator" />
+
+        <com.rd.PageIndicatorView
+            android:id="@+id/mealPageIndicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:piv_animationType="color"
+            app:piv_count="3"
+            app:piv_radius="5dp"
+            app:piv_selectedColor="@color/pink_400"
+            app:piv_unselectedColor="@color/grey_200"
+            app:piv_viewPager="@id/mealViewPager" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
