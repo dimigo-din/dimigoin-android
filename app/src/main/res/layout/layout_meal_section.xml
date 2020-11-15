@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/default_horizontal_margin"
             android:text="@{date}"
-            tools:text="@string/example_time" />
+            tools:text="오전 8시 10분" />
 
         <TextView
             style="@style/TextStyle.Sub"
@@ -50,7 +50,7 @@
             android:lineSpacingExtra="8dp"
             android:padding="24dp"
             android:text="@{meal}"
-            tools:text="@string/example_meals" />
+            tools:text="현미밥 | 얼큰김칫국 | 토마토달걀볶음 | 호박버섯볶음 | 깍두기 | 베이컨 | 완제김 | 스트링치즈 | 모닝빵미니버거 | 포도주스" />
 
     </LinearLayout>
 

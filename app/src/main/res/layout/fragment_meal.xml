@@ -32,19 +32,19 @@
 
             <include
                 layout="@layout/layout_meal_section"
-                app:date="@{@string/example_time}"
+                app:date="@{`오전 8시 10분`}"
                 app:meal="@{vm.meal.breakfast}"
                 app:title="@{@string/breakfast}" />
 
             <include
                 layout="@layout/layout_meal_section"
-                app:date="@{@string/example_time}"
+                app:date="@{`오후 1시 27분`}"
                 app:meal="@{vm.meal.lunch}"
                 app:title="@{@string/lunch}" />
 
             <include
                 layout="@layout/layout_meal_section"
-                app:date="@{@string/example_time}"
+                app:date="@{`오후 7시 21분`}"
                 app:meal="@{vm.meal.dinner}"
                 app:title="@{@string/dinner}" />
 
