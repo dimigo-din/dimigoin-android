@@ -12,4 +12,9 @@ class MealUseCaseImpl(private val api: DimigoinApi) : MealUseCase {
         val formattedDate = SimpleDateFormat("yyyyMMdd", Locale.getDefault()).format(calendar.time)
         return api.getMeal(formattedDate).await()
     }
+
+    override suspend fun getMeal(date: Date): MealModel {
+        val formattedDate = SimpleDateFormat("yyyyMMdd", Locale.getDefault()).format(date)
+        return api.getMeal(formattedDate).await()
+    }
 }

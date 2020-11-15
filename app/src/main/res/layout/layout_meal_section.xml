@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="date"
+            type="String" />
+
+        <variable
+            name="title"
+            type="String" />
+
+        <variable
+            name="meal"
+            type="String" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/TextStyle.Sub.Tag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="24dp"
+            android:text="@{date}"
+            tools:text="@string/example_time" />
+
+        <TextView
+            style="@style/TextStyle.Sub"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="24dp"
+            android:text="@{title}"
+            tools:text="@string/breakfast" />
+
+        <TextView
+            style="@style/TextStyle.Content.Grey"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/bg_left_pink_border_stroke"
+            android:elevation="@dimen/default_cardview_elevation"
+            android:lineSpacingExtra="8dp"
+            android:padding="36dp"
+            android:text="@{meal}"
+            tools:text="@string/example_meals" />
+
+    </LinearLayout>
+
+</layout>

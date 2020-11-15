@@ -6,6 +6,7 @@ import `in`.dimigo.dimigoin.data.usecase.meal.MealUseCase
 import `in`.dimigo.dimigoin.data.usecase.meal.MealUseCaseImpl
 import `in`.dimigo.dimigoin.ui.login.LoginViewModel
 import `in`.dimigo.dimigoin.ui.main.fragment.main.MainFragmentViewModel
+import `in`.dimigo.dimigoin.ui.main.fragment.meal.MealViewModel
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.security.crypto.EncryptedSharedPreferences
@@ -20,6 +21,7 @@ val appModule = module {
 
     viewModel { LoginViewModel(get()) }
     viewModel { MainFragmentViewModel() }
+    viewModel { MealViewModel(get()) }
 
     single { createEncryptedSharedPreferences(androidContext()) }
 }
