@@ -2,6 +2,7 @@ package `in`.dimigo.dimigoin.ui.main.fragment.main
 
 import `in`.dimigo.dimigoin.R
 import `in`.dimigo.dimigoin.databinding.FragmentMainBinding
+import `in`.dimigo.dimigoin.ui.main.fragment.meal.MealTime
 import `in`.dimigo.dimigoin.ui.util.sharedGraphViewModel
 import android.os.Bundle
 import android.view.LayoutInflater

@@ -1,5 +1,6 @@
 package `in`.dimigo.dimigoin.ui.main.fragment.main
 
+import `in`.dimigo.dimigoin.ui.main.fragment.meal.MealTime
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter

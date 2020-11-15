@@ -9,7 +9,7 @@
 
         <variable
             name="mealTime"
-            type="in.dimigo.dimigoin.ui.main.fragment.main.MealTime" />
+            type="in.dimigo.dimigoin.ui.main.fragment.meal.MealTime" />
 
         <variable
             name="meal"

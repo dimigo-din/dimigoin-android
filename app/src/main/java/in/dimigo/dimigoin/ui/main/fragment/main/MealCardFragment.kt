@@ -3,11 +3,11 @@ package `in`.dimigo.dimigoin.ui.main.fragment.main
 import `in`.dimigo.dimigoin.R
 import `in`.dimigo.dimigoin.databinding.LayoutMealCardBinding
 import `in`.dimigo.dimigoin.ui.main.MainViewModel
+import `in`.dimigo.dimigoin.ui.main.fragment.meal.MealTime
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.StringRes
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import org.koin.android.viewmodel.ext.android.sharedViewModel
@@ -36,8 +36,3 @@ class MealCardFragment : Fragment() {
     }
 }
 
-enum class MealTime(@StringRes val stringId: Int) {
-    BREAKFAST(R.string.breakfast),
-    LUNCH(R.string.lunch),
-    DINNER(R.string.dinner);
-}
