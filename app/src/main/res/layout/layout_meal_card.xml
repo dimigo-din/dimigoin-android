@@ -37,7 +37,7 @@
                 android:paddingVertical="20dp">
 
                 <TextView
-                    style="@style/TextStyle.CardTitle"
+                    style="@style/Text.CardTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="12dp"
@@ -45,7 +45,7 @@
                     tools:text="@string/lunch" />
 
                 <TextView
-                    style="@style/TextStyle.Content"
+                    style="@style/Text.Content"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:lineSpacingMultiplier="1.5"

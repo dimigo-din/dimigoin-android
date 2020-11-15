@@ -28,7 +28,7 @@
 
         <TextView
             android:id="@+id/subText"
-            style="@style/TextStyle.Title.Tag"
+            style="@style/Text.Title.Tag"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/default_horizontal_margin"
@@ -40,7 +40,7 @@
 
         <TextView
             android:id="@+id/titleText"
-            style="@style/TextStyle.Title"
+            style="@style/Text.Title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/default_horizontal_margin"

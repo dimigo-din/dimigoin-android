@@ -23,7 +23,7 @@
         android:orientation="vertical">
 
         <TextView
-            style="@style/TextStyle.Sub.Tag"
+            style="@style/Text.Sub.Tag"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/default_horizontal_margin"
@@ -31,7 +31,7 @@
             tools:text="오전 8시 10분" />
 
         <TextView
-            style="@style/TextStyle.Sub"
+            style="@style/Text.Sub"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/default_horizontal_margin"
@@ -39,7 +39,7 @@
             tools:text="@string/breakfast" />
 
         <TextView
-            style="@style/TextStyle.Content.Grey"
+            style="@style/Text.Content.Grey"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/default_horizontal_margin"

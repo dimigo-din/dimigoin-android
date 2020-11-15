@@ -1,47 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="TextStyle">
+    <style name="Text">
         <item name="android:textColor">@color/black</item>
         <item name="android:includeFontPadding">false</item>
         <item name="android:fontFamily">@font/regular</item>
     </style>
 
-    <style name="TextStyle.Title">
+    <style name="Text.Title">
         <item name="android:textSize">36sp</item>
         <item name="android:fontFamily">@font/black</item>
     </style>
 
-    <style name="TextStyle.Title.Tag">
+    <style name="Text.Title.Tag">
         <item name="android:textSize">12sp</item>
         <item name="android:fontFamily">@font/bold</item>
         <item name="android:textColor">@color/grey_450</item>
     </style>
 
-    <style name="TextStyle.Sub">
+    <style name="Text.Sub">
         <item name="android:textSize">24sp</item>
         <item name="android:fontFamily">@font/bold</item>
     </style>
 
-    <style name="TextStyle.Sub.Tag">
+    <style name="Text.Sub.Tag">
         <item name="android:textSize">12sp</item>
         <item name="android:fontFamily">@font/medium</item>
         <item name="android:textColor">@color/pink_400</item>
     </style>
 
-    <style name="TextStyle.Sub.Big">
+    <style name="Text.Sub.Big">
         <item name="android:textSize">28sp</item>
     </style>
 
-    <style name="TextStyle.Content">
+    <style name="Text.Content">
         <item name="android:textSize">12sp</item>
     </style>
 
-    <style name="TextStyle.Content.Grey">
+    <style name="Text.Content.Grey">
         <item name="android:textColor">@color/grey_500</item>
     </style>
 
-    <style name="TextStyle.CardTitle">
+    <style name="Text.CardTitle">
         <item name="android:fontFamily">@font/bold</item>
         <item name="android:textColor">@color/pink_400</item>
         <item name="android:textSize">18sp</item>

@@ -39,7 +39,7 @@
             tools:tint="@color/pink_400" />
 
         <TextView
-            style="@style/TextStyle.Content"
+            style="@style/Text.Content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
