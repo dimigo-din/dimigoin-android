@@ -24,14 +24,14 @@
         android:id="@+id/titleArea"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp">
+        android:layout_marginBottom="8dp">
 
         <TextView
             android:id="@+id/subText"
             style="@style/TextStyle.Title.Tag"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="24dp"
+            android:layout_marginHorizontal="@dimen/default_horizontal_margin"
             android:layout_marginTop="@dimen/default_title_top_margin"
             android:text="@{sub}"
             app:layout_constraintStart_toStartOf="parent"
@@ -43,7 +43,7 @@
             style="@style/TextStyle.Title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="24dp"
+            android:layout_marginHorizontal="@dimen/default_horizontal_margin"
             android:text="@{title}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/subText"
@@ -52,22 +52,26 @@
         <ImageButton
             android:id="@+id/titleActionButton"
             android:layout_width="wrap_content"
-            android:layout_height="35dp"
-            android:layout_marginHorizontal="24dp"
-            android:layout_marginTop="10dp"
-            android:background="@color/transparent"
+            android:layout_height="44dp"
+            android:layout_marginHorizontal="@dimen/default_horizontal_margin"
+            android:adjustViewBounds="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
             android:contentDescription="@string/icon"
+            android:focusable="true"
+            android:padding="4dp"
             android:src="@{icon}"
             android:visibility="@{icon == null ? View.GONE : View.VISIBLE }"
+            app:layout_constraintBottom_toBottomOf="@id/titleText"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/subText"
+            app:layout_constraintTop_toTopOf="@id/titleText"
             tools:src="@drawable/ic_calendar" />
 
         <View
             android:id="@+id/divider"
             android:layout_width="match_parent"
             android:layout_height="3dp"
-            android:layout_marginHorizontal="24dp"
+            android:layout_marginHorizontal="@dimen/default_horizontal_margin"
             android:layout_marginTop="20dp"
             android:background="@color/grey_100"
             app:layout_constraintEnd_toEndOf="parent"

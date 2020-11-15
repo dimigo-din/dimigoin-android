@@ -7,23 +7,16 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
-import java.util.*
 
 class MealViewModel(private val useCase: MealUseCase) : ViewModel() {
     private val _meal = MutableLiveData<MealModel>()
-    private val _date = MutableLiveData<Date>()
     val meal: LiveData<MealModel> = _meal
-    val date: LiveData<Date> = _date
 
     init {
-        val time = Calendar.getInstance().time
-        viewModelScope.launch {
-            updateMeal(time)
-        }
+        updateMeal()
     }
 
-    suspend fun updateMeal(time: Date) {
-        _date.value = time
-        _meal.value = useCase.getMeal(time)
+    private fun updateMeal() = viewModelScope.launch {
+        _meal.value = useCase.getTodaysMeal()
     }
 }

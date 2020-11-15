@@ -15,6 +15,7 @@
     <string name="location_laundry">세탁</string>
     <string name="location_club">동아리</string>
     <string name="location_etc">기타</string>
+    <string name="meal_date_format">MM월 dd일 E요일</string>
 
     <string name="id">아이디</string>
     <string name="password">비밀번호</string>

@@ -16,13 +16,14 @@ class MealFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val binding = FragmentMealBinding.inflate(inflater, container, false)
-        binding.lifecycleOwner = viewLifecycleOwner
-        binding.vm = viewModel
+        binding.apply {
+            lifecycleOwner = viewLifecycleOwner
+            vm = viewModel
 
-        viewModel.date.observe(viewLifecycleOwner) {
-            binding.date = SimpleDateFormat("MM월 dd일 E요일", Locale.KOREA).format(it)
+            val time = Calendar.getInstance().time
+            val formattedDate = SimpleDateFormat(getString(R.string.meal_date_format), Locale.KOREA).format(time)
+            date = formattedDate
         }
-
         return binding.root
     }
 }
