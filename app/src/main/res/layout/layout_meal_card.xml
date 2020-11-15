@@ -3,6 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <import type="in.dimigo.dimigoin.data.model.MealModel" />
+
+        <variable
+            name="mealTime"
+            type="in.dimigo.dimigoin.ui.main.fragment.main.MealTime" />
+
+        <variable
+            name="meal"
+            type="androidx.lifecycle.LiveData&lt;MealModel>" />
+    </data>
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -24,19 +37,19 @@
                 android:paddingVertical="20dp">
 
                 <TextView
-                    android:id="@+id/mealCardTitle"
                     style="@style/TextStyle.CardTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="12dp"
+                    android:text="@{mealTime.stringId}"
                     tools:text="@string/lunch" />
 
                 <TextView
-                    android:id="@+id/mealCardContent"
                     style="@style/TextStyle.Content"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:lineSpacingMultiplier="1.5"
+                    android:text="@{meal.getMeal(mealTime)}"
                     tools:text="현미밥 | 얼큰김칫국 | 토마토달걀볶음 | 호박버섯볶음 | 깍두기 | 베이컨 | 완제김 | 스트링치즈 | 모닝빵미니버거 | 포도주스 |" />
 
             </LinearLayout>

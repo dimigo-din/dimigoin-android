@@ -5,6 +5,7 @@ import `in`.dimigo.dimigoin.data.usecase.auth.AuthUseCaseImpl
 import `in`.dimigo.dimigoin.data.usecase.meal.MealUseCase
 import `in`.dimigo.dimigoin.data.usecase.meal.MealUseCaseImpl
 import `in`.dimigo.dimigoin.ui.login.LoginViewModel
+import `in`.dimigo.dimigoin.ui.main.MainViewModel
 import `in`.dimigo.dimigoin.ui.main.fragment.main.MainFragmentViewModel
 import `in`.dimigo.dimigoin.ui.main.fragment.meal.MealViewModel
 import android.content.Context
@@ -20,6 +21,7 @@ val appModule = module {
     single<MealUseCase> { MealUseCaseImpl(get()) }
 
     viewModel { LoginViewModel(get()) }
+    viewModel { MainViewModel(get()) }
     viewModel { MainFragmentViewModel() }
     viewModel { MealViewModel(get()) }
 
