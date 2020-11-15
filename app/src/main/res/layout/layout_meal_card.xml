@@ -18,12 +18,12 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/mealCard"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_marginHorizontal="@dimen/meal_view_pager_page_gap_offset"
             app:cardCornerRadius="8dp"
             app:cardElevation="@dimen/default_card_elevation"
