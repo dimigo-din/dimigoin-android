@@ -11,7 +11,7 @@ class AuthorizationInterceptor(private val jwtToken: String?) : Interceptor {
             chain.request()
         } else {
             chain.request().newBuilder()
-                .addHeader("Authorization", jwtToken)
+                .addHeader("Authorization", "Bearer $jwtToken")
                 .build()
         }
         return chain.proceed(request)
