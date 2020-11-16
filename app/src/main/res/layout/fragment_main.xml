@@ -70,6 +70,7 @@
             app:layout_constraintTop_toBottomOf="@id/attendanceStateTitleTag" />
 
         <include
+            android:id="@+id/attendanceStateLayout"
             layout="@layout/layout_attendance_state"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -77,6 +78,14 @@
             android:layout_marginTop="20dp"
             app:layout_constraintTop_toBottomOf="@id/attendanceStateTitle"
             app:vm="@{vm}" />
+
+        <View
+            style="@style/Divider"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="0dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/attendanceStateLayout" />
 
         <TextView
             style="@style/Text.Sub"
