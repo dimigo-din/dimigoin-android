@@ -1,6 +1,7 @@
 package `in`.dimigo.dimigoin.ui.main.fragment.main
 
 import `in`.dimigo.dimigoin.R
+import `in`.dimigo.dimigoin.data.api.DimigoinApi
 import `in`.dimigo.dimigoin.data.model.MealModel
 import `in`.dimigo.dimigoin.databinding.FragmentMainBinding
 import `in`.dimigo.dimigoin.ui.main.fragment.meal.MealTime
@@ -12,6 +13,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
+import com.bumptech.glide.Glide
 import com.rd.PageIndicatorView
 import org.koin.core.parameter.parametersOf
 import java.util.*
@@ -40,6 +42,10 @@ class MainFragment : Fragment(), MainViewUseCase {
             applyPageIndicator(mealPageIndicator)
             applyCarouselEffect()
         }
+
+        Glide.with(requireContext())
+            .load(DimigoinApi.getProfileUrl(viewModel.userData.photo))
+            .into(profileImage)
     }
 
     private fun ViewPager2.applyCarouselEffect() {
