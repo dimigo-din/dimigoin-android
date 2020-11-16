@@ -1,4 +1,4 @@
-package `in`.dimigo.dimigoin.ui.splash.util
+package `in`.dimigo.dimigoin.data.util
 
 import `in`.dimigo.dimigoin.data.model.UserModel
 import android.util.Base64

@@ -4,7 +4,7 @@ import `in`.dimigo.dimigoin.R
 import `in`.dimigo.dimigoin.data.usecase.auth.AuthUseCase
 import `in`.dimigo.dimigoin.ui.login.LoginActivity
 import `in`.dimigo.dimigoin.ui.main.MainActivity
-import `in`.dimigo.dimigoin.ui.splash.util.AccessToken
+import `in`.dimigo.dimigoin.data.util.AccessToken
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
