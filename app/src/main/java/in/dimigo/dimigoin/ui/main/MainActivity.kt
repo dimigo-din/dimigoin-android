@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun storeUserData() {
         val token = sharedPreferences.getString(KEY_TOKEN, null) ?: return
-        val userModel = AccessToken(token).userModel
+        val userModel = AccessToken.fromJwt(token).userModel
         UserDataStore.userData = userModel
     }
 

@@ -6,7 +6,7 @@ import com.google.gson.Gson
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 
-class AccessToken(jwt: String) {
+class AccessToken private constructor(private val jwt: String) {
     private val tokenJson by lazy {
         decodeJWT(jwt)
     }
@@ -29,5 +29,9 @@ class AccessToken(jwt: String) {
     private fun getJson(encodedString: String): JsonObject {
         val decodedString = String(Base64.decode(encodedString, Base64.URL_SAFE))
         return JsonParser().parse(decodedString).asJsonObject
+    }
+
+    companion object {
+        fun fromJwt(jwt: String) = AccessToken(jwt)
     }
 }

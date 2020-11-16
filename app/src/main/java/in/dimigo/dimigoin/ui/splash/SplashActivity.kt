@@ -2,9 +2,9 @@ package `in`.dimigo.dimigoin.ui.splash
 
 import `in`.dimigo.dimigoin.R
 import `in`.dimigo.dimigoin.data.usecase.auth.AuthUseCase
+import `in`.dimigo.dimigoin.data.util.AccessToken
 import `in`.dimigo.dimigoin.ui.login.LoginActivity
 import `in`.dimigo.dimigoin.ui.main.MainActivity
-import `in`.dimigo.dimigoin.data.util.AccessToken
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -41,7 +41,7 @@ class SplashActivity : AppCompatActivity() {
 
     private suspend fun tryAutoLogin(): Boolean {
         val tokenString = sharedPreferences.getString(LoginActivity.KEY_TOKEN, null) ?: return false
-        if (AccessToken(tokenString).isTokenExpired()) {
+        if (AccessToken.fromJwt(tokenString).isTokenExpired()) {
             val refreshToken = sharedPreferences.getString(LoginActivity.KEY_REFRESH_TOKEN, null) ?: return false
             return refreshToken(refreshToken)
         }
