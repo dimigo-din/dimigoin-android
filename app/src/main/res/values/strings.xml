@@ -15,7 +15,7 @@
     <string name="location_laundry">세탁</string>
     <string name="location_club">동아리</string>
     <string name="location_etc">기타</string>
-    <string name="meal_date_format">MM월 dd일 E요일</string>
+    <string name="date_format">MM월 dd일 E요일</string>
     <string name="meal_failed_message">급식 정보가 없습니다.</string>
     <string name="current_number_of_people">현원</string>
     <string name="total_number_of_people">총원</string>
