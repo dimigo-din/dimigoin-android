@@ -8,13 +8,28 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 
-class MealViewModel(mealUseCase: MealUseCase) : ViewModel() {
+class MealViewModel(
+    private val mealViewUseCase: MealViewUseCase,
+    private val mealUseCase: MealUseCase
+) : ViewModel() {
+
     private val _todayMeal = MutableLiveData<MealModel>()
     val todayMeal: LiveData<MealModel> = _todayMeal
 
     init {
-        viewModelScope.launch {
+        fetchTodayMeal()
+    }
+
+    private fun fetchTodayMeal() = viewModelScope.launch {
+        try {
             _todayMeal.value = mealUseCase.getTodaysMeal()
+        } catch (e: Exception) {
+            e.printStackTrace()
+            mealViewUseCase.onMealFetchFailed()
         }
+    }
+
+    fun setTodayMeal(mealModel: MealModel) {
+        _todayMeal.value = mealModel
     }
 }

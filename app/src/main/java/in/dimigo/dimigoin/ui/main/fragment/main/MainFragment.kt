@@ -1,6 +1,7 @@
 package `in`.dimigo.dimigoin.ui.main.fragment.main
 
 import `in`.dimigo.dimigoin.R
+import `in`.dimigo.dimigoin.data.model.MealModel
 import `in`.dimigo.dimigoin.databinding.FragmentMainBinding
 import `in`.dimigo.dimigoin.ui.main.fragment.meal.MealTime
 import `in`.dimigo.dimigoin.ui.util.sharedGraphViewModel
@@ -12,11 +13,15 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.rd.PageIndicatorView
+import org.koin.core.parameter.parametersOf
 import java.util.*
 
-class MainFragment : Fragment() {
+class MainFragment : Fragment(), MainViewUseCase {
     private lateinit var binding: FragmentMainBinding
-    private val viewModel: MainFragmentViewModel by sharedGraphViewModel(R.id.main_nav_graph)
+    private val viewModel: MainFragmentViewModel by sharedGraphViewModel(
+        R.id.main_nav_graph,
+        parameters = { parametersOf(this as MainViewUseCase) }
+    )
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentMainBinding.inflate(inflater, container, false).apply {
@@ -71,5 +76,10 @@ class MainFragment : Fragment() {
         in 9..13 -> MealTime.LUNCH
         in 14..19 -> MealTime.DINNER
         else -> MealTime.BREAKFAST
+    }
+
+    override fun onMealFetchFailed() {
+        val failedMealModel = MealModel.getFailedMealModel(requireContext())
+        viewModel.setTodayMeal(failedMealModel)
     }
 }
