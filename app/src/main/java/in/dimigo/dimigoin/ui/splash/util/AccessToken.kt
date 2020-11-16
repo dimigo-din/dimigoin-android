@@ -1,7 +1,10 @@
 package `in`.dimigo.dimigoin.ui.splash.util
 
+import `in`.dimigo.dimigoin.data.model.UserModel
 import android.util.Base64
-import org.json.JSONObject
+import com.google.gson.Gson
+import com.google.gson.JsonObject
+import com.google.gson.JsonParser
 
 class AccessToken(jwt: String) {
     private val tokenJson by lazy {
@@ -9,18 +12,22 @@ class AccessToken(jwt: String) {
     }
 
     private val expirationTime by lazy {
-        tokenJson.getLong("exp")
+        tokenJson.get("exp").asLong
+    }
+
+    val userModel: UserModel by lazy {
+        Gson().fromJson(tokenJson.get("identity").asJsonArray[0].asJsonObject, UserModel::class.java)
     }
 
     fun isTokenExpired() = System.currentTimeMillis() / 1000 >= expirationTime
 
-    private fun decodeJWT(jwt: String): JSONObject {
+    private fun decodeJWT(jwt: String): JsonObject {
         val jwtSplits = jwt.split(".")
         return getJson(jwtSplits[1])
     }
 
-    private fun getJson(encodedString: String): JSONObject {
+    private fun getJson(encodedString: String): JsonObject {
         val decodedString = String(Base64.decode(encodedString, Base64.URL_SAFE))
-        return JSONObject(decodedString)
+        return JsonParser().parse(decodedString).asJsonObject
     }
 }
