@@ -13,32 +13,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/logoImage"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_marginStart="@dimen/default_horizontal_margin"
-            android:layout_marginTop="@dimen/default_title_top_margin"
-            android:adjustViewBounds="true"
-            android:contentDescription="@null"
-            android:src="@drawable/logo"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/profileImage"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginEnd="@dimen/default_horizontal_margin"
-            android:src="@color/white"
-            app:civ_border_color="?attr/colorPrimary"
-            app:civ_border_width="2dp"
-            app:layout_constraintBottom_toBottomOf="@id/logoImage"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/logoImage" />
 
         <ScrollView
-            android:id="@+id/mainLayout"
+            android:id="@+id/mainScrollView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="8dp"
@@ -134,11 +111,42 @@
         </ScrollView>
 
         <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@color/white"
+            app:layout_constraintBottom_toTopOf="@id/transparentGradientView"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
             android:id="@+id/transparentGradientView"
             android:layout_width="match_parent"
             android:layout_height="16dp"
             android:background="@drawable/bg_white_to_transparent_gradient"
-            app:layout_constraintTop_toTopOf="@id/mainLayout" />
+            app:layout_constraintTop_toTopOf="@id/mainScrollView" />
+
+        <ImageView
+            android:id="@+id/logoImage"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginStart="@dimen/default_horizontal_margin"
+            android:layout_marginTop="@dimen/default_title_top_margin"
+            android:adjustViewBounds="true"
+            android:contentDescription="@null"
+            android:src="@drawable/logo"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profileImage"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="@dimen/default_horizontal_margin"
+            android:src="@color/white"
+            app:civ_border_color="?attr/colorPrimary"
+            app:civ_border_width="2dp"
+            app:layout_constraintBottom_toBottomOf="@id/logoImage"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/logoImage" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

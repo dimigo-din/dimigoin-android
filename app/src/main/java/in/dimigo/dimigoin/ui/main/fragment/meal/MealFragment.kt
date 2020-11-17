@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import me.everything.android.ui.overscroll.OverScrollDecoratorHelper
 import org.koin.core.parameter.parametersOf
 
 class MealFragment : Fragment(), MealViewUseCase {
@@ -24,6 +25,7 @@ class MealFragment : Fragment(), MealViewUseCase {
             lifecycleOwner = viewLifecycleOwner
             vm = viewModel
             date = getFormattedToday(getString(R.string.date_format))
+            OverScrollDecoratorHelper.setUpOverScroll(mealScrollView)
         }
         return binding.root
     }

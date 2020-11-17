@@ -9,15 +9,24 @@
             type="String" />
     </data>
 
-    <LinearLayout
+    <ScrollView
+        android:id="@+id/timetableScrollView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <include
-            layout="@layout/layout_title"
-            app:icon="@{@drawable/ic_calendar}"
-            app:sub="@{date}"
-            app:title="@{@string/timetable}" />
-    </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <include
+                layout="@layout/layout_title"
+                app:icon="@{@drawable/ic_calendar}"
+                app:sub="@{date}"
+                app:title="@{@string/timetable}" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
 </layout>
