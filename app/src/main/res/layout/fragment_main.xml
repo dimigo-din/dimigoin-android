@@ -33,7 +33,9 @@
             android:adjustViewBounds="true"
             android:alpha="0.3"
             android:contentDescription="@null"
+            android:scaleType="fitXY"
             android:src="@drawable/bg_dimigo"
+            app:layout_constraintHeight_max="100dp"
             app:layout_constraintTop_toTopOf="parent" />
 
         <de.hdodenhof.circleimageview.CircleImageView
