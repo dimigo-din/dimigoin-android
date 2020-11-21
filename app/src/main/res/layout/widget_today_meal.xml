@@ -1,0 +1,21 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_widget_round"
+    android:theme="@style/ThemeOverlay.App.Widget">
+
+    <ListView
+        android:id="@+id/mealListView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clipToPadding="false"
+        android:divider="@color/transparent"
+        android:dividerHeight="8dp"
+        android:listSelector="@color/transparent"
+        android:overScrollMode="never"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="12dp"
+        android:scrollbars="none"
+        tools:listitem="@layout/item_widget_today_meal" />
+</FrameLayout>

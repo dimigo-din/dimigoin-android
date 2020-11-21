@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:theme="@style/ThemeOverlay.App.Widget">
+
+    <TextView
+        android:id="@+id/mealTime"
+        style="@style/WidgetText.Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        tools:text="@string/breakfast" />
+
+    <TextView
+        android:id="@+id/mealContent"
+        style="@style/WidgetText.Content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="16dp"
+        tools:text="마파두부밥 | 쌀밥 | 닭곰탕 | 오징어간장볶음 | 멸치아몬드볶음 | 배추겉절이 | 모듬과일" />
+</LinearLayout>
