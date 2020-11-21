@@ -17,28 +17,24 @@ class WidgetUpdateAlarm(private val context: Context, private val intent: Intent
         intent.action = TodayMealWidget.ACTION_UPDATE_WIDGET
     }
 
-    fun startAlarm(updateHours: List<Int>) {
+    fun startAlarm(updateHours: List<Int>) = updateHours.forEach { updateHour ->
         val calendar = Calendar.getInstance().apply {
+            set(Calendar.HOUR_OF_DAY, updateHour)
             set(Calendar.MINUTE, 0)
             set(Calendar.SECOND, 0)
             set(Calendar.MILLISECOND, 0)
+            if (timeInMillis < System.currentTimeMillis()) add(Calendar.DATE, 1)
         }
-
-        for (updateHour in updateHours) {
-            calendar.apply {
-                set(Calendar.HOUR_OF_DAY, updateHour)
-            }
-            val pendingIntent = getPendingIntent()
-            pendingIntents.add(pendingIntent)
-
-            alarmManager.setRepeating(
-                AlarmManager.RTC_WAKEUP,
-                calendar.timeInMillis,
-                AlarmManager.INTERVAL_DAY,
-                pendingIntent
-            )
-        }
+        val pendingIntent = getPendingIntent()
+        pendingIntents.add(pendingIntent)
+        alarmManager.setRepeating(
+            AlarmManager.RTC_WAKEUP,
+            calendar.timeInMillis,
+            AlarmManager.INTERVAL_DAY,
+            pendingIntent
+        )
     }
+
 
     fun stopAlarm() {
         for (pendingIntent in pendingIntents)
