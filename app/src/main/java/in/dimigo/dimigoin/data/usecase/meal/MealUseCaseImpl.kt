@@ -6,7 +6,7 @@ import retrofit2.await
 import java.text.SimpleDateFormat
 import java.util.*
 
-class MealUseCaseImpl(private val api: DimigoinApi) : MealUseCase {
+class MealUseCaseImpl(private val api: DimigoinApi, override val failedMeal: MealModel) : MealUseCase {
     override suspend fun getTodaysMeal(): MealModel {
         val calendar = Calendar.getInstance()
         val formattedDate = SimpleDateFormat("yyyyMMdd", Locale.getDefault()).format(calendar.time)

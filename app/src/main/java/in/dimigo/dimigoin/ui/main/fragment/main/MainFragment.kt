@@ -2,7 +2,6 @@ package `in`.dimigo.dimigoin.ui.main.fragment.main
 
 import `in`.dimigo.dimigoin.R
 import `in`.dimigo.dimigoin.data.api.DimigoinApi
-import `in`.dimigo.dimigoin.data.model.MealModel
 import `in`.dimigo.dimigoin.databinding.FragmentMainBinding
 import `in`.dimigo.dimigoin.ui.main.fragment.meal.MealTime
 import `in`.dimigo.dimigoin.ui.util.sharedGraphViewModel
@@ -16,14 +15,10 @@ import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.rd.PageIndicatorView
 import me.everything.android.ui.overscroll.OverScrollDecoratorHelper
-import org.koin.core.parameter.parametersOf
 
-class MainFragment : Fragment(), MainViewUseCase {
+class MainFragment : Fragment() {
     private lateinit var binding: FragmentMainBinding
-    private val viewModel: MainFragmentViewModel by sharedGraphViewModel(
-        R.id.main_nav_graph,
-        parameters = { parametersOf(this as MainViewUseCase) }
-    )
+    private val viewModel: MainFragmentViewModel by sharedGraphViewModel(R.id.main_nav_graph)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentMainBinding.inflate(inflater, container, false).apply {
@@ -77,10 +72,5 @@ class MainFragment : Fragment(), MainViewUseCase {
                 mealPageIndicator.selection = position
             }
         })
-    }
-
-    override fun onMealFetchFailed() {
-        val failedMealModel = MealModel.getFailedMealModel(requireContext())
-        viewModel.setTodayMeal(failedMealModel)
     }
 }

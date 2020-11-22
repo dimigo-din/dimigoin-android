@@ -9,10 +9,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 
-class MainFragmentViewModel(
-    private val mainViewUseCase: MainViewUseCase,
-    private val mealUseCase: MealUseCase
-) : ViewModel() {
+class MainFragmentViewModel(private val mealUseCase: MealUseCase) : ViewModel() {
     private val _attendanceLocation = MutableLiveData(AttendanceLocation.Class)
     private val _todayMeal = MutableLiveData<MealModel>()
     val attendanceLocation: LiveData<AttendanceLocation> = _attendanceLocation
@@ -28,12 +25,8 @@ class MainFragmentViewModel(
             _todayMeal.value = mealUseCase.getTodaysMeal()
         } catch (e: Exception) {
             e.printStackTrace()
-            mainViewUseCase.onMealFetchFailed()
+            _todayMeal.value = mealUseCase.failedMeal
         }
-    }
-
-    fun setTodayMeal(mealModel: MealModel) {
-        _todayMeal.value = mealModel
     }
 
     fun onAttendanceLocationButtonClicked(location: AttendanceLocation) {

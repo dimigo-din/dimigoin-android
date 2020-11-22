@@ -1,14 +1,13 @@
 package `in`.dimigo.dimigoin.di
 
+import `in`.dimigo.dimigoin.data.model.MealModel
 import `in`.dimigo.dimigoin.data.usecase.auth.AuthUseCase
 import `in`.dimigo.dimigoin.data.usecase.auth.AuthUseCaseImpl
 import `in`.dimigo.dimigoin.data.usecase.meal.MealUseCase
 import `in`.dimigo.dimigoin.data.usecase.meal.MealUseCaseImpl
 import `in`.dimigo.dimigoin.ui.login.LoginViewModel
 import `in`.dimigo.dimigoin.ui.main.fragment.main.MainFragmentViewModel
-import `in`.dimigo.dimigoin.ui.main.fragment.main.MainViewUseCase
 import `in`.dimigo.dimigoin.ui.main.fragment.meal.MealViewModel
-import `in`.dimigo.dimigoin.ui.main.fragment.meal.MealViewUseCase
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.security.crypto.EncryptedSharedPreferences
@@ -19,11 +18,11 @@ import org.koin.dsl.module
 
 val appModule = module {
     single<AuthUseCase> { AuthUseCaseImpl(get()) }
-    single<MealUseCase> { MealUseCaseImpl(get()) }
+    single<MealUseCase> { MealUseCaseImpl(get(), MealModel.getFailedMealModel(androidContext())) }
 
     viewModel { LoginViewModel(get()) }
-    viewModel { (mainViewUseCase: MainViewUseCase) -> MainFragmentViewModel(mainViewUseCase, get()) }
-    viewModel { (mealViewUseCase: MealViewUseCase) -> MealViewModel(mealViewUseCase, get()) }
+    viewModel { MainFragmentViewModel(get()) }
+    viewModel { MealViewModel(get()) }
 
     single { createEncryptedSharedPreferences(androidContext()) }
 }
