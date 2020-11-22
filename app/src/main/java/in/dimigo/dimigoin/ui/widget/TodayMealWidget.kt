@@ -38,7 +38,9 @@ class TodayMealWidget : AppWidgetProvider() {
     }
 
     override fun onEnabled(context: Context) {
-        val intent = Intent(context, this::class.java)
+        val intent = Intent(context, this::class.java).apply {
+            action = ACTION_UPDATE_WIDGET
+        }
         updateAlarm = WidgetUpdateAlarm(context, intent)
         updateAlarm?.startAlarm(listOf(0))
     }
@@ -48,6 +50,6 @@ class TodayMealWidget : AppWidgetProvider() {
     }
 
     companion object {
-        const val ACTION_UPDATE_WIDGET = "UPDATE_WIDGET"
+        private const val ACTION_UPDATE_WIDGET = "UPDATE_TODAY_MEAL_WIDGET"
     }
 }

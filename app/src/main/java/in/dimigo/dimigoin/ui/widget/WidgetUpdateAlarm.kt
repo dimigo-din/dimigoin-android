@@ -13,10 +13,6 @@ class WidgetUpdateAlarm(private val context: Context, private val intent: Intent
     }
     private val pendingIntents = ArrayList<PendingIntent>()
 
-    init {
-        intent.action = TodayMealWidget.ACTION_UPDATE_WIDGET
-    }
-
     fun startAlarm(updateHours: List<Int>) = updateHours.forEach { updateHour ->
         val calendar = Calendar.getInstance().apply {
             set(Calendar.HOUR_OF_DAY, updateHour)
