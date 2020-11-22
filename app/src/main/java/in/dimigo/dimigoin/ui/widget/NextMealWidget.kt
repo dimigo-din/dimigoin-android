@@ -7,6 +7,7 @@ import `in`.dimigo.dimigoin.ui.main.fragment.meal.MealTime
 import android.appwidget.AppWidgetManager
 import android.appwidget.AppWidgetProvider
 import android.content.Context
+import android.content.Intent
 import android.widget.RemoteViews
 import kotlinx.coroutines.*
 import org.koin.core.component.KoinApiExtension
@@ -17,6 +18,7 @@ import org.koin.core.component.inject
 class NextMealWidget : AppWidgetProvider(), KoinComponent {
     private val mealUseCase: MealUseCase by inject()
     private val scope = CoroutineScope(Dispatchers.IO)
+    private var updateAlarm: WidgetUpdateAlarm? = null
 
     override fun onUpdate(context: Context, appWidgetManager: AppWidgetManager, appWidgetIds: IntArray) {
         scope.launch {
@@ -47,7 +49,25 @@ class NextMealWidget : AppWidgetProvider(), KoinComponent {
         appWidgetManager.updateAppWidget(appWidgetId, remoteViews)
     }
 
-    override fun onDisabled(context: Context?) {
+    override fun onEnabled(context: Context) {
+        val intent = Intent(context, this::class.java).apply {
+            action = ACTION_UPDATE_WIDGET
+        }
+        updateAlarm = WidgetUpdateAlarm(context, intent)
+        val widgetUpdateHours = listOf(
+            MealTime.BREAKFAST_START_HOUR,
+            MealTime.LUNCH_START_HOUR,
+            MealTime.DINNER_START_HOUR
+        )
+        updateAlarm?.startAlarm(widgetUpdateHours)
+    }
+
+    override fun onDisabled(context: Context) {
         scope.cancel()
+        updateAlarm?.stopAlarm()
+    }
+
+    companion object {
+        private const val ACTION_UPDATE_WIDGET = "UPDATE_NEXT_MEAL_WIDGET"
     }
 }
