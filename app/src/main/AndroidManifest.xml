@@ -28,7 +28,9 @@
 
         <activity android:name=".ui.main.MainActivity" />
 
-        <receiver android:name=".ui.widget.NextMealWidget">
+        <receiver
+            android:name=".ui.widget.NextMealWidget"
+            android:label="@string/next_meal">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
@@ -38,7 +40,9 @@
                 android:resource="@xml/next_meal_widget_info" />
         </receiver>
 
-        <receiver android:name=".ui.widget.TodayMealWidget">
+        <receiver
+            android:name=".ui.widget.TodayMealWidget"
+            android:label="@string/today_meal">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
