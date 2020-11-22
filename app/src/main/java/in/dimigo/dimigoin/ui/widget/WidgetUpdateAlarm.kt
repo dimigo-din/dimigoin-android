@@ -28,7 +28,7 @@ class WidgetUpdateAlarm(private val context: Context, private val intent: Intent
         val pendingIntent = getPendingIntent()
         pendingIntents.add(pendingIntent)
         alarmManager.setRepeating(
-            AlarmManager.RTC_WAKEUP,
+            AlarmManager.RTC,
             calendar.timeInMillis,
             AlarmManager.INTERVAL_DAY,
             pendingIntent
