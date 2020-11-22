@@ -28,6 +28,16 @@
 
         <activity android:name=".ui.main.MainActivity" />
 
+        <receiver android:name=".ui.widget.NextMealWidget">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/next_meal_widget_info" />
+        </receiver>
+
         <receiver android:name=".ui.widget.TodayMealWidget">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
