@@ -9,7 +9,10 @@ import android.appwidget.AppWidgetProvider
 import android.content.Context
 import android.content.Intent
 import android.widget.RemoteViews
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.koin.core.component.KoinApiExtension
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
@@ -17,11 +20,9 @@ import org.koin.core.component.inject
 @KoinApiExtension
 class NextMealWidget : AppWidgetProvider(), KoinComponent {
     private val mealUseCase: MealUseCase by inject()
-    private val scope = CoroutineScope(Dispatchers.IO)
-    private var updateAlarm: WidgetUpdateAlarm? = null
 
     override fun onUpdate(context: Context, appWidgetManager: AppWidgetManager, appWidgetIds: IntArray) {
-        scope.launch {
+        CoroutineScope(Dispatchers.IO).launch {
             val todayMeal = try {
                 mealUseCase.getTodaysMeal()
             } catch (e: Exception) {
@@ -63,11 +64,11 @@ class NextMealWidget : AppWidgetProvider(), KoinComponent {
     }
 
     override fun onDisabled(context: Context) {
-        scope.cancel()
         updateAlarm?.stopAlarm()
     }
 
     companion object {
         private const val ACTION_UPDATE_WIDGET = "UPDATE_NEXT_MEAL_WIDGET"
+        private var updateAlarm: WidgetUpdateAlarm? = null
     }
 }

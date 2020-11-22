@@ -9,8 +9,6 @@ import android.content.Intent
 import android.widget.RemoteViews
 
 class TodayMealWidget : AppWidgetProvider() {
-    private var updateAlarm: WidgetUpdateAlarm? = null
-
     override fun onReceive(context: Context, intent: Intent) {
         super.onReceive(context, intent)
 
@@ -51,5 +49,6 @@ class TodayMealWidget : AppWidgetProvider() {
 
     companion object {
         private const val ACTION_UPDATE_WIDGET = "UPDATE_TODAY_MEAL_WIDGET"
+        private var updateAlarm: WidgetUpdateAlarm? = null
     }
 }
