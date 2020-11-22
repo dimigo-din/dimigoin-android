@@ -17,7 +17,6 @@ import com.bumptech.glide.Glide
 import com.rd.PageIndicatorView
 import me.everything.android.ui.overscroll.OverScrollDecoratorHelper
 import org.koin.core.parameter.parametersOf
-import java.util.*
 
 class MainFragment : Fragment(), MainViewUseCase {
     private lateinit var binding: FragmentMainBinding
@@ -67,7 +66,7 @@ class MainFragment : Fragment(), MainViewUseCase {
     }
 
     private fun ViewPager2.setDefaultSelectedItem(mealPageIndicator: PageIndicatorView) {
-        val currentCardPosition = getCurrentMealTime().ordinal
+        val currentCardPosition = MealTime.getCurrentMealTime().ordinal
         setCurrentItem(currentCardPosition, false)
         mealPageIndicator.setSelected(currentCardPosition)
     }
@@ -78,13 +77,6 @@ class MainFragment : Fragment(), MainViewUseCase {
                 mealPageIndicator.selection = position
             }
         })
-    }
-
-    private fun getCurrentMealTime() = when (Calendar.getInstance().get(Calendar.HOUR_OF_DAY)) {
-        in 0..8 -> MealTime.BREAKFAST
-        in 9..13 -> MealTime.LUNCH
-        in 14..19 -> MealTime.DINNER
-        else -> MealTime.BREAKFAST
     }
 
     override fun onMealFetchFailed() {
