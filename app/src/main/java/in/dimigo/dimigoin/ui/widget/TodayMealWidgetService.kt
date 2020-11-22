@@ -47,7 +47,7 @@ private class MealRemoteViewsFactory(
                 mealUseCase.getTodaysMeal()
             } catch (e: Exception) {
                 e.printStackTrace()
-                MealModel.getFailedMealModel(context)
+                mealUseCase.failedMeal
             }
             countDownLatch.countDown()
         }

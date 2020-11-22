@@ -38,7 +38,7 @@ class NextMealWidget : AppWidgetProvider(), KoinComponent {
                 mealUseCase.getTodaysMeal()
             } catch (e: Exception) {
                 e.printStackTrace()
-                MealModel.getFailedMealModel(context)
+                mealUseCase.failedMeal
             }
             for (appWidgetId in appWidgetIds) withContext(Dispatchers.Main) {
                 updateAppWidget(context, appWidgetManager, appWidgetId, todayMeal)
