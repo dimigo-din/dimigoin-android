@@ -6,6 +6,7 @@ import `in`.dimigo.dimigoin.data.usecase.meal.MealUseCase
 import `in`.dimigo.dimigoin.ui.main.fragment.meal.MealTime
 import android.appwidget.AppWidgetManager
 import android.appwidget.AppWidgetProvider
+import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.widget.RemoteViews
@@ -20,6 +21,16 @@ import org.koin.core.component.inject
 @KoinApiExtension
 class NextMealWidget : AppWidgetProvider(), KoinComponent {
     private val mealUseCase: MealUseCase by inject()
+
+    override fun onReceive(context: Context, intent: Intent) {
+        super.onReceive(context, intent)
+
+        if (intent.action == ACTION_UPDATE_WIDGET) {
+            val appWidgetManager = AppWidgetManager.getInstance(context)
+            val mealWidget = ComponentName(context, this::class.java)
+            onUpdate(context, appWidgetManager, appWidgetManager.getAppWidgetIds(mealWidget))
+        }
+    }
 
     override fun onUpdate(context: Context, appWidgetManager: AppWidgetManager, appWidgetIds: IntArray) {
         CoroutineScope(Dispatchers.IO).launch {

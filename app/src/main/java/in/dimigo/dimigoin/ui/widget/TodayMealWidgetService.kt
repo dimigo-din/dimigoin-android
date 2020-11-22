@@ -31,8 +31,7 @@ private class MealRemoteViewsFactory(
     private var todayMeal: MealModel? = null
 
     override fun getViewAt(position: Int): RemoteViews {
-        fetchTodayMeal()
-
+        if (todayMeal == null) fetchTodayMeal()
         val mealTime = MealTime.values()[position]
         val mealTimeString = context.getString(mealTime.stringId)
         return RemoteViews(context.packageName, R.layout.item_widget_today_meal).apply {
@@ -42,8 +41,6 @@ private class MealRemoteViewsFactory(
     }
 
     private fun fetchTodayMeal() {
-        if (todayMeal != null) return
-
         val countDownLatch = CountDownLatch(1)
         scope.launch {
             todayMeal = try {
@@ -64,7 +61,10 @@ private class MealRemoteViewsFactory(
         scope.cancel()
     }
 
-    override fun onDataSetChanged() {}
+    override fun onDataSetChanged() {
+        todayMeal = null
+    }
+
     override fun getLoadingView(): RemoteViews? = null
     override fun getCount() = 3
     override fun getViewTypeCount() = 1
