@@ -55,5 +55,9 @@
         <service
             android:name=".ui.widget.TodayMealWidgetService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
+
+        <service
+            android:name=".ui.widget.NextMealWidgetService"
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
     </application>
 </manifest>
