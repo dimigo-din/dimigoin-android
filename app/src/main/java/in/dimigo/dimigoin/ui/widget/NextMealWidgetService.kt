@@ -32,7 +32,7 @@ private class NextMealRemoteViewsFactory(
 
     override fun getViewAt(position: Int): RemoteViews {
         if (todayMeal == null) fetchTodayMeal()
-        val mealTime = MealTime.values()[position]
+        val mealTime = MealTime.getCurrentMealTime()
         val mealTimeString = context.getString(mealTime.stringId)
         return RemoteViews(context.packageName, R.layout.item_widget_next_meal).apply {
             setTextViewText(R.id.mealTime, mealTimeString)
