@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="ThemeOverlay.App.Widget" parent="">
+        <item name="colorPrimary">@color/pink_300</item>
+        <item name="widgetBackgroundColor">@color/grey_800</item>
+        <item name="widgetTextColor">@color/grey_100</item>
+    </style>
+
+</resources>

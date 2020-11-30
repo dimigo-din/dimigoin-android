@@ -3,6 +3,7 @@
     <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>
     <color name="transparent">#00000000</color>
+    <color name="pink_300">#E3789C</color>
     <color name="pink_400">#E83C77</color>
     <color name="grey_100">#F6F6F6</color>
     <color name="grey_200">#EEEEEE</color>

@@ -76,6 +76,7 @@
     </style>
 
     <style name="ThemeOverlay.App.Widget" parent="">
+        <item name="colorPrimary">@color/pink_400</item>
         <item name="widgetBackgroundColor">@color/white</item>
         <item name="widgetTextColor">@color/grey_800</item>
     </style>
