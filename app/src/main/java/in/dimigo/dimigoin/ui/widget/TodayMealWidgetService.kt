@@ -11,9 +11,8 @@ import android.widget.RemoteViewsService
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import org.koin.android.ext.android.inject
-import java.util.concurrent.CountDownLatch
 
 class TodayMealWidgetService : RemoteViewsService() {
     private val mealUseCase: MealUseCase by inject()
@@ -40,19 +39,13 @@ private class MealRemoteViewsFactory(
         }
     }
 
-    private fun fetchTodayMeal() {
-        val countDownLatch = CountDownLatch(1)
-        scope.launch {
-            todayMeal = try {
-                mealUseCase.getTodaysMeal()
-            } catch (e: Exception) {
-                e.printStackTrace()
-                mealUseCase.failedMeal
-            }
-            countDownLatch.countDown()
+    private fun fetchTodayMeal() = runBlocking {
+        todayMeal = try {
+            mealUseCase.getTodaysMeal()
+        } catch (e: Exception) {
+            e.printStackTrace()
+            mealUseCase.failedMeal
         }
-
-        countDownLatch.await()
     }
 
     override fun onCreate() {}
