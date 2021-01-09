@@ -20,7 +20,7 @@ class MainFragment : Fragment() {
     private lateinit var binding: FragmentMainBinding
     private val viewModel: MainFragmentViewModel by sharedGraphViewModel(R.id.main_nav_graph)
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentMainBinding.inflate(inflater, container, false).apply {
             lifecycleOwner = this@MainFragment
             vm = viewModel
@@ -39,7 +39,7 @@ class MainFragment : Fragment() {
         }
 
         Glide.with(requireContext())
-            .load(DimigoinApi.getProfileUrl(viewModel.userData.photo))
+            .load(DimigoinApi.getProfileUrl(viewModel.userData.photo.last()))
             .into(profileImage)
 
         OverScrollDecoratorHelper.setUpOverScroll(mainScrollView)

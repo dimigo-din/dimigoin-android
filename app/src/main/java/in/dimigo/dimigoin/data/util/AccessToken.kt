@@ -1,8 +1,6 @@
 package `in`.dimigo.dimigoin.data.util
 
-import `in`.dimigo.dimigoin.data.model.UserModel
 import android.util.Base64
-import com.google.gson.Gson
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 
@@ -13,10 +11,6 @@ class AccessToken private constructor(private val jwt: String) {
 
     private val expirationTime by lazy {
         tokenJson.get("exp").asLong
-    }
-
-    val userModel: UserModel by lazy {
-        Gson().fromJson(tokenJson.get("identity").asJsonArray[0].asJsonObject, UserModel::class.java)
     }
 
     fun isTokenExpired() = System.currentTimeMillis() / 1000 >= expirationTime

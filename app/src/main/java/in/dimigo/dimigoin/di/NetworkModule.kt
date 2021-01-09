@@ -1,9 +1,6 @@
 package `in`.dimigo.dimigoin.di
 
-import `in`.dimigo.dimigoin.data.api.AuthApi
-import `in`.dimigo.dimigoin.data.api.AuthorizationInterceptor
-import `in`.dimigo.dimigoin.data.api.DimigoinApi
-import `in`.dimigo.dimigoin.data.api.MealApi
+import `in`.dimigo.dimigoin.data.api.*
 import `in`.dimigo.dimigoin.ui.login.LoginActivity.Companion.KEY_TOKEN
 import android.content.SharedPreferences
 import okhttp3.Interceptor
@@ -22,6 +19,7 @@ val networkModule = module {
 
     single { get<Retrofit>().create(AuthApi::class.java) }
     single { get<Retrofit>().create(MealApi::class.java) }
+    single { get<Retrofit>().create(UserApi::class.java) }
 }
 
 private fun getAccessToken(sharedPreferences: SharedPreferences) = sharedPreferences.getString(KEY_TOKEN, null)

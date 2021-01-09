@@ -1,20 +1,20 @@
 package `in`.dimigo.dimigoin.ui.main
 
 import `in`.dimigo.dimigoin.R
-import `in`.dimigo.dimigoin.data.util.AccessToken
+import `in`.dimigo.dimigoin.data.usecase.user.UserUseCase
 import `in`.dimigo.dimigoin.data.util.UserDataStore
 import `in`.dimigo.dimigoin.databinding.ActivityMainBinding
-import `in`.dimigo.dimigoin.ui.login.LoginActivity.Companion.KEY_TOKEN
-import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
+import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 
 class MainActivity : AppCompatActivity() {
-    private val sharedPreferences: SharedPreferences by inject()
+    private val userUseCase: UserUseCase by inject()
 
     init {
         storeUserData()
@@ -26,9 +26,8 @@ class MainActivity : AppCompatActivity() {
         initView(binding)
     }
 
-    private fun storeUserData() {
-        val token = sharedPreferences.getString(KEY_TOKEN, null) ?: return
-        val userModel = AccessToken.fromJwt(token).userModel
+    private fun storeUserData() = lifecycleScope.launch {
+        val userModel = userUseCase.getMyInfo()
         UserDataStore.userData = userModel
     }
 
