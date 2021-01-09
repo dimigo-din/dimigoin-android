@@ -19,11 +19,11 @@ import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val appModule = module {
-    single<AuthUseCase> { AuthUseCaseImpl(get()) }
+    single<AuthUseCase> { AuthUseCaseImpl(get(), get()) }
     single<MealUseCase> { MealUseCaseImpl(get(), MealItem.getFailedMealItem(androidContext())) }
     single<UserUseCase> { UserUseCaseImpl(get()) }
 
-    viewModel { LoginViewModel(get()) }
+    viewModel { LoginViewModel(get(), get()) }
     viewModel { MainFragmentViewModel(get()) }
     viewModel { MealViewModel(get()) }
 

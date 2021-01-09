@@ -1,8 +1,6 @@
 package `in`.dimigo.dimigoin.di
 
 import `in`.dimigo.dimigoin.data.api.*
-import `in`.dimigo.dimigoin.ui.login.LoginActivity.Companion.KEY_TOKEN
-import android.content.SharedPreferences
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import org.koin.dsl.module
@@ -10,10 +8,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 val networkModule = module {
-    single {
-        val accessToken = getAccessToken(get())
-        AuthorizationInterceptor(accessToken)
-    }
+    single { AuthorizationInterceptor(get()) }
     single { buildOkHttpClient(get<AuthorizationInterceptor>()) }
     single { buildRetrofit(get()) }
 
@@ -22,7 +17,8 @@ val networkModule = module {
     single { get<Retrofit>().create(UserApi::class.java) }
 }
 
-private fun getAccessToken(sharedPreferences: SharedPreferences) = sharedPreferences.getString(KEY_TOKEN, null)
+const val KEY_ACCESS_TOKEN = "accessToken"
+const val KEY_REFRESH_TOKEN = "refreshToken"
 
 private fun buildOkHttpClient(interceptor: Interceptor): OkHttpClient {
     return OkHttpClient.Builder()

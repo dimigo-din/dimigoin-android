@@ -1,16 +1,13 @@
 package `in`.dimigo.dimigoin.ui.splash
 
-import `in`.dimigo.dimigoin.R
 import `in`.dimigo.dimigoin.data.usecase.auth.AuthUseCase
-import `in`.dimigo.dimigoin.data.util.AccessToken
+import `in`.dimigo.dimigoin.data.usecase.user.UserUseCase
+import `in`.dimigo.dimigoin.data.util.UserDataStore
 import `in`.dimigo.dimigoin.ui.login.LoginActivity
 import `in`.dimigo.dimigoin.ui.main.MainActivity
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.edit
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -18,15 +15,16 @@ import kotlinx.coroutines.withContext
 import org.koin.android.ext.android.inject
 
 class SplashActivity : AppCompatActivity() {
-    private val sharedPreferences: SharedPreferences by inject()
     private val authUseCase: AuthUseCase by inject()
+    private val userUseCase: UserUseCase by inject()
+    private var autoLoginTryCount = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         lifecycleScope.launch {
-            val isAutoLoginSuccess = tryAutoLogin()
-            withContext(Dispatchers.Main) { loginFinished(isAutoLoginSuccess) }
+            val autoLoginSucceeded = tryAutoLogin()
+            withContext(Dispatchers.Main) { loginFinished(autoLoginSucceeded) }
         }
     }
 
@@ -40,26 +38,15 @@ class SplashActivity : AppCompatActivity() {
     }
 
     private suspend fun tryAutoLogin(): Boolean {
-        val tokenString = sharedPreferences.getString(LoginActivity.KEY_TOKEN, null) ?: return false
-        if (AccessToken.fromJwt(tokenString).isTokenExpired()) {
-            val refreshToken = sharedPreferences.getString(LoginActivity.KEY_REFRESH_TOKEN, null) ?: return false
-            return refreshToken(refreshToken)
-        }
-        return true
-    }
-
-    private suspend fun refreshToken(refreshToken: String): Boolean {
-        return try {
-            val authModel = authUseCase.refreshToken(refreshToken)
-            sharedPreferences.edit {
-                putString(LoginActivity.KEY_TOKEN, authModel.accessToken)
-                putString(LoginActivity.KEY_REFRESH_TOKEN, authModel.refreshToken)
-            }
-            true
+        if (autoLoginTryCount >= 2) return false
+        try {
+            autoLoginTryCount++
+            UserDataStore.userData = userUseCase.getMyInfo()
+            return true
         } catch (e: Exception) {
             e.printStackTrace()
-            Toast.makeText(this, R.string.token_expired, Toast.LENGTH_LONG).show()
-            false
+            if (authUseCase.tryTokenRefresh()) return tryAutoLogin()
+            return false
         }
     }
 }

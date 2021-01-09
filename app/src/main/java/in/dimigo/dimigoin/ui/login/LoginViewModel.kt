@@ -2,6 +2,8 @@ package `in`.dimigo.dimigoin.ui.login
 
 import `in`.dimigo.dimigoin.data.model.LoginRequestModel
 import `in`.dimigo.dimigoin.data.usecase.auth.AuthUseCase
+import `in`.dimigo.dimigoin.data.usecase.user.UserUseCase
+import `in`.dimigo.dimigoin.data.util.UserDataStore
 import `in`.dimigo.dimigoin.ui.util.EventWrapper
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -9,7 +11,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 
-class LoginViewModel(private val useCase: AuthUseCase) : ViewModel() {
+class LoginViewModel(private val useCase: AuthUseCase, private val userUseCase: UserUseCase) : ViewModel() {
     private val _event = MutableLiveData<EventWrapper<LoginActivity.Event>>()
     private val _isLoginRequested = MutableLiveData<Boolean>()
 
@@ -28,9 +30,15 @@ class LoginViewModel(private val useCase: AuthUseCase) : ViewModel() {
     }
 
     private suspend fun login(loginRequestModel: LoginRequestModel) {
+        val loginSucceeded = useCase.tryLogin(loginRequestModel)
+        if (!loginSucceeded) {
+            _event.value = EventWrapper(LoginActivity.Event.LoginFail)
+            return
+        }
+
         try {
-            val authModel = useCase.login(loginRequestModel)
-            _event.value = EventWrapper(LoginActivity.Event.LoginSuccess(authModel))
+            UserDataStore.userData = userUseCase.getMyInfo()
+            _event.value = EventWrapper(LoginActivity.Event.LoginSuccess)
         } catch (e: Exception) {
             e.printStackTrace()
             _event.value = EventWrapper(LoginActivity.Event.LoginFail)
