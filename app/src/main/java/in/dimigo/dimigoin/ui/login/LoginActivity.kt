@@ -41,7 +41,7 @@ class LoginActivity : AppCompatActivity() {
     private fun handleEvent(event: Event) = when (event) {
         is Event.LoginSuccess -> {
             sharedPreferences.edit {
-                putString(KEY_TOKEN, event.authModel.token)
+                putString(KEY_TOKEN, event.authModel.accessToken)
                 putString(KEY_REFRESH_TOKEN, event.authModel.refreshToken)
             }
             loginFinished()

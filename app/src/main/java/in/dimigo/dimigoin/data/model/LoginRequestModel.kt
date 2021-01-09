@@ -1,6 +1,6 @@
 package `in`.dimigo.dimigoin.data.model
 
 data class LoginRequestModel(
-    val id: String,
+    val username: String,
     val password: String
 )

@@ -1,5 +1,6 @@
 package `in`.dimigo.dimigoin.di
 
+import `in`.dimigo.dimigoin.data.api.AuthApi
 import `in`.dimigo.dimigoin.data.api.AuthorizationInterceptor
 import `in`.dimigo.dimigoin.data.api.DimigoinApi
 import `in`.dimigo.dimigoin.ui.login.LoginActivity.Companion.KEY_TOKEN
@@ -19,6 +20,7 @@ val networkModule = module {
     single { buildRetrofit(get()) }
 
     single { get<Retrofit>().create(DimigoinApi::class.java) }
+    single { get<Retrofit>().create(AuthApi::class.java) }
 }
 
 private fun getAccessToken(sharedPreferences: SharedPreferences) = sharedPreferences.getString(KEY_TOKEN, null)

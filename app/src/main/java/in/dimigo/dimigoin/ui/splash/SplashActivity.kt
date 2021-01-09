@@ -52,7 +52,7 @@ class SplashActivity : AppCompatActivity() {
         return try {
             val authModel = authUseCase.refreshToken(refreshToken)
             sharedPreferences.edit {
-                putString(LoginActivity.KEY_TOKEN, authModel.token)
+                putString(LoginActivity.KEY_TOKEN, authModel.accessToken)
                 putString(LoginActivity.KEY_REFRESH_TOKEN, authModel.refreshToken)
             }
             true
