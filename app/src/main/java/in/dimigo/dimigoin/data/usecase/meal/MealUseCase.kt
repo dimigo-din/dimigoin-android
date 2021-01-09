@@ -1,12 +1,12 @@
 package `in`.dimigo.dimigoin.data.usecase.meal
 
-import `in`.dimigo.dimigoin.data.model.MealModel
+import `in`.dimigo.dimigoin.ui.item.MealItem
 import java.util.*
 
 interface MealUseCase {
-    val failedMeal: MealModel
+    val failedMeal: MealItem
 
-    suspend fun getTodaysMeal(): MealModel
+    suspend fun getTodaysMeal(): MealItem
 
-    suspend fun getMeal(date: Date): MealModel
+    suspend fun getMeal(date: Date): MealItem
 }

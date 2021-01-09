@@ -6,6 +6,6 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 
 interface MealApi {
-    @GET("dimibobs/{date}")
+    @GET("/meal/{date}")
     fun getMeal(@Path("date") date: String): Call<MealModel>
 }

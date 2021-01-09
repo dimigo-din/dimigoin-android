@@ -5,7 +5,7 @@
 
     <data>
 
-        <import type="in.dimigo.dimigoin.data.model.MealModel" />
+        <import type="in.dimigo.dimigoin.ui.item.MealItem" />
 
         <variable
             name="vm"

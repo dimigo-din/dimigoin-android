@@ -1,8 +1,8 @@
 package `in`.dimigo.dimigoin.ui.widget
 
 import `in`.dimigo.dimigoin.R
-import `in`.dimigo.dimigoin.data.model.MealModel
 import `in`.dimigo.dimigoin.data.usecase.meal.MealUseCase
+import `in`.dimigo.dimigoin.ui.item.MealItem
 import `in`.dimigo.dimigoin.ui.main.fragment.meal.MealTime
 import android.content.Context
 import android.content.Intent
@@ -27,7 +27,7 @@ private class MealRemoteViewsFactory(
     private val mealUseCase: MealUseCase
 ) : RemoteViewsService.RemoteViewsFactory {
     private val scope = CoroutineScope(Dispatchers.IO)
-    private var todayMeal: MealModel? = null
+    private var todayMeal: MealItem? = null
 
     override fun getViewAt(position: Int): RemoteViews {
         if (todayMeal == null) fetchTodayMeal()

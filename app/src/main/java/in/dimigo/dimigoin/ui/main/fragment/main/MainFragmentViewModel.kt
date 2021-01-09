@@ -1,8 +1,8 @@
 package `in`.dimigo.dimigoin.ui.main.fragment.main
 
-import `in`.dimigo.dimigoin.data.model.MealModel
 import `in`.dimigo.dimigoin.data.usecase.meal.MealUseCase
 import `in`.dimigo.dimigoin.data.util.UserDataStore
+import `in`.dimigo.dimigoin.ui.item.MealItem
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -11,9 +11,9 @@ import kotlinx.coroutines.launch
 
 class MainFragmentViewModel(private val mealUseCase: MealUseCase) : ViewModel() {
     private val _attendanceLocation = MutableLiveData(AttendanceLocation.Class)
-    private val _todayMeal = MutableLiveData<MealModel>()
+    private val _todayMeal = MutableLiveData<MealItem>()
     val attendanceLocation: LiveData<AttendanceLocation> = _attendanceLocation
-    val todayMeal: LiveData<MealModel> = _todayMeal
+    val todayMeal: LiveData<MealItem> = _todayMeal
     val userData = UserDataStore.userData
 
     init {

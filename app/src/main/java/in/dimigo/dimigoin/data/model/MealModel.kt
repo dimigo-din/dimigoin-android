@@ -1,25 +1,15 @@
 package `in`.dimigo.dimigoin.data.model
 
-import `in`.dimigo.dimigoin.R
-import `in`.dimigo.dimigoin.ui.main.fragment.meal.MealTime
-import android.content.Context
+import `in`.dimigo.dimigoin.ui.item.MealItem
+
+private typealias MealList = List<String>
 
 data class MealModel(
-    val breakfast: String,
-    val lunch: String,
-    val dinner: String,
-    val date: String
+    val breakfast: MealList,
+    val lunch: MealList,
+    val dinner: MealList,
 ) {
-    fun getMeal(mealTime: MealTime) = when (mealTime) {
-        MealTime.BREAKFAST -> breakfast
-        MealTime.LUNCH -> lunch
-        MealTime.DINNER -> dinner
-    }
-
-    companion object {
-        fun getFailedMealModel(context: Context): MealModel {
-            val failedMessage = context.getString(R.string.meal_failed_message)
-            return MealModel(failedMessage, failedMessage, failedMessage, "")
-        }
-    }
+    fun toMealItem() = MealItem(breakfast.joinToString(), breakfast.joinToString(), breakfast.joinToString())
 }
+
+private fun MealList.joinToString() = joinToString(", ")
