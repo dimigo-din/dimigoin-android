@@ -16,9 +16,6 @@ val networkModule = module {
     single { get<Retrofit>().create(DimigoinService::class.java) }
 }
 
-const val KEY_ACCESS_TOKEN = "accessToken"
-const val KEY_REFRESH_TOKEN = "refreshToken"
-
 private fun buildOkHttpClient(interceptor: Interceptor): OkHttpClient {
     return OkHttpClient.Builder()
         .addInterceptor(interceptor)

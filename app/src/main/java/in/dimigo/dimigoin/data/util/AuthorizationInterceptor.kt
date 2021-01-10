@@ -1,13 +1,11 @@
 package `in`.dimigo.dimigoin.data.util
 
-import `in`.dimigo.dimigoin.di.KEY_ACCESS_TOKEN
-import android.content.SharedPreferences
 import okhttp3.Interceptor
 import okhttp3.Response
 
-class AuthorizationInterceptor(private val sharedPreferences: SharedPreferences) : Interceptor {
+class AuthorizationInterceptor(private val sharedPreferencesManager: SharedPreferencesManager) : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
-        val accessToken = sharedPreferences.getString(KEY_ACCESS_TOKEN, null)
+        val accessToken = sharedPreferencesManager.accessToken
         val isAuthorizationHeaderExists = chain.request().header("Authorization") != null
 
         val request = if (accessToken == null || isAuthorizationHeaderExists) {
