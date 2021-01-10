@@ -1,6 +1,7 @@
 package `in`.dimigo.dimigoin.di
 
-import `in`.dimigo.dimigoin.data.service.*
+import `in`.dimigo.dimigoin.data.service.DimigoinService
+import `in`.dimigo.dimigoin.data.util.AuthorizationInterceptor
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import org.koin.dsl.module
