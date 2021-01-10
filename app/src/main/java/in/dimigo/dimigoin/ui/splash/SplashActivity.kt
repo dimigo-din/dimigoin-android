@@ -1,6 +1,5 @@
 package `in`.dimigo.dimigoin.ui.splash
 
-import `in`.dimigo.dimigoin.data.usecase.auth.AuthUseCase
 import `in`.dimigo.dimigoin.data.usecase.user.UserUseCase
 import `in`.dimigo.dimigoin.data.util.UserDataStore
 import `in`.dimigo.dimigoin.ui.login.LoginActivity
@@ -15,9 +14,7 @@ import kotlinx.coroutines.withContext
 import org.koin.android.ext.android.inject
 
 class SplashActivity : AppCompatActivity() {
-    private val authUseCase: AuthUseCase by inject()
     private val userUseCase: UserUseCase by inject()
-    private var autoLoginTryCount = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,6 +25,14 @@ class SplashActivity : AppCompatActivity() {
         }
     }
 
+    private suspend fun tryAutoLogin() = try {
+        UserDataStore.userData = userUseCase.getMyInfo()
+        true
+    } catch (e: Exception) {
+        e.printStackTrace()
+        false
+    }
+
     private fun loginFinished(isAutoLoginSuccess: Boolean) {
         startActivity(
             if (isAutoLoginSuccess) Intent(this@SplashActivity, MainActivity::class.java)
@@ -35,18 +40,5 @@ class SplashActivity : AppCompatActivity() {
         )
         finish()
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
-    }
-
-    private suspend fun tryAutoLogin(): Boolean {
-        if (autoLoginTryCount >= 2) return false
-        try {
-            autoLoginTryCount++
-            UserDataStore.userData = userUseCase.getMyInfo()
-            return true
-        } catch (e: Exception) {
-            e.printStackTrace()
-            if (authUseCase.tryTokenRefresh()) return tryAutoLogin()
-            return false
-        }
     }
 }

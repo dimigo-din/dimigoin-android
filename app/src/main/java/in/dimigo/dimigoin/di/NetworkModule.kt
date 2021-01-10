@@ -2,6 +2,7 @@ package `in`.dimigo.dimigoin.di
 
 import `in`.dimigo.dimigoin.data.service.DimigoinService
 import `in`.dimigo.dimigoin.data.util.AuthorizationInterceptor
+import `in`.dimigo.dimigoin.data.util.DimigoinServiceHolder
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import org.koin.dsl.module
@@ -13,7 +14,11 @@ val networkModule = module {
     single { buildOkHttpClient(get<AuthorizationInterceptor>()) }
     single { buildRetrofit(get()) }
 
-    single { get<Retrofit>().create(DimigoinService::class.java) }
+    single {
+        val service = get<Retrofit>().create(DimigoinService::class.java)
+        DimigoinServiceHolder.dimigoinService = service
+        return@single service
+    }
 }
 
 private fun buildOkHttpClient(interceptor: Interceptor): OkHttpClient {

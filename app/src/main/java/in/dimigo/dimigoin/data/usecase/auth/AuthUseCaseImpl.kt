@@ -17,16 +17,4 @@ class AuthUseCaseImpl(
         e.printStackTrace()
         false
     }
-
-    override suspend fun tryTokenRefresh(): Boolean {
-        try {
-            val refreshToken = sharedPreferencesManager.refreshToken ?: return false
-            val authModel = service.refreshToken("Bearer $refreshToken").await()
-            sharedPreferencesManager.saveAuthModel(authModel)
-            return true
-        } catch (e: Exception) {
-            e.printStackTrace()
-            return false
-        }
-    }
 }
