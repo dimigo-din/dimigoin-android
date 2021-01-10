@@ -1,4 +1,4 @@
-package `in`.dimigo.dimigoin.data.api
+package `in`.dimigo.dimigoin.data.service
 
 import `in`.dimigo.dimigoin.di.KEY_ACCESS_TOKEN
 import android.content.SharedPreferences

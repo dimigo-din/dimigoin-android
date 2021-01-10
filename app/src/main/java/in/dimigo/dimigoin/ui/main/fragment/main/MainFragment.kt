@@ -1,7 +1,7 @@
 package `in`.dimigo.dimigoin.ui.main.fragment.main
 
 import `in`.dimigo.dimigoin.R
-import `in`.dimigo.dimigoin.data.api.DimigoinApi
+import `in`.dimigo.dimigoin.data.service.DimigoinService
 import `in`.dimigo.dimigoin.databinding.FragmentMainBinding
 import `in`.dimigo.dimigoin.ui.main.fragment.meal.MealTime
 import `in`.dimigo.dimigoin.ui.util.sharedGraphViewModel
@@ -39,7 +39,7 @@ class MainFragment : Fragment() {
         }
 
         Glide.with(requireContext())
-            .load(DimigoinApi.getProfileUrl(viewModel.userData.photo.last()))
+            .load(DimigoinService.getProfileUrl(viewModel.userData.photo.last()))
             .into(profileImage)
 
         OverScrollDecoratorHelper.setUpOverScroll(mainScrollView)

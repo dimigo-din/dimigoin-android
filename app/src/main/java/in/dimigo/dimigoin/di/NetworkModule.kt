@@ -1,6 +1,6 @@
 package `in`.dimigo.dimigoin.di
 
-import `in`.dimigo.dimigoin.data.api.*
+import `in`.dimigo.dimigoin.data.service.*
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import org.koin.dsl.module
@@ -12,9 +12,7 @@ val networkModule = module {
     single { buildOkHttpClient(get<AuthorizationInterceptor>()) }
     single { buildRetrofit(get()) }
 
-    single { get<Retrofit>().create(AuthApi::class.java) }
-    single { get<Retrofit>().create(MealApi::class.java) }
-    single { get<Retrofit>().create(UserApi::class.java) }
+    single { get<Retrofit>().create(DimigoinService::class.java) }
 }
 
 const val KEY_ACCESS_TOKEN = "accessToken"
@@ -28,7 +26,7 @@ private fun buildOkHttpClient(interceptor: Interceptor): OkHttpClient {
 
 private fun buildRetrofit(httpClient: OkHttpClient): Retrofit {
     return Retrofit.Builder()
-        .baseUrl(DimigoinApi.BASE_URL)
+        .baseUrl(DimigoinService.BASE_URL)
         .addConverterFactory(GsonConverterFactory.create())
         .client(httpClient)
         .build()
