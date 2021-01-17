@@ -1,7 +1,8 @@
 <resources>
     <string name="app_name">디미고인</string>
 
-    <string name="my_info">내 정보</string>
+    <string name="student_card">학생증</string>
+    <string name="mobile_student_card">모바일 학생증</string>
     <string name="ingang">인강실</string>
     <string name="main">메인</string>
     <string name="meal">급식</string>

@@ -6,10 +6,10 @@
     app:startDestination="@id/main">
 
     <fragment
-        android:id="@+id/my_info"
-        android:name="in.dimigo.dimigoin.ui.main.fragment.myinfo.MyInfoFragment"
-        android:label="@string/my_info"
-        tools:layout="@layout/fragment_my_info" />
+        android:id="@+id/card"
+        android:name="in.dimigo.dimigoin.ui.main.fragment.card.CardFragment"
+        android:label="@string/student_card"
+        tools:layout="@layout/fragment_card" />
 
     <fragment
         android:id="@+id/ingang"
