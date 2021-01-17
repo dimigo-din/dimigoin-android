@@ -2,6 +2,7 @@ package `in`.dimigo.dimigoin.ui.main.fragment.main
 
 import `in`.dimigo.dimigoin.R
 import `in`.dimigo.dimigoin.data.service.DimigoinService
+import `in`.dimigo.dimigoin.data.util.UserDataStore
 import `in`.dimigo.dimigoin.databinding.FragmentMainBinding
 import `in`.dimigo.dimigoin.ui.main.fragment.meal.MealTime
 import `in`.dimigo.dimigoin.ui.util.sharedGraphViewModel
@@ -38,9 +39,11 @@ class MainFragment : Fragment() {
             applyCarouselEffect()
         }
 
-        Glide.with(requireContext())
-            .load(DimigoinService.getProfileUrl(viewModel.userData.photo.last()))
-            .into(profileImage)
+        if (UserDataStore.userData.photo.isNotEmpty()) {
+            Glide.with(requireContext())
+                .load(DimigoinService.getProfileUrl(UserDataStore.userData.photo.last()))
+                .into(profileImage)
+        }
 
         OverScrollDecoratorHelper.setUpOverScroll(mainScrollView)
     }
