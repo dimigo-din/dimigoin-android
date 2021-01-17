@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="user"
+            type="in.dimigo.dimigoin.data.model.UserModel" />
+
+        <variable
+            name="department"
+            type="String" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/black">
+
+        <ImageView
+            android:id="@+id/cardImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_card"
+            app:layout_constraintStart_toStartOf="@id/cardContainer"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            style="@style/Text.Content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:fontFamily="@font/bold"
+            android:text="@string/mobile_id_card"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="@id/cardImage"
+            app:layout_constraintStart_toEndOf="@id/cardImage"
+            app:layout_constraintTop_toTopOf="@id/cardImage" />
+
+        <TextView
+            style="@style/Text.Content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:fontFamily="@font/medium"
+            android:text="@string/remainingTime"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="@id/cardImage"
+            app:layout_constraintEnd_toStartOf="@id/remainingSecondsText"
+            app:layout_constraintTop_toTopOf="@id/cardImage" />
+
+        <TextView
+            android:id="@+id/remainingSecondsText"
+            style="@style/Text.Content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/black"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="@id/cardImage"
+            app:layout_constraintEnd_toEndOf="@id/cardContainer"
+            app:layout_constraintTop_toTopOf="@id/cardImage"
+            tools:text="15" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cardContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_card"
+            android:padding="40dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <FrameLayout
+                android:id="@+id/profileImageContainer"
+                android:layout_width="120dp"
+                android:layout_height="160dp"
+                android:background="@drawable/bg_profile_stroke"
+                android:padding="1dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/profileImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/bg_profile_round"
+                    android:contentDescription="@null" />
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/nameText"
+                style="@style/Text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:fontFamily="@font/nanum_extra_bold"
+                android:text="@{user.name}"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/profileImageContainer"
+                tools:text="홍길동" />
+
+            <TextView
+                android:id="@+id/departmentTitle"
+                style="@style/Text.Content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:fontFamily="@font/nanum_bold"
+                android:text="@string/department"
+                app:layout_constraintEnd_toStartOf="@id/departmentContent"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/nameText" />
+
+            <TextView
+                android:id="@+id/departmentContent"
+                style="@style/Text.Content.Grey"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:fontFamily="@font/nanum_light"
+                android:text="@{department}"
+                app:layout_constraintBottom_toBottomOf="@id/departmentTitle"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/departmentTitle"
+                app:layout_constraintTop_toTopOf="@id/departmentTitle"
+                tools:text="웹프로그래밍과" />
+
+            <TextView
+                android:id="@+id/serialTitle"
+                style="@style/Text.Content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/nanum_bold"
+                android:text="@string/student_serial"
+                app:layout_constraintEnd_toEndOf="@id/departmentTitle"
+                app:layout_constraintTop_toBottomOf="@id/departmentTitle" />
+
+            <TextView
+                android:id="@+id/serialContent"
+                style="@style/Text.Content.Grey"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/nanum_light"
+                android:text="@{String.valueOf(user.serial)}"
+                app:layout_constraintBottom_toBottomOf="@id/serialTitle"
+                app:layout_constraintStart_toStartOf="@id/departmentContent"
+                app:layout_constraintTop_toTopOf="@id/serialTitle"
+                tools:text="2312" />
+
+            <TextView
+                android:id="@+id/residentTitle"
+                style="@style/Text.Content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/nanum_bold"
+                android:text="@string/resident_number"
+                app:layout_constraintEnd_toEndOf="@id/serialTitle"
+                app:layout_constraintTop_toBottomOf="@id/serialTitle" />
+
+            <TextView
+                android:id="@+id/residentContent"
+                style="@style/Text.Content.Grey"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/nanum_light"
+                app:layout_constraintBottom_toBottomOf="@id/residentTitle"
+                app:layout_constraintStart_toStartOf="@id/serialContent"
+                app:layout_constraintTop_toTopOf="@id/residentTitle"
+                tools:text="040101-3******" />
+
+            <ImageView
+                android:id="@+id/barcode"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginTop="16dp"
+                android:adjustViewBounds="true"
+                android:contentDescription="@null"
+                android:scaleType="centerCrop"
+                android:src="@drawable/barcode_sample"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/residentTitle" />
+
+            <TextView
+                style="@style/Text.Content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/prove_student_message"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/barcode" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="40dp"
+            android:contentDescription="@null"
+            android:src="@drawable/school_logo_full"
+            app:layout_constrainedHeight="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintVertical_bias="1" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

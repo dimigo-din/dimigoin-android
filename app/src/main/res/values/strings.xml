@@ -37,4 +37,18 @@
     <string name="icon">아이콘</string>
     <string name="title">제목</string>
     <string name="subtitle">부제</string>
+
+    <string name="mobile_id_card">MOBILE ID CARD</string>
+    <string name="remainingTime">남은 시간</string>
+    <string name="department">학과</string>
+    <string name="student_serial">학번</string>
+    <string name="resident_number">주민번호</string>
+    <string name="prove_student_message">위 사람은 본교 학생임을 증명함</string>
+
+    <string-array name="departments">
+        <item>이비즈니스과</item>
+        <item>디지털콘텐츠과</item>
+        <item>웹프로그래밍과</item>
+        <item>해킹방어과</item>
+    </string-array>
 </resources>
