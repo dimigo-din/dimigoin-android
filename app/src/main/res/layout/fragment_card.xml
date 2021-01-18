@@ -9,6 +9,7 @@
 
         <include
             layout="@layout/layout_title"
+            app:icon="@{@drawable/ic_card_enabled}"
             app:sub="@{@string/mobile_student_card}"
             app:title="@{@string/student_card}" />
 

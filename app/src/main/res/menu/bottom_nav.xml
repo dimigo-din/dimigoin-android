@@ -2,6 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/card"
+        android:icon="@drawable/ic_card"
         android:title="@string/student_card" />
 
     <item
@@ -11,14 +12,16 @@
 
     <item
         android:id="@+id/main"
-        android:icon="@drawable/ic_main"
+        android:icon="@drawable/ic_home"
         android:title="@string/main" />
 
     <item
         android:id="@+id/meal"
+        android:icon="@drawable/ic_meal"
         android:title="@string/meal" />
 
     <item
         android:id="@+id/timetable"
+        android:icon="@drawable/ic_calendar"
         android:title="@string/timetable" />
 </menu>

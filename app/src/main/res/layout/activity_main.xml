@@ -20,6 +20,10 @@
             android:id="@+id/mainBottomNav"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:padding="8dp"
+            app:itemIconTint="@drawable/bottom_nav_icon_color"
+            app:itemTextColor="@drawable/bottom_nav_icon_color"
+            app:labelVisibilityMode="labeled"
             app:layout_constraintBottom_toBottomOf="parent"
             app:menu="@menu/bottom_nav" />
     </LinearLayout>

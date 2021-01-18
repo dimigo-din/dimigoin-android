@@ -15,7 +15,7 @@ class CardActivity : AppCompatActivity() {
         binding = ActivityCardBinding.inflate(layoutInflater).apply {
             val userModel = UserDataStore.userData
             user = userModel
-            department = resources.getStringArray(R.array.departments)[userModel.`class` - 1]
+            department = resources.getStringArray(R.array.departments)[userModel.klass - 1]
         }
         setContentView(binding.root)
         initView()

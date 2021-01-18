@@ -5,8 +5,8 @@
     <data>
 
         <variable
-            name="date"
-            type="String" />
+            name="user"
+            type="in.dimigo.dimigoin.data.model.UserModel" />
     </data>
 
     <ScrollView
@@ -21,8 +21,8 @@
 
             <include
                 layout="@layout/layout_title"
-                app:icon="@{@drawable/ic_calendar}"
-                app:sub="@{date}"
+                app:icon="@{@drawable/ic_calendar_enabled}"
+                app:sub="@{@string/grade_class_format(user.grade, user.klass)}"
                 app:title="@{@string/timetable}" />
 
         </LinearLayout>

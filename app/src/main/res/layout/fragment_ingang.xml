@@ -16,6 +16,8 @@
 
             <include
                 layout="@layout/layout_title"
+                app:icon="@{@drawable/ic_ingang_enabled}"
+                app:sub="@{@string/night_study}"
                 app:title="@{@string/ingang}" />
 
             <include

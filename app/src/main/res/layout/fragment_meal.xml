@@ -29,9 +29,9 @@
 
             <include
                 layout="@layout/layout_title"
-                app:icon="@{@drawable/ic_calendar}"
+                app:icon="@{@drawable/ic_calendar_enabled}"
                 app:sub="@{date}"
-                app:title="@{@string/meal}" />
+                app:title="@{@string/today_meal}" />
 
             <include
                 layout="@layout/layout_meal_section"
