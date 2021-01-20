@@ -4,8 +4,6 @@ import `in`.dimigo.dimigoin.R
 import `in`.dimigo.dimigoin.data.service.DimigoinService
 import `in`.dimigo.dimigoin.data.util.UserDataStore
 import `in`.dimigo.dimigoin.databinding.FragmentCardBinding
-import android.animation.AnimatorInflater
-import android.animation.AnimatorSet
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,19 +14,6 @@ import com.bumptech.glide.Glide
 class CardFragment : Fragment() {
     private lateinit var binding: FragmentCardBinding
     private var isCardShowing = false
-
-    private val cardFrontInAnimator by lazy {
-        AnimatorInflater.loadAnimator(context, R.animator.card_front_in)
-    }
-    private val cardBackInAnimator by lazy {
-        AnimatorInflater.loadAnimator(context, R.animator.card_back_in) as AnimatorSet
-    }
-    private val cardFrontOutAnimator by lazy {
-        AnimatorInflater.loadAnimator(context, R.animator.card_front_out) as AnimatorSet
-    }
-    private val cardBackOutAnimator by lazy {
-        AnimatorInflater.loadAnimator(context, R.animator.card_back_out) as AnimatorSet
-    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentCardBinding.inflate(inflater, container, false)
@@ -48,34 +33,23 @@ class CardFragment : Fragment() {
         val cameraDistanceScale = context?.resources?.displayMetrics?.density ?: 1f
         val cameraDistance = VIEW_CAMERA_DISTANCE * cameraDistanceScale
         cardFrontLayout.cameraDistance = cameraDistance
-        cardBackContainer.cardBackLayout.cameraDistance = cameraDistance
+        cardBackLayout.cameraDistance = cameraDistance
 
         cardFrontLayout.setOnClickListener {
-            if (isCardShowing) hideCard()
-            else showCard()
+            isCardShowing = if (isCardShowing) {
+                cardMotionLayout.transitionToStart()
+                false
+            } else {
+                cardMotionLayout.transitionToEnd()
+                true
+            }
         }
 
         if (UserDataStore.userData.photo.isNotEmpty()) {
             Glide.with(requireContext())
                 .load(DimigoinService.getProfileUrl(UserDataStore.userData.photo.last()))
-                .into(cardBackContainer.profileImage)
+                .into(profileImage)
         }
-    }
-
-    private fun showCard() = with(binding) {
-        cardFrontOutAnimator.setTarget(cardFrontLayout)
-        cardBackInAnimator.setTarget(cardBackContainer.cardBackLayout)
-        cardFrontOutAnimator.start()
-        cardBackInAnimator.start()
-        isCardShowing = true
-    }
-
-    private fun hideCard() = with(binding) {
-        cardBackOutAnimator.setTarget(cardBackContainer.cardBackLayout)
-        cardFrontInAnimator.setTarget(cardFrontLayout)
-        cardBackOutAnimator.start()
-        cardFrontInAnimator.start()
-        isCardShowing = false
     }
 
     companion object {
