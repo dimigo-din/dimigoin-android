@@ -33,6 +33,12 @@
         <item name="android:textSize">28sp</item>
     </style>
 
+    <style name="Text.Sub.Grey">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/grey_450</item>
+        <item name="fontFamily">@font/medium</item>
+    </style>
+
     <style name="Text.Content">
         <item name="android:textSize">12sp</item>
     </style>

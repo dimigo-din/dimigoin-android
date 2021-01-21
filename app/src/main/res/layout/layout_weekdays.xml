@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="java.util.List" />
+
+        <variable
+            name="shortWeekDays"
+            type="List&lt;String>" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/default_horizontal_margin"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/Text.Sub.Grey"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@{shortWeekDays[2]}"
+                android:textAlignment="center"
+                tools:text="월" />
+
+            <TextView
+                style="@style/Text.Sub.Grey"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@{shortWeekDays[3]"
+                android:textAlignment="center"
+                tools:text="화" />
+
+            <TextView
+                style="@style/Text.Sub.Grey"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@{shortWeekDays[4]"
+                android:textAlignment="center"
+                tools:text="수" />
+
+            <TextView
+                style="@style/Text.Sub.Grey"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@{shortWeekDays[5]"
+                android:textAlignment="center"
+                tools:text="목" />
+
+            <TextView
+                style="@style/Text.Sub.Grey"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@{shortWeekDays[6]"
+                android:textAlignment="center"
+                tools:text="금" />
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/divider"
+            style="@style/Divider"
+            android:layout_marginTop="12dp" />
+
+    </LinearLayout>
+
+</layout>
+

@@ -25,6 +25,8 @@
                 app:sub="@{@string/grade_class_format(user.grade, user.klass)}"
                 app:title="@{@string/timetable}" />
 
+            <include layout="@layout/layout_weekdays" />
+
         </LinearLayout>
 
     </ScrollView>
