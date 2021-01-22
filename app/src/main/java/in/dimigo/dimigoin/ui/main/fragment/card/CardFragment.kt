@@ -57,7 +57,7 @@ class CardFragment : Fragment() {
 
     private fun showCard() {
         mainActivity?.enterFullScreen()
-        binding.cardMotionLayout.updatePadding(top = getStatusBarHeight(), bottom = getNavigationBarHeight())
+        binding.cardMotionLayout.updatePadding(top = getStatusBarHeight())
         binding.cardMotionLayout.transitionToEnd()
         isCardShowing = true
     }
@@ -93,14 +93,6 @@ class CardFragment : Fragment() {
         val window = activity?.window ?: return 0
         window.decorView.getWindowVisibleDisplayFrame(rectangle)
         return rectangle.top
-    }
-
-    private fun getNavigationBarHeight(): Int {
-        val resources = context?.resources ?: return 0
-        val resourceId = resources.getIdentifier("navigation_bar_height", "dimen", "android")
-        return if (resourceId > 0) {
-            resources.getDimensionPixelSize(resourceId)
-        } else 0
     }
 
     companion object {
