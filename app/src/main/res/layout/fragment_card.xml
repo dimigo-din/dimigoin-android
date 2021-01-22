@@ -18,6 +18,7 @@
         android:id="@+id/cardMotionLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:clipToPadding="false"
         app:layoutDescription="@xml/fragment_card_motion_scene">
 
         <include
@@ -26,6 +27,13 @@
             app:icon="@{@drawable/ic_card_enabled}"
             app:sub="@{@string/mobile_student_card}"
             app:title="@{@string/student_card}" />
+
+        <View
+            android:id="@+id/blackBackground"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginVertical="-100dp"
+            android:background="@color/black" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cardFrontLayout"
