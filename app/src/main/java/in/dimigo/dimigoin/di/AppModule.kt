@@ -11,6 +11,7 @@ import `in`.dimigo.dimigoin.ui.item.MealItem
 import `in`.dimigo.dimigoin.ui.login.LoginViewModel
 import `in`.dimigo.dimigoin.ui.main.fragment.main.MainFragmentViewModel
 import `in`.dimigo.dimigoin.ui.main.fragment.meal.MealViewModel
+import `in`.dimigo.dimigoin.ui.main.fragment.timetable.TimetableViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -23,6 +24,7 @@ val appModule = module {
     viewModel { LoginViewModel(get(), get()) }
     viewModel { MainFragmentViewModel(get()) }
     viewModel { MealViewModel(get()) }
+    viewModel { TimetableViewModel() }
 
     single { SharedPreferencesManager(androidContext()) }
 }

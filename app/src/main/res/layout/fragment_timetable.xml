@@ -4,6 +4,12 @@
 
     <data>
 
+        <import type="java.util.List" />
+
+        <variable
+            name="shortWeekDays"
+            type="List&lt;String>" />
+
         <variable
             name="user"
             type="in.dimigo.dimigoin.data.model.UserModel" />
@@ -24,6 +30,17 @@
                 app:icon="@{@drawable/ic_calendar_enabled}"
                 app:sub="@{@string/grade_class_format(user.grade, user.klass)}"
                 app:title="@{@string/timetable}" />
+
+            <include
+                layout="@layout/layout_weekdays"
+                app:shortWeekDays="@{shortWeekDays}" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/default_horizontal_margin"
+                android:layout_marginTop="16dp" />
 
         </LinearLayout>
 
