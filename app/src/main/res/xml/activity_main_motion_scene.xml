@@ -5,7 +5,7 @@
     <Transition
         motion:constraintSetEnd="@+id/main_end"
         motion:constraintSetStart="@id/main_start"
-        motion:duration="@integer/card_flip_time_full" />
+        motion:duration="@integer/card_flip_duration" />
 
     <ConstraintSet android:id="@+id/main_start">
 

@@ -7,5 +7,5 @@
     <dimen name="meal_view_pager_page_offset">24dp</dimen>
     <dimen name="meal_view_pager_page_gap_offset">26dp</dimen>
 
-    <integer name="card_flip_time_full">800</integer>
+    <integer name="card_flip_duration">800</integer>
 </resources>

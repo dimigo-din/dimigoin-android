@@ -6,7 +6,7 @@
         motion:autoTransition="none"
         motion:constraintSetEnd="@+id/card_end"
         motion:constraintSetStart="@+id/card_start"
-        motion:duration="@integer/card_flip_time_full">
+        motion:duration="@integer/card_flip_duration">
 
         <KeyFrameSet>
 
