@@ -36,7 +36,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@{shortWeekDays[3]"
+                android:text="@{shortWeekDays[3]}"
                 android:textAlignment="center"
                 tools:text="화" />
 
@@ -45,7 +45,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@{shortWeekDays[4]"
+                android:text="@{shortWeekDays[4]}"
                 android:textAlignment="center"
                 tools:text="수" />
 
@@ -54,7 +54,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@{shortWeekDays[5]"
+                android:text="@{shortWeekDays[5]}"
                 android:textAlignment="center"
                 tools:text="목" />
 
@@ -63,7 +63,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@{shortWeekDays[6]"
+                android:text="@{shortWeekDays[6]}"
                 android:textAlignment="center"
                 tools:text="금" />
 
