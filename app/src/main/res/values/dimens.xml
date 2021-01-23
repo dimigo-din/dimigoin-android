@@ -6,6 +6,7 @@
     <dimen name="meal_view_pager_page_gap">2dp</dimen>
     <dimen name="meal_view_pager_page_offset">24dp</dimen>
     <dimen name="meal_view_pager_page_gap_offset">26dp</dimen>
+    <dimen name="primary_corner_radius">10dp</dimen>
 
     <integer name="card_flip_duration">800</integer>
 </resources>

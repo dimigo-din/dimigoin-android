@@ -25,7 +25,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginHorizontal="@dimen/meal_view_pager_page_gap_offset"
-            app:cardCornerRadius="8dp"
+            app:cardCornerRadius="@dimen/primary_corner_radius"
             app:cardElevation="@dimen/default_card_elevation"
             app:cardUseCompatPadding="true">
 

@@ -56,7 +56,7 @@
     <style name="Button">
         <item name="android:fontFamily">@font/medium</item>
         <item name="android:textSize">16sp</item>
-        <item name="cornerRadius">8dp</item>
+        <item name="cornerRadius">@dimen/primary_corner_radius</item>
     </style>
 
     <style name="Divider">
