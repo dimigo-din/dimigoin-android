@@ -29,6 +29,16 @@
                 android:alpha="1"
                 motion:framePosition="51"
                 motion:motionTarget="@id/cardBackLayout" />
+
+            <KeyAttribute
+                android:alpha="0"
+                motion:framePosition="80"
+                motion:motionTarget="@+id/cardBackTitleBar" />
+
+            <KeyAttribute
+                android:alpha="0"
+                motion:framePosition="80"
+                motion:motionTarget="@+id/cardBackCloseButton" />
         </KeyFrameSet>
     </Transition>
 
@@ -53,6 +63,28 @@
             android:layout_marginTop="-100dp"
             android:layout_marginBottom="-100dp"
             android:alpha="0" />
+
+        <Constraint
+            android:id="@+id/cardBackTitleBar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:alpha="0"
+            motion:layout_constraintBottom_toTopOf="@id/cardBackLayout"
+            motion:layout_constraintEnd_toEndOf="@id/cardBackLayout"
+            motion:layout_constraintStart_toStartOf="@id/cardBackLayout"
+            motion:layout_constraintTop_toTopOf="parent"
+            motion:layout_constraintVertical_bias="0.4" />
+
+        <Constraint
+            android:id="@+id/cardBackCloseButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:alpha="0"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toBottomOf="@id/cardBackLayout"
+            motion:layout_constraintVertical_bias="0.4" />
     </ConstraintSet>
 
     <ConstraintSet android:id="@+id/card_end">
