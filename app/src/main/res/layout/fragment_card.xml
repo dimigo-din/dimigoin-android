@@ -145,6 +145,7 @@
             android:layout_height="wrap_content"
             android:drawablePadding="8dp"
             android:elevation="20dp"
+            android:padding="16dp"
             android:text="@string/click_this_to_close"
             android:textColor="@color/blue_grey_400"
             app:drawableTint="@color/blue_grey_400"
