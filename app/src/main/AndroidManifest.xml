@@ -29,11 +29,6 @@
 
         <activity android:name=".ui.main.MainActivity" />
 
-        <activity
-            android:name=".ui.card.CardActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.App.Card" />
-
         <receiver
             android:name=".ui.widget.NextMealWidget"
             android:label="@string/next_meal">
