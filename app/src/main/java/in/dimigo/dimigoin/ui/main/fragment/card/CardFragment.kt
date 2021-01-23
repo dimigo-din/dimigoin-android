@@ -42,8 +42,11 @@ class CardFragment : Fragment() {
         cardBackLayout.cameraDistance = cameraDistance
 
         cardFrontLayout.setOnClickListener {
+            if (!isCardShowing) showCard()
+        }
+
+        cardBackCloseButton.setOnClickListener {
             if (isCardShowing) hideCard()
-            else showCard()
         }
 
         cardMotionLayout.setTransitionListener(transitionListener)
