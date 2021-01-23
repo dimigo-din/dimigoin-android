@@ -17,9 +17,11 @@ import com.bumptech.glide.Glide
 
 class CardFragment : Fragment() {
     private lateinit var binding: FragmentCardBinding
-    private var isCardShowing = false
     private val mainActivity: MainActivity?
         get() = activity as? MainActivity
+
+    private var isCardShowing = false
+    private var isCardAnimating = false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentCardBinding.inflate(inflater, container, false)
@@ -42,11 +44,11 @@ class CardFragment : Fragment() {
         cardBackLayout.cameraDistance = cameraDistance
 
         cardFrontLayout.setOnClickListener {
-            if (!isCardShowing) showCard()
+            if (!isCardShowing && !isCardAnimating) showCard()
         }
 
         cardBackCloseButton.setOnClickListener {
-            if (isCardShowing) hideCard()
+            if (isCardShowing && !isCardAnimating) hideCard()
         }
 
         cardMotionLayout.setTransitionListener(transitionListener)
@@ -72,11 +74,15 @@ class CardFragment : Fragment() {
     }
 
     private val transitionListener = object : MotionLayout.TransitionListener {
+        override fun onTransitionStarted(motionLayout: MotionLayout?, startId: Int, endId: Int) {
+            isCardAnimating = true
+        }
+
         override fun onTransitionCompleted(motionLayout: MotionLayout?, currentId: Int) {
+            isCardAnimating = false
             if (currentId == R.id.card_start) onCardHidden()
         }
 
-        override fun onTransitionStarted(motionLayout: MotionLayout?, startId: Int, endId: Int) {}
         override fun onTransitionChange(p0: MotionLayout?, p1: Int, p2: Int, p3: Float) {}
         override fun onTransitionTrigger(p0: MotionLayout?, p1: Int, p2: Boolean, p3: Float) {}
     }
