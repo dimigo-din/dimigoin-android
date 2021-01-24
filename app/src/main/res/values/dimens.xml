@@ -8,5 +8,5 @@
     <dimen name="meal_view_pager_page_gap_offset">26dp</dimen>
     <dimen name="primary_corner_radius">10dp</dimen>
 
-    <integer name="card_flip_duration">800</integer>
+    <integer name="card_flip_duration">600</integer>
 </resources>
