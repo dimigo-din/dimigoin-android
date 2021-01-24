@@ -13,6 +13,10 @@
         <variable
             name="department"
             type="String" />
+
+        <variable
+            name="vm"
+            type="in.dimigo.dimigoin.ui.main.fragment.card.CardViewModel" />
     </data>
 
     <androidx.constraintlayout.motion.widget.MotionLayout
@@ -134,6 +138,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/black"
+                android:text="@{String.valueOf(vm.remainingSeconds)}"
                 android:textColor="@color/white"
                 tools:text="15" />
 

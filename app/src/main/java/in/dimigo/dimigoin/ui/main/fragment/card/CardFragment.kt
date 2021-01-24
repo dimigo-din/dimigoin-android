@@ -5,6 +5,7 @@ import `in`.dimigo.dimigoin.data.service.DimigoinService
 import `in`.dimigo.dimigoin.data.util.UserDataStore
 import `in`.dimigo.dimigoin.databinding.FragmentCardBinding
 import `in`.dimigo.dimigoin.ui.main.MainActivity
+import `in`.dimigo.dimigoin.ui.util.sharedGraphViewModel
 import android.graphics.Rect
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -17,6 +18,7 @@ import com.bumptech.glide.Glide
 
 class CardFragment : Fragment() {
     private lateinit var binding: FragmentCardBinding
+    private val viewModel: CardViewModel by sharedGraphViewModel(R.id.main_nav_graph)
     private val mainActivity: MainActivity?
         get() = activity as? MainActivity
 
@@ -27,6 +29,8 @@ class CardFragment : Fragment() {
         binding = FragmentCardBinding.inflate(inflater, container, false)
 
         binding.apply {
+            lifecycleOwner = viewLifecycleOwner
+            vm = viewModel
             val userModel = UserDataStore.userData
             user = userModel
             department = resources.getStringArray(R.array.departments)[userModel.klass - 1]
@@ -58,6 +62,10 @@ class CardFragment : Fragment() {
                 .load(DimigoinService.getProfileUrl(UserDataStore.userData.photo.last()))
                 .into(profileImage)
         }
+
+        viewModel.remainingSeconds.observe(viewLifecycleOwner) {
+            if (it == 0) hideCard()
+        }
     }
 
     private fun showCard() {
@@ -80,7 +88,10 @@ class CardFragment : Fragment() {
 
         override fun onTransitionCompleted(motionLayout: MotionLayout?, currentId: Int) {
             isCardAnimating = false
-            if (currentId == R.id.card_start) onCardHidden()
+            if (currentId == R.id.card_start) {
+                onCardHidden()
+                viewModel.stopTimer()
+            } else if (currentId == R.id.card_end) viewModel.startTimer()
         }
 
         override fun onTransitionChange(p0: MotionLayout?, p1: Int, p2: Int, p3: Float) {}
