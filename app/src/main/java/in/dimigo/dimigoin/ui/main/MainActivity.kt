@@ -10,10 +10,13 @@ import androidx.core.view.updatePadding
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+    private val viewModel: MainViewModel by viewModel()
     private var bottomNavBarBottomPadding = 0
+    private var isFullScreen = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +33,7 @@ class MainActivity : AppCompatActivity() {
                 or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
                 or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                 or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY)
+        isFullScreen = true
     }
 
     fun showBottomNavBar() {
@@ -41,6 +45,12 @@ class MainActivity : AppCompatActivity() {
         enableBottomNavBar(true)
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_VISIBLE or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         binding.mainBottomNav.updatePadding(bottom = bottomNavBarBottomPadding)
+        isFullScreen = false
+    }
+
+    override fun onBackPressed() {
+        if (isFullScreen) viewModel.hideCard.value = null
+        else super.onBackPressed()
     }
 
     private fun enableBottomNavBar(enable: Boolean) = with(binding.mainBottomNav) {

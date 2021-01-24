@@ -5,6 +5,7 @@ import `in`.dimigo.dimigoin.data.service.DimigoinService
 import `in`.dimigo.dimigoin.data.util.UserDataStore
 import `in`.dimigo.dimigoin.databinding.FragmentCardBinding
 import `in`.dimigo.dimigoin.ui.main.MainActivity
+import `in`.dimigo.dimigoin.ui.main.MainViewModel
 import `in`.dimigo.dimigoin.ui.util.sharedGraphViewModel
 import android.graphics.Rect
 import android.os.Bundle
@@ -18,11 +19,13 @@ import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.core.content.ContextCompat
 import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import com.bumptech.glide.Glide
 
 class CardFragment : Fragment() {
     private lateinit var binding: FragmentCardBinding
     private val viewModel: CardViewModel by sharedGraphViewModel(R.id.main_nav_graph)
+    private val activityViewModel: MainViewModel by activityViewModels()
     private val mainActivity: MainActivity?
         get() = activity as? MainActivity
 
@@ -71,6 +74,10 @@ class CardFragment : Fragment() {
 
         viewModel.remainingSeconds.observe(viewLifecycleOwner) {
             if (it == 0) hideCard()
+        }
+
+        activityViewModel.hideCard.observe(viewLifecycleOwner) {
+            hideCard()
         }
     }
 

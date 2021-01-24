@@ -9,6 +9,7 @@ import `in`.dimigo.dimigoin.data.usecase.user.UserUseCaseImpl
 import `in`.dimigo.dimigoin.data.util.SharedPreferencesManager
 import `in`.dimigo.dimigoin.ui.item.MealItem
 import `in`.dimigo.dimigoin.ui.login.LoginViewModel
+import `in`.dimigo.dimigoin.ui.main.MainViewModel
 import `in`.dimigo.dimigoin.ui.main.fragment.card.CardViewModel
 import `in`.dimigo.dimigoin.ui.main.fragment.main.MainFragmentViewModel
 import `in`.dimigo.dimigoin.ui.main.fragment.meal.MealViewModel
@@ -23,6 +24,7 @@ val appModule = module {
     single<UserUseCase> { UserUseCaseImpl(get()) }
 
     viewModel { LoginViewModel(get(), get()) }
+    viewModel { MainViewModel() }
     viewModel { MainFragmentViewModel(get()) }
     viewModel { MealViewModel(get()) }
     viewModel { TimetableViewModel() }
