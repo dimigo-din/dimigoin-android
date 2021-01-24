@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <style name="Theme.App" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="colorPrimary">@color/pink_400</item>
@@ -6,6 +6,7 @@
         <item name="colorSecondary">@color/pink_400</item>
         <item name="android:statusBarColor">@color/white</item>
         <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowLayoutInDisplayCutoutMode" tools:targetApi="p">shortEdges</item>
     </style>
 
     <style name="Theme.App.Splash">
