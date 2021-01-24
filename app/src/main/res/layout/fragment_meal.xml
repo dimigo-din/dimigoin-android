@@ -29,7 +29,7 @@
 
             <include
                 layout="@layout/layout_title"
-                app:icon="@{@drawable/ic_calendar_enabled}"
+                app:icon="@{@drawable/ic_meal_enabled}"
                 app:sub="@{date}"
                 app:title="@{@string/today_meal}" />
 
