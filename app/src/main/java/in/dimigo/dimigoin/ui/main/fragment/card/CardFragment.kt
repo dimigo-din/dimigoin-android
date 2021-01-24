@@ -11,7 +11,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.biometric.BiometricConstants
+import androidx.biometric.BiometricPrompt
 import androidx.constraintlayout.motion.widget.MotionLayout
+import androidx.core.content.ContextCompat
 import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
@@ -48,7 +52,9 @@ class CardFragment : Fragment() {
         cardBackLayout.cameraDistance = cameraDistance
 
         cardFrontLayout.setOnClickListener {
-            if (!isCardShowing && !isCardAnimating) showCard()
+            if (!isCardShowing && !isCardAnimating) runWhenAuthenticated {
+                showCard()
+            }
         }
 
         cardBackCloseButton.setOnClickListener {
@@ -66,6 +72,34 @@ class CardFragment : Fragment() {
         viewModel.remainingSeconds.observe(viewLifecycleOwner) {
             if (it == 0) hideCard()
         }
+    }
+
+    private fun runWhenAuthenticated(onSucceeded: () -> Unit) {
+        val executor = ContextCompat.getMainExecutor(requireContext())
+        val callback = object : BiometricPrompt.AuthenticationCallback() {
+            override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
+                super.onAuthenticationSucceeded(result)
+                onSucceeded()
+            }
+
+            override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
+                super.onAuthenticationError(errorCode, errString)
+                if (errorCode != BiometricConstants.ERROR_USER_CANCELED)
+                    Toast.makeText(
+                        requireContext(),
+                        R.string.cannot_use_biometric_authentication,
+                        Toast.LENGTH_LONG
+                    ).show()
+            }
+        }
+        val biometricPrompt = BiometricPrompt(this, executor, callback)
+
+        val promptInfo = BiometricPrompt.PromptInfo.Builder()
+            .setTitle(getString(R.string.authenticate))
+            .setSubtitle(getString(R.string.authenticate_to_use_card))
+            .setDeviceCredentialAllowed(true)
+            .build()
+        biometricPrompt.authenticate(promptInfo)
     }
 
     private fun showCard() {
