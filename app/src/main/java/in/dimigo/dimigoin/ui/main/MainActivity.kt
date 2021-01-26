@@ -8,8 +8,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.forEach
 import androidx.core.view.updatePadding
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity() {
@@ -62,6 +65,15 @@ class MainActivity : AppCompatActivity() {
     private fun initView() {
         val fragment = supportFragmentManager.findFragmentById(R.id.mainFragmentContainer) as NavHostFragment
         val navController = fragment.navController
+
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            lifecycleScope.launch(Dispatchers.Main) {
+                binding.schoolBackground.visibility =
+                    if (destination.id == R.id.main) View.INVISIBLE
+                    else View.VISIBLE
+            }
+        }
+
         with(binding.mainBottomNav) {
             setupWithNavController(navController)
             selectedItemId = R.id.main

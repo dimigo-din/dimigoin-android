@@ -8,6 +8,16 @@
         android:layout_height="match_parent"
         app:layoutDescription="@xml/activity_main_motion_scene">
 
+        <ImageView
+            android:id="@+id/schoolBackground"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:alpha="0.3"
+            android:contentDescription="@null"
+            android:src="@drawable/bg_dimigo"
+            app:layout_constraintBottom_toBottomOf="@id/mainFragmentContainer" />
+
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/mainFragmentContainer"
             android:name="androidx.navigation.fragment.NavHostFragment"

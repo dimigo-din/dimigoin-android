@@ -16,6 +16,14 @@
             android:alpha="0"
             motion:layout_constraintBottom_toBottomOf="@id/mainBottomNav"
             motion:layout_constraintTop_toTopOf="@id/mainBottomNav" />
+
+        <Constraint
+            android:id="@+id/schoolBackground"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:alpha="0.3"
+            motion:layout_constraintBottom_toBottomOf="@id/mainFragmentContainer"
+            motion:visibilityMode="ignore" />
     </ConstraintSet>
 
     <ConstraintSet android:id="@+id/main_end">
