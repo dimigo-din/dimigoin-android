@@ -8,5 +8,7 @@ interface MealUseCase {
 
     suspend fun getTodaysMeal(): MealItem
 
+    suspend fun getWeeklyMeal(): List<MealItem>
+
     suspend fun getMeal(date: Date): MealItem
 }
