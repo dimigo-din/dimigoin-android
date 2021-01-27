@@ -9,8 +9,7 @@ import java.util.*
 class MealUseCaseImpl(private val service: DimigoinService, override val failedMeal: MealItem) : MealUseCase {
     override suspend fun getTodaysMeal(): MealItem {
         val calendar = Calendar.getInstance()
-        val formattedDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(calendar.time)
-        return service.getMeal(formattedDate).await().toMealItem()
+        return getMeal(calendar.time)
     }
 
     override suspend fun getMeal(date: Date): MealItem {
