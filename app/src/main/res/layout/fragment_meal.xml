@@ -31,10 +31,14 @@
                 layout="@layout/layout_title"
                 app:icon="@{@drawable/ic_meal_enabled}"
                 app:sub="@{date}"
+                app:hideDivider="@{true}"
                 app:title="@{@string/today_meal}" />
 
             <include
                 layout="@layout/layout_meal_section"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
                 app:meal="@{vm.todayMeal.breakfast}"
                 app:mealTime="@{MealTime.BREAKFAST}"
                 app:time="@{`오전 8시 10분`}" />
