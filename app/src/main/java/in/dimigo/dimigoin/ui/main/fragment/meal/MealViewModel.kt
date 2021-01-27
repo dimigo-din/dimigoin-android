@@ -9,19 +9,20 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 
 class MealViewModel(private val mealUseCase: MealUseCase) : ViewModel() {
-    private val _todayMeal = MutableLiveData<MealItem>()
-    val todayMeal: LiveData<MealItem> = _todayMeal
+    private val _weeklyMeals = MutableLiveData<List<MealItem>>()
+    val weeklyMeals: LiveData<List<MealItem>> = _weeklyMeals
 
     init {
-        fetchTodayMeal()
+        fetchWeeklyMeals()
     }
 
-    private fun fetchTodayMeal() = viewModelScope.launch {
+    private fun fetchWeeklyMeals() = viewModelScope.launch {
         try {
-            _todayMeal.value = mealUseCase.getTodaysMeal()
+            _weeklyMeals.value = mealUseCase.getWeeklyMeal()
         } catch (e: Exception) {
             e.printStackTrace()
-            _todayMeal.value = mealUseCase.failedMeal
+            _weeklyMeals.value = listOf()
         }
     }
+
 }
