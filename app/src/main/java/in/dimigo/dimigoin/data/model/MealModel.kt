@@ -4,6 +4,10 @@ import `in`.dimigo.dimigoin.ui.item.MealItem
 
 private typealias MealList = List<String>
 
+data class WeeklyMealResponseModel(
+    val meals: List<MealModel>
+)
+
 data class MealResponseModel(
     val meal: MealModel
 ) {
@@ -21,3 +25,9 @@ data class MealModel(
 )
 
 private fun MealList.joinToString() = joinToString(", ")
+
+fun MealModel.toMealItem() = MealItem(
+    this.breakfast.joinToString(),
+    this.lunch.joinToString(),
+    this.dinner.joinToString()
+)

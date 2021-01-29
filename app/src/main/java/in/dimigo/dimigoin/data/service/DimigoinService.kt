@@ -1,9 +1,6 @@
 package `in`.dimigo.dimigoin.data.service
 
-import `in`.dimigo.dimigoin.data.model.AuthModel
-import `in`.dimigo.dimigoin.data.model.LoginRequestModel
-import `in`.dimigo.dimigoin.data.model.MealResponseModel
-import `in`.dimigo.dimigoin.data.model.UserResponseModel
+import `in`.dimigo.dimigoin.data.model.*
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -21,7 +18,7 @@ interface DimigoinService {
     fun getMeal(@Path("date") date: String): Call<MealResponseModel>
 
     @GET("/meal/weekly")
-    fun getWeeklyMeal(): Call<List<MealResponseModel>>
+    fun getWeeklyMeal(): Call<WeeklyMealResponseModel>
 
     companion object {
         const val BASE_URL = "http://edison.dimigo.hs.kr"
