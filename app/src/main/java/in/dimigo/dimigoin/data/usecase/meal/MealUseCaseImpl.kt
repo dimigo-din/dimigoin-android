@@ -1,5 +1,6 @@
 package `in`.dimigo.dimigoin.data.usecase.meal
 
+import `in`.dimigo.dimigoin.data.model.toMealItem
 import `in`.dimigo.dimigoin.data.service.DimigoinService
 import `in`.dimigo.dimigoin.ui.item.MealItem
 import retrofit2.await
@@ -13,7 +14,7 @@ class MealUseCaseImpl(private val service: DimigoinService, override val failedM
         return getMeal(calendar.time)
     }
 
-    override suspend fun getWeeklyMeal(): List<MealItem> = service.getWeeklyMeal().await().map { it.toMealItem() }
+    override suspend fun getWeeklyMeal(): List<MealItem> = service.getWeeklyMeal().await().meals.map { it.toMealItem() }
 
     override suspend fun getMeal(date: Date): MealItem {
         val formattedDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(date)
