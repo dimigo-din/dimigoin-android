@@ -7,8 +7,12 @@
         <import type="in.dimigo.dimigoin.ui.main.fragment.meal.MealTime" />
 
         <variable
-            name="meal"
-            type="in.dimigo.dimigoin.data.model.MealModel" />
+            name="position"
+            type="int" />
+
+        <variable
+            name="vm"
+            type="in.dimigo.dimigoin.ui.main.fragment.meal.MealViewModel" />
     </data>
 
     <LinearLayout
@@ -21,19 +25,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            app:meal="@{meal.breakfast}"
+            app:meal="@{vm.weeklyMeals[position].breakfast}"
             app:mealTime="@{MealTime.BREAKFAST}"
             app:time="@{`오전 8시 10분`}" />
 
         <include
             layout="@layout/layout_meal_section"
-            app:meal="@{meal.lunch}"
+            app:meal="@{vm.weeklyMeals[position].lunch}"
             app:mealTime="@{MealTime.LUNCH}"
             app:time="@{`오후 1시 27분`}" />
 
         <include
             layout="@layout/layout_meal_section"
-            app:meal="@{meal.dinner}"
+            app:meal="@{vm.weeklyMeals[position].dinner}"
             app:mealTime="@{MealTime.DINNER}"
             app:time="@{`오후 7시 21분`}" />
 
