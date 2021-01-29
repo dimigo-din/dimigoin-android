@@ -20,6 +20,9 @@ interface DimigoinService {
     @GET("/meal/{date}")
     fun getMeal(@Path("date") date: String): Call<MealResponseModel>
 
+    @GET("/meal/weekly")
+    fun getWeeklyMeal(): Call<List<MealResponseModel>>
+
     companion object {
         const val BASE_URL = "http://edison.dimigo.hs.kr"
 
