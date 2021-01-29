@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="in.dimigo.dimigoin.ui.main.fragment.meal.MealTime" />
+
+        <variable
+            name="vm"
+            type="in.dimigo.dimigoin.ui.main.fragment.meal.MealViewModel" />
+
+        <variable
+            name="date"
+            type="String" />
+    </data>
+
+    <ScrollView
+        android:id="@+id/mealScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:overScrollMode="never"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <include
+                layout="@layout/layout_title"
+                app:hideDivider="@{true}"
+                app:icon="@{@drawable/ic_meal_enabled}"
+                app:sub="@{date}"
+                app:title="@{@string/today_meal}" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</layout>

@@ -25,9 +25,9 @@
 
     <fragment
         android:id="@+id/meal"
-        android:name="in.dimigo.dimigoin.ui.main.fragment.meal.MealFragment"
+        android:name="in.dimigo.dimigoin.ui.main.fragment.meal.WeeklyMealFragment"
         android:label="@string/meal"
-        tools:layout="@layout/fragment_meal" />
+        tools:layout="@layout/fragment_weekly_meal" />
 
     <fragment
         android:id="@+id/timetable"
