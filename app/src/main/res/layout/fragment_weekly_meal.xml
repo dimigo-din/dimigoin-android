@@ -34,6 +34,21 @@
                 app:sub="@{date}"
                 app:title="@{@string/today_meal}" />
 
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/default_horizontal_margin" />
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/mealViewPager"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:clipChildren="false"
+                android:clipToPadding="false"
+                android:outlineProvider="bounds" />
+
         </LinearLayout>
 
     </ScrollView>

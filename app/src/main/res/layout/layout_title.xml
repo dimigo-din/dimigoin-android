@@ -76,7 +76,7 @@
             style="@style/Divider"
             android:id="@+id/divider"
             android:layout_marginTop="20dp"
-            android:visibility="@{hideDivider ? View.INVISIBLE : View.VISIBLE}"
+            android:visibility="@{hideDivider ? View.GONE : View.VISIBLE}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/titleText" />
