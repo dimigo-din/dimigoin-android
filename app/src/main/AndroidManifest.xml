@@ -60,5 +60,13 @@
         <service
             android:name=".ui.widget.NextMealWidgetService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
+
+        <meta-data
+            android:name="firebase_crashlytics_collection_enabled"
+            android:value="@bool/FIREBASE_CRASHLYTICS_ENABLED" />
+
+        <meta-data
+            android:name="firebase_analytics_collection_deactivated"
+            android:value="@bool/FIREBASE_ANALYTICS_DEACTIVATED" />
     </application>
 </manifest>
