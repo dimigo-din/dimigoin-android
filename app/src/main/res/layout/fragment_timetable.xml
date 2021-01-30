@@ -27,12 +27,16 @@
 
             <include
                 layout="@layout/layout_title"
+                app:hideDivider="@{true}"
                 app:icon="@{@drawable/ic_calendar_enabled}"
                 app:sub="@{@string/grade_class_format(user.grade, user.klass)}"
                 app:title="@{@string/timetable}" />
 
             <include
                 layout="@layout/layout_weekdays"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
                 app:shortWeekDays="@{shortWeekDays}" />
 
             <androidx.recyclerview.widget.RecyclerView
