@@ -30,7 +30,6 @@ class LoginViewModel(private val useCase: AuthUseCase, private val userUseCase: 
         viewModelScope.launch {
             _isLoginRequested.value = true
             login(loginRequestModel)
-            _isLoginRequested.value = false
         }
     }
 
@@ -51,6 +50,7 @@ class LoginViewModel(private val useCase: AuthUseCase, private val userUseCase: 
         val loginSucceeded = useCase.tryLogin(loginRequestModel)
         if (!loginSucceeded) {
             _event.value = EventWrapper(LoginActivity.Event.LoginFail)
+            _isLoginRequested.value = false
             return
         }
 
@@ -59,6 +59,7 @@ class LoginViewModel(private val useCase: AuthUseCase, private val userUseCase: 
             _event.value = EventWrapper(LoginActivity.Event.LoginSuccess)
         } catch (e: Exception) {
             e.printStackTrace()
+            _isLoginRequested.value = false
             _event.value = EventWrapper(LoginActivity.Event.LoginFail)
         }
     }
