@@ -28,11 +28,15 @@
             android:src="@drawable/logo" />
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/idInputLayout"
             style="@style/TextInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="24dp"
-            android:layout_marginTop="16dp">
+            android:layout_marginTop="16dp"
+            android:animateLayoutChanges="true"
+            app:errorEnabled="@{vm.idErrorEnabled}"
+            app:errorText="@{vm.idErrorEnabled ? @string/enter_id : null}">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/idEditText"
@@ -44,11 +48,15 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/pwInputLayout"
             style="@style/TextInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="24dp"
-            android:layout_marginTop="8dp">
+            android:layout_marginTop="8dp"
+            android:animateLayoutChanges="true"
+            app:errorEnabled="@{vm.pwErrorEnabled}"
+            app:errorText="@{vm.pwErrorEnabled ? @string/enter_pw : null}">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/pwEditText"
