@@ -28,6 +28,7 @@
     <string name="id">아이디</string>
     <string name="password">비밀번호</string>
     <string name="login">로그인</string>
+    <string name="forgot_id_pw">아이디 또는 비밀번호를 잊으셨나요?</string>
     <string name="login_failed">로그인에 실패했습니다. 아이디, 비밀번호를 확인해주세요.</string>
     <string name="today_meal">오늘의 급식</string>
     <string name="next_meal">다음 급식</string>
