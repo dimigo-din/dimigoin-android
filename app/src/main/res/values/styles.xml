@@ -73,6 +73,9 @@
         <item name="boxCornerRadiusTopEnd">@dimen/primary_corner_radius</item>
         <item name="boxCornerRadiusTopStart">@dimen/primary_corner_radius</item>
         <item name="boxStrokeColor">@color/text_input_layout_stroke_color</item>
+        <item name="errorIconDrawable">@null</item>
+        <item name="errorTextColor">@color/red_a400</item>
+        <item name="boxStrokeErrorColor">@color/red_a400</item>
     </style>
 
     <style name="TextInputEditText">
