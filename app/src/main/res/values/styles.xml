@@ -53,10 +53,32 @@
         <item name="android:textSize">18sp</item>
     </style>
 
-    <style name="Button">
-        <item name="android:fontFamily">@font/medium</item>
-        <item name="android:textSize">16sp</item>
-        <item name="cornerRadius">@dimen/primary_corner_radius</item>
+    <style name="Button" parent="Widget.MaterialComponents.Button">
+        <item name="android:fontFamily">@font/bold</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:textSize">14sp</item>
+        <item name="shapeAppearanceOverlay">@style/ButtonAppearance</item>
+        <item name="android:stateListAnimator">@null</item>
+    </style>
+
+    <style name="ButtonAppearance">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/primary_corner_radius</item>
+    </style>
+
+    <style name="TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="android:textColorHint">@color/grey_300</item>
+        <item name="boxCornerRadiusBottomEnd">@dimen/primary_corner_radius</item>
+        <item name="boxCornerRadiusBottomStart">@dimen/primary_corner_radius</item>
+        <item name="boxCornerRadiusTopEnd">@dimen/primary_corner_radius</item>
+        <item name="boxCornerRadiusTopStart">@dimen/primary_corner_radius</item>
+        <item name="boxStrokeColor">@color/text_input_layout_stroke_color</item>
+    </style>
+
+    <style name="TextInputEditText">
+        <item name="fontFamily">@font/regular</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:inputType">text</item>
     </style>
 
     <style name="Divider">
