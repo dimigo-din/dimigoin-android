@@ -13,7 +13,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.biometric.BiometricConstants
+import androidx.biometric.BiometricManager.Authenticators.BIOMETRIC_WEAK
+import androidx.biometric.BiometricManager.Authenticators.DEVICE_CREDENTIAL
 import androidx.biometric.BiometricPrompt
 import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.core.content.ContextCompat
@@ -91,7 +92,7 @@ class CardFragment : Fragment() {
 
             override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
                 super.onAuthenticationError(errorCode, errString)
-                if (errorCode != BiometricConstants.ERROR_USER_CANCELED)
+                if (errorCode != BiometricPrompt.ERROR_USER_CANCELED)
                     Toast.makeText(
                         requireContext(),
                         R.string.cannot_use_biometric_authentication,
@@ -104,7 +105,7 @@ class CardFragment : Fragment() {
         val promptInfo = BiometricPrompt.PromptInfo.Builder()
             .setTitle(getString(R.string.authenticate))
             .setSubtitle(getString(R.string.authenticate_to_use_card))
-            .setDeviceCredentialAllowed(true)
+            .setAllowedAuthenticators(BIOMETRIC_WEAK or DEVICE_CREDENTIAL)
             .build()
         biometricPrompt.authenticate(promptInfo)
     }
