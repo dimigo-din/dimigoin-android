@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <ScrollView
         android:id="@+id/ingangScrollView"
@@ -20,14 +21,67 @@
                 app:sub="@{@string/night_study}"
                 app:title="@{@string/ingang}" />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/default_horizontal_margin"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/bg_round_corner_square"
+                android:baselineAligned="false"
+                android:elevation="@dimen/default_card_elevation">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:padding="24dp">
+
+                    <TextView
+                        android:id="@+id/applicationTimeText"
+                        style="@style/Text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/bold"
+                        android:text="@string/application_time_for_grade"
+                        tools:text="2학년 신청 시간" />
+
+                    <TextView
+                        style="@style/Text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:drawablePadding="12dp"
+                        android:textColor="@color/grey_450"
+                        app:drawableStartCompat="@drawable/ic_clock"
+                        app:drawableTint="@color/grey_500"
+                        tools:text="07:00 - 08:15" />
+
+                    <TextView
+                        style="@style/Text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:drawablePadding="12dp"
+                        android:text="@string/max_count_per_class"
+                        android:textColor="@color/grey_450"
+                        app:drawableStartCompat="@drawable/ic_people"
+                        app:drawableTint="@color/grey_500"
+                        tools:text="한 학급당 최대 6명" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
             <include
                 layout="@layout/layout_ingang_section"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
                 app:applied="@{false}"
                 app:currentNumber="@{8}"
-                app:ingangName="@{`야간자율학습 1타임`}"
-                app:ingangTime="@{`19:50 ~ 21:20`}"
+                app:ingangName="@{@string/night_study_1}"
+                app:ingangTime="@{`19:50 ~ 21:10`}"
                 app:totalNumber="@{8}" />
 
             <include
@@ -36,9 +90,11 @@
                 android:layout_height="wrap_content"
                 app:applied="@{true}"
                 app:currentNumber="@{8}"
-                app:ingangName="@{`야간자율학습 2타임`}"
-                app:ingangTime="@{`21:10 ~ 22:50`}"
+                app:ingangName="@{@string/night_study_2}"
+                app:ingangTime="@{`21:30 ~ 23:00`}"
                 app:totalNumber="@{8}" />
         </LinearLayout>
+
     </ScrollView>
+
 </layout>

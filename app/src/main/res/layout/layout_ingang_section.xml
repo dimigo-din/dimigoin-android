@@ -26,10 +26,10 @@
             type="boolean" />
     </data>
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:paddingBottom="24dp">
 
         <TextView
             android:id="@+id/ingangTime"
@@ -38,6 +38,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/default_horizontal_margin"
             android:text="@{ingangTime}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             tools:text="19:50 ~ 21:20" />
 
         <TextView
@@ -47,85 +49,35 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/default_horizontal_margin"
             android:text="@{ingangName}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ingangTime"
             tools:text="@string/night_study_1" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <Button
+            style="@style/Button.Slim"
+            android:layout_width="wrap_content"
+            android:layout_marginEnd="@dimen/default_horizontal_margin"
+            android:text="@string/apply"
+            app:layout_constraintBottom_toBottomOf="@id/ingangName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/ingangName" />
+
+        <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/default_horizontal_margin"
             android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
             android:background="@drawable/bg_round_corner_square"
-            android:elevation="@dimen/default_card_elevation">
+            android:elevation="@dimen/default_card_elevation"
+            android:padding="16dp"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ingangName"
+            app:spanCount="4"
+            tools:itemCount="8"
+            tools:listitem="@layout/item_ingang_applier_name" />
 
-            <TextView
-                android:id="@+id/currentNumber"
-                style="@style/Text"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:fontFamily="@font/bold"
-                android:gravity="center"
-                android:text="@{String.valueOf(currentNumber)}"
-                android:textColor="@{applied ? @color/grey_450 : @color/pink_400}"
-                android:textSize="48sp"
-                app:layout_constraintEnd_toStartOf="@id/totalNumber"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="8"
-                tools:textColor="@color/pink_400" />
-
-            <TextView
-                style="@style/Text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="32dp"
-                android:fontFamily="@font/bold"
-                android:text="@string/current_number_of_people"
-                android:textColor="@{applied ? @color/grey_450 : @color/pink_400}"
-                android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@id/currentNumber"
-                app:layout_constraintStart_toStartOf="@id/currentNumber"
-                app:layout_constraintTop_toBottomOf="@id/currentNumber"
-                tools:textColor="@color/pink_400" />
-
-            <TextView
-                android:id="@+id/totalNumber"
-                style="@style/Text"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/bold"
-                android:gravity="center"
-                android:text="@{String.valueOf(totalNumber)}"
-                android:textSize="48sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/currentNumber"
-                app:layout_constraintTop_toTopOf="@id/currentNumber"
-                tools:text="8" />
-
-            <TextView
-                style="@style/Text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/bold"
-                android:text="@string/total_number_of_people"
-                android:textSize="16sp"
-                app:layout_constraintEnd_toEndOf="@id/totalNumber"
-                app:layout_constraintStart_toStartOf="@id/totalNumber"
-                app:layout_constraintTop_toBottomOf="@id/totalNumber" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <Button
-            style="@style/Button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/default_horizontal_margin"
-            android:layout_marginTop="4dp"
-            android:layout_marginBottom="32dp"
-            android:backgroundTint="@{applied ? @color/grey_450 : @color/pink_400}"
-            android:text="@{applied ? @string/cancel : @string/apply}"
-            tools:text="@string/apply" />
-
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

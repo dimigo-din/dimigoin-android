@@ -61,9 +61,19 @@
         <item name="android:stateListAnimator">@null</item>
     </style>
 
+    <style name="Button.Slim">
+        <item name="android:layout_height">40dp</item>
+        <item name="android:padding">0dp</item>
+        <item name="shapeAppearanceOverlay">@style/ButtonAppearance.FullRounded</item>
+    </style>
+
     <style name="ButtonAppearance">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">@dimen/primary_corner_radius</item>
+    </style>
+
+    <style name="ButtonAppearance.FullRounded">
+        <item name="cornerSize">100dp</item>
     </style>
 
     <style name="TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
