@@ -32,7 +32,7 @@
                 app:hideDivider="@{true}"
                 app:icon="@{@drawable/ic_meal_enabled}"
                 app:sub="@{date}"
-                app:title="@{@string/today_meal}" />
+                app:title="@{@string/meal}" />
 
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tabLayout"
