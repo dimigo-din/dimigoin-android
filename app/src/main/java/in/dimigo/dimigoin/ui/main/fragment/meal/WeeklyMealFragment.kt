@@ -16,7 +16,7 @@ import java.util.*
 class WeeklyMealFragment : Fragment() {
     private val viewModel: MealViewModel by sharedGraphViewModel(R.id.main_nav_graph)
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val binding = FragmentWeeklyMealBinding.inflate(inflater, container, false)
         val shortWeekDays = listOf("월", "화", "수", "목", "금", "토", "일")
 
