@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -22,27 +21,22 @@
         android:orientation="vertical"
         tools:ignore="UseCompoundDrawables">
 
-        <ImageView
+        <carbon.widget.ImageView
+            style="@style/CarbonCard.Round"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_marginHorizontal="4dp"
-            android:layout_marginTop="4dp"
-            android:background="@drawable/bg_circle"
+            android:layout_margin="8dp"
             android:backgroundTint="@{vm.attendanceLocation == location ? @color/pink_400 : @color/white}"
             android:contentDescription="@null"
-            android:elevation="2dp"
             android:padding="10dp"
             android:src="@{location.icon}"
-            app:civ_circle_background_color="@color/white"
-            app:tint="@{vm.attendanceLocation == location ? @color/white : @color/pink_400}"
-            tools:src="@drawable/ic_location_class"
-            tools:tint="@color/pink_400" />
+            android:tint="@{vm.attendanceLocation == location ? @color/white : @color/pink_400}"
+            tools:src="@drawable/ic_location_class" />
 
         <TextView
             style="@style/Text.Content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
             android:layout_marginBottom="4dp"
             android:fontFamily="@font/medium"
             android:text="@{location.locationName}"

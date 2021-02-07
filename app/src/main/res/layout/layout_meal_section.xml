@@ -19,7 +19,8 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:clipChildren="false"
         android:orientation="vertical">
 
         <TextView
@@ -38,19 +39,24 @@
             android:text="@{mealTime.stringId}"
             tools:text="@string/breakfast" />
 
-        <TextView
-            style="@style/Text.Content.Grey"
+        <carbon.widget.FrameLayout
+            style="@style/CarbonCard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/default_horizontal_margin"
             android:layout_marginTop="16dp"
-            android:layout_marginBottom="20dp"
-            android:background="@drawable/bg_left_pink_border_stroke"
-            android:elevation="@dimen/default_card_elevation"
-            android:lineSpacingExtra="8dp"
-            android:padding="24dp"
-            android:text="@{meal}"
-            tools:text="현미밥 | 얼큰김칫국 | 토마토달걀볶음 | 호박버섯볶음 | 깍두기 | 베이컨 | 완제김 | 스트링치즈 | 모닝빵미니버거 | 포도주스" />
+            android:layout_marginBottom="32dp">
+
+            <TextView
+                style="@style/Text.Content.Grey"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="24dp"
+                android:lineSpacingExtra="8dp"
+                android:text="@{meal}"
+                tools:text="현미밥 | 얼큰김칫국 | 토마토달걀볶음 | 호박버섯볶음 | 깍두기 | 베이컨 | 완제김 | 스트링치즈 | 모닝빵미니버거 | 포도주스" />
+
+        </carbon.widget.FrameLayout>
 
     </LinearLayout>
 

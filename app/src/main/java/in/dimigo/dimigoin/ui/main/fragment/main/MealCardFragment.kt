@@ -18,14 +18,13 @@ class MealCardFragment : Fragment() {
     }
     private val mainFragmentViewModel: MainFragmentViewModel by sharedGraphViewModel(R.id.main_nav_graph)
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.layout_meal_card, container, false)
         initView()
         return binding.root
     }
 
     private fun initView() = with(binding) {
-        mealCard.clipToOutline = false
         lifecycleOwner = viewLifecycleOwner
         vm = mainFragmentViewModel
         mealTime = this@MealCardFragment.mealTime

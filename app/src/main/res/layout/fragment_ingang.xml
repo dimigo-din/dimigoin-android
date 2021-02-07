@@ -21,14 +21,13 @@
                 app:sub="@{@string/night_study}"
                 app:title="@{@string/ingang}" />
 
-            <LinearLayout
+            <carbon.widget.LinearLayout
+                style="@style/CarbonCard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/default_horizontal_margin"
                 android:layout_marginTop="20dp"
-                android:background="@drawable/bg_round_corner_square"
-                android:baselineAligned="false"
-                android:elevation="@dimen/default_card_elevation">
+                android:baselineAligned="false">
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -71,7 +70,7 @@
 
                 </LinearLayout>
 
-            </LinearLayout>
+            </carbon.widget.LinearLayout>
 
             <include
                 layout="@layout/layout_ingang_section"

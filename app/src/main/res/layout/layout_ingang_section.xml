@@ -28,8 +28,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingBottom="24dp">
+        android:layout_height="wrap_content">
 
         <TextView
             android:id="@+id/ingangTime"
@@ -62,14 +61,13 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/ingangName" />
 
-        <androidx.recyclerview.widget.RecyclerView
+        <carbon.widget.RecyclerView
+            style="@style/CarbonCard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/default_horizontal_margin"
             android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
-            android:background="@drawable/bg_round_corner_square"
-            android:elevation="@dimen/default_card_elevation"
+            android:layout_marginBottom="40dp"
             android:padding="16dp"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"

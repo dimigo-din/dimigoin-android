@@ -96,6 +96,21 @@
         <item name="android:paddingEnd">20dp</item>
     </style>
 
+    <style name="CarbonElevation">
+        <item name="carbon_elevation">20dp</item>
+        <item name="carbon_elevationSpotShadowColor">@color/black_alpha_20</item>
+    </style>
+
+    <style name="CarbonCard" parent="CarbonElevation">
+        <item name="android:background">@drawable/bg_round_corner_square</item>
+    </style>
+
+    <style name="CarbonCard.Round" parent="CarbonElevation">
+        <item name="android:background">@drawable/bg_circle</item>
+        <item name="carbon_cornerRadius">100dp</item>
+        <item name="carbon_elevationSpotShadowColor">@color/black_alpha_10</item>
+    </style>
+
     <style name="Divider">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">2dp</item>
