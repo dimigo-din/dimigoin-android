@@ -14,7 +14,15 @@ class MealUseCaseImpl(private val service: DimigoinService, override val failedM
         return getMeal(calendar.time)
     }
 
-    override suspend fun getWeeklyMeal(): List<MealItem> = service.getWeeklyMeal().await().meals.map { it.toMealItem() }
+    override suspend fun getWeeklyMeal(): List<MealItem> {
+        val meals = service.getWeeklyMeal().await().meals.map { it.toMealItem() }.toMutableList()
+        repeat(7) { i ->
+            meals.getOrNull(i) ?: run {
+                meals[i] = failedMeal
+            }
+        }
+        return meals
+    }
 
     override suspend fun getMeal(date: Date): MealItem {
         val formattedDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(date)

@@ -17,14 +17,12 @@ class MealViewModel(private val mealUseCase: MealUseCase) : ViewModel() {
     }
 
     private fun fetchWeeklyMeals() = viewModelScope.launch {
-        val failedData = Array(7) { mealUseCase.failedMeal }
-
         try {
             _weeklyMeals.value = mealUseCase.getWeeklyMeal()
         } catch (e: Exception) {
             e.printStackTrace()
+            val failedData = Array(7) { mealUseCase.failedMeal }
             _weeklyMeals.value = failedData.toList()
         }
     }
-
 }
