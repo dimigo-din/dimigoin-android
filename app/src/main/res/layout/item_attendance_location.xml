@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -21,17 +22,24 @@
         android:orientation="vertical"
         tools:ignore="UseCompoundDrawables">
 
-        <carbon.widget.ImageView
+        <carbon.widget.FrameLayout
             style="@style/CarbonCard.Round"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_margin="8dp"
-            android:backgroundTint="@{vm.attendanceLocation == location ? @color/pink_400 : @color/white}"
-            android:contentDescription="@null"
-            android:padding="10dp"
-            android:src="@{location.icon}"
-            android:tint="@{vm.attendanceLocation == location ? @color/white : @color/pink_400}"
-            tools:src="@drawable/ic_location_class" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp">
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/bg_circle"
+                android:backgroundTint="@{vm.attendanceLocation == location ? @color/pink_400 : @color/white}"
+                android:contentDescription="@null"
+                android:padding="10dp"
+                android:src="@{location.icon}"
+                app:tint="@{vm.attendanceLocation == location ? @color/white : @color/pink_400}"
+                tools:src="@drawable/ic_location_class"
+                tools:tint="@color/pink_400" />
+        </carbon.widget.FrameLayout>
 
         <TextView
             style="@style/Text.Content"
