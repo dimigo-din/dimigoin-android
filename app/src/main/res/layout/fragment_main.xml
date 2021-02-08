@@ -76,35 +76,34 @@
                     android:layout_height="0dp"
                     android:layout_weight="1" />
 
-                <TextView
-                    style="@style/Text.Sub"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="16dp"
-                    android:text="@string/today_meal" />
-
-                <androidx.viewpager2.widget.ViewPager2
-                    android:id="@+id/mealViewPager"
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="4dp"
-                    android:clipChildren="false"
-                    android:clipToPadding="false"
-                    android:outlineProvider="bounds" />
+                    android:layout_marginBottom="32dp">
 
-                <com.rd.PageIndicatorView
-                    android:id="@+id/mealPageIndicator"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginBottom="20dp"
-                    app:piv_animationType="color"
-                    app:piv_count="3"
-                    app:piv_radius="5dp"
-                    app:piv_selectedColor="@color/pink_400"
-                    app:piv_unselectedColor="@color/grey_200"
-                    app:piv_viewPager="@id/mealViewPager" />
+                    <androidx.viewpager2.widget.ViewPager2
+                        android:id="@+id/mealViewPager"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.rd.PageIndicatorView
+                        android:id="@+id/mealPageIndicator"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:elevation="@dimen/carbon_elevation"
+                        app:layout_constraintBottom_toBottomOf="@id/mealViewPager"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:piv_animationType="color"
+                        app:piv_count="3"
+                        app:piv_radius="4dp"
+                        app:piv_selectedColor="@color/pink_400"
+                        app:piv_unselectedColor="@color/grey_200"
+                        app:piv_viewPager="@id/mealViewPager" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
             </LinearLayout>
 

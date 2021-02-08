@@ -97,12 +97,13 @@
     </style>
 
     <style name="CarbonElevation">
-        <item name="carbon_elevation">20dp</item>
+        <item name="carbon_elevation">@dimen/carbon_elevation</item>
         <item name="carbon_elevationSpotShadowColor">@color/black_alpha_20</item>
     </style>
 
     <style name="CarbonCard" parent="CarbonElevation">
         <item name="android:background">@drawable/bg_round_corner_square</item>
+        <item name="carbon_cornerRadius">@dimen/primary_corner_radius</item>
     </style>
 
     <style name="CarbonCard.Round" parent="CarbonElevation">
