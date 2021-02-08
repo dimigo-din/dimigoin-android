@@ -17,8 +17,7 @@
         android:orientation="vertical">
 
         <View
-            style="@style/Divider"
-            android:layout_height="1dp"
+            style="@style/Divider.Thin"
             android:layout_marginBottom="12dp" />
 
         <LinearLayout
@@ -75,8 +74,7 @@
         </LinearLayout>
 
         <View
-            style="@style/Divider"
-            android:layout_height="1dp"
+            style="@style/Divider.Thin"
             android:layout_marginTop="12dp" />
 
     </LinearLayout>

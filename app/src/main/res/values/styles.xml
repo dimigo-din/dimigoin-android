@@ -120,6 +120,10 @@
         <item name="android:background">@color/grey_100</item>
     </style>
 
+    <style name="Divider.Thin">
+        <item name="android:layout_height">1dp</item>
+    </style>
+
     <style name="WidgetText">
         <item name="android:textColor">?attr/widgetTextColor</item>
     </style>
