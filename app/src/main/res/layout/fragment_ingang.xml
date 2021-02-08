@@ -17,60 +17,64 @@
 
             <include
                 layout="@layout/layout_title"
+                app:hideDivider="@{true}"
                 app:icon="@{@drawable/ic_ingang_enabled}"
                 app:sub="@{@string/night_study}"
                 app:title="@{@string/ingang}" />
 
-            <carbon.widget.LinearLayout
+            <carbon.widget.ConstraintLayout
                 style="@style/CarbonCard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/default_horizontal_margin"
-                android:layout_marginTop="20dp"
-                android:baselineAligned="false">
+                android:layout_marginTop="20dp">
 
-                <LinearLayout
-                    android:layout_width="0dp"
+                <TextView
+                    android:id="@+id/applicationTimeText"
+                    style="@style/Text"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:padding="24dp">
+                    android:layout_marginVertical="14dp"
+                    android:drawablePadding="12dp"
+                    android:fontFamily="@font/bold"
+                    android:text="@{@string/time_range_format(7, 0, 8, 15)}"
+                    android:textColor="@color/grey_500"
+                    android:textSize="12sp"
+                    app:drawableStartCompat="@drawable/ic_clock"
+                    app:drawableTint="@color/grey_500"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/verticalDivider"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="07:00 - 08:15" />
 
-                    <TextView
-                        android:id="@+id/applicationTimeText"
-                        style="@style/Text"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/bold"
-                        android:text="@string/application_time_for_grade"
-                        tools:text="2학년 신청 시간" />
+                <View
+                    android:id="@+id/verticalDivider"
+                    style="@style/Divider.Thin.Vertical"
+                    android:layout_height="0dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-                    <TextView
-                        style="@style/Text"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
-                        android:drawablePadding="12dp"
-                        android:textColor="@color/grey_450"
-                        app:drawableStartCompat="@drawable/ic_clock"
-                        app:drawableTint="@color/grey_500"
-                        tools:text="07:00 - 08:15" />
+                <TextView
+                    style="@style/Text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:drawablePadding="12dp"
+                    android:fontFamily="@font/bold"
+                    android:text="@{@string/remaining_tickets(3, 4)}"
+                    android:textColor="@color/pink_400"
+                    android:textSize="12sp"
+                    app:drawableStartCompat="@drawable/ic_ticket"
+                    app:drawableTint="@color/pink_400"
+                    app:layout_constraintBottom_toBottomOf="@id/applicationTimeText"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/verticalDivider"
+                    app:layout_constraintTop_toTopOf="@id/applicationTimeText"
+                    tools:text="남은 티켓 3/4" />
 
-                    <TextView
-                        style="@style/Text"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
-                        android:drawablePadding="12dp"
-                        android:text="@string/max_count_per_class"
-                        android:textColor="@color/grey_450"
-                        app:drawableStartCompat="@drawable/ic_people"
-                        app:drawableTint="@color/grey_500"
-                        tools:text="한 학급당 최대 6명" />
-
-                </LinearLayout>
-
-            </carbon.widget.LinearLayout>
+            </carbon.widget.ConstraintLayout>
 
             <include
                 layout="@layout/layout_ingang_section"
@@ -80,7 +84,7 @@
                 app:applied="@{false}"
                 app:currentNumber="@{8}"
                 app:ingangName="@{@string/night_study_1}"
-                app:ingangTime="@{`19:50 ~ 21:10`}"
+                app:ingangTime="@{@string/time_range_format(19, 50, 21, 10)}"
                 app:totalNumber="@{8}" />
 
             <include
@@ -90,7 +94,7 @@
                 app:applied="@{true}"
                 app:currentNumber="@{8}"
                 app:ingangName="@{@string/night_study_2}"
-                app:ingangTime="@{`21:30 ~ 23:00`}"
+                app:ingangTime="@{@string/time_range_format(21, 30, 23, 0)}"
                 app:totalNumber="@{8}" />
         </LinearLayout>
 

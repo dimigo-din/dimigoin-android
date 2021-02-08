@@ -28,7 +28,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:paddingBottom="28dp">
 
         <TextView
             android:id="@+id/ingangTime"
@@ -36,6 +37,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/default_horizontal_margin"
+            android:fontFamily="@font/bold"
             android:text="@{ingangTime}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -52,29 +54,28 @@
             app:layout_constraintTop_toBottomOf="@id/ingangTime"
             tools:text="@string/night_study_1" />
 
-        <Button
-            style="@style/Button.Slim"
-            android:layout_width="wrap_content"
-            android:layout_marginEnd="@dimen/default_horizontal_margin"
-            android:text="@string/apply"
-            app:layout_constraintBottom_toBottomOf="@id/ingangName"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/ingangName" />
-
         <carbon.widget.RecyclerView
+            android:id="@+id/applierRecyclerView"
             style="@style/CarbonCard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/default_horizontal_margin"
             android:layout_marginTop="16dp"
-            android:layout_marginBottom="40dp"
             android:padding="16dp"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/ingangName"
             app:spanCount="4"
             tools:itemCount="8"
             tools:listitem="@layout/item_ingang_applier_name" />
+
+        <include
+            layout="@layout/layout_submit_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/default_horizontal_margin"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@id/applierRecyclerView"
+            app:text="@{@string/apply}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

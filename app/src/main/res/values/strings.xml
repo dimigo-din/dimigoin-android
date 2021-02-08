@@ -8,10 +8,8 @@
     <string name="meal">급식표</string>
     <string name="timetable">시간표</string>
     <string name="attendance_state">자습 현황</string>
-    <string name="application_time_for_grade">%d학년 신청 시간</string>
-    <string name="max_count_per_class">한 학급당 최대 <b>%d명</b></string>
     <string name="night_study">야간자율학습</string>
-    <string name="time_range_format">야간자율학습</string>
+    <string name="time_range_format">%02d:%02d - %02d:%02d</string>
     <string name="night_study_1">야간자율학습 1타임</string>
     <string name="night_study_2">야간자율학습 2타임</string>
     <string name="location_class">교실</string>
@@ -27,6 +25,7 @@
     <string name="total_number_of_people">총원</string>
     <string name="apply">신청하기</string>
     <string name="cancel">취소하기</string>
+    <string name="remaining_tickets">남은 티켓 %d/%d</string>
 
     <string name="id">아이디</string>
     <string name="password">비밀번호</string>
