@@ -68,35 +68,16 @@
                 android:text="@={vm.password}" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <include
+            layout="@layout/layout_submit_button"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="64dp"
             android:layout_marginHorizontal="24dp"
             android:layout_marginTop="32dp"
             android:layout_marginBottom="12dp"
-            app:boxStrokeColor="@color/grey_300">
-
-            <Button
-                android:id="@+id/loginButton"
-                style="@style/Button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:clickable="@{!vm.isLoginRequested}"
-                android:onClick="@{() -> vm.onLoginButtonClick()}"
-                android:paddingVertical="16dp"
-                android:text="@string/login"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ProgressBar
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:layout_marginStart="8dp"
-                android:indeterminateTint="@color/white"
-                android:visibility="@{vm.isLoginRequested ? View.VISIBLE : View.INVISIBLE}"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            app:isLoading="@{vm.isLoginRequested}"
+            app:onClick="@{() -> vm.onLoginButtonClick()}"
+            app:text="@{@string/login}" />
 
         <TextView
             style="@style/Text"
