@@ -2,7 +2,10 @@ package `in`.dimigo.dimigoin.data.service
 
 import `in`.dimigo.dimigoin.data.model.*
 import retrofit2.Call
-import retrofit2.http.*
+import retrofit2.http.Body
+import retrofit2.http.GET
+import retrofit2.http.Header
+import retrofit2.http.POST
 
 interface DimigoinService {
     @POST("/auth")
@@ -14,8 +17,8 @@ interface DimigoinService {
     @GET("/user/me")
     fun getMyInfo(): Call<UserResponseModel>
 
-    @GET("/meal/{date}")
-    fun getMeal(@Path("date") date: String): Call<MealResponseModel>
+    @GET("/meal/today")
+    fun getTodayMeal(): Call<MealResponseModel>
 
     @GET("/meal/weekly")
     fun getWeeklyMeal(): Call<WeeklyMealResponseModel>
