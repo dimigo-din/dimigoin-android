@@ -3,6 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <variable
+            name="vm"
+            type="in.dimigo.dimigoin.ui.main.fragment.ingang.IngangViewModel" />
+    </data>
+
     <ScrollView
         android:id="@+id/ingangScrollView"
         android:layout_width="match_parent"
@@ -63,7 +70,7 @@
                     android:layout_height="match_parent"
                     android:drawablePadding="12dp"
                     android:fontFamily="@font/bold"
-                    android:text="@{@string/remaining_tickets(3, 4)}"
+                    android:text="@{@string/remaining_tickets(vm.ingangStatus.weeklyRemainTicket, vm.ingangStatus.weeklyTicketCount)}"
                     android:textColor="@color/pink_400"
                     android:textSize="12sp"
                     app:drawableStartCompat="@drawable/ic_ticket"

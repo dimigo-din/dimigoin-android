@@ -7,11 +7,23 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import me.everything.android.ui.overscroll.OverScrollDecoratorHelper
+import org.koin.android.ext.android.inject
 
 class IngangFragment : Fragment() {
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val binding = FragmentIngangBinding.inflate(inflater, container, false)
-        OverScrollDecoratorHelper.setUpOverScroll(binding.ingangScrollView)
+    private lateinit var binding: FragmentIngangBinding
+    private val viewModel: IngangViewModel by inject()
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        binding = FragmentIngangBinding.inflate(inflater, container, false).apply {
+            lifecycleOwner = viewLifecycleOwner
+            vm = viewModel
+        }
+        initView()
+
         return binding.root
+    }
+
+    private fun initView() {
+        OverScrollDecoratorHelper.setUpOverScroll(binding.ingangScrollView)
     }
 }
