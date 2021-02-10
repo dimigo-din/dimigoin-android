@@ -84,6 +84,7 @@
             </carbon.widget.ConstraintLayout>
 
             <include
+                android:id="@+id/ingang1Layout"
                 layout="@layout/layout_ingang_section"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -95,6 +96,7 @@
                 app:totalNumber="@{8}" />
 
             <include
+                android:id="@+id/ingang2Layout"
                 layout="@layout/layout_ingang_section"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

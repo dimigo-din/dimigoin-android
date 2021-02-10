@@ -2,6 +2,14 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <variable
+            name="applier"
+            type="in.dimigo.dimigoin.data.model.UserModel" />
+
+    </data>
+
     <TextView
         style="@style/Text"
         android:layout_width="match_parent"
@@ -9,6 +17,7 @@
         android:fontFamily="@font/medium"
         android:gravity="center"
         android:padding="8dp"
+        android:text="@{applier.name}"
         android:textColor="@color/grey_500"
         tools:text="홍길동" />
 

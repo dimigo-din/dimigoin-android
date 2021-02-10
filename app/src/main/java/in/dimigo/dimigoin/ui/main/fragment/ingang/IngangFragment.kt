@@ -1,5 +1,7 @@
 package `in`.dimigo.dimigoin.ui.main.fragment.ingang
 
+import `in`.dimigo.dimigoin.data.model.IngangApplicationModel
+import `in`.dimigo.dimigoin.data.model.UserModel
 import `in`.dimigo.dimigoin.databinding.FragmentIngangBinding
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -23,7 +25,20 @@ class IngangFragment : Fragment() {
         return binding.root
     }
 
-    private fun initView() {
-        OverScrollDecoratorHelper.setUpOverScroll(binding.ingangScrollView)
+    private fun initView() = with(binding) {
+        OverScrollDecoratorHelper.setUpOverScroll(ingangScrollView)
+
+        val ingang1Adapter = IngangApplierRecyclerAdapter()
+        val ingang2Adapter = IngangApplierRecyclerAdapter()
+        ingang1Layout.applierRecyclerView.adapter = ingang1Adapter
+        ingang2Layout.applierRecyclerView.adapter = ingang2Adapter
+
+        viewModel.ingangStatus.observe(viewLifecycleOwner) { ingangStatus ->
+            ingang1Adapter.setItems(getAppliers(ingangStatus.time1Applications))
+            ingang2Adapter.setItems(getAppliers(ingangStatus.time2Applications))
+        }
     }
+
+    private fun getAppliers(ingangApplications: List<IngangApplicationModel>): List<UserModel> =
+        ingangApplications.map { it.applier }
 }
