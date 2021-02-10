@@ -10,14 +10,17 @@ import androidx.recyclerview.widget.RecyclerView
 
 class IngangApplierRecyclerAdapter : RecyclerView.Adapter<IngangApplierViewHolder>() {
     private var items: List<UserModel> = listOf()
+    private var maxApplier = 0
 
-    fun setItems(newItems: List<UserModel>) {
+    fun setItems(newItems: List<UserModel>, maxApplier: Int) {
         val diffCallback = BasicDiffCallback<UserModel>().apply {
             setOldItems(items)
             setNewItems(newItems)
         }
         DiffUtil.calculateDiff(diffCallback).dispatchUpdatesTo(this)
+
         items = newItems
+        this.maxApplier = maxApplier
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): IngangApplierViewHolder {
@@ -27,17 +30,18 @@ class IngangApplierRecyclerAdapter : RecyclerView.Adapter<IngangApplierViewHolde
     }
 
     override fun onBindViewHolder(holder: IngangApplierViewHolder, position: Int) {
-        holder.bind(items[position])
+        holder.bind(items.getOrNull(position))
     }
 
-    override fun getItemCount() = items.size
+    override fun getItemCount() = maxApplier
 }
 
 class IngangApplierViewHolder(
     private val binding: ItemIngangApplierNameBinding
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(applier: UserModel) {
+    fun bind(applier: UserModel?) {
         binding.applier = applier
+        if (applier == null) binding.isEmptyPosition = true
     }
 }

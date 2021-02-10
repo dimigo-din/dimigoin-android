@@ -34,8 +34,9 @@ class IngangFragment : Fragment() {
         ingang2Layout.applierRecyclerView.adapter = ingang2Adapter
 
         viewModel.ingangStatus.observe(viewLifecycleOwner) { ingangStatus ->
-            ingang1Adapter.setItems(getAppliers(ingangStatus.time1Applications))
-            ingang2Adapter.setItems(getAppliers(ingangStatus.time2Applications))
+            val maxApplier = ingangStatus.ingangMaxApplier
+            ingang1Adapter.setItems(getAppliers(ingangStatus.time1Applications), maxApplier)
+            ingang2Adapter.setItems(getAppliers(ingangStatus.time2Applications), maxApplier)
         }
     }
 
