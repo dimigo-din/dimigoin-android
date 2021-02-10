@@ -3,6 +3,7 @@ package `in`.dimigo.dimigoin.data.model
 data class IngangStatusModel(
     val weeklyTicketCount: Int,
     val weeklyUsedTicket: Int,
+    val weeklyRemainTicket: Int,
     val ingangMaxApplier: Int,
     val applicationsInClass: List<IngangApplicationModel>
 )
