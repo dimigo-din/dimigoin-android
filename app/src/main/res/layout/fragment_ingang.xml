@@ -5,6 +5,8 @@
 
     <data>
 
+        <import type="in.dimigo.dimigoin.data.model.IngangTime" />
+
         <variable
             name="vm"
             type="in.dimigo.dimigoin.ui.main.fragment.ingang.IngangViewModel" />
@@ -89,22 +91,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
-                app:applied="@{false}"
-                app:currentNumber="@{8}"
+                app:applied="@{vm.ingangStatus.isApplied(IngangTime.NSS1)}"
                 app:ingangName="@{@string/night_study_1}"
                 app:ingangTime="@{@string/time_range_format(19, 50, 21, 10)}"
-                app:totalNumber="@{8}" />
+                app:isRequested="@{vm.time1Requested}"
+                app:onButtonClick="@{() -> vm.onApplyButtonClick(IngangTime.NSS1)}" />
 
             <include
                 android:id="@+id/ingang2Layout"
                 layout="@layout/layout_ingang_section"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:applied="@{true}"
-                app:currentNumber="@{8}"
+                app:applied="@{vm.ingangStatus.isApplied(IngangTime.NSS2)}"
                 app:ingangName="@{@string/night_study_2}"
                 app:ingangTime="@{@string/time_range_format(21, 30, 23, 0)}"
-                app:totalNumber="@{8}" />
+                app:isRequested="@{vm.time2Requested}"
+                app:onButtonClick="@{() -> vm.onApplyButtonClick(IngangTime.NSS2)}" />
         </LinearLayout>
 
     </ScrollView>
