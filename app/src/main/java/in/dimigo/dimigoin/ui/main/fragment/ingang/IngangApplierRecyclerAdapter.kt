@@ -2,10 +2,8 @@ package `in`.dimigo.dimigoin.ui.main.fragment.ingang
 
 import `in`.dimigo.dimigoin.data.model.UserModel
 import `in`.dimigo.dimigoin.databinding.ItemIngangApplierNameBinding
-import `in`.dimigo.dimigoin.ui.util.BasicDiffCallback
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 
 class IngangApplierRecyclerAdapter : RecyclerView.Adapter<IngangApplierViewHolder>() {
@@ -13,14 +11,9 @@ class IngangApplierRecyclerAdapter : RecyclerView.Adapter<IngangApplierViewHolde
     private var maxApplier = 0
 
     fun setItems(newItems: List<UserModel>, maxApplier: Int) {
-        val diffCallback = BasicDiffCallback<UserModel>().apply {
-            setOldItems(items)
-            setNewItems(newItems)
-        }
-        DiffUtil.calculateDiff(diffCallback).dispatchUpdatesTo(this)
-
         items = newItems
         this.maxApplier = maxApplier
+        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): IngangApplierViewHolder {
@@ -42,6 +35,6 @@ class IngangApplierViewHolder(
 
     fun bind(applier: UserModel?) {
         binding.applier = applier
-        if (applier == null) binding.isEmptyPosition = true
+        binding.isEmptyPosition = applier == null
     }
 }
