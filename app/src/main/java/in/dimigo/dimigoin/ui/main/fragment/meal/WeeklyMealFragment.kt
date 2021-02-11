@@ -2,7 +2,6 @@ package `in`.dimigo.dimigoin.ui.main.fragment.meal
 
 import `in`.dimigo.dimigoin.R
 import `in`.dimigo.dimigoin.databinding.FragmentWeeklyMealBinding
-import `in`.dimigo.dimigoin.ui.main.fragment.util.getFormattedToday
 import `in`.dimigo.dimigoin.ui.util.sharedGraphViewModel
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,6 +10,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.google.android.material.tabs.TabLayoutMediator
 import me.everything.android.ui.overscroll.OverScrollDecoratorHelper
+import java.text.SimpleDateFormat
 import java.util.*
 
 class WeeklyMealFragment : Fragment() {
@@ -36,5 +36,10 @@ class WeeklyMealFragment : Fragment() {
         }
 
         return binding.root
+    }
+
+    private fun getFormattedToday(dateFormat: String): String {
+        val time = Calendar.getInstance().time
+        return SimpleDateFormat(dateFormat, Locale.KOREA).format(time)
     }
 }
