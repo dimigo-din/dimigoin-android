@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_round_corner_square"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:id="@+id/dialogLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/singleButton"
+        style="@style/Button.Dialog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="@string/close" />
+
+    <LinearLayout
+        android:id="@+id/doubleButtonLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/negativeButton"
+            style="@style/Button.Dialog.Left"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="@color/grey_450"
+            tools:text="@string/cancellation" />
+
+        <Button
+            android:id="@+id/positiveButton"
+            style="@style/Button.Dialog.Right"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            tools:text="@string/ok" />
+    </LinearLayout>
+
+</LinearLayout>

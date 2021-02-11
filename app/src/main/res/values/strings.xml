@@ -49,6 +49,9 @@
     <string name="icon">아이콘</string>
     <string name="title">제목</string>
     <string name="subtitle">부제</string>
+    <string name="cancellation">취소</string>
+    <string name="ok">확인</string>
+    <string name="close">닫기</string>
 
     <string name="mobile_id_card">MOBILE ID CARD</string>
     <string name="remainingTime">남은 시간</string>

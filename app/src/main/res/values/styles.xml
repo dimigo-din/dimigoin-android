@@ -67,6 +67,20 @@
         <item name="shapeAppearanceOverlay">@style/ButtonAppearance.FullRounded</item>
     </style>
 
+    <style name="Button.Dialog">
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="shapeAppearanceOverlay">@style/ButtonAppearance.BottomRounded</item>
+    </style>
+
+    <style name="Button.Dialog.Left">
+        <item name="shapeAppearanceOverlay">@style/ButtonAppearance.BottomLeftRounded</item>
+    </style>
+
+    <style name="Button.Dialog.Right">
+        <item name="shapeAppearanceOverlay">@style/ButtonAppearance.BottomRightRounded</item>
+    </style>
+
     <style name="ButtonAppearance">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">@dimen/primary_corner_radius</item>
@@ -74,6 +88,22 @@
 
     <style name="ButtonAppearance.FullRounded">
         <item name="cornerSize">100dp</item>
+    </style>
+
+    <style name="ButtonAppearance.BottomRounded">
+        <item name="cornerSize">0dp</item>
+        <item name="cornerSizeBottomLeft">@dimen/primary_corner_radius</item>
+        <item name="cornerSizeBottomRight">@dimen/primary_corner_radius</item>
+    </style>
+
+    <style name="ButtonAppearance.BottomLeftRounded">
+        <item name="cornerSize">0dp</item>
+        <item name="cornerSizeBottomLeft">@dimen/primary_corner_radius</item>
+    </style>
+
+    <style name="ButtonAppearance.BottomRightRounded">
+        <item name="cornerSize">0dp</item>
+        <item name="cornerSizeBottomRight">@dimen/primary_corner_radius</item>
     </style>
 
     <style name="TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
