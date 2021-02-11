@@ -6,6 +6,7 @@ import `in`.dimigo.dimigoin.data.model.IngangTime
 import `in`.dimigo.dimigoin.data.model.UserModel
 import `in`.dimigo.dimigoin.databinding.FragmentIngangBinding
 import `in`.dimigo.dimigoin.ui.util.observeEvent
+import `in`.dimigo.dimigoin.ui.util.sharedGraphViewModel
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,11 +15,10 @@ import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 import me.everything.android.ui.overscroll.OverScrollDecoratorHelper
-import org.koin.android.ext.android.inject
 
 class IngangFragment : Fragment() {
     private lateinit var binding: FragmentIngangBinding
-    private val viewModel: IngangViewModel by inject()
+    private val viewModel: IngangViewModel by sharedGraphViewModel(R.id.main_nav_graph)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentIngangBinding.inflate(inflater, container, false).apply {
