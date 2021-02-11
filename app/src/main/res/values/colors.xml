@@ -16,6 +16,7 @@
     <color name="grey_800">#333333</color>
     <color name="blue_grey_400">#878789</color>
     <color name="red_a400">#FF001B</color>
+    <color name="amber_300">#FCD060</color>
     <color name="black_alpha_20">#32000000</color>
     <color name="black_alpha_10">#1A000000</color>
 </resources>
