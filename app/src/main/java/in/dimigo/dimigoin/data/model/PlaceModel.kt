@@ -9,7 +9,11 @@ data class PlaceModel(
     val type: String,
     val name: String,
     val location: String
-)
+) {
+    fun toPrimaryPlaceModel(primaryPlaces: List<PrimaryPlaceModel>): PrimaryPlaceModel? {
+        return primaryPlaces.find { it._id == _id }
+    }
+}
 
 data class PrimaryPlacesResponseModel(
     val places: List<PrimaryPlaceModel>
