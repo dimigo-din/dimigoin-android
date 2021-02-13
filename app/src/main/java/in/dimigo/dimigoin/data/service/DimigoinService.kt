@@ -33,6 +33,20 @@ interface DimigoinService {
     @DELETE("/ingang-application/time/{time}")
     fun cancelIngang(@Path("time") time: IngangTime): Call<Void?>
 
+    // Place
+    @GET("/place")
+    fun getAllPlaces(): Call<PlacesResponseModel>
+
+    @GET("/place/primary")
+    fun getPrimaryPlaces(): Call<PrimaryPlacesResponseModel>
+
+    // Attendance
+    @GET("/attendance")
+    fun getTodayAttendanceLogs(): Call<AttendanceLogsResponseModel>
+
+    @POST("/attendance")
+    fun createAttendanceLog(@Body attendanceLogRequestModel: AttendanceLogRequestModel): Call<Void?>
+
     companion object {
         const val BASE_URL = "https://api.dimigo.in"
 

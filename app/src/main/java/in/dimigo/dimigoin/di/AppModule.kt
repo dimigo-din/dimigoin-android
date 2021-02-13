@@ -1,5 +1,7 @@
 package `in`.dimigo.dimigoin.di
 
+import `in`.dimigo.dimigoin.data.usecase.attendance.AttendanceUseCase
+import `in`.dimigo.dimigoin.data.usecase.attendance.AttendanceUseCseImpl
 import `in`.dimigo.dimigoin.data.usecase.auth.AuthUseCase
 import `in`.dimigo.dimigoin.data.usecase.auth.AuthUseCaseImpl
 import `in`.dimigo.dimigoin.data.usecase.ingang.IngangUseCase
@@ -26,6 +28,7 @@ val appModule = module {
     single<MealUseCase> { MealUseCaseImpl(get(), MealItem.getFailedMealItem(androidContext())) }
     single<UserUseCase> { UserUseCaseImpl(get()) }
     single<IngangUseCase> { IngangUseCaseImpl(get()) }
+    single<AttendanceUseCase> { AttendanceUseCseImpl(get()) }
 
     viewModel { LoginViewModel(get(), get()) }
     viewModel { MainViewModel() }
