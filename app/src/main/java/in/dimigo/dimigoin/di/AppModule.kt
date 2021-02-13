@@ -6,6 +6,8 @@ import `in`.dimigo.dimigoin.data.usecase.ingang.IngangUseCase
 import `in`.dimigo.dimigoin.data.usecase.ingang.IngangUseCaseImpl
 import `in`.dimigo.dimigoin.data.usecase.meal.MealUseCase
 import `in`.dimigo.dimigoin.data.usecase.meal.MealUseCaseImpl
+import `in`.dimigo.dimigoin.data.usecase.timetable.TimetableUseCase
+import `in`.dimigo.dimigoin.data.usecase.timetable.TimetableUseCaseImpl
 import `in`.dimigo.dimigoin.data.usecase.user.UserUseCase
 import `in`.dimigo.dimigoin.data.usecase.user.UserUseCaseImpl
 import `in`.dimigo.dimigoin.data.util.SharedPreferencesManager
@@ -26,12 +28,13 @@ val appModule = module {
     single<MealUseCase> { MealUseCaseImpl(get(), MealItem.getFailedMealItem(androidContext())) }
     single<UserUseCase> { UserUseCaseImpl(get()) }
     single<IngangUseCase> { IngangUseCaseImpl(get()) }
+    single<TimetableUseCase> { TimetableUseCaseImpl(get()) }
 
     viewModel { LoginViewModel(get(), get()) }
     viewModel { MainViewModel() }
     viewModel { MainFragmentViewModel(get()) }
     viewModel { MealViewModel(get()) }
-    viewModel { TimetableViewModel() }
+    viewModel { TimetableViewModel(get()) }
     viewModel { CardViewModel() }
     viewModel { IngangViewModel(get()) }
 

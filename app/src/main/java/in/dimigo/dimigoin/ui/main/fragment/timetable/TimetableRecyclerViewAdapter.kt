@@ -26,6 +26,7 @@ class TimetableRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolde
 
     fun setItem(items: List<SubjectItem?>) {
         this.items = items
+        notifyDataSetChanged()
     }
 }
 

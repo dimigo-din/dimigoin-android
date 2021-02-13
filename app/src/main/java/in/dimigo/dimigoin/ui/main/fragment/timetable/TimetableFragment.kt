@@ -27,7 +27,7 @@ class TimetableFragment : Fragment() {
             shortWeekDays = dateFormatSymbols.shortWeekdays.toList()
             recyclerView.adapter = adapter
             recyclerView.layoutManager = GridLayoutManager(activity, 5)
-            recyclerView.isNestedScrollingEnabled = true
+            recyclerView.isNestedScrollingEnabled = false
             OverScrollDecoratorHelper.setUpOverScroll(timetableScrollView)
         }
 
