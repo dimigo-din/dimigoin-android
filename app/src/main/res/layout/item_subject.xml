@@ -23,15 +23,6 @@
             android:text="@{subject.name}"
             tools:text="과목" />
 
-        <TextView
-            style="@style/Text.Sub.Grey"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
-            android:text="@{subject.teacher}"
-            android:textSize="12sp"
-            tools:text="교사명" />
-
     </LinearLayout>
 
 </layout>
