@@ -78,6 +78,7 @@
             app:layout_constraintTop_toBottomOf="@id/applierRecyclerView"
             app:onClick="@{onButtonClick}"
             app:secondary="@{applied}"
+            app:slim="@{true}"
             app:text="@{applied ? @string/cancel : @string/apply}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
