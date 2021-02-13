@@ -3,7 +3,9 @@ package `in`.dimigo.dimigoin.ui.main.fragment.main
 import `in`.dimigo.dimigoin.data.model.PrimaryPlaceModel
 import `in`.dimigo.dimigoin.data.usecase.attendance.AttendanceUseCase
 import `in`.dimigo.dimigoin.data.usecase.meal.MealUseCase
+import `in`.dimigo.dimigoin.data.usecase.notice.NoticeUseCase
 import `in`.dimigo.dimigoin.ui.item.MealItem
+import `in`.dimigo.dimigoin.ui.item.NoticeItem
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -12,20 +14,24 @@ import kotlinx.coroutines.launch
 
 class MainFragmentViewModel(
     private val mealUseCase: MealUseCase,
-    private val attendanceUseCase: AttendanceUseCase
+    private val attendanceUseCase: AttendanceUseCase,
+    private val noticeUseCase: NoticeUseCase
 ) : ViewModel() {
     private val _attendanceLocation = MutableLiveData(AttendanceLocation.Class)
     val attendanceLocation: LiveData<AttendanceLocation> = _attendanceLocation
     private val _todayMeal = MutableLiveData<MealItem>()
     val todayMeal: LiveData<MealItem> = _todayMeal
+    private val _notice = MutableLiveData<NoticeItem>()
+    val notice: LiveData<NoticeItem> = _notice
 
     private var primaryPlaces: List<PrimaryPlaceModel>? = null
 
     init {
-        updateTodayMeal()
         viewModelScope.launch {
             updateCurrentLocation()
         }
+        updateNotice()
+        updateTodayMeal()
     }
 
     fun onAttendanceLocationButtonClicked(location: AttendanceLocation) = viewModelScope.launch {
@@ -38,15 +44,6 @@ class MainFragmentViewModel(
         } catch (e: Exception) {
             e.printStackTrace()
             // TODO 에러 처리
-        }
-    }
-
-    private fun updateTodayMeal() = viewModelScope.launch {
-        try {
-            _todayMeal.value = mealUseCase.getTodaysMeal()
-        } catch (e: Exception) {
-            e.printStackTrace()
-            _todayMeal.value = mealUseCase.failedMeal
         }
     }
 
@@ -70,6 +67,24 @@ class MainFragmentViewModel(
         } catch (e: Exception) {
             e.printStackTrace()
             // TODO
+        }
+    }
+
+    private fun updateNotice() = viewModelScope.launch {
+        try {
+            _notice.value = noticeUseCase.getNotice()
+        } catch (e: Exception) {
+            e.printStackTrace()
+            _notice.value = noticeUseCase.failedNotice
+        }
+    }
+
+    private fun updateTodayMeal() = viewModelScope.launch {
+        try {
+            _todayMeal.value = mealUseCase.getTodaysMeal()
+        } catch (e: Exception) {
+            e.printStackTrace()
+            _todayMeal.value = mealUseCase.failedMeal
         }
     }
 }

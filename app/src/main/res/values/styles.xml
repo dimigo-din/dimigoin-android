@@ -136,7 +136,11 @@
         <item name="carbon_cornerRadius">@dimen/primary_corner_radius</item>
     </style>
 
-    <style name="CarbonCard.Round" parent="CarbonElevation">
+    <style name="CarbonCard.Light">
+        <item name="carbon_elevationSpotShadowColor">@color/black_alpha_10</item>
+    </style>
+
+    <style name="CarbonCard.Round">
         <item name="android:background">@drawable/bg_circle</item>
         <item name="carbon_cornerRadius">100dp</item>
         <item name="carbon_elevationSpotShadowColor">@color/black_alpha_10</item>
