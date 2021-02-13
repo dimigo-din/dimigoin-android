@@ -21,6 +21,8 @@
     <string name="grade_class_format">%d학년 %d반</string>
     <string name="date_format">M월 d일 E요일</string>
     <string name="meal_failed_message">급식 정보가 없습니다.</string>
+    <string name="notice_failed_message">공지사항이 없습니다.</string>
+    <string name="notice_loading_message">공지사항을 불러오는 중입니다</string>
     <string name="current_number_of_people">현원</string>
     <string name="total_number_of_people">총원</string>
     <string name="apply">신청하기</string>
@@ -44,7 +46,6 @@
     <string name="dinner">저녁</string>
     <string name="lunch">점심</string>
     <string name="breakfast">아침</string>
-    <string name="notice">공지</string>
     <string name="calendar">일정</string>
     <string name="icon">아이콘</string>
     <string name="title">제목</string>

@@ -8,10 +8,13 @@ import `in`.dimigo.dimigoin.data.usecase.ingang.IngangUseCase
 import `in`.dimigo.dimigoin.data.usecase.ingang.IngangUseCaseImpl
 import `in`.dimigo.dimigoin.data.usecase.meal.MealUseCase
 import `in`.dimigo.dimigoin.data.usecase.meal.MealUseCaseImpl
+import `in`.dimigo.dimigoin.data.usecase.notice.NoticeUseCase
+import `in`.dimigo.dimigoin.data.usecase.notice.NoticeUseCaseImpl
 import `in`.dimigo.dimigoin.data.usecase.user.UserUseCase
 import `in`.dimigo.dimigoin.data.usecase.user.UserUseCaseImpl
 import `in`.dimigo.dimigoin.data.util.SharedPreferencesManager
 import `in`.dimigo.dimigoin.ui.item.MealItem
+import `in`.dimigo.dimigoin.ui.item.NoticeItem
 import `in`.dimigo.dimigoin.ui.login.LoginViewModel
 import `in`.dimigo.dimigoin.ui.main.MainViewModel
 import `in`.dimigo.dimigoin.ui.main.fragment.card.CardViewModel
@@ -29,6 +32,7 @@ val appModule = module {
     single<UserUseCase> { UserUseCaseImpl(get()) }
     single<IngangUseCase> { IngangUseCaseImpl(get()) }
     single<AttendanceUseCase> { AttendanceUseCseImpl(get()) }
+    single<NoticeUseCase> { NoticeUseCaseImpl(get(), NoticeItem.getFailedNoticeItem(androidContext())) }
 
     viewModel { LoginViewModel(get(), get()) }
     viewModel { MainViewModel() }

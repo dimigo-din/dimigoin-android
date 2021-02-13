@@ -47,6 +47,10 @@ interface DimigoinService {
     @POST("/attendance")
     fun createAttendanceLog(@Body attendanceLogRequestModel: AttendanceLogRequestModel): Call<Void?>
 
+    // Notice
+    @GET("/notice/current")
+    fun getCurrentNotices(): Call<NoticeResponseModel>
+
     companion object {
         const val BASE_URL = "https://api.dimigo.in"
 
