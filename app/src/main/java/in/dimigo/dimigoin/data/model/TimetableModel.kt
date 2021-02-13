@@ -1,10 +1,12 @@
 package `in`.dimigo.dimigoin.data.model
 
-class TimetableModel(
-    val sequence: List<String>,
+import com.google.gson.annotations.SerializedName
+
+class DailyTimetableModel(
+    val sequence: Array<String?>,
     val date: String,
 )
 
 data class TimetableResponseModel(
-    val timetable: List<TimetableModel>
+    @SerializedName("timetable") val dailyTimetables: List<DailyTimetableModel>
 )
