@@ -34,7 +34,7 @@ interface DimigoinService {
     fun cancelIngang(@Path("time") time: IngangTime): Call<Void?>
 
     // Timetable
-    @GET("/timetable/weekly/grade/{grade}/class/{klass}")
+    @GET("/timetable/weekly/grade/{grade}/class/{class}")
     fun getWeeklyTimetable(@Path("grade") grade: Int, @Path("class") klass: Int): Call<TimetableResponseModel>
 
     companion object {
