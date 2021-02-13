@@ -13,34 +13,20 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
         <ScrollView
             android:id="@+id/mainScrollView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="8dp"
             android:fillViewport="true"
             android:overScrollMode="never"
             android:scrollbars="none"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/logoImage">
+            app:layout_constraintTop_toBottomOf="@id/dimigoBackground">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:adjustViewBounds="true"
-                    android:alpha="0.3"
-                    android:contentDescription="@null"
-                    android:maxHeight="100dp"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/bg_dimigo"
-                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     style="@style/Text.Sub.Tag"
@@ -66,7 +52,7 @@
                     app:vm="@{vm}" />
 
                 <View
-                    style="@style/Divider"
+                    style="@style/Divider.Thin"
                     android:layout_marginStart="0dp"
                     android:layout_marginTop="20dp"
                     android:layout_marginEnd="0dp" />
@@ -113,27 +99,33 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:background="@color/white"
-            app:layout_constraintBottom_toTopOf="@id/transparentGradientView"
+            app:layout_constraintBottom_toBottomOf="@id/dimigoBackground"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <View
-            android:id="@+id/transparentGradientView"
+        <ImageView
+            android:id="@+id/dimigoBackground"
             android:layout_width="match_parent"
-            android:layout_height="16dp"
-            android:background="@drawable/bg_white_to_transparent_gradient"
-            app:layout_constraintTop_toTopOf="@id/mainScrollView" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="48dp"
+            android:adjustViewBounds="true"
+            android:alpha="0.3"
+            android:contentDescription="@null"
+            android:maxHeight="100dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/bg_dimigo"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/logoImage"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:layout_marginStart="@dimen/default_horizontal_margin"
-            android:layout_marginTop="@dimen/default_title_top_margin"
+            android:layout_marginTop="8dp"
             android:adjustViewBounds="true"
             android:contentDescription="@null"
             android:src="@drawable/logo"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="@id/dimigoBackground" />
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/profileImage"

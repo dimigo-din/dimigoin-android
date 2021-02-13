@@ -36,7 +36,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/default_horizontal_margin"
-            android:layout_marginTop="@dimen/default_title_top_margin"
+            android:layout_marginTop="40dp"
             android:text="@{sub}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -73,8 +73,8 @@
             tools:src="@drawable/ic_calendar_enabled" />
 
         <View
-            style="@style/Divider"
             android:id="@+id/divider"
+            style="@style/Divider"
             android:layout_marginTop="20dp"
             android:visibility="@{hideDivider ? View.GONE : View.VISIBLE}"
             app:layout_constraintEnd_toEndOf="parent"
