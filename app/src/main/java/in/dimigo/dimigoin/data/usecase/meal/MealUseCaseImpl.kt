@@ -1,6 +1,5 @@
 package `in`.dimigo.dimigoin.data.usecase.meal
 
-import `in`.dimigo.dimigoin.data.model.toMealItem
 import `in`.dimigo.dimigoin.data.service.DimigoinService
 import `in`.dimigo.dimigoin.ui.item.MealItem
 import retrofit2.await

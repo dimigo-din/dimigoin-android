@@ -11,23 +11,19 @@ data class WeeklyMealResponseModel(
 data class MealResponseModel(
     val meal: MealModel
 ) {
-    fun toMealItem() = MealItem(
-        meal.breakfast.joinToString(),
-        meal.lunch.joinToString(),
-        meal.dinner.joinToString()
-    )
+    fun toMealItem() = meal.toMealItem()
 }
 
 data class MealModel(
     val breakfast: MealList,
     val lunch: MealList,
     val dinner: MealList,
-)
+) {
+    fun toMealItem() = MealItem(
+        this.breakfast.joinToString(),
+        this.lunch.joinToString(),
+        this.dinner.joinToString()
+    )
+}
 
 private fun MealList.joinToString() = joinToString(", ")
-
-fun MealModel.toMealItem() = MealItem(
-    this.breakfast.joinToString(),
-    this.lunch.joinToString(),
-    this.dinner.joinToString()
-)
