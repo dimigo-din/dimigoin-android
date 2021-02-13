@@ -42,7 +42,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:lineSpacingMultiplier="1.5"
-                android:text="@{vm.todayMeal.getMeal(mealTime)}"
+                android:text="@{vm.todayMeal == null ? @string/meal_loading_message : vm.todayMeal.getMeal(mealTime)}"
                 tools:text="현미밥 | 얼큰김칫국 | 토마토달걀볶음 | 호박버섯볶음 | 깍두기 | 베이컨 | 완제김 | 스트링치즈 | 모닝빵미니버거 | 포도주스 |" />
 
         </carbon.widget.LinearLayout>
