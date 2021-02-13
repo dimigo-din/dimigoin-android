@@ -6,6 +6,7 @@ import `in`.dimigo.dimigoin.data.util.UserDataStore
 import `in`.dimigo.dimigoin.databinding.FragmentMainBinding
 import `in`.dimigo.dimigoin.ui.main.fragment.meal.MealTime
 import `in`.dimigo.dimigoin.ui.util.sharedGraphViewModel
+import android.animation.LayoutTransition
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -26,11 +27,11 @@ class MainFragment : Fragment() {
             lifecycleOwner = this@MainFragment
             vm = viewModel
         }
-        initView(binding)
+        initView()
         return binding.root
     }
 
-    private fun initView(binding: FragmentMainBinding) = with(binding) {
+    private fun initView() = with(binding) {
         mealViewPager.apply {
             adapter = MealCardAdapter(this@MainFragment)
             disableOverScrollMode()
@@ -45,6 +46,7 @@ class MainFragment : Fragment() {
                 .into(profileImage)
         }
 
+        mainContentLayout.layoutTransition.enableTransitionType(LayoutTransition.CHANGING)
         OverScrollDecoratorHelper.setUpOverScroll(mainScrollView)
     }
 
