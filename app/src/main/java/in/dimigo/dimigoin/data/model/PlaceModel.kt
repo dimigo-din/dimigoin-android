@@ -6,7 +6,7 @@ data class PlacesResponseModel(
 
 data class PlaceModel(
     val _id: String,
-    val type: String,
+    val type: PlaceType,
     val name: String,
     val location: String
 ) {
@@ -22,9 +22,16 @@ data class PrimaryPlacesResponseModel(
 data class PrimaryPlaceModel(
     val _id: String,
     val label: String,
-    val type: String,
+    val type: PlaceType,
     val name: String,
     val location: String
 ) {
     fun toPlaceModel() = PlaceModel(_id, type, name, location)
+}
+
+enum class PlaceType(val indexForSort: Int) {
+    CIRCLE(0),
+    ETC(1),
+    INGANG(2),
+    CLASSROOM(3)
 }

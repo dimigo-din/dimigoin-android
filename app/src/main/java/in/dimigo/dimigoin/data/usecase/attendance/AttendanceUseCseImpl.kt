@@ -26,7 +26,10 @@ class AttendanceUseCseImpl(private val service: DimigoinService) : AttendanceUse
     }
 
     override suspend fun getAllPlaces(): List<PlaceModel> {
-        return service.getAllPlaces().await().places
+        return service.getAllPlaces()
+            .await()
+            .places
+            .sortedWith(compareBy({ it.type.indexForSort }, PlaceModel::name))
     }
 
     override suspend fun getPrimaryPlaces(): List<PrimaryPlaceModel> {
