@@ -4,6 +4,8 @@ import `in`.dimigo.dimigoin.data.usecase.attendance.AttendanceUseCase
 import `in`.dimigo.dimigoin.data.usecase.attendance.AttendanceUseCseImpl
 import `in`.dimigo.dimigoin.data.usecase.auth.AuthUseCase
 import `in`.dimigo.dimigoin.data.usecase.auth.AuthUseCaseImpl
+import `in`.dimigo.dimigoin.data.usecase.fcm.FcmUseCase
+import `in`.dimigo.dimigoin.data.usecase.fcm.FcmUseCaseImpl
 import `in`.dimigo.dimigoin.data.usecase.ingang.IngangUseCase
 import `in`.dimigo.dimigoin.data.usecase.ingang.IngangUseCaseImpl
 import `in`.dimigo.dimigoin.data.usecase.meal.MealUseCase
@@ -36,6 +38,7 @@ val appModule = module {
     single<TimetableUseCase> { TimetableUseCaseImpl(get()) }
     single<AttendanceUseCase> { AttendanceUseCseImpl(get()) }
     single<NoticeUseCase> { NoticeUseCaseImpl(get(), NoticeItem.getFailedNoticeItem(androidContext())) }
+    single<FcmUseCase> { FcmUseCaseImpl(get()) }
 
     viewModel { LoginViewModel(get(), get()) }
     viewModel { MainViewModel() }

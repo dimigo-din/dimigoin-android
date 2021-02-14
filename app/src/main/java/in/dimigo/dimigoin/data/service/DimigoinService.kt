@@ -55,6 +55,13 @@ interface DimigoinService {
     @GET("/notice/current")
     fun getCurrentNotices(): Call<NoticeResponseModel>
 
+    // FCM
+    @POST("/fcm/token")
+    fun uploadFcmToken(@Body fcmTokenUploadRequestModel: FcmTokenUploadRequestModel): Call<Void?>
+
+    @DELETE("/fcm/token")
+    fun deleteFcmToken(@Body fcmTokenUploadRequestModel: FcmTokenUploadRequestModel): Call<Void?>
+
     companion object {
         const val BASE_URL = "https://api.dimigo.in"
 
