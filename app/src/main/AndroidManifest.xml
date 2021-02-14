@@ -63,6 +63,14 @@
             android:name=".ui.widget.NextMealWidgetService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
 
+        <service
+            android:name=".FirebaseCloudMessagingService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
         <meta-data
             android:name="firebase_crashlytics_collection_enabled"
             android:value="@bool/FIREBASE_CRASHLYTICS_ENABLED" />
@@ -70,5 +78,13 @@
         <meta-data
             android:name="firebase_analytics_collection_deactivated"
             android:value="@bool/FIREBASE_ANALYTICS_DEACTIVATED" />
+
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/logo" />
+
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/pink_400" />
     </application>
 </manifest>

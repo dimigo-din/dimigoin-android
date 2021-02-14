@@ -4,4 +4,7 @@ import `in`.dimigo.dimigoin.data.model.UserModel
 
 object UserDataStore {
     lateinit var userData: UserModel
+
+    val isUserDataExists: Boolean
+        get() = ::userData.isInitialized
 }
