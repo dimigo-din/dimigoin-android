@@ -23,6 +23,10 @@
             name="secondary"
             type="boolean" />
 
+        <variable
+            name="slim"
+            type="boolean" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -33,11 +37,20 @@
             android:id="@+id/button"
             style="@style/Button"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
             android:backgroundTint="@{secondary ? @color/grey_400 : @color/pink_400}"
             android:clickable="@{!isLoading}"
             android:onClick="@{onClick}"
-            android:paddingVertical="12dp"
+            android:visibility="@{slim ? View.GONE : View.VISIBLE}"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/buttonSlim"
+            style="@style/Button.Slim"
+            android:layout_width="match_parent"
+            android:backgroundTint="@{secondary ? @color/grey_400 : @color/pink_400}"
+            android:clickable="@{!isLoading}"
+            android:onClick="@{onClick}"
+            android:visibility="@{slim ? View.VISIBLE : View.GONE}"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView

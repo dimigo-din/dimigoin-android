@@ -25,7 +25,7 @@
 
     <style name="Text.Sub.Tag">
         <item name="android:textSize">12sp</item>
-        <item name="android:fontFamily">@font/medium</item>
+        <item name="android:fontFamily">@font/bold</item>
         <item name="android:textColor">@color/pink_400</item>
     </style>
 
@@ -54,6 +54,7 @@
     </style>
 
     <style name="Button" parent="Widget.MaterialComponents.Button">
+        <item name="android:layout_height">@dimen/button_height</item>
         <item name="android:fontFamily">@font/bold</item>
         <item name="android:includeFontPadding">false</item>
         <item name="android:textSize">14sp</item>
@@ -62,8 +63,11 @@
     </style>
 
     <style name="Button.Slim">
+        <item name="android:layout_height">@dimen/button_slim_height</item>
+    </style>
+
+    <style name="Button.Chip">
         <item name="android:layout_height">40dp</item>
-        <item name="android:padding">0dp</item>
         <item name="shapeAppearanceOverlay">@style/ButtonAppearance.FullRounded</item>
     </style>
 
@@ -136,7 +140,11 @@
         <item name="carbon_cornerRadius">@dimen/primary_corner_radius</item>
     </style>
 
-    <style name="CarbonCard.Round" parent="CarbonElevation">
+    <style name="CarbonCard.Light">
+        <item name="carbon_elevationSpotShadowColor">@color/black_alpha_10</item>
+    </style>
+
+    <style name="CarbonCard.Round">
         <item name="android:background">@drawable/bg_circle</item>
         <item name="carbon_cornerRadius">100dp</item>
         <item name="carbon_elevationSpotShadowColor">@color/black_alpha_10</item>

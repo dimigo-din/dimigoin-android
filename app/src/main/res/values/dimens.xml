@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="default_horizontal_margin">20dp</dimen>
-    <dimen name="default_title_top_margin">40dp</dimen>
     <dimen name="carbon_elevation">20dp</dimen>
     <dimen name="meal_view_pager_page_gap">2dp</dimen>
     <dimen name="meal_view_pager_page_offset">24dp</dimen>
     <dimen name="meal_view_pager_page_gap_offset">32dp</dimen>
     <dimen name="primary_corner_radius">10dp</dimen>
+    <dimen name="button_height">64dp</dimen>
+    <dimen name="button_slim_height">56dp</dimen>
 
     <integer name="card_flip_duration">600</integer>
 </resources>

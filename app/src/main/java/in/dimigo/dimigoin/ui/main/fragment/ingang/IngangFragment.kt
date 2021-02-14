@@ -7,6 +7,7 @@ import `in`.dimigo.dimigoin.data.model.UserModel
 import `in`.dimigo.dimigoin.databinding.FragmentIngangBinding
 import `in`.dimigo.dimigoin.ui.util.observeEvent
 import `in`.dimigo.dimigoin.ui.util.sharedGraphViewModel
+import android.animation.LayoutTransition
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -31,8 +32,6 @@ class IngangFragment : Fragment() {
     }
 
     private fun initView() = with(binding) {
-        OverScrollDecoratorHelper.setUpOverScroll(ingangScrollView)
-
         val ingang1Adapter = IngangApplierRecyclerAdapter()
         val ingang2Adapter = IngangApplierRecyclerAdapter()
         ingang1Layout.applierRecyclerView.adapter = ingang1Adapter
@@ -51,6 +50,9 @@ class IngangFragment : Fragment() {
                 Event.INGANG_CANCEL_FAIL -> showToast(R.string.failed_to_cancel_ingang)
             }
         }
+
+        ingangContainer.layoutTransition.enableTransitionType(LayoutTransition.CHANGING)
+        OverScrollDecoratorHelper.setUpOverScroll(ingangScrollView)
     }
 
     private fun getAppliers(ingangApplications: List<IngangApplicationModel>): List<UserModel> =

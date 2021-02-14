@@ -43,12 +43,10 @@
 
             <Button
                 android:id="@+id/informationButtonInner"
-                style="@style/Button"
+                style="@style/Button.Slim"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:backgroundTint="@color/grey_250"
                 android:fontFamily="@font/bold"
-                android:padding="2dp"
                 android:stateListAnimator="@null"
                 app:layout_constraintTop_toTopOf="parent" />
 

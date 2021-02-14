@@ -4,7 +4,6 @@ import `in`.dimigo.dimigoin.R
 import `in`.dimigo.dimigoin.databinding.DialogAlertBinding
 import `in`.dimigo.dimigoin.databinding.DialogBaseBinding
 import `in`.dimigo.dimigoin.ui.util.setDrawableId
-import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Context
@@ -70,7 +69,6 @@ class DimigoinDialog(
             }
         }
 
-        @SuppressLint("InflateParams")
         private fun createView(dialog: Dialog): View {
             val binding = DialogBaseBinding.inflate(layoutInflater)
 
