@@ -4,9 +4,17 @@
 
     <data>
 
+        <import type="java.time.LocalDate" />
+
+        <import type="java.time.DayOfWeek" />
+
         <variable
             name="subject"
             type="in.dimigo.dimigoin.ui.item.SubjectItem" />
+
+        <variable
+            name="date"
+            type="in.dimigo.dimigoin.ui.util.DateChangedLiveData" />
     </data>
 
     <LinearLayout
@@ -20,7 +28,10 @@
             style="@style/Text.Sub.Grey"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:maxLength="5"
             android:text="@{subject.name}"
+            android:textAlignment="center"
+            android:textColor="@{(DayOfWeek.from(date) == subject.dayOfWeek) ? @color/pink_400 : @color/grey_450}"
             tools:text="과목" />
 
     </LinearLayout>
