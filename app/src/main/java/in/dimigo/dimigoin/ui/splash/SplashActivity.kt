@@ -1,7 +1,6 @@
 package `in`.dimigo.dimigoin.ui.splash
 
 import `in`.dimigo.dimigoin.data.usecase.user.UserUseCase
-import `in`.dimigo.dimigoin.data.util.UserDataStore
 import `in`.dimigo.dimigoin.ui.login.LoginActivity
 import `in`.dimigo.dimigoin.ui.main.MainActivity
 import android.content.Intent
@@ -26,7 +25,7 @@ class SplashActivity : AppCompatActivity() {
     }
 
     private suspend fun tryAutoLogin() = try {
-        UserDataStore.userData = userUseCase.getMyInfo()
+        userUseCase.storeUserData()
         true
     } catch (e: Exception) {
         e.printStackTrace()
