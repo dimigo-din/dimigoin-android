@@ -4,11 +4,19 @@
 
     <data>
 
+        <import type="java.time.LocalDate" />
+
+        <import type="java.time.DayOfWeek" />
+
         <import type="java.util.List" />
 
         <variable
             name="shortWeekDays"
             type="List&lt;String>" />
+
+        <variable
+            name="date"
+            type="in.dimigo.dimigoin.ui.util.DateChangedLiveData" />
     </data>
 
     <LinearLayout
@@ -33,6 +41,7 @@
                 android:layout_weight="1"
                 android:text="@{shortWeekDays[2]}"
                 android:textAlignment="center"
+                android:textColor="@{(DayOfWeek.from(date) == DayOfWeek.MONDAY) ? @color/pink_400 : @color/grey_450}"
                 tools:text="월" />
 
             <TextView
@@ -41,6 +50,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@{shortWeekDays[3]}"
+                android:textColor="@{(DayOfWeek.from(date) == DayOfWeek.TUESDAY) ? @color/pink_400 : @color/grey_450}"
                 android:textAlignment="center"
                 tools:text="화" />
 
@@ -50,6 +60,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@{shortWeekDays[4]}"
+                android:textColor="@{(DayOfWeek.from(date) == DayOfWeek.WEDNESDAY) ? @color/pink_400 : @color/grey_450}"
                 android:textAlignment="center"
                 tools:text="수" />
 
@@ -59,6 +70,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@{shortWeekDays[5]}"
+                android:textColor="@{(DayOfWeek.from(date) == DayOfWeek.THURSDAY) ? @color/pink_400 : @color/grey_450}"
                 android:textAlignment="center"
                 tools:text="목" />
 
@@ -68,6 +80,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@{shortWeekDays[6]}"
+                android:textColor="@{(DayOfWeek.from(date) == DayOfWeek.FRIDAY) ? @color/pink_400 : @color/grey_450}"
                 android:textAlignment="center"
                 tools:text="금" />
 

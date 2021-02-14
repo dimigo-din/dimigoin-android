@@ -10,6 +10,8 @@ import `in`.dimigo.dimigoin.data.usecase.meal.MealUseCase
 import `in`.dimigo.dimigoin.data.usecase.meal.MealUseCaseImpl
 import `in`.dimigo.dimigoin.data.usecase.notice.NoticeUseCase
 import `in`.dimigo.dimigoin.data.usecase.notice.NoticeUseCaseImpl
+import `in`.dimigo.dimigoin.data.usecase.timetable.TimetableUseCase
+import `in`.dimigo.dimigoin.data.usecase.timetable.TimetableUseCaseImpl
 import `in`.dimigo.dimigoin.data.usecase.user.UserUseCase
 import `in`.dimigo.dimigoin.data.usecase.user.UserUseCaseImpl
 import `in`.dimigo.dimigoin.data.util.SharedPreferencesManager
@@ -31,6 +33,7 @@ val appModule = module {
     single<MealUseCase> { MealUseCaseImpl(get(), MealItem.getFailedMealItem(androidContext())) }
     single<UserUseCase> { UserUseCaseImpl(get()) }
     single<IngangUseCase> { IngangUseCaseImpl(get()) }
+    single<TimetableUseCase> { TimetableUseCaseImpl(get()) }
     single<AttendanceUseCase> { AttendanceUseCseImpl(get()) }
     single<NoticeUseCase> { NoticeUseCaseImpl(get(), NoticeItem.getFailedNoticeItem(androidContext())) }
 
@@ -38,7 +41,7 @@ val appModule = module {
     viewModel { MainViewModel() }
     viewModel { MainFragmentViewModel(get(), get(), get()) }
     viewModel { MealViewModel(get()) }
-    viewModel { TimetableViewModel() }
+    viewModel { TimetableViewModel(get()) }
     viewModel { CardViewModel() }
     viewModel { IngangViewModel(get()) }
 

@@ -3,6 +3,7 @@ package `in`.dimigo.dimigoin.ui.main.fragment.timetable
 import `in`.dimigo.dimigoin.R
 import `in`.dimigo.dimigoin.data.util.UserDataStore
 import `in`.dimigo.dimigoin.databinding.FragmentTimetableBinding
+import `in`.dimigo.dimigoin.ui.util.DateChangedLiveData
 import `in`.dimigo.dimigoin.ui.util.sharedGraphViewModel
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -19,15 +20,19 @@ class TimetableFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val binding = FragmentTimetableBinding.inflate(inflater, container, false)
-        val adapter = TimetableRecyclerViewAdapter()
+        val dateChangedLiveData = DateChangedLiveData(requireContext())
+        val adapter = TimetableRecyclerViewAdapter(dateChangedLiveData)
         val dateFormatSymbols = DateFormatSymbols(Locale.getDefault())
 
         binding.apply {
             user = UserDataStore.userData
             shortWeekDays = dateFormatSymbols.shortWeekdays.toList()
-            recyclerView.adapter = adapter
-            recyclerView.layoutManager = GridLayoutManager(activity, 5)
-            recyclerView.isNestedScrollingEnabled = true
+            date = dateChangedLiveData
+            recyclerView.apply {
+                this.adapter = adapter
+                layoutManager = GridLayoutManager(activity, 5)
+                isNestedScrollingEnabled = false
+            }
             OverScrollDecoratorHelper.setUpOverScroll(timetableScrollView)
         }
 

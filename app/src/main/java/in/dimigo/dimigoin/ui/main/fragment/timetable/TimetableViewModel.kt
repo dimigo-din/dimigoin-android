@@ -1,28 +1,24 @@
 package `in`.dimigo.dimigoin.ui.main.fragment.timetable
 
+import `in`.dimigo.dimigoin.data.usecase.timetable.TimetableUseCase
 import `in`.dimigo.dimigoin.ui.item.SubjectItem
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.launch
 
-class TimetableViewModel : ViewModel() {
+class TimetableViewModel(private val timetableUseCase: TimetableUseCase) : ViewModel() {
     private var _timetable = MutableLiveData<List<SubjectItem?>>()
-    val timetable = _timetable
+    val timetable: LiveData<List<SubjectItem?>> = _timetable
 
     init {
-        getTimetable()
-    }
-
-    fun getTimetable() {
-        _timetable.value = makeDummyData()
-    }
-
-    private fun makeDummyData(): List<SubjectItem> {
-        val list = mutableListOf<SubjectItem>()
-
-        for (i in 1..35) {
-            list.add(SubjectItem("과목", "교사명"))
+        viewModelScope.launch {
+            getTimetable()
         }
+    }
 
-        return list
+    suspend fun getTimetable() {
+        _timetable.value = timetableUseCase.getWeeklyTimetable()
     }
 }

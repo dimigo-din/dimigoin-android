@@ -33,6 +33,10 @@ interface DimigoinService {
     @DELETE("/ingang-application/time/{time}")
     fun cancelIngang(@Path("time") time: IngangTime): Call<Void?>
 
+    // Timetable
+    @GET("/timetable/weekly/grade/{grade}/class/{class}")
+    fun getWeeklyTimetable(@Path("grade") grade: Int, @Path("class") klass: Int): Call<TimetableResponseModel>
+
     // Place
     @GET("/place")
     fun getAllPlaces(): Call<PlacesResponseModel>
