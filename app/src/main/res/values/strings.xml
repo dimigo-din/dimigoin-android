@@ -33,6 +33,14 @@
     <string name="failed_to_fetch_ingang_status">인강실 정보를 불러오지 못했습니다.</string>
     <string name="failed_to_apply_ingang">인강실을 신청하지 못했습니다.</string>
     <string name="failed_to_cancel_ingang">인강실 신청을 취소하지 못했습니다.</string>
+    <string name="places_are_not_loaded">장소 목록을 불러오는 중입니다.</string>
+    <string name="where_are_you">어디에 계신가요?</string>
+    <string name="select_location">위치를 선택해주세요</string>
+    <string name="enter_reason">사유를 입력해주세요</string>
+    <string name="night_study_student_location">야간자율학습 학생현황</string>
+    <string name="location">위치</string>
+    <string name="reason">사유</string>
+    <string name="selected">선택 완료</string>
 
     <string name="id">아이디</string>
     <string name="password">비밀번호</string>

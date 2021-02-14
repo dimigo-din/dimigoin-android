@@ -1,11 +1,13 @@
 package `in`.dimigo.dimigoin.ui.main.fragment.main
 
+import `in`.dimigo.dimigoin.data.model.PlaceModel
 import `in`.dimigo.dimigoin.data.model.PrimaryPlaceModel
 import `in`.dimigo.dimigoin.data.usecase.attendance.AttendanceUseCase
 import `in`.dimigo.dimigoin.data.usecase.meal.MealUseCase
 import `in`.dimigo.dimigoin.data.usecase.notice.NoticeUseCase
 import `in`.dimigo.dimigoin.ui.item.MealItem
 import `in`.dimigo.dimigoin.ui.item.NoticeItem
+import `in`.dimigo.dimigoin.ui.util.EventWrapper
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -23,8 +25,11 @@ class MainFragmentViewModel(
     val todayMeal: LiveData<MealItem> = _todayMeal
     private val _notice = MutableLiveData<NoticeItem>()
     val notice: LiveData<NoticeItem> = _notice
+    private val _event = MutableLiveData<EventWrapper<MainFragment.Event>>()
+    val event: LiveData<EventWrapper<MainFragment.Event>> = _event
 
     private var primaryPlaces: List<PrimaryPlaceModel>? = null
+    var places: List<PlaceModel>? = null
 
     init {
         viewModelScope.launch {
@@ -32,14 +37,29 @@ class MainFragmentViewModel(
         }
         updateNotice()
         updateTodayMeal()
+        fetchPlaces()
     }
 
     fun onAttendanceLocationButtonClicked(location: AttendanceLocation) = viewModelScope.launch {
         // TODO : 같은 버튼 클릭 무시, 로딩중 클릭 방지
+        if (location == AttendanceLocation.Etc) {
+            _event.value = EventWrapper(MainFragment.Event.LOCATION_ETC_CLICKED)
+            return@launch
+        }
         if (primaryPlaces == null) fetchPrimaryPlaces()
         val place = location.getPrimaryPlace(primaryPlaces)
         try {
             attendanceUseCase.changeCurrentAttendancePlace(place ?: throw Exception("Place is null"))
+            updateCurrentLocation()
+        } catch (e: Exception) {
+            e.printStackTrace()
+            // TODO 에러 처리
+        }
+    }
+
+    fun changeCurrentAttendancePlace(place: PlaceModel, remark: String) = viewModelScope.launch {
+        try {
+            attendanceUseCase.changeCurrentAttendancePlace(place, remark)
             updateCurrentLocation()
         } catch (e: Exception) {
             e.printStackTrace()
@@ -64,6 +84,15 @@ class MainFragmentViewModel(
     private suspend fun fetchPrimaryPlaces() {
         try {
             primaryPlaces = attendanceUseCase.getPrimaryPlaces()
+        } catch (e: Exception) {
+            e.printStackTrace()
+            // TODO
+        }
+    }
+
+    fun fetchPlaces() = viewModelScope.launch {
+        try {
+            places = attendanceUseCase.getAllPlaces().sortedBy { it.type }
         } catch (e: Exception) {
             e.printStackTrace()
             // TODO

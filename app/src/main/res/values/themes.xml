@@ -13,4 +13,8 @@
         <item name="android:windowBackground">@drawable/bg_splash</item>
     </style>
 
+    <style name="Theme.App.FullScreenDialog">
+        <item name="android:windowAnimationStyle">@style/Animation.AppCompat.Dialog</item>
+    </style>
+
 </resources>
