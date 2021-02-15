@@ -27,12 +27,16 @@
         <include
             layout="@layout/layout_title"
             app:hideDivider="@{true}"
-            app:icon="@{@drawable/ic_calendar_enabled}"
-            app:sub="@{@string/grade_class_format(user.grade, user.klass)}"
-            app:title="@{@string/timetable}" />
+            app:icon="@{@drawable/ic_location_class}"
+            app:sub="@{@string/night_study_1}"
+            app:title="@{@string/attendance_state}" />
+
+        <include
+            android:id="@+id/attendance_table_layout"
+            layout="@layout/layout_attendance_table" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
+            android:id="@+id/recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginHorizontal="@dimen/default_horizontal_margin"
