@@ -12,6 +12,7 @@ class AttendanceFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val binding = FragmentAttendanceBinding.inflate(inflater, container, false).apply {
             lifecycleOwner = viewLifecycleOwner
+            attendanceTableLayout.attendanceTableRoot.clipToOutline = true
         }
 
         return binding.root

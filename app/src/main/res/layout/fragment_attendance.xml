@@ -4,19 +4,6 @@
 
     <data>
 
-        <import type="java.util.List" />
-
-        <variable
-            name="shortWeekDays"
-            type="List&lt;String>" />
-
-        <variable
-            name="user"
-            type="in.dimigo.dimigoin.data.model.UserModel" />
-
-        <variable
-            name="date"
-            type="in.dimigo.dimigoin.ui.util.DateChangedLiveData" />
     </data>
 
     <LinearLayout
@@ -27,7 +14,7 @@
         <include
             layout="@layout/layout_title"
             app:hideDivider="@{true}"
-            app:icon="@{@drawable/ic_location_class}"
+            app:icon="@{@drawable/ic_location_class_accent}"
             app:sub="@{@string/night_study_1}"
             app:title="@{@string/attendance_state}" />
 
@@ -39,8 +26,8 @@
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginHorizontal="@dimen/default_horizontal_margin"
-            android:layout_marginTop="16dp"
+            android:layout_marginHorizontal="45dp"
+            android:layout_marginTop="25dp"
             android:layout_marginBottom="24dp"
             android:overScrollMode="never" />
 
