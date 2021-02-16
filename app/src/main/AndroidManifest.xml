@@ -31,6 +31,8 @@
 
         <activity android:name=".ui.main.MainActivity" />
 
+        <activity android:name=".ui.attendance.AttendanceActivity" />
+
         <receiver
             android:name=".ui.widget.NextMealWidget"
             android:label="@string/next_meal">

@@ -1,4 +1,4 @@
-package `in`.dimigo.dimigoin.ui.main.fragment.attendance
+package `in`.dimigo.dimigoin.ui.attendance
 
 import androidx.fragment.app.Fragment
 
