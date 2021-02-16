@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center"
@@ -7,21 +8,24 @@
     android:padding="@dimen/dialog_default_padding">
 
     <TextView
-        style="@style/Text.Sub"
+        style="@style/Text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:drawablePadding="16dp"
         android:fontFamily="@font/bold"
-        android:text="@string/forgot_id_pw"
-        android:textSize="16sp" />
+        android:text="@string/read_before_use_card"
+        android:textColor="@color/grey_450"
+        app:drawableStartCompat="@drawable/ic_information"
+        app:drawableTint="@color/grey_450" />
 
     <TextView
         style="@style/Text.Content.Grey"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="32dp"
         android:fontFamily="@font/medium"
         android:gravity="center"
-        android:text="@string/forgot_id_pw_description"
-        android:textSize="14sp" />
+        android:text="@string/card_caution_content"
+        android:textColor="@color/grey_400" />
 
 </LinearLayout>

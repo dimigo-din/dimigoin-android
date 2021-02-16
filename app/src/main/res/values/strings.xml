@@ -76,6 +76,7 @@
     <string name="cannot_use_biometric_authentication">생체 인증을 사용할 수 없습니다.</string>
     <string name="authenticate">인증</string>
     <string name="authenticate_to_use_card">학생증을 사용하기 위해 인증이 필요합니다.</string>
+    <string name="card_caution_content">1. 본 증은 학교가 정식 발급한 학생증입니다.\n이외 신분증 등 활용은 활용처의 규정에 따라 달라질 수 있습니다.\n\n2. 본 증은 본인 이외 타인이 소지 또는 활용할 수 없습니다.\n타인에게 양도하여 입은 피해는 본인의 책임입니다.\n\n3. 스크린샷 또는 사본으로 동일한 효력을 발생시킬 수 없습니다.</string>
 
     <string-array name="departments">
         <item>이비즈니스과</item>
