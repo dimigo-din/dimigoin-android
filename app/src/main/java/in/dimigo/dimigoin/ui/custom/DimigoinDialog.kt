@@ -43,11 +43,17 @@ class DimigoinDialog(
         private var useDoubleButton = false
         private var positiveButtonTextId: Int? = null
         private var onPositiveButtonClick: ((Dialog) -> Unit)? = null
+        private var positiveButtonDismissOnClick = true
         private var negativeButtonTextId: Int? = null
         private var onNegativeButtonClick: (() -> Unit)? = null
 
-        fun usePositiveButton(@StringRes textId: Int? = null, onClick: ((Dialog) -> Unit)? = null) {
+        fun usePositiveButton(
+            @StringRes textId: Int? = null,
+            dismissOnClick: Boolean = true,
+            onClick: ((Dialog) -> Unit)? = null
+        ) {
             if (textId != null) positiveButtonTextId = textId
+            positiveButtonDismissOnClick = dismissOnClick
             onPositiveButtonClick = onClick
         }
 
@@ -85,6 +91,7 @@ class DimigoinDialog(
             singleButton.setText(positiveButtonTextId ?: R.string.close)
             singleButton.setOnClickListener {
                 onPositiveButtonClick?.invoke(dialog)
+                if (positiveButtonDismissOnClick) dialog.dismiss()
             }
         }
 
@@ -94,6 +101,7 @@ class DimigoinDialog(
             positiveButton.setText(positiveButtonTextId ?: R.string.ok)
             positiveButton.setOnClickListener {
                 onPositiveButtonClick?.invoke(dialog)
+                if (positiveButtonDismissOnClick) dialog.dismiss()
             }
             negativeButton.setText(negativeButtonTextId ?: R.string.cancellation)
             negativeButton.setOnClickListener {

@@ -85,7 +85,7 @@ class MainFragment : Fragment() {
             }
         }
         DimigoinDialog(requireContext()).CustomView(dialogBinding.root).apply {
-            usePositiveButton {
+            usePositiveButton(dismissOnClick = false) {
                 val reason = dialogBinding.reasonEditText.text
                 if (selectedPlace == null) {
                     Toast.makeText(context, R.string.select_location, Toast.LENGTH_SHORT).show()

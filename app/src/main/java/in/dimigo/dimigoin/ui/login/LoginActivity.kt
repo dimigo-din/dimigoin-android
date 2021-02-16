@@ -42,11 +42,7 @@ class LoginActivity : AppCompatActivity() {
         }
         findIdPwText.setOnClickListener {
             val dialogView = DialogForgotIdPwBinding.inflate(layoutInflater).root
-            DimigoinDialog(this@LoginActivity).CustomView(dialogView).apply {
-                usePositiveButton(R.string.ok) {
-                    it.dismiss()
-                }
-            }.show()
+            DimigoinDialog(this@LoginActivity).CustomView(dialogView).show()
         }
     }
 
