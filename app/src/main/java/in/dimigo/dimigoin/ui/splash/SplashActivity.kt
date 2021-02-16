@@ -2,6 +2,7 @@ package `in`.dimigo.dimigoin.ui.splash
 
 import `in`.dimigo.dimigoin.data.usecase.user.UserUseCase
 import `in`.dimigo.dimigoin.data.util.UserDataStore
+import `in`.dimigo.dimigoin.ui.attendance.AttendanceActivity
 import `in`.dimigo.dimigoin.ui.login.LoginActivity
 import `in`.dimigo.dimigoin.ui.main.MainActivity
 import android.content.Intent
@@ -35,8 +36,12 @@ class SplashActivity : AppCompatActivity() {
 
     private fun loginFinished(isAutoLoginSuccess: Boolean) {
         startActivity(
-            if (isAutoLoginSuccess) Intent(this@SplashActivity, MainActivity::class.java)
-            else Intent(this@SplashActivity, LoginActivity::class.java)
+            if (isAutoLoginSuccess) {
+                if (UserDataStore.userData.userType == LoginActivity.TYPE_TEACHER)
+                    Intent(this, MainActivity::class.java)
+                else
+                    Intent(this, AttendanceActivity::class.java)
+            } else Intent(this@SplashActivity, LoginActivity::class.java)
         )
         finish()
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
