@@ -76,6 +76,7 @@
     <string name="authenticate">인증</string>
     <string name="authenticate_to_use_card">학생증을 사용하기 위해 인증이 필요합니다.</string>
     <string name="detail">자세히보기</string>
+    <string name="search_with_name">이름으로 검색하기</string>
 
     <string-array name="departments">
         <item>이비즈니스과</item>

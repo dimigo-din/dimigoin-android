@@ -23,6 +23,27 @@
             android:id="@+id/attendance_table_layout"
             layout="@layout/layout_attendance_table" />
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/default_horizontal_margin"
+            android:layout_marginTop="20dp">
+
+            <EditText
+                style="@style/Text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints="none"
+                android:background="@drawable/bg_round_corner_square_grey_border"
+                android:hint="@string/search_with_name"
+                android:inputType="text"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="10dp"
+                android:textColor="@color/grey_250"
+                android:textSize="14sp" />
+
+        </RelativeLayout>
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
