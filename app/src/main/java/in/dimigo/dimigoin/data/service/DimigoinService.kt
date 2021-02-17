@@ -59,7 +59,7 @@ interface DimigoinService {
     @POST("/fcm/token")
     fun uploadFcmToken(@Body fcmTokenUploadRequestModel: FcmTokenUploadRequestModel): Call<Void?>
 
-    @DELETE("/fcm/token")
+    @HTTP(method = "DELETE", path = "/fcm/token", hasBody = true)
     fun deleteFcmToken(@Body fcmTokenUploadRequestModel: FcmTokenUploadRequestModel): Call<Void?>
 
     companion object {

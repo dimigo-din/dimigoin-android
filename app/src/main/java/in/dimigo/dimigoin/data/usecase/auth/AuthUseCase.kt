@@ -4,4 +4,5 @@ import `in`.dimigo.dimigoin.data.model.LoginRequestModel
 
 interface AuthUseCase {
     suspend fun tryLogin(loginRequestModel: LoginRequestModel): Boolean
+    suspend fun logout()
 }

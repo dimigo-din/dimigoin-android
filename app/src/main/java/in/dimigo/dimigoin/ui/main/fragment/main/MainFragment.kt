@@ -6,10 +6,12 @@ import `in`.dimigo.dimigoin.data.util.UserDataStore
 import `in`.dimigo.dimigoin.databinding.*
 import `in`.dimigo.dimigoin.ui.custom.DimigoinDialog
 import `in`.dimigo.dimigoin.ui.main.fragment.meal.MealTime
+import `in`.dimigo.dimigoin.ui.splash.SplashActivity
 import `in`.dimigo.dimigoin.ui.util.observeEvent
 import `in`.dimigo.dimigoin.ui.util.sharedGraphViewModel
 import android.animation.LayoutTransition
 import android.app.Dialog
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -63,6 +65,19 @@ class MainFragment : Fragment() {
                     showEtcDialog()
                 }
             }
+        }
+
+        profileImage.setOnClickListener {
+            val dialogView = DialogLogoutBinding.inflate(layoutInflater).root
+            DimigoinDialog(requireContext()).CustomView(dialogView).apply {
+                usePositiveButton {
+                    val intent = Intent(context, SplashActivity::class.java)
+                    intent.putExtra(SplashActivity.KEY_LOGOUT, true)
+                    startActivity(intent)
+                    activity?.finish()
+                }
+                useNegativeButton()
+            }.show()
         }
 
         mainContentLayout.layoutTransition.enableTransitionType(LayoutTransition.CHANGING)

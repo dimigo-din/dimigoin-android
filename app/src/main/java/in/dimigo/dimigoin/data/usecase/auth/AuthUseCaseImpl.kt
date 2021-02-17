@@ -23,12 +23,27 @@ class AuthUseCaseImpl(
         false
     }
 
+    override suspend fun logout() {
+        try {
+            val token = getFcmToken()
+            fcmUseCase.deleteFcmToken(token)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+
+        sharedPreferencesManager.accessToken = null
+        sharedPreferencesManager.refreshToken = null
+    }
+
     private suspend fun uploadFcmToken() {
         try {
-            val token = FirebaseMessaging.getInstance().token.await()
+            val token = getFcmToken()
             fcmUseCase.uploadFcmToken(token)
         } catch (e: Exception) {
             e.printStackTrace()
         }
     }
+
+    private suspend fun getFcmToken() = FirebaseMessaging.getInstance().token.await()
+
 }
