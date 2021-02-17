@@ -2,7 +2,6 @@ package `in`.dimigo.dimigoin.ui.main.fragment.main
 
 import `in`.dimigo.dimigoin.R
 import `in`.dimigo.dimigoin.data.model.PlaceModel
-import `in`.dimigo.dimigoin.data.service.DimigoinService
 import `in`.dimigo.dimigoin.data.util.UserDataStore
 import `in`.dimigo.dimigoin.databinding.*
 import `in`.dimigo.dimigoin.ui.custom.DimigoinDialog
@@ -52,9 +51,9 @@ class MainFragment : Fragment() {
             applyCarouselEffect()
         }
 
-        if (UserDataStore.userData.photo.isNotEmpty()) {
+        if (UserDataStore.userData.photos.isNotEmpty()) {
             Glide.with(requireContext())
-                .load(DimigoinService.getProfileUrl(UserDataStore.userData.photo.last()))
+                .load(UserDataStore.userData.photos.last())
                 .into(profileImage)
         }
 

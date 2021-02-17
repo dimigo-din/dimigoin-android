@@ -64,7 +64,5 @@ interface DimigoinService {
 
     companion object {
         const val BASE_URL = "https://api.dimigo.in"
-
-        fun getProfileUrl(photo: String) = "https://api.dimigo.hs.kr/user_photo/$photo"
     }
 }
