@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -29,7 +30,8 @@
             android:layout_marginHorizontal="45dp"
             android:layout_marginTop="25dp"
             android:layout_marginBottom="24dp"
-            android:overScrollMode="never" />
+            android:overScrollMode="never"
+            tools:listitem="@layout/item_attendance" />
 
     </LinearLayout>
 

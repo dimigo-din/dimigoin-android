@@ -75,6 +75,7 @@
     <string name="cannot_use_biometric_authentication">생체 인증을 사용할 수 없습니다.</string>
     <string name="authenticate">인증</string>
     <string name="authenticate_to_use_card">학생증을 사용하기 위해 인증이 필요합니다.</string>
+    <string name="detail">자세히보기</string>
 
     <string-array name="departments">
         <item>이비즈니스과</item>
