@@ -6,13 +6,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class AttendanceFragment : Fragment() {
+    private val viewModel: AttendanceViewModel by viewModel()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        val adapter = AttendanceRecyclerViewAdapter()
         val binding = FragmentAttendanceBinding.inflate(inflater, container, false).apply {
             lifecycleOwner = viewLifecycleOwner
             attendanceTableLayout.attendanceTableRoot.clipToOutline = true
+            vm = viewModel
         }
 
         return binding.root

@@ -5,6 +5,11 @@
 
     <data>
 
+        <import type="java.text.DecimalFormat" />
+
+        <variable
+            name="item"
+            type="in.dimigo.dimigoin.ui.item.AttendanceItem" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -22,6 +27,7 @@
             android:includeFontPadding="false"
             android:textColor="@color/grey_450"
             android:textSize="16sp"
+            android:text="@{item.formatNumber()}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -36,6 +42,7 @@
             android:textAlignment="center"
             android:textColor="@color/grey_450"
             android:textSize="16sp"
+            android:text="@{item.name}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/location_clip"
             app:layout_constraintHorizontal_weight="1.8"
@@ -65,6 +72,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                android:contentDescription="@string/description_type_icon"
                 app:tint="@color/grey_400" />
 
             <TextView

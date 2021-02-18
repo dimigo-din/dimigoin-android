@@ -4,6 +4,9 @@
 
     <data>
 
+        <variable
+            name="vm"
+            type="in.dimigo.dimigoin.ui.attendance.AttendanceViewModel" />
     </data>
 
     <LinearLayout
@@ -62,30 +65,35 @@
                 style="@style/Text.Table.Pink"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:text="@{vm.attendanceTableData[0].toString()}"
                 tools:text="21" />
 
             <TextView
                 style="@style/Text.Table.Pink"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:text="@{vm.attendanceTableData[1].toString()}"
                 tools:text="21" />
 
             <TextView
                 style="@style/Text.Table.Pink"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:text="@{vm.attendanceTableData[2].toString()}"
                 tools:text="21" />
 
             <TextView
                 style="@style/Text.Table.Pink"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:text="@{vm.attendanceTableData[3].toString()}"
                 tools:text="21" />
 
             <TextView
                 style="@style/Text.Table.Pink"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:text="@{vm.attendanceTableData[4].toString()}"
                 tools:text="21" />
 
         </LinearLayout>

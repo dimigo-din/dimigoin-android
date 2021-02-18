@@ -78,6 +78,9 @@
     <string name="detail">자세히보기</string>
     <string name="search_with_name">이름으로 검색하기</string>
 
+    <string name="description_search">searchIcon</string>
+    <string name="description_type_icon">typeIcon</string>
+
     <string-array name="departments">
         <item>이비즈니스과</item>
         <item>디지털콘텐츠과</item>
