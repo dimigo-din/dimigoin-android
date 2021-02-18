@@ -80,6 +80,7 @@
 
     <string name="description_search">searchIcon</string>
     <string name="description_type_icon">typeIcon</string>
+    <string name="short_detail">자세히</string>
 
     <string-array name="departments">
         <item>이비즈니스과</item>
