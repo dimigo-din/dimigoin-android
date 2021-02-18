@@ -64,8 +64,8 @@
             android:layout_height="match_parent"
             android:layout_marginHorizontal="45dp"
             android:layout_marginTop="25dp"
-            android:layout_marginBottom="24dp"
             android:overScrollMode="never"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/item_attendance" />
 
     </LinearLayout>

@@ -24,25 +24,35 @@ class AttendanceViewModel(private val useCase: AttendanceUseCase) : ViewModel() 
     }
 
     private suspend fun loadAttendanceData() {
-        val data = useCase.getCurrentAttendanceStatus()
+        try {
+            val data = useCase.getCurrentAttendanceStatus()
 
-        _attendanceData.value = data.map {
-            AttendanceItem(it.student.number, it.student.name, it.log.place.type)
+            _attendanceData.value = data.map {
+                AttendanceItem(
+                    it.student.number,
+                    it.student.name,
+                    it.log?.place?.type
+                )
+            }
+            _attendanceTableData.value = getAttendanceTableData(data)
+        } catch (e: Exception) {
+            // TODO 에러 처리
         }
-        _attendanceTableData.value = getAttendanceTableData(data)
     }
 
     private fun getAttendanceTableData(dataList: List<AttendanceStatusModel>): List<Int> {
         val result = mutableListOf(0, 0, 0, 0, 0)
 
         for (data in dataList) {
-            val cursor = when (data.log.place.type) {
-                PlaceType.CLASSROOM -> 0
-                PlaceType.INGANG -> 1
-                PlaceType.CIRCLE -> 2
-                PlaceType.ETC -> 3
+            if (data.log != null) {
+                val cursor = when (data.log.place.type) {
+                    PlaceType.CLASSROOM -> 0
+                    PlaceType.INGANG -> 1
+                    PlaceType.CIRCLE -> 2
+                    PlaceType.ETC -> 3
+                }
+                result[cursor]++
             }
-            result[cursor]++
         }
 
         result[4] = dataList.size

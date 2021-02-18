@@ -22,7 +22,15 @@ data class AttendanceLogRequestModel(
 
 data class AttendanceStatusModel(
     val student: UserModel,
-    val log: AttendanceLogModel
+    val log: AttendanceStatusLogModel?
+)
+
+data class AttendanceStatusLogModel(
+    val student: String,
+    val date: String,
+    val place: PlaceModel,
+    val remark: String,
+    @SerializedName("updatedAt") val time: Date
 )
 
 data class AttendanceStatusResponseModel(

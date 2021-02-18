@@ -17,6 +17,7 @@ class AttendanceFragment : Fragment() {
             lifecycleOwner = viewLifecycleOwner
             attendanceTableLayout.attendanceTableRoot.clipToOutline = true
             vm = viewModel
+            recyclerView.adapter = adapter
         }
 
         viewModel.attendanceData.observe(viewLifecycleOwner) {
