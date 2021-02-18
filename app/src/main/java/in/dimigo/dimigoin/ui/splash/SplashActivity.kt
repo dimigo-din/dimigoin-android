@@ -38,9 +38,9 @@ class SplashActivity : AppCompatActivity() {
         startActivity(
             if (isAutoLoginSuccess) {
                 if (UserDataStore.userData.userType == LoginActivity.TYPE_TEACHER)
-                    Intent(this, MainActivity::class.java)
-                else
                     Intent(this, AttendanceActivity::class.java)
+                else
+                    Intent(this, MainActivity::class.java)
             } else Intent(this@SplashActivity, LoginActivity::class.java)
         )
         finish()
