@@ -58,9 +58,9 @@ class LoginActivity : AppCompatActivity() {
 
     private fun loginFinished() {
         if (UserDataStore.userData.userType == TYPE_TEACHER)
-            startActivity(Intent(this, MainActivity::class.java))
-        else
             startActivity(Intent(this, AttendanceActivity::class.java))
+        else
+            startActivity(Intent(this, MainActivity::class.java))
 
         finish()
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
