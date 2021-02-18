@@ -19,3 +19,12 @@ data class AttendanceLogRequestModel(
     @SerializedName("place") val placeId: String,
     val remark: String
 )
+
+data class AttendanceStatusModel(
+    val student: UserModel,
+    val log: AttendanceLogModel
+)
+
+data class AttendanceStatusResponseModel(
+    val status: List<AttendanceStatusModel>
+)

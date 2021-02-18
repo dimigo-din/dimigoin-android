@@ -1,7 +1,7 @@
 package `in`.dimigo.dimigoin.di
 
 import `in`.dimigo.dimigoin.data.usecase.attendance.AttendanceUseCase
-import `in`.dimigo.dimigoin.data.usecase.attendance.AttendanceUseCseImpl
+import `in`.dimigo.dimigoin.data.usecase.attendance.AttendanceUseCaseImpl
 import `in`.dimigo.dimigoin.data.usecase.auth.AuthUseCase
 import `in`.dimigo.dimigoin.data.usecase.auth.AuthUseCaseImpl
 import `in`.dimigo.dimigoin.data.usecase.ingang.IngangUseCase
@@ -15,6 +15,7 @@ import `in`.dimigo.dimigoin.data.usecase.timetable.TimetableUseCaseImpl
 import `in`.dimigo.dimigoin.data.usecase.user.UserUseCase
 import `in`.dimigo.dimigoin.data.usecase.user.UserUseCaseImpl
 import `in`.dimigo.dimigoin.data.util.SharedPreferencesManager
+import `in`.dimigo.dimigoin.ui.attendance.AttendanceViewModel
 import `in`.dimigo.dimigoin.ui.item.MealItem
 import `in`.dimigo.dimigoin.ui.item.NoticeItem
 import `in`.dimigo.dimigoin.ui.login.LoginViewModel
@@ -34,7 +35,7 @@ val appModule = module {
     single<UserUseCase> { UserUseCaseImpl(get()) }
     single<IngangUseCase> { IngangUseCaseImpl(get()) }
     single<TimetableUseCase> { TimetableUseCaseImpl(get()) }
-    single<AttendanceUseCase> { AttendanceUseCseImpl(get()) }
+    single<AttendanceUseCase> { AttendanceUseCaseImpl(get()) }
     single<NoticeUseCase> { NoticeUseCaseImpl(get(), NoticeItem.getFailedNoticeItem(androidContext())) }
 
     viewModel { LoginViewModel(get(), get()) }
@@ -44,6 +45,7 @@ val appModule = module {
     viewModel { TimetableViewModel(get()) }
     viewModel { CardViewModel() }
     viewModel { IngangViewModel(get()) }
+    viewModel { AttendanceViewModel(get()) }
 
     single { SharedPreferencesManager(androidContext()) }
 }
