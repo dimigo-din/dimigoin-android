@@ -4,9 +4,8 @@ import `in`.dimigo.dimigoin.data.model.*
 import `in`.dimigo.dimigoin.data.service.DimigoinService
 import `in`.dimigo.dimigoin.data.util.UserDataStore
 import retrofit2.await
-import java.text.SimpleDateFormat
 import java.time.LocalDate
-import java.util.*
+import java.time.format.DateTimeFormatter
 
 class AttendanceUseCaseImpl(private val service: DimigoinService) : AttendanceUseCase {
     override suspend fun getTodayAttendanceLogs(): List<AttendanceLogModel> {
@@ -38,10 +37,11 @@ class AttendanceUseCaseImpl(private val service: DimigoinService) : AttendanceUs
     }
 
     override suspend fun getCurrentAttendanceStatus(): List<AttendanceStatusModel> {
-        val date = LocalDate.now()
-        val format = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+        val date: String = LocalDate.now().format(formatter)
+
         return service.getAttendanceStatus(
-            format.format(date),
+            date,
             UserDataStore.userData.grade,
             UserDataStore.userData.klass
         ).await().status

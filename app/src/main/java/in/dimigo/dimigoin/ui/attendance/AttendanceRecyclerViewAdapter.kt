@@ -14,7 +14,7 @@ class AttendanceRecyclerViewAdapter :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding: ItemAttendanceBinding = DataBindingUtil.inflate(inflater, R.layout.item_subject, parent, false)
+        val binding: ItemAttendanceBinding = DataBindingUtil.inflate(inflater, R.layout.item_attendance, parent, false)
 
         return AttendanceViewHolder(binding)
     }
@@ -33,6 +33,6 @@ class AttendanceRecyclerViewAdapter :
 
 private class AttendanceViewHolder(private val binding: ItemAttendanceBinding) : RecyclerView.ViewHolder(binding.root) {
     fun bind(item: AttendanceItem) {
-
+        binding.item = item
     }
 }

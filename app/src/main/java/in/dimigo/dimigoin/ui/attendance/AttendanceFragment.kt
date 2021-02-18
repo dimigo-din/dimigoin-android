@@ -19,6 +19,10 @@ class AttendanceFragment : Fragment() {
             vm = viewModel
         }
 
+        viewModel.attendanceData.observe(viewLifecycleOwner) {
+            adapter.setItem(it)
+        }
+
         return binding.root
     }
 }
