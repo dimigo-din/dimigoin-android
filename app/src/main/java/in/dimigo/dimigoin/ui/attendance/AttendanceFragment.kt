@@ -24,6 +24,10 @@ class AttendanceFragment : Fragment() {
             adapter.setItem(it)
         }
 
+        viewModel.query.observe(viewLifecycleOwner) {
+            adapter.filter(it)
+        }
+
         return binding.root
     }
 }

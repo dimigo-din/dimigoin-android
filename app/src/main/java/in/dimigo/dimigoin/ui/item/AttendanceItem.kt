@@ -5,7 +5,7 @@ import java.text.DecimalFormat
 
 data class AttendanceItem(
     val number: Int?,
-    val name: String?,
+    val name: String,
     val place: PlaceType?
 ) {
     fun formatNumber(): String = DecimalFormat("00").format(number)

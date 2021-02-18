@@ -17,6 +17,8 @@ class AttendanceViewModel(private val useCase: AttendanceUseCase) : ViewModel() 
     private val _attendanceData = MutableLiveData<List<AttendanceItem>>()
     val attendanceData: LiveData<List<AttendanceItem>> = _attendanceData
 
+    val query = MutableLiveData<String>()
+
     init {
         viewModelScope.launch {
             loadAttendanceData()
