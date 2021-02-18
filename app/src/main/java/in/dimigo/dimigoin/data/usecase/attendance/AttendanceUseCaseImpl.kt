@@ -8,6 +8,8 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 class AttendanceUseCaseImpl(private val service: DimigoinService) : AttendanceUseCase {
+    private val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+
     override suspend fun getTodayAttendanceLogs(): List<AttendanceLogModel> {
         return service.getTodayAttendanceLogs().await().logs
     }
@@ -37,13 +39,22 @@ class AttendanceUseCaseImpl(private val service: DimigoinService) : AttendanceUs
     }
 
     override suspend fun getCurrentAttendanceStatus(): List<AttendanceStatusModel> {
-        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
         val date: String = LocalDate.now().format(formatter)
 
         return service.getAttendanceStatus(
             date,
             UserDataStore.userData.grade,
             UserDataStore.userData.klass
+        ).await().status
+    }
+
+    override suspend fun getSpecificAttendanceStatus(grade: Int, klass: Int): List<AttendanceStatusModel> {
+        val date: String = LocalDate.now().format(formatter)
+
+        return service.getAttendanceStatus(
+            date,
+            grade,
+            klass
         ).await().status
     }
 }

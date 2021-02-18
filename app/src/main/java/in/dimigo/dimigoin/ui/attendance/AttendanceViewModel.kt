@@ -7,8 +7,6 @@ import `in`.dimigo.dimigoin.ui.item.AttendanceItem
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.launch
 
 class AttendanceViewModel(private val useCase: AttendanceUseCase) : ViewModel() {
     private val _attendanceTableData = MutableLiveData<List<Int>>()
@@ -19,27 +17,33 @@ class AttendanceViewModel(private val useCase: AttendanceUseCase) : ViewModel() 
 
     val query = MutableLiveData<String>()
 
-    init {
-        viewModelScope.launch {
-            loadAttendanceData()
-        }
-    }
-
-    private suspend fun loadAttendanceData() {
+    suspend fun loadCurrentAttendanceData() {
         try {
             val data = useCase.getCurrentAttendanceStatus()
-
-            _attendanceData.value = data.map {
-                AttendanceItem(
-                    it.student.number,
-                    it.student.name,
-                    it.log?.place?.type
-                )
-            }
-            _attendanceTableData.value = getAttendanceTableData(data)
+            applyAttendanceData(data)
         } catch (e: Exception) {
             // TODO 에러 처리
         }
+    }
+
+    suspend fun loadSpecificAttendanceData(grade: Int, klass: Int) {
+        try {
+            val data = useCase.getSpecificAttendanceStatus(grade, klass)
+            applyAttendanceData(data)
+        } catch (e: Exception) {
+            // TODO 에러 처리
+        }
+    }
+
+    fun applyAttendanceData(dataList: List<AttendanceStatusModel>) {
+        _attendanceData.value = dataList.map {
+            AttendanceItem(
+                it.student.number,
+                it.student.name,
+                it.log?.place?.type
+            )
+        }
+        _attendanceTableData.value = getAttendanceTableData(dataList)
     }
 
     private fun getAttendanceTableData(dataList: List<AttendanceStatusModel>): List<Int> {

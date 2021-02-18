@@ -77,5 +77,6 @@ class LoginActivity : AppCompatActivity() {
 
     companion object {
         const val TYPE_TEACHER = "teacher"
+        const val TYPE_STUDENT = "student"
     }
 }
