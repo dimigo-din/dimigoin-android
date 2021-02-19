@@ -1,13 +1,15 @@
 package `in`.dimigo.dimigoin.data.usecase.attendance
 
-import `in`.dimigo.dimigoin.data.model.AttendanceLogModel
-import `in`.dimigo.dimigoin.data.model.AttendanceLogRequestModel
-import `in`.dimigo.dimigoin.data.model.PlaceModel
-import `in`.dimigo.dimigoin.data.model.PrimaryPlaceModel
+import `in`.dimigo.dimigoin.data.model.*
 import `in`.dimigo.dimigoin.data.service.DimigoinService
+import `in`.dimigo.dimigoin.data.util.UserDataStore
 import retrofit2.await
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
-class AttendanceUseCseImpl(private val service: DimigoinService) : AttendanceUseCase {
+class AttendanceUseCaseImpl(private val service: DimigoinService) : AttendanceUseCase {
+    private val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+
     override suspend fun getTodayAttendanceLogs(): List<AttendanceLogModel> {
         return service.getTodayAttendanceLogs().await().logs
     }
@@ -34,5 +36,25 @@ class AttendanceUseCseImpl(private val service: DimigoinService) : AttendanceUse
 
     override suspend fun getPrimaryPlaces(): List<PrimaryPlaceModel> {
         return service.getPrimaryPlaces().await().places
+    }
+
+    override suspend fun getCurrentAttendanceStatus(): List<AttendanceStatusModel> {
+        val date: String = LocalDate.now().format(formatter)
+
+        return service.getAttendanceStatus(
+            date,
+            UserDataStore.userData.grade,
+            UserDataStore.userData.klass
+        ).await().status
+    }
+
+    override suspend fun getSpecificAttendanceStatus(grade: Int, klass: Int): List<AttendanceStatusModel> {
+        val date: String = LocalDate.now().format(formatter)
+
+        return service.getAttendanceStatus(
+            date,
+            grade,
+            klass
+        ).await().status
     }
 }

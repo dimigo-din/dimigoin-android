@@ -6,6 +6,7 @@
     <dimen name="meal_view_pager_page_offset">24dp</dimen>
     <dimen name="meal_view_pager_page_gap_offset">32dp</dimen>
     <dimen name="primary_corner_radius">10dp</dimen>
+    <dimen name="primary_half_corner_radius">5dp</dimen>
     <dimen name="button_height">64dp</dimen>
     <dimen name="button_slim_height">56dp</dimen>
     <dimen name="dialog_default_padding">32dp</dimen>

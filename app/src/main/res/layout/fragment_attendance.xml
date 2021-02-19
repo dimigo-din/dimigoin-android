@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="in.dimigo.dimigoin.ui.attendance.AttendanceViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include
+            layout="@layout/layout_title"
+            app:hideDivider="@{true}"
+            app:icon="@{@drawable/ic_location_class_accent}"
+            app:sub="@{@string/night_study_1}"
+            app:title="@{@string/attendance_state}" />
+
+        <include
+            android:id="@+id/attendance_table_layout"
+            layout="@layout/layout_attendance_table"
+            app:vm="@{vm}" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/default_horizontal_margin"
+            android:layout_marginTop="20dp">
+
+            <EditText
+                style="@style/Text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints="none"
+                android:background="@drawable/bg_round_corner_square_grey_border"
+                android:hint="@string/search_with_name"
+                android:inputType="text"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="10dp"
+                android:textColor="@color/grey_250"
+                android:text="@={vm.query}"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="8dp"
+                android:contentDescription="@string/description_search"
+                android:src="@drawable/ic_search"
+                app:tint="@color/grey_400" />
+
+        </RelativeLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="45dp"
+            android:layout_marginTop="25dp"
+            android:overScrollMode="never"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/item_attendance" />
+
+    </LinearLayout>
+
+</layout>

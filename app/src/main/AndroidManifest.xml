@@ -29,7 +29,11 @@
             android:name=".ui.login.LoginActivity"
             android:windowSoftInputMode="adjustPan" />
 
-        <activity android:name=".ui.main.MainActivity" />
+        <activity
+            android:name=".ui.main.MainActivity"
+            android:windowSoftInputMode="adjustPan" />
+
+        <activity android:name=".ui.attendance.AttendanceActivity" />
 
         <receiver
             android:name=".ui.widget.NextMealWidget"

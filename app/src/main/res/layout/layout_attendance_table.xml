@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="in.dimigo.dimigoin.ui.attendance.AttendanceViewModel" />
+    </data>
+
+    <LinearLayout
+        android:id="@+id/attendance_table_root"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/default_horizontal_margin"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/bg_round_corner_square_pink_border"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/pink_400"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/Text.Table.White"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/location_class" />
+
+            <TextView
+                style="@style/Text.Table.White"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/location_ingang" />
+
+            <TextView
+                style="@style/Text.Table.White"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/location_club" />
+
+            <TextView
+                style="@style/Text.Table.White"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/location_etc" />
+
+            <TextView
+                style="@style/Text.Table.White"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/total_number_of_people" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/Text.Table.Pink"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{vm.attendanceTableData[0].toString()}"
+                tools:text="21" />
+
+            <TextView
+                style="@style/Text.Table.Pink"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{vm.attendanceTableData[1].toString()}"
+                tools:text="21" />
+
+            <TextView
+                style="@style/Text.Table.Pink"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{vm.attendanceTableData[2].toString()}"
+                tools:text="21" />
+
+            <TextView
+                style="@style/Text.Table.Pink"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{vm.attendanceTableData[3].toString()}"
+                tools:text="21" />
+
+            <TextView
+                style="@style/Text.Table.Pink"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{vm.attendanceTableData[4].toString()}"
+                tools:text="21" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</layout>

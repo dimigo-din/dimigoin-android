@@ -40,12 +40,36 @@
                     android:layout_marginTop="16dp"
                     android:text="@string/night_study_1" />
 
-                <TextView
-                    style="@style/Text.Sub.Big"
-                    android:layout_width="wrap_content"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/default_horizontal_margin"
-                    android:text="@string/attendance_state" />
+                    android:layout_marginHorizontal="@dimen/default_horizontal_margin">
+
+                    <TextView
+                        style="@style/Text.Sub.Big"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/attendance_state"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/attendance_detail_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_round_corner_square_pink"
+                        android:fontFamily="@font/bold"
+                        android:includeFontPadding="false"
+                        android:paddingHorizontal="14dp"
+                        android:text="@string/short_detail"
+                        android:textColor="@color/white"
+                        android:textSize="12sp"
+                        android:paddingVertical="5dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <include
                     layout="@layout/layout_attendance_state"

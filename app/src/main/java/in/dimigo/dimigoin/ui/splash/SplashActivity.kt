@@ -2,8 +2,11 @@ package `in`.dimigo.dimigoin.ui.splash
 
 import `in`.dimigo.dimigoin.data.usecase.auth.AuthUseCase
 import `in`.dimigo.dimigoin.data.usecase.user.UserUseCase
+import `in`.dimigo.dimigoin.data.util.UserDataStore
+import `in`.dimigo.dimigoin.ui.attendance.AttendanceActivity
 import `in`.dimigo.dimigoin.ui.login.LoginActivity
 import `in`.dimigo.dimigoin.ui.main.MainActivity
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -24,10 +27,16 @@ class SplashActivity : AppCompatActivity() {
         lifecycleScope.launch {
             if (logoutRequested) {
                 authUseCase.logout()
-                withContext(Dispatchers.Main) { taskFinished(false) }
+                withContext(Dispatchers.Main) { taskFinished(LoginActivity::class.java) }
             } else {
                 val autoLoginSucceeded = tryAutoLogin()
-                withContext(Dispatchers.Main) { taskFinished(autoLoginSucceeded) }
+                val destinationActivity = if (autoLoginSucceeded) {
+                    if (UserDataStore.userData.userType == LoginActivity.TYPE_TEACHER) AttendanceActivity::class.java
+                    else MainActivity::class.java
+                } else {
+                    LoginActivity::class.java
+                }
+                withContext(Dispatchers.Main) { taskFinished(destinationActivity) }
             }
         }
     }
@@ -40,11 +49,8 @@ class SplashActivity : AppCompatActivity() {
         false
     }
 
-    private fun taskFinished(goToMainActivity: Boolean) {
-        startActivity(
-            if (goToMainActivity) Intent(this@SplashActivity, MainActivity::class.java)
-            else Intent(this@SplashActivity, LoginActivity::class.java)
-        )
+    private fun <T : Activity> taskFinished(destinationActivity: Class<T>) {
+        startActivity(Intent(this, destinationActivity))
         finish()
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
     }

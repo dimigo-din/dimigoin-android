@@ -34,4 +34,10 @@
         android:name="in.dimigo.dimigoin.ui.main.fragment.timetable.TimetableFragment"
         android:label="@string/timetable"
         tools:layout="@layout/fragment_timetable" />
+
+    <fragment
+        android:id="@+id/attendance"
+        android:name="in.dimigo.dimigoin.ui.attendance.AttendanceFragment"
+        android:label="@string/attendance_state"
+        tools:layout="@layout/fragment_attendance" />
 </navigation>
