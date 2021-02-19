@@ -7,7 +7,6 @@ import `in`.dimigo.dimigoin.databinding.*
 import `in`.dimigo.dimigoin.ui.custom.DimigoinDialog
 import `in`.dimigo.dimigoin.ui.main.fragment.meal.MealTime
 import `in`.dimigo.dimigoin.ui.splash.SplashActivity
-import `in`.dimigo.dimigoin.ui.util.EventWrapper
 import `in`.dimigo.dimigoin.ui.util.observeEvent
 import `in`.dimigo.dimigoin.ui.util.sharedGraphViewModel
 import android.animation.LayoutTransition
@@ -26,19 +25,16 @@ import androidx.appcompat.view.ContextThemeWrapper
 import androidx.core.content.ContextCompat
 import androidx.core.view.children
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.MutableLiveData
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.rd.PageIndicatorView
 import me.everything.android.ui.overscroll.OverScrollDecoratorHelper
-import org.koin.android.ext.android.inject
 
 class MainFragment : Fragment() {
     private lateinit var binding: FragmentMainBinding
     private val viewModel: MainFragmentViewModel by sharedGraphViewModel(R.id.main_nav_graph)
-
-    private val attendanceEvent: MutableLiveData<EventWrapper<AttendanceEvent>> by inject()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentMainBinding.inflate(inflater, container, false).apply {
@@ -73,7 +69,7 @@ class MainFragment : Fragment() {
         }
 
         binding.attendanceDetailButton.setOnClickListener {
-            attendanceEvent.value = EventWrapper(AttendanceEvent.DETAIL_ATTENDANCE_CLICKED)
+            findNavController().navigate(R.id.attendance)
         }
 
         profileImage.setOnClickListener {

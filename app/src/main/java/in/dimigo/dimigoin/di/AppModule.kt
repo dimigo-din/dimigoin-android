@@ -24,12 +24,9 @@ import `in`.dimigo.dimigoin.ui.login.LoginViewModel
 import `in`.dimigo.dimigoin.ui.main.MainViewModel
 import `in`.dimigo.dimigoin.ui.main.fragment.card.CardViewModel
 import `in`.dimigo.dimigoin.ui.main.fragment.ingang.IngangViewModel
-import `in`.dimigo.dimigoin.ui.main.fragment.main.MainFragment
 import `in`.dimigo.dimigoin.ui.main.fragment.main.MainFragmentViewModel
 import `in`.dimigo.dimigoin.ui.main.fragment.meal.MealViewModel
 import `in`.dimigo.dimigoin.ui.main.fragment.timetable.TimetableViewModel
-import `in`.dimigo.dimigoin.ui.util.EventWrapper
-import androidx.lifecycle.MutableLiveData
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -54,7 +51,4 @@ val appModule = module {
     viewModel { AttendanceViewModel(get()) }
 
     single { SharedPreferencesManager(androidContext()) }
-
-    single { MutableLiveData<EventWrapper<MainFragment.AttendanceEvent>>() }
-
 }

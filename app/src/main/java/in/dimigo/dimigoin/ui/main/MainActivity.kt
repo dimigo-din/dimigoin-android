@@ -2,21 +2,17 @@ package `in`.dimigo.dimigoin.ui.main
 
 import `in`.dimigo.dimigoin.R
 import `in`.dimigo.dimigoin.databinding.ActivityMainBinding
-import `in`.dimigo.dimigoin.ui.main.fragment.main.MainFragment
-import `in`.dimigo.dimigoin.ui.util.EventWrapper
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.forEach
 import androidx.core.view.updatePadding
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import org.koin.android.ext.android.inject
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity() {
@@ -24,7 +20,6 @@ class MainActivity : AppCompatActivity() {
     private val viewModel: MainViewModel by viewModel()
     private var bottomNavBarBottomPadding = 0
     private var isFullScreen = false
-    private val attendanceEvent: MutableLiveData<EventWrapper<MainFragment.AttendanceEvent>> by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -77,11 +72,6 @@ class MainActivity : AppCompatActivity() {
                     if (destination.id == R.id.main) View.INVISIBLE
                     else View.VISIBLE
             }
-        }
-
-        attendanceEvent.observe(this) {
-            if (it.peekContent() == MainFragment.AttendanceEvent.DETAIL_ATTENDANCE_CLICKED)
-                navController.navigate(R.id.attendance)
         }
 
         with(binding.mainBottomNav) {
