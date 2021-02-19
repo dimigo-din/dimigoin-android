@@ -54,18 +54,11 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                    <TextView
+                    <Button
                         android:id="@+id/attendance_detail_button"
+                        style="@style/Button.Chip"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/bg_round_corner_square_pink"
-                        android:fontFamily="@font/bold"
-                        android:includeFontPadding="false"
-                        android:paddingHorizontal="14dp"
                         android:text="@string/short_detail"
-                        android:textColor="@color/white"
-                        android:textSize="12sp"
-                        android:paddingVertical="5dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
