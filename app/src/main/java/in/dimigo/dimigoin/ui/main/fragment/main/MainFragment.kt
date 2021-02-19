@@ -221,8 +221,4 @@ class MainFragment : Fragment() {
     enum class Event {
         LOCATION_ETC_CLICKED
     }
-
-    enum class AttendanceEvent {
-        DETAIL_ATTENDANCE_CLICKED
-    }
 }

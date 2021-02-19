@@ -14,6 +14,14 @@ data class UserModel(
     val number: Int,
     val serial: Int,
     val photos: List<String>,
-    val userType: String,
+    val userType: UseType,
     val gender: String
 )
+
+enum class UseType {
+    @SerializedName("T")
+    TEACHER,
+
+    @SerializedName("S")
+    STUDENT
+}

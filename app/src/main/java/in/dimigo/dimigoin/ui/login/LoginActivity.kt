@@ -1,6 +1,7 @@
 package `in`.dimigo.dimigoin.ui.login
 
 import `in`.dimigo.dimigoin.R
+import `in`.dimigo.dimigoin.data.model.UseType
 import `in`.dimigo.dimigoin.data.util.UserDataStore
 import `in`.dimigo.dimigoin.databinding.ActivityLoginBinding
 import `in`.dimigo.dimigoin.databinding.DialogForgotIdPwBinding
@@ -63,11 +64,10 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun loginFinished() {
-        if (UserDataStore.userData.userType == TYPE_TEACHER)
-            startActivity(Intent(this, AttendanceActivity::class.java))
-        else
-            startActivity(Intent(this, MainActivity::class.java))
-
+        val destinationClass =
+            if (UserDataStore.userData.userType == UseType.TEACHER) AttendanceActivity::class.java
+            else MainActivity::class.java
+        startActivity(Intent(this, destinationClass))
         finish()
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
     }
@@ -79,10 +79,5 @@ class LoginActivity : AppCompatActivity() {
 
     enum class Event {
         LoginButtonClicked, LoginSuccess, LoginFail
-    }
-
-    companion object {
-        const val TYPE_TEACHER = "teacher"
-        const val TYPE_STUDENT = "student"
     }
 }
