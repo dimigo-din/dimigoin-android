@@ -38,8 +38,9 @@ class AttendanceRecyclerViewAdapter :
     override fun getItemCount() = filteredList.size
 
     fun setItem(items: List<AttendanceItem>) {
-        this.items = items
-        this.filteredList = items
+        val sortedList = items.sortedBy { it.number }
+        this.items = sortedList
+        this.filteredList = sortedList
         notifyDataSetChanged()
     }
 
