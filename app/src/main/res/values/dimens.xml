@@ -9,6 +9,7 @@
     <dimen name="primary_half_corner_radius">5dp</dimen>
     <dimen name="button_height">64dp</dimen>
     <dimen name="button_slim_height">56dp</dimen>
+    <dimen name="dialog_default_padding">32dp</dimen>
 
     <integer name="card_flip_duration">600</integer>
 </resources>

@@ -2,16 +2,17 @@ package `in`.dimigo.dimigoin.ui.main.fragment.main
 
 import `in`.dimigo.dimigoin.R
 import `in`.dimigo.dimigoin.data.model.PlaceModel
-import `in`.dimigo.dimigoin.data.service.DimigoinService
 import `in`.dimigo.dimigoin.data.util.UserDataStore
 import `in`.dimigo.dimigoin.databinding.*
 import `in`.dimigo.dimigoin.ui.custom.DimigoinDialog
 import `in`.dimigo.dimigoin.ui.main.fragment.meal.MealTime
+import `in`.dimigo.dimigoin.ui.splash.SplashActivity
 import `in`.dimigo.dimigoin.ui.util.EventWrapper
 import `in`.dimigo.dimigoin.ui.util.observeEvent
 import `in`.dimigo.dimigoin.ui.util.sharedGraphViewModel
 import android.animation.LayoutTransition
 import android.app.Dialog
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -57,9 +58,9 @@ class MainFragment : Fragment() {
             applyCarouselEffect()
         }
 
-        if (UserDataStore.userData.photo.isNotEmpty()) {
+        if (UserDataStore.userData.photos.isNotEmpty()) {
             Glide.with(requireContext())
-                .load(DimigoinService.getProfileUrl(UserDataStore.userData.photo.last()))
+                .load(UserDataStore.userData.photos.last())
                 .into(profileImage)
         }
 
@@ -73,6 +74,19 @@ class MainFragment : Fragment() {
 
         binding.attendanceDetailButton.setOnClickListener {
             attendanceEvent.value = EventWrapper(AttendanceEvent.DETAIL_ATTENDANCE_CLICKED)
+        }
+
+        profileImage.setOnClickListener {
+            val dialogView = DialogLogoutBinding.inflate(layoutInflater).root
+            DimigoinDialog(requireContext()).CustomView(dialogView).apply {
+                usePositiveButton {
+                    val intent = Intent(context, SplashActivity::class.java)
+                    intent.putExtra(SplashActivity.KEY_LOGOUT, true)
+                    startActivity(intent)
+                    activity?.finish()
+                }
+                useNegativeButton()
+            }.show()
         }
 
         mainContentLayout.layoutTransition.enableTransitionType(LayoutTransition.CHANGING)
@@ -94,7 +108,7 @@ class MainFragment : Fragment() {
             }
         }
         DimigoinDialog(requireContext()).CustomView(dialogBinding.root).apply {
-            usePositiveButton {
+            usePositiveButton(dismissOnClick = false) {
                 val reason = dialogBinding.reasonEditText.text
                 if (selectedPlace == null) {
                     Toast.makeText(context, R.string.select_location, Toast.LENGTH_SHORT).show()

@@ -1,10 +1,12 @@
 package `in`.dimigo.dimigoin.ui.splash
 
+import `in`.dimigo.dimigoin.data.usecase.auth.AuthUseCase
 import `in`.dimigo.dimigoin.data.usecase.user.UserUseCase
 import `in`.dimigo.dimigoin.data.util.UserDataStore
 import `in`.dimigo.dimigoin.ui.attendance.AttendanceActivity
 import `in`.dimigo.dimigoin.ui.login.LoginActivity
 import `in`.dimigo.dimigoin.ui.main.MainActivity
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -16,34 +18,44 @@ import org.koin.android.ext.android.inject
 
 class SplashActivity : AppCompatActivity() {
     private val userUseCase: UserUseCase by inject()
+    private val authUseCase: AuthUseCase by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val logoutRequested = intent.getBooleanExtra(KEY_LOGOUT, false)
 
         lifecycleScope.launch {
-            val autoLoginSucceeded = tryAutoLogin()
-            withContext(Dispatchers.Main) { loginFinished(autoLoginSucceeded) }
+            if (logoutRequested) {
+                authUseCase.logout()
+                withContext(Dispatchers.Main) { taskFinished(LoginActivity::class.java) }
+            } else {
+                val autoLoginSucceeded = tryAutoLogin()
+                val destinationActivity = if (autoLoginSucceeded) {
+                    if (UserDataStore.userData.userType == LoginActivity.TYPE_TEACHER) AttendanceActivity::class.java
+                    else MainActivity::class.java
+                } else {
+                    LoginActivity::class.java
+                }
+                withContext(Dispatchers.Main) { taskFinished(destinationActivity) }
+            }
         }
     }
 
     private suspend fun tryAutoLogin() = try {
-        UserDataStore.userData = userUseCase.getMyInfo()
+        userUseCase.storeUserData()
         true
     } catch (e: Exception) {
         e.printStackTrace()
         false
     }
 
-    private fun loginFinished(isAutoLoginSuccess: Boolean) {
-        startActivity(
-            if (isAutoLoginSuccess) {
-                if (UserDataStore.userData.userType == LoginActivity.TYPE_TEACHER)
-                    Intent(this, AttendanceActivity::class.java)
-                else
-                    Intent(this, MainActivity::class.java)
-            } else Intent(this@SplashActivity, LoginActivity::class.java)
-        )
+    private fun <T : Activity> taskFinished(destinationActivity: Class<T>) {
+        startActivity(Intent(this, destinationActivity))
         finish()
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+    }
+
+    companion object {
+        const val KEY_LOGOUT = "logout"
     }
 }

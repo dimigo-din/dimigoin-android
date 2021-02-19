@@ -4,6 +4,8 @@ import `in`.dimigo.dimigoin.data.usecase.attendance.AttendanceUseCase
 import `in`.dimigo.dimigoin.data.usecase.attendance.AttendanceUseCaseImpl
 import `in`.dimigo.dimigoin.data.usecase.auth.AuthUseCase
 import `in`.dimigo.dimigoin.data.usecase.auth.AuthUseCaseImpl
+import `in`.dimigo.dimigoin.data.usecase.fcm.FcmUseCase
+import `in`.dimigo.dimigoin.data.usecase.fcm.FcmUseCaseImpl
 import `in`.dimigo.dimigoin.data.usecase.ingang.IngangUseCase
 import `in`.dimigo.dimigoin.data.usecase.ingang.IngangUseCaseImpl
 import `in`.dimigo.dimigoin.data.usecase.meal.MealUseCase
@@ -33,13 +35,14 @@ import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val appModule = module {
-    single<AuthUseCase> { AuthUseCaseImpl(get(), get()) }
+    single<AuthUseCase> { AuthUseCaseImpl(get(), get(), get()) }
     single<MealUseCase> { MealUseCaseImpl(get(), MealItem.getFailedMealItem(androidContext())) }
     single<UserUseCase> { UserUseCaseImpl(get()) }
     single<IngangUseCase> { IngangUseCaseImpl(get()) }
     single<TimetableUseCase> { TimetableUseCaseImpl(get()) }
     single<AttendanceUseCase> { AttendanceUseCaseImpl(get()) }
     single<NoticeUseCase> { NoticeUseCaseImpl(get(), NoticeItem.getFailedNoticeItem(androidContext())) }
+    single<FcmUseCase> { FcmUseCaseImpl(get()) }
 
     viewModel { LoginViewModel(get(), get()) }
     viewModel { MainViewModel() }

@@ -8,6 +8,7 @@ class NoticeUseCaseImpl(val service: DimigoinService, override val failedNotice:
 
     override suspend fun getNotice(): NoticeItem {
         val notices = service.getCurrentNotices().await().notices
+        if (notices.isEmpty()) throw Exception("Notices not found")
         val notice = notices.joinToString("\n\n") {
             it.content
         }

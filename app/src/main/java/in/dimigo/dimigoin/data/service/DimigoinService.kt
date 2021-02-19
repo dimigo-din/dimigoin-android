@@ -62,9 +62,14 @@ interface DimigoinService {
     @GET("/notice/current")
     fun getCurrentNotices(): Call<NoticeResponseModel>
 
+    // FCM
+    @POST("/fcm/token")
+    fun uploadFcmToken(@Body fcmTokenUploadRequestModel: FcmTokenUploadRequestModel): Call<Void?>
+
+    @HTTP(method = "DELETE", path = "/fcm/token", hasBody = true)
+    fun deleteFcmToken(@Body fcmTokenUploadRequestModel: FcmTokenUploadRequestModel): Call<Void?>
+
     companion object {
         const val BASE_URL = "https://api.dimigo.in"
-
-        fun getProfileUrl(photo: String) = "https://api.dimigo.hs.kr/user_photo/$photo"
     }
 }

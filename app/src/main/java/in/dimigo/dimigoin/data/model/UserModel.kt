@@ -13,7 +13,7 @@ data class UserModel(
     @SerializedName("class") val klass: Int,
     val number: Int,
     val serial: Int,
-    val photo: List<String>,
+    val photos: List<String>,
     val userType: String,
     val gender: String
 )

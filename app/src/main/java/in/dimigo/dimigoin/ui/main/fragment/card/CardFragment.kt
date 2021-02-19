@@ -1,9 +1,10 @@
 package `in`.dimigo.dimigoin.ui.main.fragment.card
 
 import `in`.dimigo.dimigoin.R
-import `in`.dimigo.dimigoin.data.service.DimigoinService
 import `in`.dimigo.dimigoin.data.util.UserDataStore
+import `in`.dimigo.dimigoin.databinding.DialogCardCautionBinding
 import `in`.dimigo.dimigoin.databinding.FragmentCardBinding
+import `in`.dimigo.dimigoin.ui.custom.DimigoinDialog
 import `in`.dimigo.dimigoin.ui.main.MainActivity
 import `in`.dimigo.dimigoin.ui.main.MainViewModel
 import `in`.dimigo.dimigoin.ui.util.sharedGraphViewModel
@@ -67,9 +68,9 @@ class CardFragment : Fragment() {
 
         cardMotionLayout.setTransitionListener(transitionListener)
 
-        if (UserDataStore.userData.photo.isNotEmpty()) {
+        if (UserDataStore.userData.photos.isNotEmpty()) {
             Glide.with(requireContext())
-                .load(DimigoinService.getProfileUrl(UserDataStore.userData.photo.last()))
+                .load(UserDataStore.userData.photos.last())
                 .into(profileImage)
         }
 
@@ -79,6 +80,10 @@ class CardFragment : Fragment() {
 
         activityViewModel.hideCard.observe(viewLifecycleOwner) {
             hideCard()
+        }
+        cautionButton.setOnClickListener {
+            val dialogView = DialogCardCautionBinding.inflate(layoutInflater).root
+            DimigoinDialog(requireContext()).CustomView(dialogView, R.color.grey_450).show()
         }
     }
 

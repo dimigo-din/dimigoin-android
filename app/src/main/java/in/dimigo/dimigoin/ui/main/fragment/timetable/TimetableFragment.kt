@@ -25,6 +25,7 @@ class TimetableFragment : Fragment() {
         val dateFormatSymbols = DateFormatSymbols(Locale.getDefault())
 
         binding.apply {
+            lifecycleOwner = viewLifecycleOwner
             user = UserDataStore.userData
             shortWeekDays = dateFormatSymbols.shortWeekdays.toList()
             date = dateChangedLiveData

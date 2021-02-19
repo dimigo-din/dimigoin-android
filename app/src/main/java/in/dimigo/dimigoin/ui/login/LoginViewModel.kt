@@ -3,7 +3,6 @@ package `in`.dimigo.dimigoin.ui.login
 import `in`.dimigo.dimigoin.data.model.LoginRequestModel
 import `in`.dimigo.dimigoin.data.usecase.auth.AuthUseCase
 import `in`.dimigo.dimigoin.data.usecase.user.UserUseCase
-import `in`.dimigo.dimigoin.data.util.UserDataStore
 import `in`.dimigo.dimigoin.ui.util.EventWrapper
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -55,7 +54,7 @@ class LoginViewModel(private val useCase: AuthUseCase, private val userUseCase: 
         }
 
         try {
-            UserDataStore.userData = userUseCase.getMyInfo()
+            userUseCase.storeUserData()
             _event.value = EventWrapper(LoginActivity.Event.LoginSuccess)
         } catch (e: Exception) {
             e.printStackTrace()

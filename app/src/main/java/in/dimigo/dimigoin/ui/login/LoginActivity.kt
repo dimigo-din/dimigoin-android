@@ -3,7 +3,9 @@ package `in`.dimigo.dimigoin.ui.login
 import `in`.dimigo.dimigoin.R
 import `in`.dimigo.dimigoin.data.util.UserDataStore
 import `in`.dimigo.dimigoin.databinding.ActivityLoginBinding
+import `in`.dimigo.dimigoin.databinding.DialogForgotIdPwBinding
 import `in`.dimigo.dimigoin.ui.attendance.AttendanceActivity
+import `in`.dimigo.dimigoin.ui.custom.DimigoinDialog
 import `in`.dimigo.dimigoin.ui.main.MainActivity
 import `in`.dimigo.dimigoin.ui.util.observeEvent
 import android.content.Intent
@@ -39,6 +41,10 @@ class LoginActivity : AppCompatActivity() {
         }
         pwEditText.setOnFocusChangeListener { _, hasFocus ->
             if (hasFocus) viewModel.pwErrorEnabled.value = false
+        }
+        findIdPwText.setOnClickListener {
+            val dialogView = DialogForgotIdPwBinding.inflate(layoutInflater).root
+            DimigoinDialog(this@LoginActivity).CustomView(dialogView).show()
         }
     }
 
