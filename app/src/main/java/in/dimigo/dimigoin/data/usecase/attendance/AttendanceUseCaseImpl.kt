@@ -39,13 +39,7 @@ class AttendanceUseCaseImpl(private val service: DimigoinService) : AttendanceUs
     }
 
     override suspend fun getCurrentAttendanceStatus(): List<AttendanceStatusModel> {
-        val date: String = LocalDate.now().format(formatter)
-
-        return service.getAttendanceStatus(
-            date,
-            UserDataStore.userData.grade,
-            UserDataStore.userData.klass
-        ).await().status
+        return getSpecificAttendanceStatus(UserDataStore.userData.grade, UserDataStore.userData.klass)
     }
 
     override suspend fun getSpecificAttendanceStatus(grade: Int, klass: Int): List<AttendanceStatusModel> {
