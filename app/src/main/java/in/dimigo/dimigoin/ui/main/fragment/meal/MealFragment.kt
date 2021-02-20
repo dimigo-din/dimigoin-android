@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import me.everything.android.ui.overscroll.OverScrollDecoratorHelper
 
 class MealFragment : Fragment() {
     private val mealFragmentViewModel: MealViewModel by sharedGraphViewModel(R.id.main_nav_graph)
@@ -20,6 +21,7 @@ class MealFragment : Fragment() {
             lifecycleOwner = viewLifecycleOwner
             vm = mealFragmentViewModel
             position = this@MealFragment.position
+            OverScrollDecoratorHelper.setUpOverScroll(scrollView)
         }
 
         return binding.root

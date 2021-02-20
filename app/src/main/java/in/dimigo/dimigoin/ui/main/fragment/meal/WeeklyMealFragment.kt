@@ -9,7 +9,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.google.android.material.tabs.TabLayoutMediator
-import me.everything.android.ui.overscroll.OverScrollDecoratorHelper
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -24,7 +23,6 @@ class WeeklyMealFragment : Fragment() {
             lifecycleOwner = viewLifecycleOwner
             vm = viewModel
             date = getFormattedToday(getString(R.string.date_format))
-            OverScrollDecoratorHelper.setUpOverScroll(mealScrollView)
 
             mealViewPager.adapter = MealAdapter(this@WeeklyMealFragment)
 

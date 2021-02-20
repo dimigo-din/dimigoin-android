@@ -15,32 +15,41 @@
             type="in.dimigo.dimigoin.ui.main.fragment.meal.MealViewModel" />
     </data>
 
-    <LinearLayout
+    <ScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        android:overScrollMode="never"
+        android:scrollbars="none">
 
-        <include
-            layout="@layout/layout_meal_section"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            app:meal="@{vm.weeklyMeals == null ? @string/meal_loading_message : vm.weeklyMeals[position].breakfast}"
-            app:mealTime="@{MealTime.BREAKFAST}"
-            app:time="@{`오전 8시 10분`}" />
+            android:orientation="vertical">
 
-        <include
-            layout="@layout/layout_meal_section"
-            app:meal="@{vm.weeklyMeals == null ? @string/meal_loading_message : vm.weeklyMeals[position].lunch}"
-            app:mealTime="@{MealTime.LUNCH}"
-            app:time="@{`오후 1시 27분`}" />
+            <include
+                layout="@layout/layout_meal_section"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                app:meal="@{vm.weeklyMeals == null ? @string/meal_loading_message : vm.weeklyMeals[position].breakfast}"
+                app:mealTime="@{MealTime.BREAKFAST}"
+                app:time="@{`오전 8시 10분`}" />
 
-        <include
-            layout="@layout/layout_meal_section"
-            app:meal="@{vm.weeklyMeals == null ? @string/meal_loading_message : vm.weeklyMeals[position].dinner}"
-            app:mealTime="@{MealTime.DINNER}"
-            app:time="@{`오후 7시 21분`}" />
+            <include
+                layout="@layout/layout_meal_section"
+                app:meal="@{vm.weeklyMeals == null ? @string/meal_loading_message : vm.weeklyMeals[position].lunch}"
+                app:mealTime="@{MealTime.LUNCH}"
+                app:time="@{`오후 1시 27분`}" />
 
-    </LinearLayout>
+            <include
+                layout="@layout/layout_meal_section"
+                app:meal="@{vm.weeklyMeals == null ? @string/meal_loading_message : vm.weeklyMeals[position].dinner}"
+                app:mealTime="@{MealTime.DINNER}"
+                app:time="@{`오후 7시 21분`}" />
+
+        </LinearLayout>
+
+    </ScrollView>
 
 </layout>

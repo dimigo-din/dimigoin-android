@@ -15,39 +15,29 @@
             type="String" />
     </data>
 
-    <ScrollView
-        android:id="@+id/mealScrollView"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:overScrollMode="never"
-        android:scrollbars="none">
+        android:orientation="vertical">
 
-        <LinearLayout
+        <include
+            layout="@layout/layout_title"
+            app:hideDivider="@{true}"
+            app:icon="@{@drawable/ic_meal_enabled}"
+            app:sub="@{date}"
+            app:title="@{@string/meal}" />
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_marginHorizontal="@dimen/default_horizontal_margin" />
 
-            <include
-                layout="@layout/layout_title"
-                app:hideDivider="@{true}"
-                app:icon="@{@drawable/ic_meal_enabled}"
-                app:sub="@{date}"
-                app:title="@{@string/meal}" />
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/mealViewPager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
-            <com.google.android.material.tabs.TabLayout
-                android:id="@+id/tabLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/default_horizontal_margin" />
-
-            <androidx.viewpager2.widget.ViewPager2
-                android:id="@+id/mealViewPager"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="4dp" />
-
-        </LinearLayout>
-
-    </ScrollView>
+    </LinearLayout>
 
 </layout>
