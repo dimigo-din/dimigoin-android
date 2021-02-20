@@ -195,7 +195,7 @@
         <item name="android:textSize">16sp</item>
     </style>
 
-    <style name="OverScrollable">
+    <style name="LayoutScrollView">
         <item name="android:scrollbars">none</item>
         <item name="android:overScrollMode">never</item>
     </style>

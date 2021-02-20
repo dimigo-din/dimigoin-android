@@ -30,7 +30,6 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.rd.PageIndicatorView
-import me.everything.android.ui.overscroll.OverScrollDecoratorHelper
 
 class MainFragment : Fragment() {
     private lateinit var binding: FragmentMainBinding
@@ -86,7 +85,6 @@ class MainFragment : Fragment() {
         }
 
         mainContentLayout.layoutTransition.enableTransitionType(LayoutTransition.CHANGING)
-        OverScrollDecoratorHelper.setUpOverScroll(mainScrollView)
     }
 
     private fun showEtcDialog() {

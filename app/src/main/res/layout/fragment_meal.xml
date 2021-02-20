@@ -16,10 +16,9 @@
     </data>
 
     <ScrollView
-        android:id="@+id/scrollView"
-        style="@style/OverScrollable"
+        style="@style/LayoutScrollView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"

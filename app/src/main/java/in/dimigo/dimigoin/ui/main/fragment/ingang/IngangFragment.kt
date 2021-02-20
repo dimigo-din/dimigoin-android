@@ -15,7 +15,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
-import me.everything.android.ui.overscroll.OverScrollDecoratorHelper
 
 class IngangFragment : Fragment() {
     private lateinit var binding: FragmentIngangBinding
@@ -52,7 +51,6 @@ class IngangFragment : Fragment() {
         }
 
         ingangContainer.layoutTransition.enableTransitionType(LayoutTransition.CHANGING)
-        OverScrollDecoratorHelper.setUpOverScroll(ingangScrollView)
     }
 
     private fun getAppliers(ingangApplications: List<IngangApplicationModel>): List<UserModel> =

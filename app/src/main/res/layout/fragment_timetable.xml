@@ -21,8 +21,7 @@
     </data>
 
     <ScrollView
-        android:id="@+id/timetableScrollView"
-        style="@style/OverScrollable"
+        style="@style/LayoutScrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 

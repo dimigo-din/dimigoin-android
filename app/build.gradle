@@ -89,6 +89,5 @@ dependencies {
     implementation 'de.hdodenhof:circleimageview:3.1.0'
     implementation 'com.romandanylyk:pageindicatorview:1.0.3'
     implementation 'com.github.bumptech.glide:glide:4.11.0'
-    implementation 'me.everything:overscroll-decor-android:1.1.0'
     implementation 'tk.zielony:carbon:0.16.0.1'
 }
