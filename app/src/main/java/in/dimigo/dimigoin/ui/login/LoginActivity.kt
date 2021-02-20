@@ -1,7 +1,7 @@
 package `in`.dimigo.dimigoin.ui.login
 
 import `in`.dimigo.dimigoin.R
-import `in`.dimigo.dimigoin.data.model.UseType
+import `in`.dimigo.dimigoin.data.model.UserType
 import `in`.dimigo.dimigoin.data.util.UserDataStore
 import `in`.dimigo.dimigoin.databinding.ActivityLoginBinding
 import `in`.dimigo.dimigoin.databinding.DialogForgotIdPwBinding
@@ -65,7 +65,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun loginFinished() {
         val destinationClass =
-            if (UserDataStore.userData.userType == UseType.TEACHER) AttendanceActivity::class.java
+            if (UserDataStore.userData.userType == UserType.TEACHER) AttendanceActivity::class.java
             else MainActivity::class.java
         startActivity(Intent(this, destinationClass))
         finish()

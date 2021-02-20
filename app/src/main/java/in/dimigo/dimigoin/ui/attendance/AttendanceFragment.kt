@@ -1,6 +1,6 @@
 package `in`.dimigo.dimigoin.ui.attendance
 
-import `in`.dimigo.dimigoin.data.model.UseType
+import `in`.dimigo.dimigoin.data.model.UserType
 import `in`.dimigo.dimigoin.data.util.UserDataStore
 import `in`.dimigo.dimigoin.databinding.FragmentAttendanceBinding
 import android.os.Bundle
@@ -33,7 +33,7 @@ class AttendanceFragment : Fragment() {
         }
 
         lifecycleScope.launch {
-            if (UserDataStore.userData.userType == UseType.TEACHER) {
+            if (UserDataStore.userData.userType == UserType.TEACHER) {
                 viewModel.loadSpecificAttendanceData(1, 1)
             } else {
                 viewModel.loadCurrentAttendanceData()

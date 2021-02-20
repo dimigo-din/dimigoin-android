@@ -14,11 +14,11 @@ data class UserModel(
     val number: Int,
     val serial: Int,
     val photos: List<String>,
-    val userType: UseType,
+    val userType: UserType,
     val gender: String
 )
 
-enum class UseType {
+enum class UserType {
     @SerializedName("T")
     TEACHER,
 

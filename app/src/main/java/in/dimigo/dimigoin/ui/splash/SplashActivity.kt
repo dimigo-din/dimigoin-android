@@ -1,6 +1,6 @@
 package `in`.dimigo.dimigoin.ui.splash
 
-import `in`.dimigo.dimigoin.data.model.UseType
+import `in`.dimigo.dimigoin.data.model.UserType
 import `in`.dimigo.dimigoin.data.usecase.auth.AuthUseCase
 import `in`.dimigo.dimigoin.data.usecase.user.UserUseCase
 import `in`.dimigo.dimigoin.data.util.UserDataStore
@@ -32,7 +32,7 @@ class SplashActivity : AppCompatActivity() {
             } else {
                 val autoLoginSucceeded = tryAutoLogin()
                 val destinationActivity = if (autoLoginSucceeded) {
-                    if (UserDataStore.userData.userType == UseType.TEACHER) AttendanceActivity::class.java
+                    if (UserDataStore.userData.userType == UserType.TEACHER) AttendanceActivity::class.java
                     else MainActivity::class.java
                 } else {
                     LoginActivity::class.java
