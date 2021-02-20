@@ -19,6 +19,10 @@ class TimetableViewModel(private val timetableUseCase: TimetableUseCase) : ViewM
     }
 
     suspend fun getTimetable() {
-        _timetable.value = timetableUseCase.getWeeklyTimetable()
+        try {
+            _timetable.value = timetableUseCase.getWeeklyTimetable()
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 }
