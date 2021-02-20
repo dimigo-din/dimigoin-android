@@ -10,7 +10,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.GridLayoutManager
 import me.everything.android.ui.overscroll.OverScrollDecoratorHelper
 import java.text.DateFormatSymbols
 import java.util.*
@@ -29,11 +28,7 @@ class TimetableFragment : Fragment() {
             user = UserDataStore.userData
             shortWeekDays = dateFormatSymbols.shortWeekdays.toList()
             date = dateChangedLiveData
-            recyclerView.apply {
-                this.adapter = adapter
-                layoutManager = GridLayoutManager(activity, 5)
-                isNestedScrollingEnabled = false
-            }
+            recyclerView.adapter = adapter
             OverScrollDecoratorHelper.setUpOverScroll(timetableScrollView)
         }
 

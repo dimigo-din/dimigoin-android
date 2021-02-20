@@ -20,7 +20,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="32dp"
         android:gravity="center"
         android:orientation="vertical">
 
@@ -28,10 +28,12 @@
             style="@style/Text.Sub.Grey"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:maxLength="5"
+            android:singleLine="true"
             android:text="@{subject.name}"
             android:textAlignment="center"
-            android:textColor="@{(DayOfWeek.from(date) == subject.dayOfWeek) ? @color/pink_400 : @color/grey_450}"
+            android:textColor="@{(DayOfWeek.from(date) == subject.dayOfWeek) ? @color/pink_400 : @color/grey_400}"
+            android:tooltipText="@{subject.name}"
+            tools:targetApi="o"
             tools:text="과목" />
 
     </LinearLayout>
