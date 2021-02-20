@@ -36,6 +36,10 @@ class TimetableFragment : Fragment() {
             adapter.setItem(it)
         }
 
+        dateChangedLiveData.observe(viewLifecycleOwner) {
+            adapter.notifyDataSetChanged()
+        }
+
         return binding.root
     }
 }
