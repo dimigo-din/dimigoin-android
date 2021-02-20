@@ -11,19 +11,23 @@ data class WeeklyMealResponseModel(
 data class MealResponseModel(
     val meal: MealModel
 ) {
-    fun toMealItem() = meal.toMealItem()
+    fun toMealItem(failedMealItem: MealItem) = meal.toMealItem(failedMealItem)
 }
 
 data class MealModel(
     val breakfast: MealList,
     val lunch: MealList,
     val dinner: MealList,
+    val date: String
 ) {
-    fun toMealItem() = MealItem(
-        this.breakfast.joinToString(),
-        this.lunch.joinToString(),
-        this.dinner.joinToString()
+    fun toMealItem(failedMealItem: MealItem) = MealItem(
+        this.breakfast.stringify(failedMealItem.breakfast),
+        this.lunch.stringify(failedMealItem.lunch),
+        this.dinner.stringify(failedMealItem.dinner)
     )
 }
 
-private fun MealList.joinToString() = joinToString(", ")
+private fun MealList.stringify(failedMealString: String): String {
+    return if (isNullOrEmpty()) failedMealString
+    else joinToString(", ")
+}
