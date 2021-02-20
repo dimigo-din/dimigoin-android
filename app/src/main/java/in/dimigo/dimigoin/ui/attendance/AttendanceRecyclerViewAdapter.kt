@@ -3,6 +3,7 @@ package `in`.dimigo.dimigoin.ui.attendance
 import `in`.dimigo.dimigoin.R
 import `in`.dimigo.dimigoin.databinding.ItemAttendanceBinding
 import `in`.dimigo.dimigoin.ui.item.AttendanceItem
+import `in`.dimigo.dimigoin.ui.main.fragment.main.AttendanceLocation
 import `in`.dimigo.dimigoin.ui.util.LooseDiffCallback
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -61,6 +62,8 @@ class AttendanceRecyclerViewAdapter :
 
 private class AttendanceViewHolder(private val binding: ItemAttendanceBinding) : RecyclerView.ViewHolder(binding.root) {
     fun bind(item: AttendanceItem) {
+        val location = item.place?.let { AttendanceLocation.fromPlace(it) }
         binding.item = item
+        binding.location = location
     }
 }

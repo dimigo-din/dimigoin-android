@@ -10,6 +10,10 @@
         <variable
             name="item"
             type="in.dimigo.dimigoin.ui.item.AttendanceItem" />
+
+        <variable
+            name="location"
+            type="in.dimigo.dimigoin.ui.main.fragment.main.AttendanceLocation" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -68,14 +72,15 @@
                 android:layout_width="12dp"
                 android:layout_height="12dp"
                 android:layout_marginStart="8dp"
-                android:src="@drawable/ic_location_ingang"
+                android:contentDescription="@string/description_type_icon"
+                android:src="@{location.icon}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:contentDescription="@string/description_type_icon"
                 app:tint="@color/grey_400" />
 
             <TextView
+                android:id="@+id/placeName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/medium"
@@ -84,6 +89,7 @@
                 android:textAlignment="center"
                 android:textColor="@color/grey_400"
                 android:textSize="12sp"
+                android:text="@{location.label}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/placeIcon"

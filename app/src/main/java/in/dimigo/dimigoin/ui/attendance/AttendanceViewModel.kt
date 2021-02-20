@@ -40,7 +40,7 @@ class AttendanceViewModel(private val useCase: AttendanceUseCase) : ViewModel() 
             AttendanceItem(
                 it.student.number,
                 it.student.name,
-                it.log?.place?.type
+                it.log?.place
             )
         }
         _attendanceTableData.value = getAttendanceTableData(dataList)

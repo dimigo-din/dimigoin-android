@@ -1,6 +1,8 @@
 package `in`.dimigo.dimigoin.ui.main.fragment.main
 
 import `in`.dimigo.dimigoin.R
+import `in`.dimigo.dimigoin.data.model.PlaceModel
+import `in`.dimigo.dimigoin.data.model.PlaceType
 import `in`.dimigo.dimigoin.data.model.PrimaryPlaceModel
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
@@ -19,5 +21,20 @@ enum class AttendanceLocation(@DrawableRes val icon: Int, @StringRes val locatio
     companion object {
         fun fromPrimaryPlace(primaryPlaceModel: PrimaryPlaceModel?): AttendanceLocation =
             values().find { it.label == primaryPlaceModel?.label } ?: Etc
+
+        fun fromPlace(placeModel: PlaceModel): AttendanceLocation {
+            return when (placeModel.type) {
+                PlaceType.CLASSROOM -> Class
+                PlaceType.CIRCLE -> Club
+                PlaceType.INGANG -> Ingang
+                else -> {
+                    when (placeModel.name) {
+                        "학봉관", "우정학사" -> Laundry
+                        "안정실" -> Health
+                        else -> Etc
+                    }
+                }
+            }
+        }
     }
 }
