@@ -2,14 +2,12 @@ package `in`.dimigo.dimigoin.data.usecase.attendance
 
 import `in`.dimigo.dimigoin.data.model.*
 import `in`.dimigo.dimigoin.data.service.DimigoinService
+import `in`.dimigo.dimigoin.data.util.DateUtil
 import `in`.dimigo.dimigoin.data.util.UserDataStore
 import retrofit2.await
 import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 
 class AttendanceUseCaseImpl(private val service: DimigoinService) : AttendanceUseCase {
-    private val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
-
     override suspend fun getTodayAttendanceLogs(): List<AttendanceLogModel> {
         return service.getTodayAttendanceLogs().await().logs
     }
@@ -43,7 +41,7 @@ class AttendanceUseCaseImpl(private val service: DimigoinService) : AttendanceUs
     }
 
     override suspend fun getSpecificAttendanceStatus(grade: Int, klass: Int): List<AttendanceStatusModel> {
-        val date: String = LocalDate.now().format(formatter)
+        val date: String = LocalDate.now().format(DateUtil.dateFormatter)
 
         return service.getAttendanceStatus(
             date,
