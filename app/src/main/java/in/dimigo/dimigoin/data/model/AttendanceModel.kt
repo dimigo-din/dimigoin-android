@@ -26,7 +26,7 @@ data class AttendanceStatusModel(
 )
 
 data class AttendanceStatusLogModel(
-    val student: String,
+    val student: UserModel,
     val date: String,
     val place: PlaceModel,
     val remark: String,
