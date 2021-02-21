@@ -69,6 +69,10 @@ interface DimigoinService {
     @HTTP(method = "DELETE", path = "/fcm/token", hasBody = true)
     fun deleteFcmToken(@Body fcmTokenUploadRequestModel: FcmTokenUploadRequestModel): Call<Void?>
 
+    // Config
+    @GET("/config")
+    fun getConfigs(): Call<ConfigResponseModel>
+
     companion object {
         const val BASE_URL = "https://api.dimigo.in"
     }
