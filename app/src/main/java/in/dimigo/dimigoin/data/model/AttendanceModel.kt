@@ -9,10 +9,11 @@ data class AttendanceLogsResponseModel(
 
 data class AttendanceLogModel(
     val student: UserModel,
-    val date: String,
+    val date: Date,
     val place: PlaceModel,
     val remark: String,
-    @SerializedName("updatedAt") val time: Date
+    val updatedBy: UserModel? = null,
+    @SerializedName("updatedAt") val time: Date,
 )
 
 data class AttendanceLogRequestModel(

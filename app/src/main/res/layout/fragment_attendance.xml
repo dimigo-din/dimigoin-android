@@ -5,9 +5,15 @@
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
             name="vm"
             type="in.dimigo.dimigoin.ui.attendance.AttendanceViewModel" />
+
+        <variable
+            name="isTeacherMode"
+            type="Boolean" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -19,12 +25,30 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <include
-                layout="@layout/layout_title"
-                app:hideDivider="@{true}"
-                app:icon="@{@drawable/ic_location_class_accent}"
-                app:sub="@{@string/night_study_1}"
-                app:title="@{@string/attendance_state}" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/titleArea"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <include
+                    layout="@layout/layout_title"
+                    app:hideDivider="@{true}"
+                    app:icon="@{isTeacherMode ? null : @drawable/ic_location_class_accent}"
+                    app:sub="@{@string/night_study_1}"
+                    app:title="@{@string/attendance_state}" />
+
+                <Button
+                    android:id="@+id/attendance_history_button"
+                    style="@style/Button.Chip"
+                    android:layout_width="wrap_content"
+                    android:layout_marginEnd="@dimen/default_horizontal_margin"
+                    android:layout_marginBottom="2dp"
+                    android:text="@string/history"
+                    android:visibility="@{isTeacherMode ? View.VISIBLE : View.GONE}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <include
                 android:id="@+id/attendance_table_layout"
@@ -80,9 +104,9 @@
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:orientation="vertical"
+            android:visibility="@{isTeacherMode ? View.VISIBLE : View.GONE}"
             app:behavior_hideable="false"
             app:behavior_peekHeight="38dp"
-
             app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
             <LinearLayout
