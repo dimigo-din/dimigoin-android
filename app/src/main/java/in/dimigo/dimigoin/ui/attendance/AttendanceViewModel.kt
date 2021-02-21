@@ -4,6 +4,7 @@ import `in`.dimigo.dimigoin.data.model.AttendanceStatusModel
 import `in`.dimigo.dimigoin.data.model.PlaceType
 import `in`.dimigo.dimigoin.data.usecase.attendance.AttendanceUseCase
 import `in`.dimigo.dimigoin.ui.item.AttendanceItem
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -22,7 +23,7 @@ class AttendanceViewModel(private val useCase: AttendanceUseCase) : ViewModel() 
             val data = useCase.getCurrentAttendanceStatus()
             applyAttendanceData(data)
         } catch (e: Exception) {
-            // TODO 에러 처리
+            Log.e("error", "msg: ${e.message}")
         }
     }
 
@@ -31,7 +32,7 @@ class AttendanceViewModel(private val useCase: AttendanceUseCase) : ViewModel() 
             val data = useCase.getSpecificAttendanceStatus(grade, klass)
             applyAttendanceData(data)
         } catch (e: Exception) {
-            // TODO 에러 처리
+            Log.e("error", "msg: ${e.message}")
         }
     }
 
