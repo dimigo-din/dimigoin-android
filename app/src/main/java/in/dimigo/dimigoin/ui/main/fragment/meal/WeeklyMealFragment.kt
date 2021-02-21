@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.google.android.material.tabs.TabLayoutMediator
 import java.text.SimpleDateFormat
+import java.time.LocalDate
 import java.util.*
 
 class WeeklyMealFragment : Fragment() {
@@ -25,12 +26,10 @@ class WeeklyMealFragment : Fragment() {
             date = getFormattedToday(getString(R.string.date_format))
 
             mealViewPager.adapter = MealAdapter(this@WeeklyMealFragment)
-
             TabLayoutMediator(tabLayout, mealViewPager) { tab, position ->
                 tab.text = shortWeekDays[position]
-                mealViewPager.setCurrentItem(tab.position, true)
-                tabLayout.selectTab(tabLayout.getTabAt(position))
             }.attach()
+            mealViewPager.setCurrentItem(LocalDate.now().dayOfWeek.ordinal, false)
         }
 
         return binding.root
