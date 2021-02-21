@@ -69,8 +69,12 @@ class MainFragmentViewModel(
     private suspend fun changeCurrentAttendancePlace(place: PrimaryPlaceModel?) {
         _attendanceRequestingCount.increase()
         try {
-            attendanceUseCase.changeCurrentAttendancePlace(place ?: throw Exception("Place is null"))
+            attendanceUseCase.changeCurrentAttendancePlace(place ?: throw PlaceNullException())
             updateCurrentLocation()
+        } catch (e: PlaceNullException) {
+            e.printStackTrace()
+            _event.value = EventWrapper(MainFragment.Event.Error(R.string.not_supported_place))
+            _attendanceLocation.value = previousAttendanceLocation
         } catch (e: Exception) {
             e.printStackTrace()
             _event.value = EventWrapper(MainFragment.Event.Error(R.string.failed_to_change_location))
@@ -168,3 +172,5 @@ private fun MutableLiveData<Int>.increase() {
 private fun MutableLiveData<Int>.decrease() {
     value = (value ?: 0) - 1
 }
+
+private class PlaceNullException : Exception("Place is null")
