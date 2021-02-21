@@ -62,7 +62,7 @@
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:layout_marginStart="16dp"
-                        android:visibility="@{vm.attendanceRequestingCount &lt;= 0 ? View.INVISIBLE : View.VISIBLE}"
+                        android:visibility="@{vm.isAttendanceRequesting ? View.VISIBLE : View.INVISIBLE}"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toEndOf="@id/attendance_status_title"
                         app:layout_constraintTop_toTopOf="parent" />

@@ -10,10 +10,7 @@ import `in`.dimigo.dimigoin.data.usecase.notice.NoticeUseCase
 import `in`.dimigo.dimigoin.ui.item.MealItem
 import `in`.dimigo.dimigoin.ui.item.NoticeItem
 import `in`.dimigo.dimigoin.ui.util.EventWrapper
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import kotlinx.coroutines.launch
 
 class MainFragmentViewModel(
@@ -33,7 +30,7 @@ class MainFragmentViewModel(
     private val _event = MutableLiveData<EventWrapper<MainFragment.Event>>()
     val event: LiveData<EventWrapper<MainFragment.Event>> = _event
     private val _attendanceRequestingCount = MutableLiveData(0)
-    val attendanceRequestingCount: LiveData<Int> = _attendanceRequestingCount
+    val isAttendanceRequesting = _attendanceRequestingCount.map { it > 0 }
 
     var places: List<PlaceModel>? = null
     private var primaryPlaces: List<PrimaryPlaceModel>? = null
@@ -48,6 +45,7 @@ class MainFragmentViewModel(
     }
 
     fun onAttendanceLocationButtonClicked(location: AttendanceLocation) {
+        if (isAttendanceRequesting.value == true) return
         if (location == AttendanceLocation.Etc) {
             _event.value = EventWrapper(MainFragment.Event.LocationEtcClicked)
             return
