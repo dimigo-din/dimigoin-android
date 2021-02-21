@@ -1,5 +1,6 @@
 package `in`.dimigo.dimigoin.ui.main.fragment.main
 
+import `in`.dimigo.dimigoin.R
 import `in`.dimigo.dimigoin.data.model.PlaceModel
 import `in`.dimigo.dimigoin.data.model.PrimaryPlaceModel
 import `in`.dimigo.dimigoin.data.usecase.attendance.AttendanceUseCase
@@ -32,13 +33,12 @@ class MainFragmentViewModel(
     private val _event = MutableLiveData<EventWrapper<MainFragment.Event>>()
     val event: LiveData<EventWrapper<MainFragment.Event>> = _event
 
-    private var primaryPlaces: List<PrimaryPlaceModel>? = null
     var places: List<PlaceModel>? = null
+    private var primaryPlaces: List<PrimaryPlaceModel>? = null
+    private var previousAttendanceLocation: AttendanceLocation? = null
 
     init {
-        viewModelScope.launch {
-            updateCurrentLocation()
-        }
+        updateCurrentLocation()
         updateNotice()
         updateTodayMeal()
         updateCurrentTimeCode()
@@ -46,19 +46,26 @@ class MainFragmentViewModel(
     }
 
     fun onAttendanceLocationButtonClicked(location: AttendanceLocation) = viewModelScope.launch {
-        // TODO : 같은 버튼 클릭 무시, 로딩중 클릭 방지
+        previousAttendanceLocation = attendanceLocation.value
+        _attendanceLocation.value = location
         if (location == AttendanceLocation.Etc) {
-            _event.value = EventWrapper(MainFragment.Event.LOCATION_ETC_CLICKED)
+            _event.value = EventWrapper(MainFragment.Event.LocationEtcClicked)
             return@launch
         }
+
         if (primaryPlaces == null) fetchPrimaryPlaces()
         val place = location.getPrimaryPlace(primaryPlaces)
+        changeCurrentAttendancePlace(place)
+    }
+
+    private suspend fun changeCurrentAttendancePlace(place: PrimaryPlaceModel?) {
         try {
             attendanceUseCase.changeCurrentAttendancePlace(place ?: throw Exception("Place is null"))
             updateCurrentLocation()
         } catch (e: Exception) {
             e.printStackTrace()
-            // TODO 에러 처리
+            _event.value = EventWrapper(MainFragment.Event.Error(R.string.failed_to_change_location))
+            _attendanceLocation.value = previousAttendanceLocation
         }
     }
 
@@ -68,11 +75,12 @@ class MainFragmentViewModel(
             updateCurrentLocation()
         } catch (e: Exception) {
             e.printStackTrace()
-            // TODO 에러 처리
+            _event.value = EventWrapper(MainFragment.Event.Error(R.string.failed_to_change_location))
+            _attendanceLocation.value = previousAttendanceLocation
         }
     }
 
-    private suspend fun updateCurrentLocation() {
+    private fun updateCurrentLocation() = viewModelScope.launch {
         if (primaryPlaces == null) fetchPrimaryPlaces()
         try {
             val primaryPlaces = primaryPlaces ?: throw Exception("Variable primaryPlaces is null")
@@ -80,9 +88,12 @@ class MainFragmentViewModel(
                 .toPrimaryPlaceModel(primaryPlaces)
             val location = AttendanceLocation.fromPrimaryPlace(currentPlace)
             _attendanceLocation.value = location
+        } catch (e: NoSuchElementException) {
+            e.printStackTrace()
+            _attendanceLocation.value = AttendanceLocation.Class
         } catch (e: Exception) {
             e.printStackTrace()
-            // TODO
+            _event.value = EventWrapper(MainFragment.Event.Error(R.string.failed_to_fetch_current_location))
         }
     }
 
@@ -91,7 +102,7 @@ class MainFragmentViewModel(
             primaryPlaces = attendanceUseCase.getPrimaryPlaces()
         } catch (e: Exception) {
             e.printStackTrace()
-            // TODO
+            _event.value = EventWrapper(MainFragment.Event.Error(R.string.failed_to_fetch_places))
         }
     }
 
@@ -100,7 +111,7 @@ class MainFragmentViewModel(
             places = attendanceUseCase.getAllPlaces().sortedBy { it.type }
         } catch (e: Exception) {
             e.printStackTrace()
-            // TODO
+            _event.value = EventWrapper(MainFragment.Event.Error(R.string.failed_to_fetch_places))
         }
     }
 

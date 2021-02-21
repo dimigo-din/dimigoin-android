@@ -21,6 +21,7 @@ import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.Toast
+import androidx.annotation.StringRes
 import androidx.appcompat.view.ContextThemeWrapper
 import androidx.core.content.ContextCompat
 import androidx.core.view.children
@@ -59,10 +60,11 @@ class MainFragment : Fragment() {
                 .into(profileImage)
         }
 
-        viewModel.event.observeEvent(viewLifecycleOwner) {
-            when (it) {
-                Event.LOCATION_ETC_CLICKED -> {
-                    showEtcDialog()
+        viewModel.event.observeEvent(viewLifecycleOwner) { event ->
+            when (event) {
+                is Event.LocationEtcClicked -> showEtcDialog()
+                is Event.Error -> {
+                    DimigoinDialog(requireContext()).alert(DimigoinDialog.AlertType.ERROR, event.errorMessageId)
                 }
             }
         }
@@ -216,7 +218,8 @@ class MainFragment : Fragment() {
         })
     }
 
-    enum class Event {
-        LOCATION_ETC_CLICKED
+    sealed class Event {
+        object LocationEtcClicked : Event()
+        class Error(@StringRes val errorMessageId: Int) : Event()
     }
 }
