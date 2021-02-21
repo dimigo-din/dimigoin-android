@@ -2,7 +2,9 @@ package `in`.dimigo.dimigoin.ui.attendance
 
 import `in`.dimigo.dimigoin.data.model.UserType
 import `in`.dimigo.dimigoin.data.util.UserDataStore
+import `in`.dimigo.dimigoin.databinding.DialogHistoryBinding
 import `in`.dimigo.dimigoin.databinding.FragmentAttendanceBinding
+import `in`.dimigo.dimigoin.ui.custom.DimigoinDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -29,6 +31,8 @@ class AttendanceFragment : Fragment() {
 
         if (isTeacher)
             enterTeacherMode(binding)
+        else
+            lifecycleScope.launch { viewModel.loadCurrentAttendanceData() }
 
         viewModel.attendanceData.observe(viewLifecycleOwner) {
             adapter.setItem(it)
@@ -38,45 +42,53 @@ class AttendanceFragment : Fragment() {
             adapter.filter(it)
         }
 
-        lifecycleScope.launch {
-            if (isTeacher) {
-                viewModel.loadSpecificAttendanceData(1, 1)
-            } else {
-                viewModel.loadCurrentAttendanceData()
-            }
-        }
-
         return binding.root
     }
 
     private fun enterTeacherMode(binding: FragmentAttendanceBinding) {
-        val loadData: () -> Unit = {
-            lifecycleScope.launch {
-                viewModel.loadSpecificAttendanceData(
-                    binding.gradeTap.selectedTabPosition + 1,
-                    binding.classTap.selectedTabPosition + 1
-                )
-            }
+        val adapter = AttendanceHistoryRecyclerViewAdapter()
+        val dialogBinding = DialogHistoryBinding.inflate(layoutInflater).apply {
+            historyRecyclerView.adapter = adapter
         }
+        val dialog = DimigoinDialog(requireContext()).CustomView(dialogBinding.root).apply { useNegativeButton() }
 
-        binding.apply {
-            bottomTargetPicker.visibility = View.VISIBLE
+        with(binding) {
+            isTeacherMode = true
+
             BottomSheetBehavior.from(bottomTargetPicker).state = BottomSheetBehavior.STATE_EXPANDED
 
             repeat(3) { gradeTap.addTab(gradeTap.newTab().setText("${it + 1}학년")) }
             repeat(6) { classTap.addTab(classTap.newTab().setText("${it + 1}반")) }
 
-            gradeTap.addOnTabSelected { loadData() }
-            classTap.addOnTabSelected { loadData() }
+            gradeTap.addOnTabSelected { loadData(binding) }
+            classTap.addOnTabSelected { loadData(binding) }
 
-            binding.root.setOnClickListener { }
+            attendanceHistoryButton.setOnClickListener {
+                lifecycleScope.launch {
+                    viewModel.loadSpecificAttendanceData(1, 1)
+                }
+                dialog.show()
+            }
+        }
+
+        lifecycleScope.launch {
+            viewModel.loadSpecificAttendanceData(1, 1)
         }
     }
 
-    private fun TabLayout.addOnTabSelected(unit: (tab: TabLayout.Tab?) -> Unit): TabLayout.OnTabSelectedListener {
+    private fun loadData(binding: FragmentAttendanceBinding) {
+        lifecycleScope.launch {
+            viewModel.loadSpecificAttendanceData(
+                binding.gradeTap.selectedTabPosition + 1,
+                binding.classTap.selectedTabPosition + 1
+            )
+        }
+    }
+
+    private fun TabLayout.addOnTabSelected(onSelected: (tab: TabLayout.Tab?) -> Unit): TabLayout.OnTabSelectedListener {
         val listener = object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
-                unit(tab)
+                onSelected(tab)
             }
 
             override fun onTabUnselected(tab: TabLayout.Tab?) {}
