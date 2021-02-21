@@ -89,6 +89,12 @@ class MainFragment : Fragment() {
         mainContentLayout.layoutTransition.enableTransitionType(LayoutTransition.CHANGING)
     }
 
+    sealed class Event {
+        object LocationEtcClicked : Event()
+        class Error(@StringRes val errorMessageId: Int) : Event()
+    }
+
+    // region 기타 버튼 클릭했을 때 나오는 Dialog
     private fun showEtcDialog() {
         var selectedPlace: PlaceModel? = null
 
@@ -188,7 +194,9 @@ class MainFragment : Fragment() {
         else R.color.grey_500
         setTextColor(ContextCompat.getColor(context, textColor))
     }
+    // endregion
 
+    // region Viewpager carousel
     private fun ViewPager2.applyCarouselEffect() {
         offscreenPageLimit = 3
         val offsetPx = resources.getDimensionPixelOffset(R.dimen.meal_view_pager_page_offset)
@@ -217,9 +225,5 @@ class MainFragment : Fragment() {
             }
         })
     }
-
-    sealed class Event {
-        object LocationEtcClicked : Event()
-        class Error(@StringRes val errorMessageId: Int) : Event()
-    }
+    // endregion
 }
