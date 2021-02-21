@@ -4,6 +4,8 @@
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
             name="time"
             type="String" />
@@ -29,6 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/default_horizontal_margin"
             android:text="@{time}"
+            android:visibility="@{time == null ? View.GONE : View.VISIBLE}"
             tools:text="오전 8시 10분" />
 
         <TextView
