@@ -46,7 +46,7 @@
                     android:layout_marginVertical="14dp"
                     android:drawablePadding="12dp"
                     android:fontFamily="@font/bold"
-                    android:text="@{@string/time_range_format(7, 0, 8, 15)}"
+                    android:text="@{vm.ingangStatus.ingangApplyPeriod.toString(context)}"
                     android:textColor="@color/grey_500"
                     android:textSize="12sp"
                     app:drawableStartCompat="@drawable/ic_clock"
@@ -93,7 +93,7 @@
                 android:layout_marginTop="32dp"
                 app:applied="@{vm.ingangStatus.isApplied(IngangTime.NSS1)}"
                 app:ingangName="@{@string/night_study_1}"
-                app:ingangTime="@{@string/time_range_format(19, 50, 21, 10)}"
+                app:ingangTime="@{vm.ingangStatus.nss1TimePeriod.toString(context)}"
                 app:isRequested="@{vm.time1Requested}"
                 app:onButtonClick="@{() -> vm.onApplyButtonClick(IngangTime.NSS1)}" />
 
@@ -104,7 +104,7 @@
                 android:layout_height="wrap_content"
                 app:applied="@{vm.ingangStatus.isApplied(IngangTime.NSS2)}"
                 app:ingangName="@{@string/night_study_2}"
-                app:ingangTime="@{@string/time_range_format(21, 30, 23, 0)}"
+                app:ingangTime="@{vm.ingangStatus.nss2TimePeriod.toString(context)}"
                 app:isRequested="@{vm.time2Requested}"
                 app:onButtonClick="@{() -> vm.onApplyButtonClick(IngangTime.NSS2)}" />
         </LinearLayout>

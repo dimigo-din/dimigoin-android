@@ -8,7 +8,9 @@ data class IngangStatusModel(
     val weeklyUsedTicket: Int,
     val weeklyRemainTicket: Int,
     val ingangMaxApplier: Int,
-    val applicationsInClass: List<IngangApplicationModel>
+    val applicationsInClass: List<IngangApplicationModel>,
+    val ingangApplyPeriod: TimePeriodModel,
+    val selfStudyTimes: Map<String, TimePeriodModel>
 ) {
     fun toIngangStatusItem(): IngangStatusItem {
         val time1Applications = applicationsInClass.filter { it.time == IngangTime.NSS1 }
@@ -23,6 +25,9 @@ data class IngangStatusModel(
             weeklyUsedTicket,
             weeklyRemainTicket,
             ingangMaxApplier,
+            ingangApplyPeriod,
+            selfStudyTimes["NSS1"],
+            selfStudyTimes["NSS2"],
             time1Applied,
             time2Applied,
             time1Applications,
