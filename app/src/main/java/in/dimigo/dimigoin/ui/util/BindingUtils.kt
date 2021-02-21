@@ -1,7 +1,9 @@
 package `in`.dimigo.dimigoin.ui.util
 
+import `in`.dimigo.dimigoin.R
 import android.animation.ArgbEvaluator
 import android.animation.ValueAnimator
+import android.content.Context
 import android.content.res.ColorStateList
 import android.widget.ImageView
 import androidx.annotation.ColorInt
@@ -50,5 +52,20 @@ fun ImageView.animateImageTint(@ColorInt colorTo: Int) {
             imageTintList = ColorStateList.valueOf(it.animatedValue.toString().toInt())
         }
         start()
+    }
+}
+
+fun convertToTimeName(context: Context, timeCode: String): String {
+    return try {
+        val time = timeCode.dropLast(1)
+        val timeNumber = timeCode.takeLast(1).toInt()
+        when (time) {
+            "AFSC" -> context.getString(R.string.after_school_n, timeNumber)
+            "NSS" -> context.getString(R.string.night_study_n, timeNumber)
+            else -> timeCode
+        }
+    } catch (e: Exception) {
+        e.printStackTrace()
+        timeCode
     }
 }

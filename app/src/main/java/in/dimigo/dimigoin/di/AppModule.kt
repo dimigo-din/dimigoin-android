@@ -46,7 +46,7 @@ val appModule = module {
 
     viewModel { LoginViewModel(get(), get()) }
     viewModel { MainViewModel() }
-    viewModel { MainFragmentViewModel(get(), get(), get()) }
+    viewModel { MainFragmentViewModel(get(), get(), get(), get()) }
     viewModel { MealViewModel(get()) }
     viewModel { TimetableViewModel(get()) }
     viewModel { CardViewModel() }

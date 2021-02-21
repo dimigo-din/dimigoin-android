@@ -5,6 +5,8 @@
 
     <data>
 
+        <import type="in.dimigo.dimigoin.ui.util.BindingUtilsKt" />
+
         <variable
             name="vm"
             type="in.dimigo.dimigoin.ui.main.fragment.main.MainFragmentViewModel" />
@@ -36,7 +38,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/default_horizontal_margin"
                     android:layout_marginTop="16dp"
-                    android:text="@string/night_study_1" />
+                    android:text="@{BindingUtilsKt.convertToTimeName(context, vm.currentTimeCode)}" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"

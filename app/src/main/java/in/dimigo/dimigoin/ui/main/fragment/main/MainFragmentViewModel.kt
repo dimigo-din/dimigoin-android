@@ -3,6 +3,7 @@ package `in`.dimigo.dimigoin.ui.main.fragment.main
 import `in`.dimigo.dimigoin.data.model.PlaceModel
 import `in`.dimigo.dimigoin.data.model.PrimaryPlaceModel
 import `in`.dimigo.dimigoin.data.usecase.attendance.AttendanceUseCase
+import `in`.dimigo.dimigoin.data.usecase.config.ConfigUseCase
 import `in`.dimigo.dimigoin.data.usecase.meal.MealUseCase
 import `in`.dimigo.dimigoin.data.usecase.notice.NoticeUseCase
 import `in`.dimigo.dimigoin.ui.item.MealItem
@@ -17,7 +18,8 @@ import kotlinx.coroutines.launch
 class MainFragmentViewModel(
     private val mealUseCase: MealUseCase,
     private val attendanceUseCase: AttendanceUseCase,
-    private val noticeUseCase: NoticeUseCase
+    private val noticeUseCase: NoticeUseCase,
+    private val configUseCase: ConfigUseCase
 ) : ViewModel() {
     private val _attendanceLocation = MutableLiveData(AttendanceLocation.Class)
     val attendanceLocation: LiveData<AttendanceLocation> = _attendanceLocation
@@ -25,6 +27,8 @@ class MainFragmentViewModel(
     val todayMeal: LiveData<MealItem> = _todayMeal
     private val _notice = MutableLiveData<NoticeItem>()
     val notice: LiveData<NoticeItem> = _notice
+    private val _currentTimeCode = MutableLiveData("")
+    val currentTimeCode: LiveData<String> = _currentTimeCode
     private val _event = MutableLiveData<EventWrapper<MainFragment.Event>>()
     val event: LiveData<EventWrapper<MainFragment.Event>> = _event
 
@@ -37,6 +41,7 @@ class MainFragmentViewModel(
         }
         updateNotice()
         updateTodayMeal()
+        updateCurrentTimeCode()
         fetchPlaces()
     }
 
@@ -114,6 +119,15 @@ class MainFragmentViewModel(
         } catch (e: Exception) {
             e.printStackTrace()
             _todayMeal.value = mealUseCase.failedMeal
+        }
+    }
+
+    private fun updateCurrentTimeCode() = viewModelScope.launch {
+        try {
+            _currentTimeCode.value = configUseCase.getCurrentTimeCode()
+        } catch (e: Exception) {
+            e.printStackTrace()
+            _currentTimeCode.value = ""
         }
     }
 }
