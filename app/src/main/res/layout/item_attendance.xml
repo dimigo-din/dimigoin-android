@@ -14,12 +14,16 @@
         <variable
             name="location"
             type="in.dimigo.dimigoin.ui.main.fragment.main.AttendanceLocation" />
+
+        <variable
+            name="isLastItem"
+            type="Boolean" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
+        android:paddingBottom="@{isLastItem ? @dimen/last_item_margin : @dimen/default_item_margin}"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 

@@ -33,7 +33,7 @@ class AttendanceRecyclerViewAdapter :
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        (holder as AttendanceViewHolder).bind(filteredList[position])
+        (holder as AttendanceViewHolder).bind(filteredList[position], isLastItem(position))
     }
 
     override fun getItemCount() = filteredList.size
@@ -58,12 +58,15 @@ class AttendanceRecyclerViewAdapter :
         calculateDiff(tempList)
         filteredList = tempList
     }
+
+    private fun isLastItem(position: Int): Boolean = position + 1 == itemCount
 }
 
 private class AttendanceViewHolder(private val binding: ItemAttendanceBinding) : RecyclerView.ViewHolder(binding.root) {
-    fun bind(item: AttendanceItem) {
+    fun bind(item: AttendanceItem, isLastItem: Boolean) {
         val location = item.place?.let { AttendanceLocation.fromPlace(it) }
         binding.item = item
         binding.location = location
+        binding.isLastItem = isLastItem
     }
 }
