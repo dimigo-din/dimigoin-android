@@ -63,6 +63,12 @@
         <item name="android:textColor">@color/pink_400</item>
     </style>
 
+    <style name="Text.Tab" parent="TextAppearance.Design.Tab">
+        <item name="android:textColor">@color/grey_800</item>
+        <item name="android:textSize">14sp</item>
+        <item name="fontFamily">@font/medium</item>
+    </style>
+
     <style name="Text.CardTitle">
         <item name="android:fontFamily">@font/bold</item>
         <item name="android:textColor">@color/pink_400</item>

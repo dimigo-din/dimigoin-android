@@ -6,6 +6,7 @@
     <data>
 
         <import type="java.text.DecimalFormat" />
+        <import type="android.view.View" />
 
         <variable
             name="item"
@@ -78,6 +79,7 @@
                 android:layout_marginStart="8dp"
                 android:contentDescription="@string/description_type_icon"
                 android:src="@{location.icon}"
+                android:visibility="@{location.label.empty ? View.VISIBLE : View.GONE}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -93,7 +95,7 @@
                 android:textAlignment="center"
                 android:textColor="@color/grey_400"
                 android:textSize="12sp"
-                android:text="@{location.label}"
+                android:text="@{location.label.empty ? location.label : @string/no_info}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/placeIcon"
