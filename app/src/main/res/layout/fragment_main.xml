@@ -7,6 +7,8 @@
 
         <import type="in.dimigo.dimigoin.ui.util.BindingUtilsKt" />
 
+        <import type="android.view.View" />
+
         <variable
             name="vm"
             type="in.dimigo.dimigoin.ui.main.fragment.main.MainFragmentViewModel" />
@@ -38,7 +40,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/default_horizontal_margin"
                     android:layout_marginTop="16dp"
-                    android:text="@{BindingUtilsKt.convertToTimeName(context, vm.currentTimeCode)}" />
+                    android:text="@{BindingUtilsKt.convertToTimeName(context, vm.currentTimeCode)}"
+                    tools:text="@string/night_study_1" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -46,12 +49,22 @@
                     android:layout_marginHorizontal="@dimen/default_horizontal_margin">
 
                     <TextView
+                        android:id="@+id/attendance_status_title"
                         style="@style/Text.Sub.Big"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/attendance_state"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ProgressBar
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginStart="16dp"
+                        android:visibility="@{vm.attendanceRequestingCount &lt;= 0 ? View.INVISIBLE : View.VISIBLE}"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/attendance_status_title"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <Button

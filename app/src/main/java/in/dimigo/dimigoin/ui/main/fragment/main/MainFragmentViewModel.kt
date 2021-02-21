@@ -32,6 +32,8 @@ class MainFragmentViewModel(
     val currentTimeCode: LiveData<String> = _currentTimeCode
     private val _event = MutableLiveData<EventWrapper<MainFragment.Event>>()
     val event: LiveData<EventWrapper<MainFragment.Event>> = _event
+    private val _attendanceRequestingCount = MutableLiveData(0)
+    val attendanceRequestingCount: LiveData<Int> = _attendanceRequestingCount
 
     var places: List<PlaceModel>? = null
     private var primaryPlaces: List<PrimaryPlaceModel>? = null
@@ -45,20 +47,27 @@ class MainFragmentViewModel(
         fetchPlaces()
     }
 
-    fun onAttendanceLocationButtonClicked(location: AttendanceLocation) = viewModelScope.launch {
-        previousAttendanceLocation = attendanceLocation.value
-        _attendanceLocation.value = location
+    fun onAttendanceLocationButtonClicked(location: AttendanceLocation) {
         if (location == AttendanceLocation.Etc) {
             _event.value = EventWrapper(MainFragment.Event.LocationEtcClicked)
-            return@launch
+            return
         }
+        previousAttendanceLocation = attendanceLocation.value
+        _attendanceLocation.value = location
 
-        if (primaryPlaces == null) fetchPrimaryPlaces()
-        val place = location.getPrimaryPlace(primaryPlaces)
-        changeCurrentAttendancePlace(place)
+        viewModelScope.launch {
+            _attendanceRequestingCount.increase()
+
+            if (primaryPlaces == null) fetchPrimaryPlaces()
+            val place = location.getPrimaryPlace(primaryPlaces)
+            changeCurrentAttendancePlace(place)
+
+            _attendanceRequestingCount.decrease()
+        }
     }
 
     private suspend fun changeCurrentAttendancePlace(place: PrimaryPlaceModel?) {
+        _attendanceRequestingCount.increase()
         try {
             attendanceUseCase.changeCurrentAttendancePlace(place ?: throw Exception("Place is null"))
             updateCurrentLocation()
@@ -67,9 +76,11 @@ class MainFragmentViewModel(
             _event.value = EventWrapper(MainFragment.Event.Error(R.string.failed_to_change_location))
             _attendanceLocation.value = previousAttendanceLocation
         }
+        _attendanceRequestingCount.decrease()
     }
 
     fun changeCurrentAttendancePlace(place: PlaceModel, remark: String) = viewModelScope.launch {
+        _attendanceRequestingCount.increase()
         try {
             attendanceUseCase.changeCurrentAttendancePlace(place, remark)
             updateCurrentLocation()
@@ -78,9 +89,11 @@ class MainFragmentViewModel(
             _event.value = EventWrapper(MainFragment.Event.Error(R.string.failed_to_change_location))
             _attendanceLocation.value = previousAttendanceLocation
         }
+        _attendanceRequestingCount.decrease()
     }
 
     private fun updateCurrentLocation() = viewModelScope.launch {
+        _attendanceRequestingCount.increase()
         if (primaryPlaces == null) fetchPrimaryPlaces()
         try {
             val primaryPlaces = primaryPlaces ?: throw Exception("Variable primaryPlaces is null")
@@ -95,24 +108,29 @@ class MainFragmentViewModel(
             e.printStackTrace()
             _event.value = EventWrapper(MainFragment.Event.Error(R.string.failed_to_fetch_current_location))
         }
+        _attendanceRequestingCount.decrease()
     }
 
     private suspend fun fetchPrimaryPlaces() {
+        _attendanceRequestingCount.increase()
         try {
             primaryPlaces = attendanceUseCase.getPrimaryPlaces()
         } catch (e: Exception) {
             e.printStackTrace()
             _event.value = EventWrapper(MainFragment.Event.Error(R.string.failed_to_fetch_places))
         }
+        _attendanceRequestingCount.decrease()
     }
 
     fun fetchPlaces() = viewModelScope.launch {
+        _attendanceRequestingCount.increase()
         try {
             places = attendanceUseCase.getAllPlaces().sortedBy { it.type }
         } catch (e: Exception) {
             e.printStackTrace()
             _event.value = EventWrapper(MainFragment.Event.Error(R.string.failed_to_fetch_places))
         }
+        _attendanceRequestingCount.decrease()
     }
 
     private fun updateNotice() = viewModelScope.launch {
@@ -141,4 +159,12 @@ class MainFragmentViewModel(
             _currentTimeCode.value = ""
         }
     }
+}
+
+private fun MutableLiveData<Int>.increase() {
+    value = (value ?: 0) + 1
+}
+
+private fun MutableLiveData<Int>.decrease() {
+    value = (value ?: 0) - 1
 }
