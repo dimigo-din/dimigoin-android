@@ -5,6 +5,7 @@ import `in`.dimigo.dimigoin.data.model.IngangApplicationModel
 import `in`.dimigo.dimigoin.data.model.IngangTime
 import `in`.dimigo.dimigoin.data.model.UserModel
 import `in`.dimigo.dimigoin.databinding.FragmentIngangBinding
+import `in`.dimigo.dimigoin.ui.custom.DimigoinDialog
 import `in`.dimigo.dimigoin.ui.util.observeEvent
 import `in`.dimigo.dimigoin.ui.util.sharedGraphViewModel
 import android.animation.LayoutTransition
@@ -12,7 +13,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 
@@ -44,9 +44,9 @@ class IngangFragment : Fragment() {
 
         viewModel.event.observeEvent(viewLifecycleOwner) {
             when (it) {
-                Event.STATUS_REQUEST_FAIL -> showToast(R.string.failed_to_fetch_ingang_status)
-                Event.INGANG_APPLY_FAIL -> showToast(R.string.failed_to_apply_ingang)
-                Event.INGANG_CANCEL_FAIL -> showToast(R.string.failed_to_cancel_ingang)
+                Event.STATUS_REQUEST_FAIL -> showAlert(R.string.failed_to_fetch_ingang_status)
+                Event.INGANG_APPLY_FAIL -> showAlert(R.string.failed_to_apply_ingang)
+                Event.INGANG_CANCEL_FAIL -> showAlert(R.string.failed_to_cancel_ingang)
             }
         }
 
@@ -56,8 +56,8 @@ class IngangFragment : Fragment() {
     private fun getAppliers(ingangApplications: List<IngangApplicationModel>): List<UserModel> =
         ingangApplications.map { it.applier }
 
-    private fun showToast(@StringRes stringId: Int) {
-        Toast.makeText(context, stringId, Toast.LENGTH_LONG).show()
+    private fun showAlert(@StringRes stringId: Int) {
+        DimigoinDialog(requireContext()).alert(DimigoinDialog.AlertType.ERROR, stringId)
     }
 
     enum class Event {

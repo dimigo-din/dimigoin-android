@@ -12,7 +12,6 @@ import `in`.dimigo.dimigoin.ui.util.observeEvent
 import android.content.Intent
 import android.os.Bundle
 import android.view.inputmethod.InputMethodManager
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
@@ -58,7 +57,7 @@ class LoginActivity : AppCompatActivity() {
             }
             Event.LoginSuccess -> loginFinished()
             Event.LoginFail -> {
-                Toast.makeText(this, R.string.login_failed, Toast.LENGTH_LONG).show()
+                DimigoinDialog(this).alert(DimigoinDialog.AlertType.ERROR, R.string.login_failed)
             }
         }
     }

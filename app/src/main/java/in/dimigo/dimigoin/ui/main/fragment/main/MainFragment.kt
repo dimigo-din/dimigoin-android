@@ -132,7 +132,6 @@ class MainFragment : Fragment() {
         val places = viewModel.places
         if (places == null) {
             viewModel.fetchPlaces()
-            Toast.makeText(context, R.string.enter_id, Toast.LENGTH_SHORT).show()
             return
         }
 

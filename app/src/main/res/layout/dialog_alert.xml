@@ -23,6 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:fontFamily="@font/bold"
+        android:gravity="center"
         tools:text="@string/failed_to_apply_ingang"
         tools:textColor="@color/pink_400" />
 
