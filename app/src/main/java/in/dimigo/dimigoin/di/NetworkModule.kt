@@ -2,8 +2,7 @@ package `in`.dimigo.dimigoin.di
 
 import `in`.dimigo.dimigoin.data.service.DimigoinService
 import `in`.dimigo.dimigoin.data.util.AuthorizationInterceptor
-import `in`.dimigo.dimigoin.data.util.DimigoinServiceHolder
-import okhttp3.Interceptor
+import `in`.dimigo.dimigoin.data.util.TokenAuthenticator
 import okhttp3.OkHttpClient
 import org.koin.dsl.module
 import retrofit2.Retrofit
@@ -11,21 +10,24 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 val networkModule = module {
     single { AuthorizationInterceptor(get()) }
-    single { buildOkHttpClient(get<AuthorizationInterceptor>()) }
+    single { TokenAuthenticator(get()) }
+    single { buildOkHttpClient(get(), get()) }
     single { buildRetrofit(get()) }
 
     single {
         val service = get<Retrofit>().create(DimigoinService::class.java)
-        DimigoinServiceHolder.dimigoinService = service
+        TokenAuthenticator.dimigoinService = service
         return@single service
     }
 }
 
-private fun buildOkHttpClient(interceptor: Interceptor): OkHttpClient {
-    return OkHttpClient.Builder()
-        .addInterceptor(interceptor)
-        .build()
-}
+private fun buildOkHttpClient(
+    interceptor: AuthorizationInterceptor,
+    authenticator: TokenAuthenticator
+) = OkHttpClient.Builder()
+    .addInterceptor(interceptor)
+    .authenticator(authenticator)
+    .build()
 
 private fun buildRetrofit(httpClient: OkHttpClient): Retrofit {
     return Retrofit.Builder()
