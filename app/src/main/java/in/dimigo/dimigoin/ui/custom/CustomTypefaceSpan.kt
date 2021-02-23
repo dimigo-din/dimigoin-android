@@ -12,5 +12,6 @@ class CustomAccentSpan(private val typeface: Typeface?, private val color: Int) 
 
     override fun updateMeasureState(paint: TextPaint) {
         paint.typeface = typeface
+        paint.color = color
     }
 }
