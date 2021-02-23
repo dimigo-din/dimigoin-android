@@ -1,8 +1,10 @@
 package `in`.dimigo.dimigoin.ui.splash
 
+import `in`.dimigo.dimigoin.R
 import `in`.dimigo.dimigoin.data.model.UserType
 import `in`.dimigo.dimigoin.data.usecase.auth.AuthUseCase
 import `in`.dimigo.dimigoin.data.usecase.user.UserUseCase
+import `in`.dimigo.dimigoin.data.util.SharedPreferencesManager
 import `in`.dimigo.dimigoin.data.util.UserDataStore
 import `in`.dimigo.dimigoin.ui.attendance.AttendanceActivity
 import `in`.dimigo.dimigoin.ui.login.LoginActivity
@@ -10,6 +12,7 @@ import `in`.dimigo.dimigoin.ui.main.MainActivity
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.Dispatchers
@@ -20,6 +23,7 @@ import org.koin.android.ext.android.inject
 class SplashActivity : AppCompatActivity() {
     private val userUseCase: UserUseCase by inject()
     private val authUseCase: AuthUseCase by inject()
+    private val sharedPreferencesManager: SharedPreferencesManager by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,12 +46,16 @@ class SplashActivity : AppCompatActivity() {
         }
     }
 
-    private suspend fun tryAutoLogin() = try {
-        userUseCase.storeUserData()
-        true
-    } catch (e: Exception) {
-        e.printStackTrace()
-        false
+    private suspend fun tryAutoLogin(): Boolean {
+        try {
+            if (sharedPreferencesManager.accessToken == null) return false
+            userUseCase.storeUserData()
+            return true
+        } catch (e: Exception) {
+            e.printStackTrace()
+            Toast.makeText(this, R.string.login_failed_check_network, Toast.LENGTH_LONG).show()
+            return false
+        }
     }
 
     private fun <T : Activity> taskFinished(destinationActivity: Class<T>) {
