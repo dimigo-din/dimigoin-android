@@ -70,8 +70,12 @@ class AttendanceViewModel(private val useCase: AttendanceUseCase) : ViewModel() 
                     PlaceType.INGANG -> 1
                     PlaceType.CIRCLE -> 2
                     PlaceType.ETC -> 3
+                    else -> break
                 }
                 result[cursor]++
+            } else {
+                //TODO: just for temporary, keep this way setting the default value
+                result[0]++
             }
         }
 
