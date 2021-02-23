@@ -33,5 +33,6 @@ enum class PlaceType(val indexForSort: Int) {
     CIRCLE(0),
     ETC(1),
     INGANG(2),
-    CLASSROOM(3)
+    CLASSROOM(3),
+    ABSENT(4)
 }
