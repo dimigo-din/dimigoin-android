@@ -12,6 +12,7 @@ import `in`.dimigo.dimigoin.ui.util.observeEvent
 import android.content.Intent
 import android.os.Bundle
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
@@ -68,7 +69,16 @@ class LoginActivity : AppCompatActivity() {
             else MainActivity::class.java
         startActivity(Intent(this, destinationClass))
         finish()
+        showWelcomeToast()
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+    }
+
+    private fun showWelcomeToast() {
+        val welcomeStringId =
+            if (UserDataStore.userData.userType == UserType.TEACHER) R.string.welcome_teacher
+            else R.string.welcome_student
+        val welcomeString = getString(welcomeStringId, UserDataStore.userData.name)
+        Toast.makeText(this, welcomeString, Toast.LENGTH_SHORT).show()
     }
 
     private fun hideKeyboard() {
