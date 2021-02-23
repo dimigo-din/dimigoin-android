@@ -65,16 +65,12 @@ class AttendanceFragment : Fragment() {
                     historyRecyclerView.adapter = adapter
                 }
 
-                lifecycleScope.launch {
-                    viewModel.loadSpecificAttendanceData(1, 1)
-                }
-
                 DimigoinDialog(requireContext()).CustomView(dialogBinding.root).show()
             }
         }
 
         lifecycleScope.launch {
-            viewModel.loadSpecificAttendanceData(1, 1)
+            loadData(binding)
         }
     }
 
