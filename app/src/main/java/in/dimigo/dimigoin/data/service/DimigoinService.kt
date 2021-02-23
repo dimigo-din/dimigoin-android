@@ -58,6 +58,13 @@ interface DimigoinService {
         @Path("klass") klass: Int
     ): Call<AttendanceStatusResponseModel>
 
+    @GET("/attendance/date/{date}/grade/{grade}/class/{klass}/timeline")
+    fun getAttendanceTimeline(
+        @Path("date") date: String,
+        @Path("grade") grade: Int,
+        @Path("klass") klass: Int
+    ): Call<AttendanceLogsResponseModel>
+
     // Notice
     @GET("/notice/current")
     fun getCurrentNotices(): Call<NoticeResponseModel>

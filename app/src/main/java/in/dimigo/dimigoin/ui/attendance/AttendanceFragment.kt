@@ -19,6 +19,7 @@ import org.koin.android.viewmodel.ext.android.viewModel
 class AttendanceFragment : Fragment() {
     private val isTeacher = UserDataStore.userData.userType == UserType.TEACHER
     private val viewModel: AttendanceViewModel by viewModel()
+    private val adapter = AttendanceHistoryRecyclerViewAdapter()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val adapter = AttendanceRecyclerViewAdapter()
@@ -46,12 +47,6 @@ class AttendanceFragment : Fragment() {
     }
 
     private fun enterTeacherMode(binding: FragmentAttendanceBinding) {
-        val adapter = AttendanceHistoryRecyclerViewAdapter()
-        val dialogBinding = DialogHistoryBinding.inflate(layoutInflater).apply {
-            historyRecyclerView.adapter = adapter
-        }
-        val dialog = DimigoinDialog(requireContext()).CustomView(dialogBinding.root).apply { useNegativeButton() }
-
         with(binding) {
             isTeacherMode = true
 
@@ -64,10 +59,17 @@ class AttendanceFragment : Fragment() {
             classTap.addOnTabSelected { loadData(binding) }
 
             attendanceHistoryButton.setOnClickListener {
+                viewModel.attendanceLogs.value?.let { it1 -> adapter.setItem(it1) }
+
+                val dialogBinding = DialogHistoryBinding.inflate(layoutInflater).apply {
+                    historyRecyclerView.adapter = adapter
+                }
+
                 lifecycleScope.launch {
                     viewModel.loadSpecificAttendanceData(1, 1)
                 }
-                dialog.show()
+
+                DimigoinDialog(requireContext()).CustomView(dialogBinding.root).show()
             }
         }
 
@@ -78,10 +80,11 @@ class AttendanceFragment : Fragment() {
 
     private fun loadData(binding: FragmentAttendanceBinding) {
         lifecycleScope.launch {
-            viewModel.loadSpecificAttendanceData(
-                binding.gradeTap.selectedTabPosition + 1,
-                binding.classTap.selectedTabPosition + 1
-            )
+            val grade = binding.gradeTap.selectedTabPosition + 1
+            val klass = binding.classTap.selectedTabPosition + 1
+
+            viewModel.loadSpecificAttendanceData(grade, klass)
+            viewModel.loadCurrentAttendanceLog(grade, klass)
         }
     }
 
@@ -90,7 +93,6 @@ class AttendanceFragment : Fragment() {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 onSelected(tab)
             }
-
             override fun onTabUnselected(tab: TabLayout.Tab?) {}
             override fun onTabReselected(tab: TabLayout.Tab?) {}
         }
