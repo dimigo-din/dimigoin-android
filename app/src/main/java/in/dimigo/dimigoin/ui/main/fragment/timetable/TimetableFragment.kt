@@ -3,6 +3,7 @@ package `in`.dimigo.dimigoin.ui.main.fragment.timetable
 import `in`.dimigo.dimigoin.R
 import `in`.dimigo.dimigoin.data.util.UserDataStore
 import `in`.dimigo.dimigoin.databinding.FragmentTimetableBinding
+import `in`.dimigo.dimigoin.ui.custom.DimigoinDialog
 import `in`.dimigo.dimigoin.ui.util.DateChangedLiveData
 import `in`.dimigo.dimigoin.ui.util.sharedGraphViewModel
 import android.os.Bundle
@@ -36,6 +37,10 @@ class TimetableFragment : Fragment() {
 
         dateChangedLiveData.observe(viewLifecycleOwner) {
             adapter.notifyDataSetChanged()
+        }
+
+        viewModel.timetableFetchFailedEvent.observe(viewLifecycleOwner) {
+            DimigoinDialog(requireContext()).alert(DimigoinDialog.AlertType.ERROR, R.string.failed_to_fetch_timetable)
         }
 
         return binding.root

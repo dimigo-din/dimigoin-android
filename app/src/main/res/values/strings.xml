@@ -48,6 +48,7 @@
     <string name="failed_to_change_location">현재 위치를 변경하지 못했습니다.</string>
     <string name="failed_to_fetch_current_location">현재 위치를 불러오지 못했습니다.</string>
     <string name="failed_to_fetch_places">장소 목록을 불러오지 못했습니다.</string>
+    <string name="failed_to_fetch_timetable">시간표를 불러오지 못했습니다.</string>
     <string name="not_supported_place">아직 지원하지 않는 장소입니다.</string>
     <string name="welcome_student">%s님 환영합니다 :)</string>
     <string name="welcome_teacher">%s 선생님 환영합니다 :)</string>
