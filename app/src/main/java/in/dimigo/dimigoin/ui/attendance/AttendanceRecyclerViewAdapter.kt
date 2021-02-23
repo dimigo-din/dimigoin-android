@@ -64,7 +64,10 @@ class AttendanceRecyclerViewAdapter :
 
 private class AttendanceViewHolder(private val binding: ItemAttendanceBinding) : RecyclerView.ViewHolder(binding.root) {
     fun bind(item: AttendanceItem, isLastItem: Boolean) {
-        val location = item.place?.let { AttendanceLocation.fromPlace(it) }
+        //TODO: just for temporary, keep this way setting the default value
+        val location: AttendanceLocation =
+            item.place?.let { AttendanceLocation.fromPlace(it) } ?: AttendanceLocation.Class
+
         binding.apply {
             this.item = item
             this.location = location
