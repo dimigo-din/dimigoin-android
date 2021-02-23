@@ -54,7 +54,7 @@
             android:text="@{item.name}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/location_clip"
-            app:layout_constraintHorizontal_weight="1.8"
+            app:layout_constraintHorizontal_weight="1.5"
             app:layout_constraintStart_toEndOf="@+id/number"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="강예원" />
@@ -63,7 +63,7 @@
             android:id="@+id/location_clip"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginEnd="28dp"
+            android:layout_marginEnd="24dp"
             android:background="@drawable/bg_round_corner_square_grey_border"
             android:gravity="center"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -83,7 +83,8 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:tint="@color/grey_400" />
+                app:tint="@color/grey_400"
+                tools:src="@drawable/ic_location_ingang" />
 
             <TextView
                 android:id="@+id/placeName"

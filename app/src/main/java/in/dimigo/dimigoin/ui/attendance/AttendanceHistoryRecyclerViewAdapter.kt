@@ -52,7 +52,7 @@ private class AttendanceHistoryViewHolder(private val binding: ItemHistoryBindin
 
         spannable[location] = CustomAccentSpan(
             ResourcesCompat.getFont(context, R.font.bold),
-            R.color.pink_400
+            context.getColor(R.color.pink_400)
         )
 
         binding.messageText.text = spannable
