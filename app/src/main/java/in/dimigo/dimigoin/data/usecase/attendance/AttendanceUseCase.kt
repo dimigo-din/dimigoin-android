@@ -14,4 +14,5 @@ interface AttendanceUseCase {
     suspend fun getPrimaryPlaces(): List<PrimaryPlaceModel>
     suspend fun getCurrentAttendanceStatus(): List<AttendanceStatusModel>
     suspend fun getSpecificAttendanceStatus(grade: Int, klass: Int): List<AttendanceStatusModel>
+    suspend fun getAttendanceTimeline(grade: Int, klass: Int): List<AttendanceLogModel>
 }

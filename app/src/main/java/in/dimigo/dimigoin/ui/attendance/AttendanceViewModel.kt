@@ -1,5 +1,6 @@
 package `in`.dimigo.dimigoin.ui.attendance
 
+import `in`.dimigo.dimigoin.data.model.AttendanceLogModel
 import `in`.dimigo.dimigoin.data.model.AttendanceStatusModel
 import `in`.dimigo.dimigoin.data.model.PlaceType
 import `in`.dimigo.dimigoin.data.usecase.attendance.AttendanceUseCase
@@ -16,6 +17,9 @@ class AttendanceViewModel(private val useCase: AttendanceUseCase) : ViewModel() 
     private val _attendanceData = MutableLiveData<List<AttendanceItem>>()
     val attendanceData: LiveData<List<AttendanceItem>> = _attendanceData
 
+    private val _attendanceLogs = MutableLiveData<List<AttendanceLogModel>>()
+    val attendanceLogs: LiveData<List<AttendanceLogModel>> = _attendanceLogs
+
     val query = MutableLiveData<String>()
 
     suspend fun loadCurrentAttendanceData() {
@@ -31,6 +35,15 @@ class AttendanceViewModel(private val useCase: AttendanceUseCase) : ViewModel() 
         try {
             val data = useCase.getSpecificAttendanceStatus(grade, klass)
             applyAttendanceData(data)
+        } catch (e: Exception) {
+            Log.e("error", "msg: ${e.message}")
+        }
+    }
+
+    suspend fun loadCurrentAttendanceLog(grade: Int, klass: Int) {
+        try {
+            val data = useCase.getAttendanceTimeline(grade, klass)
+            _attendanceLogs.value = data
         } catch (e: Exception) {
             Log.e("error", "msg: ${e.message}")
         }

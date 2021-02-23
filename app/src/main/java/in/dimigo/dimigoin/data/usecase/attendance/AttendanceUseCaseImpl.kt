@@ -49,4 +49,14 @@ class AttendanceUseCaseImpl(private val service: DimigoinService) : AttendanceUs
             klass
         ).await().status
     }
+
+    override suspend fun getAttendanceTimeline(grade: Int, klass: Int): List<AttendanceLogModel> {
+        val date: String = LocalDate.now().format(DateUtil.dateFormatter)
+
+        return service.getAttendanceTimeline(
+            date,
+            grade,
+            klass
+        ).await().logs
+    }
 }
