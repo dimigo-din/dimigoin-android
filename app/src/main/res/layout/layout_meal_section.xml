@@ -8,7 +8,7 @@
 
         <variable
             name="time"
-            type="String" />
+            type="in.dimigo.dimigoin.data.model.TimeModel" />
 
         <variable
             name="mealTime"
@@ -30,7 +30,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/default_horizontal_margin"
-            android:text="@{time}"
+            android:text="@{time.toFormattedString(context)}"
             android:visibility="@{time == null ? View.GONE : View.VISIBLE}"
             tools:text="오전 8시 10분" />
 

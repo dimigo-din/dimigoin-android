@@ -1,6 +1,7 @@
 package `in`.dimigo.dimigoin.data.usecase.config
 
 import `in`.dimigo.dimigoin.data.model.ConfigModel
+import `in`.dimigo.dimigoin.data.model.MealTimesModel
 import `in`.dimigo.dimigoin.data.service.DimigoinService
 import `in`.dimigo.dimigoin.data.util.UserDataStore
 import retrofit2.await
@@ -30,6 +31,10 @@ class ConfigUseCaseImpl(val service: DimigoinService) : ConfigUseCase {
             currentMinutes <= endMinutes
         } ?: timeEndMinutes.last()
         return currentTime.first
+    }
+
+    override suspend fun getMealTimes(): MealTimesModel {
+        return getConfig().MEAL_TIMES[UserDataStore.userData.grade]
     }
 
     private suspend fun getConfig(): ConfigModel {

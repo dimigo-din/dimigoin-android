@@ -31,17 +31,20 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 app:meal="@{vm.weeklyMeals == null ? @string/meal_loading_message : vm.weeklyMeals[position].breakfast}"
-                app:mealTime="@{MealTime.BREAKFAST}" />
+                app:mealTime="@{MealTime.BREAKFAST}"
+                app:time="@{vm.mealTimes.breakfast}" />
 
             <include
                 layout="@layout/layout_meal_section"
                 app:meal="@{vm.weeklyMeals == null ? @string/meal_loading_message : vm.weeklyMeals[position].lunch}"
-                app:mealTime="@{MealTime.LUNCH}" />
+                app:mealTime="@{MealTime.LUNCH}"
+                app:time="@{vm.mealTimes.lunch}" />
 
             <include
                 layout="@layout/layout_meal_section"
                 app:meal="@{vm.weeklyMeals == null ? @string/meal_loading_message : vm.weeklyMeals[position].dinner}"
-                app:mealTime="@{MealTime.DINNER}" />
+                app:mealTime="@{MealTime.DINNER}"
+                app:time="@{vm.mealTimes.dinner}" />
 
         </LinearLayout>
 

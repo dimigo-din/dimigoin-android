@@ -5,7 +5,10 @@ import android.content.Context
 
 data class ConfigResponseModel(val config: ConfigModel)
 
-data class ConfigModel(val SELF_STUDY_TIMES: List<Map<String, TimePeriodModel>>)
+data class ConfigModel(
+    val SELF_STUDY_TIMES: List<Map<String, TimePeriodModel>>,
+    val MEAL_TIMES: List<MealTimesModel>
+)
 
 data class TimePeriodModel(val start: TimeModel, val end: TimeModel) {
     fun toString(context: Context) = context.getString(
@@ -17,4 +20,15 @@ data class TimePeriodModel(val start: TimeModel, val end: TimeModel) {
     )
 }
 
-data class TimeModel(val hour: Int, val minute: Int)
+data class MealTimesModel(
+    val breakfast: TimeModel,
+    val lunch: TimeModel,
+    val dinner: TimeModel
+)
+
+data class TimeModel(val hour: Int, val minute: Int) {
+    fun toFormattedString(context: Context): String {
+        val amPm = if (hour < 12) "오전" else "오후"
+        return context.getString(R.string.time_format, amPm, hour, minute)
+    }
+}
