@@ -11,9 +11,9 @@ class ConfigUseCaseImpl(val service: DimigoinService) : ConfigUseCase {
     private var cachedConfig: ConfigModel? = null
 
     /**
-     * @return "AFSC${time}", "NSS1${time}"
      * AFSC: AfterSchool
      * NSS: NightSelfStudy
+     * @return "AFSC${time}", "NSS1${time}"
      */
     override suspend fun getCurrentTimeCode(): String {
         val timeEndMinutes = getConfig()
