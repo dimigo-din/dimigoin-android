@@ -98,6 +98,8 @@
     <string name="no_info">정보없음</string>
     <string name="history">히스토리</string>
     <string name="attendance_log_format">[%s] %s님이 %s의 현황을 %s(으)로 변경</string>
+    <string name="example_name">홍길동</string>
+    <string name="example_grade_class_number_of_student">2학년 1반 1번</string>
 
     <string-array name="departments">
         <item>이비즈니스과</item>
