@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:gravity="center"
     android:orientation="vertical"
-    android:padding="@dimen/dialog_default_padding">
+    android:paddingVertical="@dimen/dialog_default_padding">
 
     <TextView
         style="@style/Text.Sub.Tag"
@@ -30,6 +30,7 @@
         android:layout_width="match_parent"
         android:layout_height="250dp"
         android:layout_marginTop="24dp"
+        android:layout_marginHorizontal="@dimen/default_horizontal_margin"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
 </LinearLayout>
