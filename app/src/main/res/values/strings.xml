@@ -95,6 +95,7 @@
     <string name="attendance_log_format">[%s] %s님이 %s의 현황을 %s(으)로 변경</string>
     <string name="example_name">홍길동</string>
     <string name="example_grade_class_number_of_student">2학년 1반 1번</string>
+    <string name="current_location">현재위치</string>
 
     <string-array name="departments">
         <item>이비즈니스과</item>
