@@ -13,18 +13,18 @@
             type="in.dimigo.dimigoin.ui.item.AttendanceItem" />
 
         <variable
-            name="location"
-            type="in.dimigo.dimigoin.ui.main.fragment.main.AttendanceLocation" />
+            name="updatedAt"
+            type="String" />
 
         <variable
-            name="isLastItem"
+            name="isTeacherMode"
             type="Boolean" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="@{isLastItem ? @dimen/last_item_margin : @dimen/default_item_margin}"
+        android:paddingBottom="@dimen/default_item_margin"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
@@ -51,7 +51,7 @@
             android:textAlignment="center"
             android:textColor="@color/grey_450"
             android:textSize="16sp"
-            android:text="@{item.name}"
+            android:text="@{item.student.name}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/location_clip"
             app:layout_constraintHorizontal_weight="1.5"
@@ -67,7 +67,7 @@
             android:background="@drawable/bg_round_corner_square_grey_border"
             android:gravity="center"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/detail"
+            app:layout_constraintEnd_toStartOf="@+id/detail_text"
             app:layout_constraintHorizontal_weight="1"
             app:layout_constraintStart_toEndOf="@+id/name"
             app:layout_constraintTop_toTopOf="parent">
@@ -78,8 +78,8 @@
                 android:layout_height="12dp"
                 android:layout_marginStart="8dp"
                 android:contentDescription="@string/description_type_icon"
-                android:src="@{location.icon}"
-                android:visibility="@{location == null ? View.GONE : View.VISIBLE}"
+                android:src="@{item.location.icon}"
+                android:visibility="@{item.location == null ? View.GONE : View.VISIBLE}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -96,7 +96,7 @@
                 android:textAlignment="center"
                 android:textColor="@color/grey_400"
                 android:textSize="12sp"
-                android:text="@{location == null ? @string/no_info : location.label}"
+                android:text="@{item.location == null ? @string/no_info : item.location.label}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/placeIcon"
@@ -106,15 +106,14 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
-            android:id="@+id/detail"
-            android:layout_width="wrap_content"
+            android:id="@+id/detail_text"
+            android:layout_width="90dp"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_round_corner_square_grey"
             android:fontFamily="@font/bold"
             android:includeFontPadding="false"
-            android:paddingHorizontal="16dp"
             android:paddingVertical="2dp"
-            android:text="@string/detail"
+            android:text="@{isTeacherMode ? @string/detail : updatedAt}"
             android:textAlignment="center"
             android:textColor="@color/white"
             android:textSize="13sp"

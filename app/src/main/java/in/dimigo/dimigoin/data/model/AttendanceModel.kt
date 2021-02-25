@@ -28,7 +28,7 @@ data class AttendanceStatusModel(
 
 data class AttendanceStatusLogModel(
     val student: UserModel,
-    val date: String,
+    val date: Date,
     val place: PlaceModel,
     val remark: String,
     @SerializedName("updatedAt") val time: Date

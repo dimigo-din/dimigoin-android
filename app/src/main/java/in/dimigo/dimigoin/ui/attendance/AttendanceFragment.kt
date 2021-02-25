@@ -2,16 +2,17 @@ package `in`.dimigo.dimigoin.ui.attendance
 
 import `in`.dimigo.dimigoin.data.model.UserType
 import `in`.dimigo.dimigoin.data.util.UserDataStore
+import `in`.dimigo.dimigoin.databinding.DialogAttendanceDetailBinding
 import `in`.dimigo.dimigoin.databinding.DialogHistoryBinding
 import `in`.dimigo.dimigoin.databinding.FragmentAttendanceBinding
 import `in`.dimigo.dimigoin.ui.custom.DimigoinDialog
+import `in`.dimigo.dimigoin.ui.main.fragment.main.AttendanceLocation
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
-import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.tabs.TabLayout
 import kotlinx.coroutines.launch
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -19,28 +20,25 @@ import org.koin.android.viewmodel.ext.android.viewModel
 class AttendanceFragment : Fragment() {
     private val isTeacher = UserDataStore.userData.userType == UserType.TEACHER
     private val viewModel: AttendanceViewModel by viewModel()
-    private val adapter = AttendanceHistoryRecyclerViewAdapter()
+    private val historyAdapter = AttendanceHistoryRecyclerViewAdapter()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        val adapter = AttendanceRecyclerViewAdapter()
+        val attendanceAdapter = AttendanceRecyclerViewAdapter(if (isTeacher) viewModel else null)
         val binding = FragmentAttendanceBinding.inflate(inflater, container, false).apply {
             lifecycleOwner = viewLifecycleOwner
             attendanceTableLayout.attendanceTableRoot.clipToOutline = true
             vm = viewModel
-            recyclerView.adapter = adapter
+            recyclerView.adapter = attendanceAdapter
         }
 
-        if (isTeacher)
-            enterTeacherMode(binding)
-        else
-            lifecycleScope.launch { viewModel.loadCurrentAttendanceData() }
+        if (isTeacher) enterTeacherMode(binding)
+        else lifecycleScope.launch { viewModel.loadCurrentAttendanceData() }
 
         viewModel.attendanceData.observe(viewLifecycleOwner) {
-            adapter.setItem(it)
+            attendanceAdapter.setItem(it)
         }
-
         viewModel.query.observe(viewLifecycleOwner) {
-            adapter.filter(it)
+            attendanceAdapter.filter(it)
         }
 
         return binding.root
@@ -50,31 +48,45 @@ class AttendanceFragment : Fragment() {
         with(binding) {
             isTeacherMode = true
 
-            BottomSheetBehavior.from(bottomTargetPicker).state = BottomSheetBehavior.STATE_EXPANDED
-
+            //init tab
             repeat(3) { gradeTap.addTab(gradeTap.newTab().setText("${it + 1}학년")) }
             repeat(6) { classTap.addTab(classTap.newTab().setText("${it + 1}반")) }
 
-            gradeTap.addOnTabSelected { loadData(binding) }
-            classTap.addOnTabSelected { loadData(binding) }
+            gradeTap.addOnTabSelected { loadDataForTeacher(this) }
+            classTap.addOnTabSelected { loadDataForTeacher(this) }
 
+            //history dialog
             attendanceHistoryButton.setOnClickListener {
-                viewModel.attendanceLogs.value?.let { it1 -> adapter.setItem(it1) }
+                viewModel.attendanceLogs.value?.let { data -> historyAdapter.setItem(data) }
 
                 val dialogBinding = DialogHistoryBinding.inflate(layoutInflater).apply {
-                    historyRecyclerView.adapter = adapter
+                    historyRecyclerView.adapter = historyAdapter
                 }
 
-                DimigoinDialog(requireContext()).CustomView(dialogBinding.root).show()
+                DimigoinDialog(requireContext(), useNarrowDialog = true).CustomView(dialogBinding.root).show()
             }
         }
 
-        lifecycleScope.launch {
-            loadData(binding)
+        viewModel.attendanceDetail.observe(viewLifecycleOwner) {
+            it.logs?.let { logs ->
+                historyAdapter.setItem(logs)
+            }
+
+            val location: AttendanceLocation =
+                it.logs?.let { logs -> AttendanceLocation.fromPlace(logs[0].place) } ?: AttendanceLocation.Class
+
+            val dialogBinding = DialogAttendanceDetailBinding.inflate(layoutInflater).apply {
+                historyRecyclerView.adapter = historyAdapter
+                this.location = location
+            }
+
+            DimigoinDialog(requireContext(), useNarrowDialog = true).CustomView(dialogBinding.root).show()
         }
+
+        lifecycleScope.launch { loadDataForTeacher(binding) }
     }
 
-    private fun loadData(binding: FragmentAttendanceBinding) {
+    private fun loadDataForTeacher(binding: FragmentAttendanceBinding) {
         lifecycleScope.launch {
             val grade = binding.gradeTap.selectedTabPosition + 1
             val klass = binding.classTap.selectedTabPosition + 1

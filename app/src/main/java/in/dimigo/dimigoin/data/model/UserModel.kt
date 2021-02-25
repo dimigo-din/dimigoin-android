@@ -7,6 +7,7 @@ data class UserResponseModel(
 )
 
 data class UserModel(
+    val _id: String,
     val idx: Int,
     val name: String,
     val grade: Int,

@@ -11,6 +11,8 @@
         <variable
             name="location"
             type="in.dimigo.dimigoin.ui.main.fragment.main.AttendanceLocation" />
+
+
     </data>
 
     <LinearLayout
