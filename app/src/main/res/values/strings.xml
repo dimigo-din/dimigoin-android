@@ -83,7 +83,7 @@
     <string name="remainingTime">남은 시간</string>
     <string name="department">학과</string>
     <string name="student_serial">학번</string>
-    <string name="resident_number">주민번호</string>
+    <string name="birth_date">생년월일</string>
     <string name="click_this_to_close">이곳을 눌러 닫기</string>
     <string name="prove_student_message">위 사람은 본교 학생임을 증명함</string>
     <string name="touch_to_open_student_card">터치하여 모바일 학생증 열기</string>

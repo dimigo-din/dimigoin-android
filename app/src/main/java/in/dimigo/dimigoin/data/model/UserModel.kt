@@ -15,7 +15,9 @@ data class UserModel(
     val serial: Int,
     val photos: List<String>,
     val userType: UserType,
-    val gender: String
+    val gender: String,
+    @SerializedName("birthdate") val birthDate: String?,
+    val libraryId: String?
 )
 
 enum class UserType {
