@@ -101,6 +101,9 @@
     <string name="example_name">홍길동</string>
     <string name="example_grade_class_number_of_student">2학년 1반 1번</string>
     <string name="current_location">현재위치</string>
+    <string name="format_student_info">%d학년 %d반 %d번</string>
+    <string name="format_time">HH:mm</string>
+    <string name="updatedTime">등록시간</string>
 
     <string-array name="departments">
         <item>이비즈니스과</item>

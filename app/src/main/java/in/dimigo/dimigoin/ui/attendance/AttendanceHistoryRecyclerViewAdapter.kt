@@ -6,7 +6,6 @@ import `in`.dimigo.dimigoin.data.util.DateUtil
 import `in`.dimigo.dimigoin.data.util.DateUtil.from
 import `in`.dimigo.dimigoin.databinding.ItemHistoryBinding
 import `in`.dimigo.dimigoin.ui.custom.CustomAccentSpan
-import `in`.dimigo.dimigoin.ui.main.fragment.main.AttendanceLocation
 import android.text.Spannable
 import android.text.Spanned
 import android.util.Log
@@ -43,7 +42,7 @@ private class AttendanceHistoryViewHolder(private val binding: ItemHistoryBindin
     RecyclerView.ViewHolder(binding.root) {
     fun bind(item: AttendanceLogModel) {
         val context = binding.root.context
-        val location = AttendanceLocation.fromPlace(item.place).label
+        val location = item.place.name
         val updatedBy = item.updatedBy?.name ?: item.student.name
         val updatedPerson = if (item.updatedBy == null) "자신" else item.student.name + "님"
         val format = context.getString(R.string.attendance_log_format)

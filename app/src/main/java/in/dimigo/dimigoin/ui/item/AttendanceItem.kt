@@ -9,6 +9,7 @@ import java.time.LocalDateTime
 data class AttendanceItem(
     val student: UserModel,
     val location: AttendanceLocation?,
+    val placeName: String?,
     val updatedAt: LocalDateTime?
 ) {
     fun formatNumber(): String = DecimalFormat("00").format(student.number)

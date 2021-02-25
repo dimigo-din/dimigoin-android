@@ -1,5 +1,6 @@
 package `in`.dimigo.dimigoin.ui.attendance
 
+import `in`.dimigo.dimigoin.R
 import `in`.dimigo.dimigoin.data.model.UserType
 import `in`.dimigo.dimigoin.data.util.UserDataStore
 import `in`.dimigo.dimigoin.databinding.DialogAttendanceDetailBinding
@@ -16,6 +17,8 @@ import androidx.lifecycle.lifecycleScope
 import com.google.android.material.tabs.TabLayout
 import kotlinx.coroutines.launch
 import org.koin.android.viewmodel.ext.android.viewModel
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
 
 class AttendanceFragment : Fragment() {
     private val isTeacher = UserDataStore.userData.userType == UserType.TEACHER
@@ -72,12 +75,23 @@ class AttendanceFragment : Fragment() {
                 historyAdapter.setItem(logs)
             }
 
+            val updatedAt: String = if (!it.logs.isNullOrEmpty()) {
+                val time = it.logs[0].time.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime()
+                time.format(DateTimeFormatter.ofPattern("HH:mm"))
+            } else {
+                requireContext().getString(R.string.no_info)
+            }
+
             val location: AttendanceLocation =
                 it.logs?.let { logs -> AttendanceLocation.fromPlace(logs[0].place) } ?: AttendanceLocation.Class
 
             val dialogBinding = DialogAttendanceDetailBinding.inflate(layoutInflater).apply {
                 historyRecyclerView.adapter = historyAdapter
                 this.location = location
+                this.student = it.student
+                this.updatedAt = updatedAt
+                this.studentInfo = requireContext().getString(R.string.format_student_info)
+                    .format(it.student.grade, it.student.klass, it.student.number)
             }
 
             DimigoinDialog(requireContext(), useNarrowDialog = true).CustomView(dialogBinding.root).show()
@@ -101,6 +115,7 @@ class AttendanceFragment : Fragment() {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 onSelected(tab)
             }
+
             override fun onTabUnselected(tab: TabLayout.Tab?) {}
             override fun onTabReselected(tab: TabLayout.Tab?) {}
         }

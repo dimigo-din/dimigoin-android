@@ -6,13 +6,25 @@
 
     <data>
 
+        <import type="java.time.format.DateTimeFormatter" />
+
         <import type="android.view.View" />
+
+        <variable
+            name="updatedAt"
+            type="String" />
+
+        <variable
+            name="student"
+            type="in.dimigo.dimigoin.data.model.UserModel" />
+
+        <variable
+            name="studentInfo"
+            type="String" />
 
         <variable
             name="location"
             type="in.dimigo.dimigoin.ui.main.fragment.main.AttendanceLocation" />
-
-
     </data>
 
     <LinearLayout
@@ -27,18 +39,19 @@
             android:layout_height="wrap_content">
 
             <TextView
-                style="@style/Text.Sub.Tag"
                 android:id="@+id/student_info_text"
+                style="@style/Text.Sub.Tag"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="@{studentInfo}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="@string/example_grade_class_number_of_student" />
 
             <TextView
-                style="@style/Text"
                 android:id="@+id/student_name_text"
+                style="@style/Text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
@@ -46,6 +59,7 @@
                 android:gravity="center"
                 android:textColor="@color/black"
                 android:textSize="20sp"
+                android:text="@{student.name}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/student_info_text"
@@ -116,7 +130,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="14dp"
                 android:fontFamily="@font/medium"
-                android:text="@string/current_location"
+                android:text="@string/updatedTime"
                 android:textColor="@color/grey_450"
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="@+id/time_text"
@@ -124,8 +138,8 @@
                 app:layout_constraintTop_toBottomOf="@+id/student_name_text" />
 
             <TextView
-                android:id="@+id/time_text"
                 style="@style/Text"
+                android:id="@+id/time_text"
                 android:layout_width="70dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="6dp"
@@ -133,10 +147,10 @@
                 android:background="@drawable/bg_round_corner_square_grey_border"
                 android:fontFamily="@font/medium"
                 android:paddingBottom="2dp"
-                android:text="@{location == null ? @string/no_info : location.label}"
                 android:textAlignment="center"
                 android:textColor="@color/grey_400"
                 android:textSize="12sp"
+                android:text="@{updatedAt}"
                 app:layout_constraintStart_toEndOf="@id/student_name_text"
                 app:layout_constraintTop_toBottomOf="@+id/register_time_text"
                 tools:text="11시 31분" />

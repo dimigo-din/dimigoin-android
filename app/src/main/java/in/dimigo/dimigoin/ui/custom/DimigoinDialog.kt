@@ -19,7 +19,7 @@ import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
 
 private const val DIALOG_MARGIN_DEFAULT = 16
-private const val DIALOG_MARGIN_NARROW = 32
+private const val DIALOG_MARGIN_NARROW = 22
 
 class DimigoinDialog(
     private val context: Context,

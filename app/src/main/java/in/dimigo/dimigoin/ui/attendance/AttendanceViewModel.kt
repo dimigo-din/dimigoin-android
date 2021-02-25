@@ -73,10 +73,14 @@ class AttendanceViewModel(private val useCase: AttendanceUseCase) : ViewModel() 
         _attendanceData.value = dataList.map {
             val location: AttendanceLocation =
                 it.log?.place?.let { log -> AttendanceLocation.fromPlace(log) } ?: AttendanceLocation.Class
+            val placeName: String =
+                if (it.log?.place == null) "교실"
+                else it.log.place.name
 
             AttendanceItem(
                 it.student,
                 location,
+                placeName,
                 it.log?.time?.toInstant()?.atZone(ZoneId.systemDefault())?.toLocalDateTime()
             )
         }
