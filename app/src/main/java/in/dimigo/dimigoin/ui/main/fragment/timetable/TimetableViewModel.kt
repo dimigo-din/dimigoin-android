@@ -14,11 +14,17 @@ class TimetableViewModel(private val timetableUseCase: TimetableUseCase) : ViewM
     val timetable: LiveData<List<SubjectItem?>> = _timetable
     private val _timetableFetchFailedEvent = SingleLiveEvent<Void>()
     val timetableFetchFailedEvent: LiveData<Void> = _timetableFetchFailedEvent
+    private val _isRefreshing = MutableLiveData(false)
+    val isRefreshing: LiveData<Boolean> = _isRefreshing
 
     init {
-        viewModelScope.launch {
-            fetchTimetable()
-        }
+        refresh(true)
+    }
+
+    fun refresh(isInitial: Boolean) = viewModelScope.launch {
+        if (!isInitial) _isRefreshing.value = true
+        fetchTimetable()
+        if (!isInitial) _isRefreshing.value = false
     }
 
     private suspend fun fetchTimetable() {

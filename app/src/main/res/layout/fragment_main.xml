@@ -18,132 +18,140 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ScrollView
-            style="@style/LayoutScrollView"
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:fillViewport="true"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/dimigoBackground">
+            app:layout_constraintTop_toBottomOf="@id/dimigoBackground"
+            app:onRefreshListener="@{() -> vm.refresh(false)}"
+            app:refreshing="@{vm.isRefreshing}">
 
-            <LinearLayout
-                android:id="@+id/mainContentLayout"
+            <ScrollView
+                style="@style/LayoutScrollView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:animateLayoutChanges="true"
-                android:orientation="vertical">
+                android:layout_height="match_parent"
+                android:fillViewport="true">
 
-                <TextView
-                    android:id="@+id/timeText"
-                    style="@style/Text.Sub.Tag"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/default_horizontal_margin"
-                    android:layout_marginTop="16dp"
-                    android:text="@{BindingUtilsKt.convertToTimeName(context, vm.currentTimeCode)}"
-                    tools:text="@string/night_study_1" />
-
-                <androidx.constraintlayout.widget.ConstraintLayout
+                <LinearLayout
+                    android:id="@+id/mainContentLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="@dimen/default_horizontal_margin">
+                    android:animateLayoutChanges="true"
+                    android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/attendance_status_title"
-                        style="@style/Text.Sub.Big"
+                        android:id="@+id/timeText"
+                        style="@style/Text.Sub.Tag"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/attendance_state"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        android:layout_marginStart="@dimen/default_horizontal_margin"
+                        android:layout_marginTop="16dp"
+                        android:text="@{BindingUtilsKt.convertToTimeName(context, vm.currentTimeCode)}"
+                        tools:text="@string/night_study_1" />
 
-                    <ProgressBar
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:layout_marginStart="16dp"
-                        android:visibility="@{vm.isAttendanceRequesting ? View.VISIBLE : View.INVISIBLE}"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toEndOf="@id/attendance_status_title"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <Button
-                        android:id="@+id/attendance_detail_button"
-                        style="@style/Button.Chip"
-                        android:layout_width="wrap_content"
-                        android:text="@string/short_detail"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <include
-                    layout="@layout/layout_attendance_state"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="@dimen/default_horizontal_margin"
-                    android:layout_marginTop="12dp"
-                    app:vm="@{vm}" />
-
-                <View
-                    style="@style/Divider.Thin"
-                    android:layout_marginStart="0dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginEnd="0dp" />
-
-                <carbon.widget.FrameLayout
-                    style="@style/CarbonCard.Light"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="@dimen/default_horizontal_margin"
-                    android:layout_marginTop="28dp">
-
-                    <TextView
-                        style="@style/Text.Content.Grey"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="20dp"
-                        android:text="@{vm.notice == null ? @string/notice_loading_message : vm.notice.content}"
-                        tools:text="@string/notice_loading_message" />
-                </carbon.widget.FrameLayout>
-
-                <Space
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_weight="1" />
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="32dp">
-
-                    <androidx.viewpager2.widget.ViewPager2
-                        android:id="@+id/mealViewPager"
+                    <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        android:layout_marginHorizontal="@dimen/default_horizontal_margin">
 
-                    <com.rd.PageIndicatorView
-                        android:id="@+id/mealPageIndicator"
-                        android:layout_width="wrap_content"
+                        <TextView
+                            android:id="@+id/attendance_status_title"
+                            style="@style/Text.Sub.Big"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/attendance_state"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <ProgressBar
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_marginStart="16dp"
+                            android:visibility="@{vm.isAttendanceRequesting ? View.VISIBLE : View.INVISIBLE}"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/attendance_status_title"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <Button
+                            android:id="@+id/attendance_detail_button"
+                            style="@style/Button.Chip"
+                            android:layout_width="wrap_content"
+                            android:text="@string/short_detail"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <include
+                        layout="@layout/layout_attendance_state"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="8dp"
-                        android:elevation="@dimen/carbon_elevation"
-                        app:layout_constraintBottom_toBottomOf="@id/mealViewPager"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:piv_animationType="color"
-                        app:piv_count="3"
-                        app:piv_radius="4dp"
-                        app:piv_selectedColor="@color/pink_400"
-                        app:piv_unselectedColor="@color/grey_200"
-                        app:piv_viewPager="@id/mealViewPager" />
+                        android:layout_marginHorizontal="@dimen/default_horizontal_margin"
+                        android:layout_marginTop="12dp"
+                        app:vm="@{vm}" />
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                    <View
+                        style="@style/Divider.Thin"
+                        android:layout_marginStart="0dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginEnd="0dp" />
 
-            </LinearLayout>
+                    <carbon.widget.FrameLayout
+                        style="@style/CarbonCard.Light"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/default_horizontal_margin"
+                        android:layout_marginTop="28dp">
 
-        </ScrollView>
+                        <TextView
+                            style="@style/Text.Content.Grey"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="20dp"
+                            android:text="@{vm.notice == null ? @string/notice_loading_message : vm.notice.content}"
+                            tools:text="@string/notice_loading_message" />
+                    </carbon.widget.FrameLayout>
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="32dp">
+
+                        <androidx.viewpager2.widget.ViewPager2
+                            android:id="@+id/mealViewPager"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <com.rd.PageIndicatorView
+                            android:id="@+id/mealPageIndicator"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="8dp"
+                            android:elevation="@dimen/carbon_elevation"
+                            app:layout_constraintBottom_toBottomOf="@id/mealViewPager"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:piv_animationType="color"
+                            app:piv_count="3"
+                            app:piv_radius="4dp"
+                            app:piv_selectedColor="@color/pink_400"
+                            app:piv_unselectedColor="@color/grey_200"
+                            app:piv_viewPager="@id/mealViewPager" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </LinearLayout>
+
+            </ScrollView>
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
         <View
             android:layout_width="match_parent"

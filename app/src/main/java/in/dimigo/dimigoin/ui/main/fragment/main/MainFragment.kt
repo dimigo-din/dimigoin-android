@@ -26,11 +26,13 @@ import androidx.appcompat.view.ContextThemeWrapper
 import androidx.core.content.ContextCompat
 import androidx.core.view.children
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.rd.PageIndicatorView
+import kotlinx.coroutines.launch
 
 class MainFragment : Fragment() {
     private lateinit var binding: FragmentMainBinding
@@ -131,7 +133,8 @@ class MainFragment : Fragment() {
 
         val places = viewModel.places
         if (places == null) {
-            viewModel.fetchPlaces()
+            lifecycleScope.launch { viewModel.fetchPlaces() }
+            Toast.makeText(requireContext(), R.string.places_are_not_loaded, Toast.LENGTH_SHORT).show()
             return
         }
 

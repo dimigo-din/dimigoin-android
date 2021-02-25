@@ -25,9 +25,11 @@ class TimetableFragment : Fragment() {
 
         binding.apply {
             lifecycleOwner = viewLifecycleOwner
+            vm = viewModel
             user = UserDataStore.userData
             shortWeekDays = dateFormatSymbols.shortWeekdays.toList()
             date = dateChangedLiveData
+
             recyclerView.adapter = adapter
         }
 

@@ -8,6 +8,10 @@
         <import type="java.util.List" />
 
         <variable
+            name="vm"
+            type="in.dimigo.dimigoin.ui.main.fragment.timetable.TimetableViewModel" />
+
+        <variable
             name="shortWeekDays"
             type="List&lt;String>" />
 
@@ -20,46 +24,54 @@
             type="in.dimigo.dimigoin.ui.util.DateChangedLiveData" />
     </data>
 
-    <ScrollView
-        style="@style/LayoutScrollView"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:onRefreshListener="@{() -> vm.refresh(false)}"
+        app:refreshing="@{vm.isRefreshing}">
 
-        <LinearLayout
+        <ScrollView
+            style="@style/LayoutScrollView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="match_parent">
 
-            <include
-                layout="@layout/layout_title"
-                app:hideDivider="@{true}"
-                app:icon="@{@drawable/ic_calendar_enabled}"
-                app:sub="@{@string/grade_class_format(user.grade, user.klass)}"
-                app:title="@{@string/timetable}" />
-
-            <include
-                layout="@layout/layout_weekdays"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                app:date="@{date}"
-                app:shortWeekDays="@{shortWeekDays}" />
+                android:orientation="vertical">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/default_horizontal_margin"
-                android:layout_marginTop="24dp"
-                android:nestedScrollingEnabled="false"
-                android:overScrollMode="never"
-                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                app:spanCount="5"
-                tools:itemCount="35"
-                tools:listitem="@layout/item_subject" />
+                <include
+                    layout="@layout/layout_title"
+                    app:hideDivider="@{true}"
+                    app:icon="@{@drawable/ic_calendar_enabled}"
+                    app:sub="@{@string/grade_class_format(user.grade, user.klass)}"
+                    app:title="@{@string/timetable}" />
 
-        </LinearLayout>
+                <include
+                    layout="@layout/layout_weekdays"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    app:date="@{date}"
+                    app:shortWeekDays="@{shortWeekDays}" />
 
-    </ScrollView>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/default_horizontal_margin"
+                    android:layout_marginTop="24dp"
+                    android:nestedScrollingEnabled="false"
+                    android:overScrollMode="never"
+                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    app:spanCount="5"
+                    tools:itemCount="35"
+                    tools:listitem="@layout/item_subject" />
+
+            </LinearLayout>
+
+        </ScrollView>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 </layout>

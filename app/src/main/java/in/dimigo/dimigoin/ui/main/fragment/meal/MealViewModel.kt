@@ -8,6 +8,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.launch
 
 class MealViewModel(
@@ -18,13 +20,23 @@ class MealViewModel(
     val weeklyMeals: LiveData<List<MealItem>> = _weeklyMeals
     private val _mealTimes = MutableLiveData<MealTimesModel>()
     val mealTimes: LiveData<MealTimesModel> = _mealTimes
+    private val _isRefreshing = MutableLiveData(false)
+    val isRefreshing: LiveData<Boolean> = _isRefreshing
 
     init {
-        fetchWeeklyMeals()
-        fetchMealTimes()
+        refresh(true)
     }
 
-    private fun fetchWeeklyMeals() = viewModelScope.launch {
+    fun refresh(isInitial: Boolean) = viewModelScope.launch {
+        if (!isInitial) _isRefreshing.value = true
+        awaitAll(
+            async { fetchWeeklyMeals() },
+            async { fetchMealTimes() }
+        )
+        if (!isInitial) _isRefreshing.value = false
+    }
+
+    private suspend fun fetchWeeklyMeals() {
         try {
             _weeklyMeals.value = mealUseCase.getWeeklyMeal()
         } catch (e: Exception) {
@@ -34,7 +46,7 @@ class MealViewModel(
         }
     }
 
-    private fun fetchMealTimes() = viewModelScope.launch {
+    private suspend fun fetchMealTimes() {
         try {
             _mealTimes.value = configUseCase.getMealTimes()
         } catch (e: Exception) {

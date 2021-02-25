@@ -12,103 +12,111 @@
             type="in.dimigo.dimigoin.ui.main.fragment.ingang.IngangViewModel" />
     </data>
 
-    <ScrollView
-        style="@style/LayoutScrollView"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:onRefreshListener="@{() -> vm.refresh(false)}"
+        app:refreshing="@{vm.isRefreshing}">
 
-        <LinearLayout
-            android:id="@+id/ingangContainer"
+        <ScrollView
+            style="@style/LayoutScrollView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:animateLayoutChanges="true"
-            android:orientation="vertical">
+            android:layout_height="match_parent">
 
-            <include
-                layout="@layout/layout_title"
-                app:hideDivider="@{true}"
-                app:icon="@{@drawable/ic_ingang_enabled}"
-                app:sub="@{@string/night_study}"
-                app:title="@{@string/ingang}" />
-
-            <carbon.widget.ConstraintLayout
-                style="@style/CarbonCard"
+            <LinearLayout
+                android:id="@+id/ingangContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/default_horizontal_margin"
-                android:layout_marginTop="20dp">
+                android:animateLayoutChanges="true"
+                android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/applicationTimeText"
-                    style="@style/Text"
-                    android:layout_width="wrap_content"
+                <include
+                    layout="@layout/layout_title"
+                    app:hideDivider="@{true}"
+                    app:icon="@{@drawable/ic_ingang_enabled}"
+                    app:sub="@{@string/night_study}"
+                    app:title="@{@string/ingang}" />
+
+                <carbon.widget.ConstraintLayout
+                    style="@style/CarbonCard"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginVertical="14dp"
-                    android:drawablePadding="12dp"
-                    android:fontFamily="@font/bold"
-                    android:text="@{vm.ingangStatus.ingangApplyPeriod.toString(context)}"
-                    android:textColor="@color/grey_500"
-                    android:textSize="12sp"
-                    app:drawableStartCompat="@drawable/ic_clock"
-                    app:drawableTint="@color/grey_500"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@id/verticalDivider"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:text="07:00 - 08:15" />
+                    android:layout_marginHorizontal="@dimen/default_horizontal_margin"
+                    android:layout_marginTop="20dp">
 
-                <View
-                    android:id="@+id/verticalDivider"
-                    style="@style/Divider.Thin.Vertical"
-                    android:layout_height="0dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    <TextView
+                        android:id="@+id/applicationTimeText"
+                        style="@style/Text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="14dp"
+                        android:drawablePadding="12dp"
+                        android:fontFamily="@font/bold"
+                        android:text="@{vm.ingangStatus.ingangApplyPeriod.toString(context)}"
+                        android:textColor="@color/grey_500"
+                        android:textSize="12sp"
+                        app:drawableStartCompat="@drawable/ic_clock"
+                        app:drawableTint="@color/grey_500"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/verticalDivider"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="07:00 - 08:15" />
 
-                <TextView
-                    style="@style/Text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:drawablePadding="12dp"
-                    android:fontFamily="@font/bold"
-                    android:text="@{@string/remaining_tickets(vm.ingangStatus.weeklyRemainTicket, vm.ingangStatus.weeklyTicketCount)}"
-                    android:textColor="@color/pink_400"
-                    android:textSize="12sp"
-                    app:drawableStartCompat="@drawable/ic_ticket"
-                    app:drawableTint="@color/pink_400"
-                    app:layout_constraintBottom_toBottomOf="@id/applicationTimeText"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/verticalDivider"
-                    app:layout_constraintTop_toTopOf="@id/applicationTimeText"
-                    tools:text="남은 티켓 3/4" />
+                    <View
+                        android:id="@+id/verticalDivider"
+                        style="@style/Divider.Thin.Vertical"
+                        android:layout_height="0dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-            </carbon.widget.ConstraintLayout>
+                    <TextView
+                        style="@style/Text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:drawablePadding="12dp"
+                        android:fontFamily="@font/bold"
+                        android:text="@{@string/remaining_tickets(vm.ingangStatus.weeklyRemainTicket, vm.ingangStatus.weeklyTicketCount)}"
+                        android:textColor="@color/pink_400"
+                        android:textSize="12sp"
+                        app:drawableStartCompat="@drawable/ic_ticket"
+                        app:drawableTint="@color/pink_400"
+                        app:layout_constraintBottom_toBottomOf="@id/applicationTimeText"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/verticalDivider"
+                        app:layout_constraintTop_toTopOf="@id/applicationTimeText"
+                        tools:text="남은 티켓 3/4" />
 
-            <include
-                android:id="@+id/ingang1Layout"
-                layout="@layout/layout_ingang_section"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
-                app:applied="@{vm.ingangStatus.isApplied(IngangTime.NSS1)}"
-                app:ingangName="@{@string/night_study_1}"
-                app:ingangTime="@{vm.ingangStatus.nss1TimePeriod.toString(context)}"
-                app:isRequested="@{vm.time1Requested}"
-                app:onButtonClick="@{() -> vm.onApplyButtonClick(IngangTime.NSS1)}" />
+                </carbon.widget.ConstraintLayout>
 
-            <include
-                android:id="@+id/ingang2Layout"
-                layout="@layout/layout_ingang_section"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:applied="@{vm.ingangStatus.isApplied(IngangTime.NSS2)}"
-                app:ingangName="@{@string/night_study_2}"
-                app:ingangTime="@{vm.ingangStatus.nss2TimePeriod.toString(context)}"
-                app:isRequested="@{vm.time2Requested}"
-                app:onButtonClick="@{() -> vm.onApplyButtonClick(IngangTime.NSS2)}" />
-        </LinearLayout>
+                <include
+                    android:id="@+id/ingang1Layout"
+                    layout="@layout/layout_ingang_section"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="32dp"
+                    app:applied="@{vm.ingangStatus.isApplied(IngangTime.NSS1)}"
+                    app:ingangName="@{@string/night_study_1}"
+                    app:ingangTime="@{vm.ingangStatus.nss1TimePeriod.toString(context)}"
+                    app:isRequested="@{vm.time1Requested}"
+                    app:onButtonClick="@{() -> vm.onApplyButtonClick(IngangTime.NSS1)}" />
 
-    </ScrollView>
+                <include
+                    android:id="@+id/ingang2Layout"
+                    layout="@layout/layout_ingang_section"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:applied="@{vm.ingangStatus.isApplied(IngangTime.NSS2)}"
+                    app:ingangName="@{@string/night_study_2}"
+                    app:ingangTime="@{vm.ingangStatus.nss2TimePeriod.toString(context)}"
+                    app:isRequested="@{vm.time2Requested}"
+                    app:onButtonClick="@{() -> vm.onApplyButtonClick(IngangTime.NSS2)}" />
+            </LinearLayout>
+
+        </ScrollView>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 </layout>

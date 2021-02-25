@@ -11,6 +11,8 @@ import `in`.dimigo.dimigoin.ui.item.MealItem
 import `in`.dimigo.dimigoin.ui.item.NoticeItem
 import `in`.dimigo.dimigoin.ui.util.EventWrapper
 import androidx.lifecycle.*
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.launch
 
 class MainFragmentViewModel(
@@ -31,17 +33,27 @@ class MainFragmentViewModel(
     val event: LiveData<EventWrapper<MainFragment.Event>> = _event
     private val _attendanceRequestingCount = MutableLiveData(0)
     val isAttendanceRequesting = _attendanceRequestingCount.map { it > 0 }
+    private val _isRefreshing = MutableLiveData(false)
+    val isRefreshing: LiveData<Boolean> = _isRefreshing
 
     var places: List<PlaceModel>? = null
     private var primaryPlaces: List<PrimaryPlaceModel>? = null
     private var previousAttendanceLocation: AttendanceLocation? = null
 
     init {
-        updateCurrentLocation()
-        updateNotice()
-        updateTodayMeal()
-        updateCurrentTimeCode()
-        fetchPlaces()
+        refresh(true)
+    }
+
+    fun refresh(isInitial: Boolean) = viewModelScope.launch {
+        if (!isInitial) _isRefreshing.value = true
+        awaitAll(
+            async { updateCurrentLocation() },
+            async { updateNotice() },
+            async { updateTodayMeal() },
+            async { updateCurrentTimeCode() },
+            async { fetchPlaces() }
+        )
+        if (!isInitial) _isRefreshing.value = false
     }
 
     fun onAttendanceLocationButtonClicked(location: AttendanceLocation) {
@@ -94,7 +106,7 @@ class MainFragmentViewModel(
         _attendanceRequestingCount.decrease()
     }
 
-    private fun updateCurrentLocation() = viewModelScope.launch {
+    private suspend fun updateCurrentLocation() {
         _attendanceRequestingCount.increase()
         if (primaryPlaces == null) fetchPrimaryPlaces()
         try {
@@ -124,7 +136,7 @@ class MainFragmentViewModel(
         _attendanceRequestingCount.decrease()
     }
 
-    fun fetchPlaces() = viewModelScope.launch {
+    suspend fun fetchPlaces() {
         _attendanceRequestingCount.increase()
         try {
             places = attendanceUseCase.getAllPlaces().sortedBy { it.type }
@@ -135,7 +147,7 @@ class MainFragmentViewModel(
         _attendanceRequestingCount.decrease()
     }
 
-    private fun updateNotice() = viewModelScope.launch {
+    private suspend fun updateNotice() {
         try {
             _notice.value = noticeUseCase.getNotice()
         } catch (e: Exception) {
@@ -144,7 +156,7 @@ class MainFragmentViewModel(
         }
     }
 
-    private fun updateTodayMeal() = viewModelScope.launch {
+    private suspend fun updateTodayMeal() {
         try {
             _todayMeal.value = mealUseCase.getTodaysMeal()
         } catch (e: Exception) {
@@ -153,7 +165,7 @@ class MainFragmentViewModel(
         }
     }
 
-    private fun updateCurrentTimeCode() = viewModelScope.launch {
+    private suspend fun updateCurrentTimeCode() {
         try {
             _currentTimeCode.value = configUseCase.getCurrentTimeCode()
         } catch (e: Exception) {

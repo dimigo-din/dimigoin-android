@@ -21,13 +21,19 @@ class IngangViewModel(private val ingangUseCase: IngangUseCase) : ViewModel() {
 
     private val _event = MutableLiveData<EventWrapper<IngangFragment.Event>>()
     val event: LiveData<EventWrapper<IngangFragment.Event>> = _event
+    private val _isRefreshing = MutableLiveData(false)
+    val isRefreshing: LiveData<Boolean> = _isRefreshing
 
     private var ingangStatusRequested = false
 
     init {
-        viewModelScope.launch {
-            fetchIngangStatus()
-        }
+        refresh(true)
+    }
+
+    fun refresh(isInitial: Boolean) = viewModelScope.launch {
+        if (!isInitial) _isRefreshing.value = true
+        fetchIngangStatus()
+        if (!isInitial) _isRefreshing.value = false
     }
 
     fun onApplyButtonClick(time: IngangTime) = viewModelScope.launch {
