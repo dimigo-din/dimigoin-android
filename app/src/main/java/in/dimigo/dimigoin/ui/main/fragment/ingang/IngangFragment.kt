@@ -13,6 +13,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 
@@ -42,11 +43,15 @@ class IngangFragment : Fragment() {
             ingang2Adapter.setItems(getAppliers(ingangStatus.getApplications(IngangTime.NSS2)), maxApplier)
         }
 
-        viewModel.event.observeEvent(viewLifecycleOwner) {
-            when (it) {
-                Event.STATUS_REQUEST_FAIL -> showAlert(R.string.failed_to_fetch_ingang_status)
-                Event.INGANG_APPLY_FAIL -> showAlert(R.string.failed_to_apply_ingang)
-                Event.INGANG_CANCEL_FAIL -> showAlert(R.string.failed_to_cancel_ingang)
+        viewModel.event.observeEvent(viewLifecycleOwner) { event ->
+            when (event) {
+                is Event.IngangStatusRequestFail -> showAlert(R.string.failed_to_fetch_ingang_status)
+                is Event.IngangApplied -> {
+                    val message = getString(R.string.ingang_applied, event.appliedTime.timeNumber)
+                    Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+                }
+                is Event.IngangApplyFail -> showAlert(R.string.failed_to_apply_ingang)
+                is Event.IngangCancelFail -> showAlert(R.string.failed_to_cancel_ingang)
             }
         }
 
@@ -60,7 +65,10 @@ class IngangFragment : Fragment() {
         DimigoinDialog(requireContext()).alert(DimigoinDialog.AlertType.ERROR, stringId)
     }
 
-    enum class Event {
-        STATUS_REQUEST_FAIL, INGANG_APPLY_FAIL, INGANG_CANCEL_FAIL
+    sealed class Event {
+        object IngangStatusRequestFail : Event()
+        data class IngangApplied(val appliedTime: IngangTime) : Event()
+        object IngangApplyFail : Event()
+        object IngangCancelFail : Event()
     }
 }

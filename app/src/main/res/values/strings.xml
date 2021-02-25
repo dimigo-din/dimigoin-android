@@ -33,6 +33,7 @@
     <string name="cancel">취소하기</string>
     <string name="remaining_tickets">남은 티켓 %d/%d</string>
     <string name="can_apply">신청가능</string>
+    <string name="ingang_applied">%d타임 인강실을 신청했습니다.</string>
     <string name="failed_to_fetch_ingang_status">인강실 정보를 불러오지 못했습니다.</string>
     <string name="failed_to_apply_ingang">인강실을 신청하지 못했습니다.</string>
     <string name="failed_to_cancel_ingang">인강실 신청을 취소하지 못했습니다.</string>
