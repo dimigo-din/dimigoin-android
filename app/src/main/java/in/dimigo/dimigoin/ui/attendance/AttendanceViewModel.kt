@@ -1,10 +1,9 @@
 package `in`.dimigo.dimigoin.ui.attendance
 
-import `in`.dimigo.dimigoin.data.model.AttendanceLogModel
-import `in`.dimigo.dimigoin.data.model.AttendanceStatusModel
-import `in`.dimigo.dimigoin.data.model.PlaceType
-import `in`.dimigo.dimigoin.data.model.UserModel
+import `in`.dimigo.dimigoin.data.model.*
 import `in`.dimigo.dimigoin.data.usecase.attendance.AttendanceUseCase
+import `in`.dimigo.dimigoin.data.util.DateUtil
+import `in`.dimigo.dimigoin.data.util.UserDataStore
 import `in`.dimigo.dimigoin.ui.item.AttendanceDetailItem
 import `in`.dimigo.dimigoin.ui.item.AttendanceItem
 import `in`.dimigo.dimigoin.ui.main.fragment.main.AttendanceLocation
@@ -14,9 +13,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
-import java.time.ZoneId
 
 class AttendanceViewModel(private val useCase: AttendanceUseCase) : ViewModel() {
+    val isTeacher = UserDataStore.userData.userType == UserType.TEACHER
+
     private val _attendanceTableData = MutableLiveData<List<Int>>()
     val attendanceTableData: LiveData<List<Int>> = _attendanceTableData
 
@@ -29,29 +29,57 @@ class AttendanceViewModel(private val useCase: AttendanceUseCase) : ViewModel() 
     private val _attendanceDetail = MutableLiveData<AttendanceDetailItem>()
     val attendanceDetail: LiveData<AttendanceDetailItem> = _attendanceDetail
 
+    private val _isRefreshing = MutableLiveData(false)
+    val isRefreshing: LiveData<Boolean> = _isRefreshing
+
+    val grade = MutableLiveData(1)
+    val klass = MutableLiveData(1)
+
     val query = MutableLiveData<String>()
 
-    suspend fun loadCurrentAttendanceData() {
+    init {
+        refresh(true)
+    }
+
+    fun refresh(isInitial: Boolean = false) = viewModelScope.launch {
+        if (!isInitial) _isRefreshing.value = true
+
+        if (isTeacher) {
+            fetchSelectedAttendanceStatus()
+            fetchSelectedAttendanceTimeline()
+        } else {
+            fetchCurrentAttendanceStatus()
+        }
+
+        if (!isInitial) _isRefreshing.value = false
+    }
+
+    //학생용, 본인 반
+    private suspend fun fetchCurrentAttendanceStatus() {
         try {
             val data = useCase.getCurrentAttendanceStatus()
-            applyAttendanceData(data)
+            applyAttendanceStatus(data)
+            applyAttendanceTableData(data)
         } catch (e: Exception) {
             Log.e("error", "msg: ${e.message}")
         }
     }
 
-    suspend fun loadSpecificAttendanceData(grade: Int, klass: Int) {
+    //교사용, 선택된 반
+    suspend fun fetchSelectedAttendanceStatus() {
         try {
-            val data = useCase.getSpecificAttendanceStatus(grade, klass)
-            applyAttendanceData(data)
+            val data = useCase.getSpecificAttendanceStatus(grade.value ?: 1, klass.value ?: 1)
+            applyAttendanceStatus(data)
+            applyAttendanceTableData(data)
         } catch (e: Exception) {
             Log.e("error", "msg: ${e.message}")
         }
     }
 
-    suspend fun loadCurrentAttendanceLog(grade: Int, klass: Int) {
+    //교사용, 선택된 반 히스토리 조회
+    suspend fun fetchSelectedAttendanceTimeline() {
         try {
-            val data = useCase.getAttendanceTimeline(grade, klass)
+            val data = useCase.getAttendanceTimeline(grade.value ?: 1, klass.value ?: 1)
             _attendanceLogs.value = data
         } catch (e: Exception) {
             Log.e("error", "msg: ${e.message}")
@@ -69,25 +97,26 @@ class AttendanceViewModel(private val useCase: AttendanceUseCase) : ViewModel() 
         }
     }
 
-    fun applyAttendanceData(dataList: List<AttendanceStatusModel>) {
+    private fun applyAttendanceStatus(dataList: List<AttendanceStatusModel>) {
         _attendanceData.value = dataList.map {
+            val place = it.log?.place
             val location: AttendanceLocation =
-                it.log?.place?.let { log -> AttendanceLocation.fromPlace(log) } ?: AttendanceLocation.Class
+                place?.let { log -> AttendanceLocation.fromPlace(log) } ?: AttendanceLocation.Class
             val placeName: String =
-                if (it.log?.place == null) it.student.getDefaultClassName()
-                else it.log.place.name
+                place?.name ?: it.student.getDefaultClassName()
 
             AttendanceItem(
                 it.student,
                 location,
                 placeName,
-                it.log?.time?.toInstant()?.atZone(ZoneId.systemDefault())?.toLocalDateTime()
+                it.log?.time?.let { time ->
+                    DateUtil.toLocalDateTimeWithDefaultZone(time)
+                }
             )
         }
-        _attendanceTableData.value = getAttendanceTableData(dataList)
     }
 
-    private fun getAttendanceTableData(dataList: List<AttendanceStatusModel>): List<Int> {
+    private fun applyAttendanceTableData(dataList: List<AttendanceStatusModel>) {
         val result = mutableListOf(0, 0, 0, 0, 0)
 
         for (data in dataList) {
@@ -97,7 +126,7 @@ class AttendanceViewModel(private val useCase: AttendanceUseCase) : ViewModel() 
                     PlaceType.INGANG -> 1
                     PlaceType.CIRCLE -> 2
                     PlaceType.ETC -> 3
-                    else -> break
+                    PlaceType.ABSENT -> break
                 }
                 result[cursor]++
             } else {
@@ -105,9 +134,8 @@ class AttendanceViewModel(private val useCase: AttendanceUseCase) : ViewModel() 
                 result[0]++
             }
         }
-
         result[4] = dataList.size
 
-        return result
+        _attendanceTableData.value = result
     }
 }

@@ -15,9 +15,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
 import com.google.android.material.tabs.TabLayout
-import kotlinx.coroutines.launch
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class AttendanceFragment : Fragment() {
@@ -29,17 +27,17 @@ class AttendanceFragment : Fragment() {
         val attendanceAdapter = AttendanceRecyclerViewAdapter(if (isTeacher) viewModel else null)
         val binding = FragmentAttendanceBinding.inflate(inflater, container, false).apply {
             lifecycleOwner = viewLifecycleOwner
-            attendanceTableLayout.attendanceTableRoot.clipToOutline = true
-            vm = viewModel
             recyclerView.adapter = attendanceAdapter
+            vm = viewModel
+            attendanceTableLayout.attendanceTableRoot.clipToOutline = true
         }
 
         if (isTeacher) enterTeacherMode(binding)
-        else lifecycleScope.launch { viewModel.loadCurrentAttendanceData() }
 
         viewModel.attendanceData.observe(viewLifecycleOwner) {
             attendanceAdapter.setItem(it)
         }
+
         viewModel.query.observe(viewLifecycleOwner) {
             attendanceAdapter.filter(it)
         }
@@ -49,14 +47,11 @@ class AttendanceFragment : Fragment() {
 
     private fun enterTeacherMode(binding: FragmentAttendanceBinding) {
         with(binding) {
-            isTeacherMode = true
-
             //init tab
             repeat(3) { gradeTap.addTab(gradeTap.newTab().setText("${it + 1}학년")) }
             repeat(6) { classTap.addTab(classTap.newTab().setText("${it + 1}반")) }
-
-            gradeTap.addOnTabSelected { loadDataForTeacher(this) }
-            classTap.addOnTabSelected { loadDataForTeacher(this) }
+            gradeTap.addOnTabSelected { onTabSelected(this) }
+            classTap.addOnTabSelected { onTabSelected(this) }
 
             //history dialog
             attendanceHistoryButton.setOnClickListener {
@@ -70,24 +65,18 @@ class AttendanceFragment : Fragment() {
             }
         }
 
+        //attendance detail dialog
         viewModel.attendanceDetail.observe(viewLifecycleOwner) {
-            it.logs?.let { logs ->
-                historyAdapter.setItem(logs)
-            }
+            it.logs?.let { logs -> historyAdapter.setItem(logs) }
 
-            val updatedAt: String = if (!it.logs.isNullOrEmpty()) {
-                DateUtil.timeFormatter.from(it.logs[it.logs.size - 1].time)
-            } else {
-                requireContext().getString(R.string.no_info)
-            }
-
+            val updatedAt: String =
+                if (!it.logs.isNullOrEmpty()) DateUtil.timeFormatter.from(it.logs[it.logs.size - 1].time)
+                else requireContext().getString(R.string.no_info)
             val location: AttendanceLocation =
                 it.logs?.let { logs -> AttendanceLocation.fromPlace(logs[logs.size - 1].place) }
                     ?: AttendanceLocation.Class
             val placeName: String =
                 it.logs?.let { logs -> logs[logs.size - 1].place.name } ?: it.student.getDefaultClassName()
-
-
             val dialogBinding = DialogAttendanceDetailBinding.inflate(layoutInflater).apply {
                 historyRecyclerView.adapter = historyAdapter
                 this.location = location
@@ -100,18 +89,12 @@ class AttendanceFragment : Fragment() {
 
             DimigoinDialog(requireContext(), useNarrowDialog = true).CustomView(dialogBinding.root).show()
         }
-
-        lifecycleScope.launch { loadDataForTeacher(binding) }
     }
 
-    private fun loadDataForTeacher(binding: FragmentAttendanceBinding) {
-        lifecycleScope.launch {
-            val grade = binding.gradeTap.selectedTabPosition + 1
-            val klass = binding.classTap.selectedTabPosition + 1
-
-            viewModel.loadSpecificAttendanceData(grade, klass)
-            viewModel.loadCurrentAttendanceLog(grade, klass)
-        }
+    private fun onTabSelected(binding: FragmentAttendanceBinding) {
+        viewModel.grade.value = binding.gradeTap.selectedTabPosition + 1
+        viewModel.klass.value = binding.classTap.selectedTabPosition + 1
+        viewModel.refresh()
     }
 
     private fun TabLayout.addOnTabSelected(onSelected: (tab: TabLayout.Tab?) -> Unit): TabLayout.OnTabSelectedListener {

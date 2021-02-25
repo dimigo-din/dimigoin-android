@@ -33,7 +33,9 @@
             android:name=".ui.main.MainActivity"
             android:windowSoftInputMode="adjustPan" />
 
-        <activity android:name=".ui.attendance.AttendanceActivity" />
+        <activity
+            android:name=".ui.attendance.AttendanceActivity"
+            android:windowSoftInputMode="adjustPan" />
 
         <receiver
             android:name=".ui.widget.NextMealWidget"
