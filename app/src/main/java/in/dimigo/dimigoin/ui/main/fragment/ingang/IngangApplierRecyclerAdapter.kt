@@ -1,6 +1,7 @@
 package `in`.dimigo.dimigoin.ui.main.fragment.ingang
 
 import `in`.dimigo.dimigoin.data.model.UserModel
+import `in`.dimigo.dimigoin.data.util.UserDataStore
 import `in`.dimigo.dimigoin.databinding.ItemIngangApplierNameBinding
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -33,8 +34,9 @@ class IngangApplierViewHolder(
     private val binding: ItemIngangApplierNameBinding
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(applier: UserModel?) {
-        binding.applier = applier
-        binding.isEmptyPosition = applier == null
+    fun bind(applier: UserModel?) = with(binding) {
+        this.applier = applier
+        isEmptyPosition = applier == null
+        highlightName = applier?.idx == UserDataStore.userData.idx
     }
 }
