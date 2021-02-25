@@ -2,6 +2,8 @@ package `in`.dimigo.dimigoin.ui.attendance
 
 import `in`.dimigo.dimigoin.R
 import `in`.dimigo.dimigoin.data.model.UserType
+import `in`.dimigo.dimigoin.data.util.DateUtil
+import `in`.dimigo.dimigoin.data.util.DateUtil.from
 import `in`.dimigo.dimigoin.data.util.UserDataStore
 import `in`.dimigo.dimigoin.databinding.DialogAttendanceDetailBinding
 import `in`.dimigo.dimigoin.databinding.DialogHistoryBinding
@@ -17,8 +19,6 @@ import androidx.lifecycle.lifecycleScope
 import com.google.android.material.tabs.TabLayout
 import kotlinx.coroutines.launch
 import org.koin.android.viewmodel.ext.android.viewModel
-import java.time.ZoneId
-import java.time.format.DateTimeFormatter
 
 class AttendanceFragment : Fragment() {
     private val isTeacher = UserDataStore.userData.userType == UserType.TEACHER
@@ -76,20 +76,24 @@ class AttendanceFragment : Fragment() {
             }
 
             val updatedAt: String = if (!it.logs.isNullOrEmpty()) {
-                val time = it.logs[0].time.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime()
-                time.format(DateTimeFormatter.ofPattern("HH:mm"))
+                DateUtil.timeFormatter.from(it.logs[it.logs.size - 1].time)
             } else {
                 requireContext().getString(R.string.no_info)
             }
 
             val location: AttendanceLocation =
-                it.logs?.let { logs -> AttendanceLocation.fromPlace(logs[0].place) } ?: AttendanceLocation.Class
+                it.logs?.let { logs -> AttendanceLocation.fromPlace(logs[logs.size - 1].place) }
+                    ?: AttendanceLocation.Class
+            val placeName: String =
+                it.logs?.let { logs -> logs[logs.size - 1].place.name } ?: it.student.getDefaultClassName()
+
 
             val dialogBinding = DialogAttendanceDetailBinding.inflate(layoutInflater).apply {
                 historyRecyclerView.adapter = historyAdapter
                 this.location = location
                 this.student = it.student
                 this.updatedAt = updatedAt
+                this.placeName = placeName
                 this.studentInfo = requireContext().getString(R.string.format_student_info)
                     .format(it.student.grade, it.student.klass, it.student.number)
             }

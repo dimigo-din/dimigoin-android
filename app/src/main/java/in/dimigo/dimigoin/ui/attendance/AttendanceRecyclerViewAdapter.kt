@@ -1,6 +1,7 @@
 package `in`.dimigo.dimigoin.ui.attendance
 
 import `in`.dimigo.dimigoin.R
+import `in`.dimigo.dimigoin.data.util.DateUtil
 import `in`.dimigo.dimigoin.databinding.ItemAttendanceBinding
 import `in`.dimigo.dimigoin.ui.item.AttendanceItem
 import `in`.dimigo.dimigoin.ui.util.LooseDiffCallback
@@ -9,7 +10,6 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import java.time.format.DateTimeFormatter
 
 class AttendanceRecyclerViewAdapter(
     private val viewModel: AttendanceViewModel? = null
@@ -69,7 +69,7 @@ private class AttendanceViewHolder(
     fun bind(item: AttendanceItem) {
         //TODO: just for temporary, keep this way setting the default value
         val isViewModelNotNull = viewModel != null
-        val updatedAt = item.updatedAt?.format(DateTimeFormatter.ofPattern("HH:mm"))
+        val updatedAt = item.updatedAt?.format(DateUtil.timeFormatter)
 
         binding.apply {
             this.item = item

@@ -47,7 +47,7 @@ private class AttendanceHistoryViewHolder(private val binding: ItemHistoryBindin
         val updatedPerson = if (item.updatedBy == null) "자신" else item.student.name + "님"
         val format = context.getString(R.string.attendance_log_format)
         val spannable =
-            format.format(DateUtil.dateFormatter.from(item.date), updatedBy, updatedPerson, location).toSpannable()
+            format.format(DateUtil.timeFormatter.from(item.time), updatedBy, updatedPerson, location).toSpannable()
 
         spannable[location] = CustomAccentSpan(
             ResourcesCompat.getFont(context, R.font.bold),

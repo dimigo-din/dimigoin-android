@@ -17,7 +17,9 @@ data class UserModel(
     val photos: List<String>,
     val userType: UserType,
     val gender: String
-)
+) {
+    fun getDefaultClassName() = "${grade}학년 ${klass}반"
+}
 
 enum class UserType {
     @SerializedName("T")

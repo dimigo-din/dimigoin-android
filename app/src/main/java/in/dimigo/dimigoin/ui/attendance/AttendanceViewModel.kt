@@ -74,7 +74,7 @@ class AttendanceViewModel(private val useCase: AttendanceUseCase) : ViewModel() 
             val location: AttendanceLocation =
                 it.log?.place?.let { log -> AttendanceLocation.fromPlace(log) } ?: AttendanceLocation.Class
             val placeName: String =
-                if (it.log?.place == null) "교실"
+                if (it.log?.place == null) it.student.getDefaultClassName()
                 else it.log.place.name
 
             AttendanceItem(

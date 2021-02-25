@@ -23,6 +23,10 @@
             type="String" />
 
         <variable
+            name="placeName"
+            type="String" />
+
+        <variable
             name="location"
             type="in.dimigo.dimigoin.ui.main.fragment.main.AttendanceLocation" />
     </data>
@@ -81,7 +85,7 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/location_clip"
-                android:layout_width="70dp"
+                android:layout_width="90dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
                 android:layout_marginEnd="6dp"
@@ -104,17 +108,19 @@
                     tools:src="@drawable/ic_location_ingang" />
 
                 <TextView
-                    android:id="@+id/placeName"
+                    android:id="@+id/place_name_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:fontFamily="@font/medium"
                     android:includeFontPadding="false"
                     android:paddingBottom="2dp"
-                    android:text="@{location == null ? @string/no_info : location.label}"
+                    android:ellipsize="end"
                     android:textAlignment="center"
                     android:textColor="@color/grey_400"
                     android:textSize="12sp"
+                    android:maxLength="6"
+                    android:text="@{placeName}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/placeIcon"
@@ -140,7 +146,7 @@
             <TextView
                 style="@style/Text"
                 android:id="@+id/time_text"
-                android:layout_width="70dp"
+                android:layout_width="90dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="6dp"
                 android:layout_marginTop="6dp"

@@ -6,7 +6,8 @@ import java.util.*
 
 object DateUtil {
     val dateFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+    val timeFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm")
 
     fun DateTimeFormatter.from(date: Date): String =
-        dateFormatter.format(date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate())
+        this.format(date.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime())
 }
