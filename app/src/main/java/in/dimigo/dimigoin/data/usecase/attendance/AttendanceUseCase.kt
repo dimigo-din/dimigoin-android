@@ -1,9 +1,7 @@
 package `in`.dimigo.dimigoin.data.usecase.attendance
 
-import `in`.dimigo.dimigoin.data.model.AttendanceLogModel
-import `in`.dimigo.dimigoin.data.model.AttendanceStatusModel
-import `in`.dimigo.dimigoin.data.model.PlaceModel
-import `in`.dimigo.dimigoin.data.model.PrimaryPlaceModel
+import `in`.dimigo.dimigoin.data.model.*
+import `in`.dimigo.dimigoin.ui.item.AttendanceDetailItem
 
 interface AttendanceUseCase {
     suspend fun getTodayAttendanceLogs(): List<AttendanceLogModel>
@@ -15,4 +13,5 @@ interface AttendanceUseCase {
     suspend fun getCurrentAttendanceStatus(): List<AttendanceStatusModel>
     suspend fun getSpecificAttendanceStatus(grade: Int, klass: Int): List<AttendanceStatusModel>
     suspend fun getAttendanceTimeline(grade: Int, klass: Int): List<AttendanceLogModel>
+    suspend fun getAttendanceDetail(userModel: UserModel): AttendanceDetailItem
 }

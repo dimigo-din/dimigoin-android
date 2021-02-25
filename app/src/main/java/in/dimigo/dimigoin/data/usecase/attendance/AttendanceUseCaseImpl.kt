@@ -4,6 +4,7 @@ import `in`.dimigo.dimigoin.data.model.*
 import `in`.dimigo.dimigoin.data.service.DimigoinService
 import `in`.dimigo.dimigoin.data.util.DateUtil
 import `in`.dimigo.dimigoin.data.util.UserDataStore
+import `in`.dimigo.dimigoin.ui.item.AttendanceDetailItem
 import retrofit2.await
 import java.time.LocalDate
 
@@ -58,5 +59,12 @@ class AttendanceUseCaseImpl(private val service: DimigoinService) : AttendanceUs
             grade,
             klass
         ).await().logs
+    }
+
+    override suspend fun getAttendanceDetail(userModel: UserModel): AttendanceDetailItem {
+        val date: String = LocalDate.now().format(DateUtil.dateFormatter)
+        val logs = service.getSpecificAttendanceLogs(date, userModel._id).await().logs
+
+        return AttendanceDetailItem(userModel, logs)
     }
 }
