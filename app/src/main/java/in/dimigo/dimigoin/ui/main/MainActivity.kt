@@ -2,9 +2,9 @@ package `in`.dimigo.dimigoin.ui.main
 
 import `in`.dimigo.dimigoin.R
 import `in`.dimigo.dimigoin.databinding.ActivityMainBinding
+import `in`.dimigo.dimigoin.ui.custom.BaseActivity
 import android.os.Bundle
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.forEach
 import androidx.core.view.updatePadding
 import androidx.databinding.DataBindingUtil
@@ -15,7 +15,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.koin.android.viewmodel.ext.android.viewModel
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
     private lateinit var binding: ActivityMainBinding
     private val viewModel: MainViewModel by viewModel()
     private var bottomNavBarBottomPadding = 0

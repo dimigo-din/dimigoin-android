@@ -6,6 +6,7 @@ import `in`.dimigo.dimigoin.data.util.UserDataStore
 import `in`.dimigo.dimigoin.databinding.ActivityLoginBinding
 import `in`.dimigo.dimigoin.databinding.DialogForgotIdPwBinding
 import `in`.dimigo.dimigoin.ui.attendance.AttendanceActivity
+import `in`.dimigo.dimigoin.ui.custom.BaseActivity
 import `in`.dimigo.dimigoin.ui.custom.DimigoinDialog
 import `in`.dimigo.dimigoin.ui.main.MainActivity
 import `in`.dimigo.dimigoin.ui.util.observeEvent
@@ -13,12 +14,11 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import org.koin.android.viewmodel.ext.android.viewModel
 
-class LoginActivity : AppCompatActivity() {
+class LoginActivity : BaseActivity() {
     private val viewModel: LoginViewModel by viewModel()
     private lateinit var binding: ActivityLoginBinding
 

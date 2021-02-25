@@ -7,20 +7,20 @@ import `in`.dimigo.dimigoin.data.usecase.user.UserUseCase
 import `in`.dimigo.dimigoin.data.util.SharedPreferencesManager
 import `in`.dimigo.dimigoin.data.util.UserDataStore
 import `in`.dimigo.dimigoin.ui.attendance.AttendanceActivity
+import `in`.dimigo.dimigoin.ui.custom.BaseActivity
 import `in`.dimigo.dimigoin.ui.login.LoginActivity
 import `in`.dimigo.dimigoin.ui.main.MainActivity
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.koin.android.ext.android.inject
 
-class SplashActivity : AppCompatActivity() {
+class SplashActivity : BaseActivity() {
     private val userUseCase: UserUseCase by inject()
     private val authUseCase: AuthUseCase by inject()
     private val sharedPreferencesManager: SharedPreferencesManager by inject()
