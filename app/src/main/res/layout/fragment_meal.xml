@@ -15,7 +15,7 @@
             type="in.dimigo.dimigoin.ui.main.fragment.meal.MealViewModel" />
     </data>
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         style="@style/LayoutScrollView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -48,6 +48,6 @@
 
         </LinearLayout>
 
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 
 </layout>
