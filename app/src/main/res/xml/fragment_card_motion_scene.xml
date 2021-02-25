@@ -91,7 +91,7 @@
 
         <Constraint
             android:id="@+id/cardFrontLayout"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="0dp"
             android:alpha="0"
             android:rotation="90"
@@ -100,6 +100,7 @@
             motion:layout_constraintDimensionRatio="1.58"
             motion:layout_constraintEnd_toEndOf="parent"
             motion:layout_constraintStart_toStartOf="parent"
-            motion:layout_constraintTop_toTopOf="parent" />
+            motion:layout_constraintTop_toTopOf="parent"
+            motion:layout_constraintWidth_max="@dimen/card_fragment_max_width" />
     </ConstraintSet>
 </MotionScene>

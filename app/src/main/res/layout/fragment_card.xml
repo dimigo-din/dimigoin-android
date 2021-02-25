@@ -44,11 +44,14 @@
             <Button
                 android:id="@+id/cautionButton"
                 style="@style/Button.Slim"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:backgroundTint="@color/grey_250"
                 android:fontFamily="@font/bold"
                 android:stateListAnimator="@null"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintWidth_max="@dimen/card_fragment_max_width" />
 
             <ImageView
                 android:id="@+id/cautionIcon"
@@ -161,7 +164,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cardFrontLayout"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_margin="@dimen/default_horizontal_margin"
             android:background="@drawable/bg_card"
@@ -170,7 +173,8 @@
             app:layout_constraintDimensionRatio="1.58"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_max="@dimen/card_fragment_max_width">
 
             <ImageView
                 android:id="@+id/schoolLogoImage"
