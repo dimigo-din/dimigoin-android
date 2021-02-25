@@ -97,8 +97,8 @@
                         android:layout_marginTop="20dp"
                         android:layout_marginEnd="0dp" />
 
-                    <carbon.widget.FrameLayout
-                        style="@style/CarbonCard.Light"
+                    <FrameLayout
+                        style="@style/Card.Light"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="@dimen/default_horizontal_margin"
@@ -111,7 +111,7 @@
                             android:layout_margin="20dp"
                             android:text="@{vm.notice == null ? @string/notice_loading_message : vm.notice.content}"
                             tools:text="@string/notice_loading_message" />
-                    </carbon.widget.FrameLayout>
+                    </FrameLayout>
 
                     <Space
                         android:layout_width="0dp"
@@ -134,7 +134,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="8dp"
-                            android:elevation="@dimen/carbon_elevation"
+                            android:elevation="@dimen/default_shadow_elevation"
                             app:layout_constraintBottom_toBottomOf="@id/mealViewPager"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"

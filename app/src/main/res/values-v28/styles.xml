@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Shadow">
+        <item name="android:elevation">@dimen/default_shadow_elevation</item>
+        <item name="android:outlineSpotShadowColor">@color/black_alpha_20</item>
+    </style>
+
+    <style name="Card" parent="Shadow">
+        <item name="android:background">@drawable/bg_round_corner_square</item>
+    </style>
+
+    <style name="Card.Light">
+        <item name="android:outlineSpotShadowColor">@color/black_alpha_10</item>
+    </style>
+
+    <style name="Card.Round">
+        <item name="android:background">@drawable/bg_circle</item>
+        <item name="android:outlineSpotShadowColor">@color/black_alpha_10</item>
+    </style>
+
+</resources>

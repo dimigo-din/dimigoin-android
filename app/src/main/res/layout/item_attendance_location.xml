@@ -22,8 +22,8 @@
         android:orientation="vertical"
         tools:ignore="UseCompoundDrawables">
 
-        <carbon.widget.FrameLayout
-            style="@style/CarbonCard.Round"
+        <FrameLayout
+            style="@style/Card.Round"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="8dp">
@@ -39,7 +39,7 @@
                 app:tint="@{vm.attendanceLocation == location ? @color/white : @color/pink_400}"
                 tools:src="@drawable/ic_location_class"
                 tools:tint="@color/pink_400" />
-        </carbon.widget.FrameLayout>
+        </FrameLayout>
 
         <TextView
             style="@style/Text.Content"

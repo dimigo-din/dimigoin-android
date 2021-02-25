@@ -37,8 +37,8 @@
                     app:sub="@{@string/night_study}"
                     app:title="@{@string/ingang}" />
 
-                <carbon.widget.ConstraintLayout
-                    style="@style/CarbonCard"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    style="@style/Card"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/default_horizontal_margin"
@@ -89,7 +89,7 @@
                         app:layout_constraintTop_toTopOf="@id/applicationTimeText"
                         tools:text="남은 티켓 3/4" />
 
-                </carbon.widget.ConstraintLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <include
                     android:id="@+id/ingang1Layout"

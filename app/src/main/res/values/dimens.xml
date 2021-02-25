@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="default_horizontal_margin">20dp</dimen>
-    <dimen name="carbon_elevation">20dp</dimen>
+    <dimen name="default_shadow_elevation">2dp</dimen>
     <dimen name="meal_view_pager_page_gap">2dp</dimen>
     <dimen name="meal_view_pager_page_offset">24dp</dimen>
     <dimen name="meal_view_pager_page_gap_offset">32dp</dimen>

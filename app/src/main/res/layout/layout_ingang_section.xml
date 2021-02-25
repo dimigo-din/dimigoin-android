@@ -54,9 +54,9 @@
             app:layout_constraintTop_toBottomOf="@id/ingangTime"
             tools:text="@string/night_study_1" />
 
-        <carbon.widget.RecyclerView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/applierRecyclerView"
-            style="@style/CarbonCard"
+            style="@style/Card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/default_horizontal_margin"

@@ -166,24 +166,20 @@
         <item name="android:paddingEnd">20dp</item>
     </style>
 
-    <style name="CarbonElevation">
-        <item name="carbon_elevation">@dimen/carbon_elevation</item>
-        <item name="carbon_elevationSpotShadowColor">@color/black_alpha_20</item>
+    <style name="Shadow">
+        <item name="android:elevation">@dimen/default_shadow_elevation</item>
     </style>
 
-    <style name="CarbonCard" parent="CarbonElevation">
+    <style name="Card" parent="Shadow">
         <item name="android:background">@drawable/bg_round_corner_square</item>
-        <item name="carbon_cornerRadius">@dimen/primary_corner_radius</item>
     </style>
 
-    <style name="CarbonCard.Light">
-        <item name="carbon_elevationSpotShadowColor">@color/black_alpha_10</item>
+    <style name="Card.Light">
+        <item name="android:elevation">1dp</item>
     </style>
 
-    <style name="CarbonCard.Round">
+    <style name="Card.Round">
         <item name="android:background">@drawable/bg_circle</item>
-        <item name="carbon_cornerRadius">100dp</item>
-        <item name="carbon_elevationSpotShadowColor">@color/black_alpha_10</item>
     </style>
 
     <style name="Divider">
