@@ -16,139 +16,112 @@
             type="Boolean" />
     </data>
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/titleArea"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/titleArea"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <include
-                    layout="@layout/layout_title"
-                    app:hideDivider="@{true}"
-                    app:icon="@{isTeacherMode ? null : @drawable/ic_location_class_accent}"
-                    app:sub="@{@string/night_study_1}"
-                    app:title="@{@string/attendance_state}" />
-
-                <Button
-                    android:id="@+id/attendance_history_button"
-                    style="@style/Button.Chip"
-                    android:layout_width="wrap_content"
-                    android:layout_marginEnd="@dimen/default_horizontal_margin"
-                    android:layout_marginBottom="2dp"
-                    android:text="@string/history"
-                    android:visibility="@{isTeacherMode ? View.VISIBLE : View.GONE}"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            android:layout_height="wrap_content">
 
             <include
-                android:id="@+id/attendance_table_layout"
-                layout="@layout/layout_attendance_table"
-                app:vm="@{vm}" />
+                layout="@layout/layout_title"
+                app:hideDivider="@{true}"
+                app:icon="@{isTeacherMode ? null : @drawable/ic_location_class_accent}"
+                app:sub="@{@string/night_study_1}"
+                app:title="@{@string/attendance_state}" />
 
-            <RelativeLayout
+            <Button
+                android:id="@+id/attendance_history_button"
+                style="@style/Button.Chip"
+                android:layout_width="wrap_content"
+                android:layout_marginEnd="@dimen/default_horizontal_margin"
+                android:layout_marginBottom="2dp"
+                android:text="@string/history"
+                android:visibility="@{isTeacherMode ? View.VISIBLE : View.GONE}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <include
+            android:id="@+id/attendance_table_layout"
+            layout="@layout/layout_attendance_table"
+            app:vm="@{vm}" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/default_horizontal_margin"
+            android:layout_marginTop="20dp">
+
+            <EditText
+                style="@style/Text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/default_horizontal_margin"
-                android:layout_marginTop="20dp">
+                android:autofillHints="none"
+                android:background="@drawable/bg_round_corner_square_grey_border"
+                android:hint="@string/search_with_name"
+                android:inputType="text"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="10dp"
+                android:text="@={vm.query}"
+                android:textColor="@color/grey_750"
+                android:textSize="14sp" />
 
-                <EditText
-                    style="@style/Text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:autofillHints="none"
-                    android:background="@drawable/bg_round_corner_square_grey_border"
-                    android:hint="@string/search_with_name"
-                    android:inputType="text"
-                    android:paddingHorizontal="16dp"
-                    android:paddingVertical="10dp"
-                    android:text="@={vm.query}"
-                    android:textColor="@color/grey_750"
-                    android:textSize="14sp" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="8dp"
+                android:contentDescription="@string/description_search"
+                android:src="@drawable/ic_search"
+                app:tint="@color/grey_400" />
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginEnd="8dp"
-                    android:contentDescription="@string/description_search"
-                    android:src="@drawable/ic_search"
-                    app:tint="@color/grey_400" />
+        </RelativeLayout>
 
-            </RelativeLayout>
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler_view"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginHorizontal="45dp"
-                android:layout_marginTop="25dp"
-                android:overScrollMode="never"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/item_attendance" />
-
-        </LinearLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="45dp"
+            android:layout_marginTop="25dp"
+            android:layout_weight="1"
+            android:overScrollMode="never"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/item_attendance" />
 
         <LinearLayout
-            android:id="@+id/bottom_target_picker"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:orientation="vertical"
+            android:layout_height="100dp"
             android:visibility="@{isTeacherMode ? View.VISIBLE : View.GONE}"
-            app:behavior_hideable="false"
-            app:behavior_peekHeight="38dp"
-            app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+            android:background="@drawable/bg_bottom_sheet"
+            android:elevation="18dp"
+            android:orientation="vertical">
 
-            <LinearLayout
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/gradeTap"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="16dp"
-                android:background="@drawable/bg_bottom_sheet"
-                android:elevation="18dp"
-                android:orientation="vertical"
-                tools:ignore="UselessParent">
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                app:tabIndicator="@drawable/bg_tab_indicator"
+                app:tabIndicatorHeight="3dp"
+                app:tabTextAppearance="@style/Text.Tab" />
 
-                <View
-                    android:layout_width="20dp"
-                    android:layout_height="6dp"
-                    android:layout_marginTop="6dp"
-                    android:layout_marginBottom="10dp"
-                    android:layout_gravity="center_horizontal"
-                    android:background="@drawable/ic_handle" />
-
-                <com.google.android.material.tabs.TabLayout
-                    android:id="@+id/gradeTap"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    app:tabIndicator="@drawable/bg_tab_indicator"
-                    app:tabIndicatorHeight="3dp"
-                    app:tabTextAppearance="@style/Text.Tab" />
-
-                <com.google.android.material.tabs.TabLayout
-                    android:id="@+id/classTap"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    app:tabIndicator="@drawable/bg_tab_indicator"
-                    app:tabIndicatorHeight="3dp"
-                    app:tabTextAppearance="@style/Text.Tab" />
-
-            </LinearLayout>
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/classTap"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                app:tabIndicator="@drawable/bg_tab_indicator"
+                app:tabIndicatorHeight="3dp"
+                app:tabTextAppearance="@style/Text.Tab" />
 
         </LinearLayout>
 
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
+    </LinearLayout>
 
 </layout>

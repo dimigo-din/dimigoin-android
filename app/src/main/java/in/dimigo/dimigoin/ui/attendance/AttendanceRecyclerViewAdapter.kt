@@ -3,15 +3,17 @@ package `in`.dimigo.dimigoin.ui.attendance
 import `in`.dimigo.dimigoin.R
 import `in`.dimigo.dimigoin.databinding.ItemAttendanceBinding
 import `in`.dimigo.dimigoin.ui.item.AttendanceItem
-import `in`.dimigo.dimigoin.ui.main.fragment.main.AttendanceLocation
 import `in`.dimigo.dimigoin.ui.util.LooseDiffCallback
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import java.time.format.DateTimeFormatter
 
-class AttendanceRecyclerViewAdapter :
+class AttendanceRecyclerViewAdapter(
+    private val viewModel: AttendanceViewModel? = null
+) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var items: List<AttendanceItem> = listOf()
     private var filteredList: List<AttendanceItem> = listOf()
@@ -29,17 +31,17 @@ class AttendanceRecyclerViewAdapter :
         val inflater = LayoutInflater.from(parent.context)
         val binding: ItemAttendanceBinding = DataBindingUtil.inflate(inflater, R.layout.item_attendance, parent, false)
 
-        return AttendanceViewHolder(binding)
+        return AttendanceViewHolder(binding, viewModel)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        (holder as AttendanceViewHolder).bind(filteredList[position], isLastItem(position))
+        (holder as AttendanceViewHolder).bind(filteredList[position])
     }
 
     override fun getItemCount() = filteredList.size
 
     fun setItem(items: List<AttendanceItem>) {
-        val sortedList = items.sortedBy { it.number }
+        val sortedList = items.sortedBy { it.student.number }
         this.items = sortedList
         this.filteredList = sortedList
         notifyDataSetChanged()
@@ -52,26 +54,33 @@ class AttendanceRecyclerViewAdapter :
             tempList.addAll(items)
         } else {
             for (item in items)
-                if (item.name.contains(query)) tempList.add(item)
+                if (item.student.name.contains(query)) tempList.add(item)
         }
 
         calculateDiff(tempList)
         filteredList = tempList
     }
-
-    private fun isLastItem(position: Int): Boolean = position + 1 == itemCount
 }
 
-private class AttendanceViewHolder(private val binding: ItemAttendanceBinding) : RecyclerView.ViewHolder(binding.root) {
-    fun bind(item: AttendanceItem, isLastItem: Boolean) {
+private class AttendanceViewHolder(
+    private val binding: ItemAttendanceBinding,
+    private val viewModel: AttendanceViewModel? = null
+) : RecyclerView.ViewHolder(binding.root) {
+    fun bind(item: AttendanceItem) {
         //TODO: just for temporary, keep this way setting the default value
-        val location: AttendanceLocation =
-            item.place?.let { AttendanceLocation.fromPlace(it) } ?: AttendanceLocation.Class
+        val isViewModelNotNull = viewModel != null
+        val updatedAt = item.updatedAt?.format(DateTimeFormatter.ofPattern("HH:mm"))
 
         binding.apply {
             this.item = item
-            this.location = location
-            this.isLastItem = isLastItem
+            this.isTeacherMode = isViewModelNotNull
+            this.updatedAt = updatedAt ?: "정보 없음"
+
+            viewModel?.let {
+                this.detailText.setOnClickListener {
+                    viewModel.loadAttendanceDetail(item.student)
+                }
+            }
         }
     }
 }

@@ -3,12 +3,18 @@ package `in`.dimigo.dimigoin.ui.attendance
 import `in`.dimigo.dimigoin.data.model.AttendanceLogModel
 import `in`.dimigo.dimigoin.data.model.AttendanceStatusModel
 import `in`.dimigo.dimigoin.data.model.PlaceType
+import `in`.dimigo.dimigoin.data.model.UserModel
 import `in`.dimigo.dimigoin.data.usecase.attendance.AttendanceUseCase
+import `in`.dimigo.dimigoin.ui.item.AttendanceDetailItem
 import `in`.dimigo.dimigoin.ui.item.AttendanceItem
+import `in`.dimigo.dimigoin.ui.main.fragment.main.AttendanceLocation
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.launch
+import java.time.ZoneId
 
 class AttendanceViewModel(private val useCase: AttendanceUseCase) : ViewModel() {
     private val _attendanceTableData = MutableLiveData<List<Int>>()
@@ -19,6 +25,9 @@ class AttendanceViewModel(private val useCase: AttendanceUseCase) : ViewModel() 
 
     private val _attendanceLogs = MutableLiveData<List<AttendanceLogModel>>()
     val attendanceLogs: LiveData<List<AttendanceLogModel>> = _attendanceLogs
+
+    private val _attendanceDetail = MutableLiveData<AttendanceDetailItem>()
+    val attendanceDetail: LiveData<AttendanceDetailItem> = _attendanceDetail
 
     val query = MutableLiveData<String>()
 
@@ -49,12 +58,26 @@ class AttendanceViewModel(private val useCase: AttendanceUseCase) : ViewModel() 
         }
     }
 
+    fun loadAttendanceDetail(userModel: UserModel) {
+        viewModelScope.launch {
+            try {
+                val data = useCase.getAttendanceDetail(userModel)
+                _attendanceDetail.value = data
+            } catch (e: Exception) {
+                Log.e("error", "msg: ${e.message}")
+            }
+        }
+    }
+
     fun applyAttendanceData(dataList: List<AttendanceStatusModel>) {
         _attendanceData.value = dataList.map {
+            val location: AttendanceLocation =
+                it.log?.place?.let { log -> AttendanceLocation.fromPlace(log) } ?: AttendanceLocation.Class
+
             AttendanceItem(
-                it.student.number,
-                it.student.name,
-                it.log?.place
+                it.student,
+                location,
+                it.log?.time?.toInstant()?.atZone(ZoneId.systemDefault())?.toLocalDateTime()
             )
         }
         _attendanceTableData.value = getAttendanceTableData(dataList)
