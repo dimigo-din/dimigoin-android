@@ -16,18 +16,18 @@ import androidx.core.text.toSpannable
 import androidx.recyclerview.widget.RecyclerView
 
 class AttendanceHistoryRecyclerViewAdapter :
-    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    RecyclerView.Adapter<AttendanceHistoryViewHolder>() {
     private var items: List<AttendanceLogModel> = listOf()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AttendanceHistoryViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding = ItemHistoryBinding.inflate(inflater)
 
         return AttendanceHistoryViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        (holder as AttendanceHistoryViewHolder).bind(items[position])
+    override fun onBindViewHolder(holder: AttendanceHistoryViewHolder, position: Int) {
+        holder.bind(items[position])
     }
 
     override fun getItemCount() = items.size
@@ -38,7 +38,7 @@ class AttendanceHistoryRecyclerViewAdapter :
     }
 }
 
-private class AttendanceHistoryViewHolder(private val binding: ItemHistoryBinding) :
+class AttendanceHistoryViewHolder(private val binding: ItemHistoryBinding) :
     RecyclerView.ViewHolder(binding.root) {
     fun bind(item: AttendanceLogModel) {
         val context = binding.root.context

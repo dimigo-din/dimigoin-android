@@ -10,18 +10,18 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 
 class TimetableRecyclerViewAdapter(private val date: DateChangedLiveData) :
-    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    RecyclerView.Adapter<TimetableViewHolder>() {
     private var items: List<SubjectItem?> = listOf()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TimetableViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding: ItemSubjectBinding = DataBindingUtil.inflate(inflater, R.layout.item_subject, parent, false)
 
         return TimetableViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        (holder as TimetableViewHolder).bind(items[position], date)
+    override fun onBindViewHolder(holder: TimetableViewHolder, position: Int) {
+        holder.bind(items[position], date)
     }
 
     override fun getItemCount(): Int = items.size
@@ -32,7 +32,7 @@ class TimetableRecyclerViewAdapter(private val date: DateChangedLiveData) :
     }
 }
 
-private class TimetableViewHolder(private val binding: ItemSubjectBinding) : RecyclerView.ViewHolder(binding.root) {
+class TimetableViewHolder(private val binding: ItemSubjectBinding) : RecyclerView.ViewHolder(binding.root) {
     fun bind(item: SubjectItem?, date: DateChangedLiveData) {
         binding.subject = item
         binding.date = date

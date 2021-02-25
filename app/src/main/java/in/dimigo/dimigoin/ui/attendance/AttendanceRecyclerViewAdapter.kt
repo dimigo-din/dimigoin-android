@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 class AttendanceRecyclerViewAdapter(
     private val viewModel: AttendanceViewModel? = null
 ) :
-    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    RecyclerView.Adapter<AttendanceViewHolder>() {
     private var items: List<AttendanceItem> = listOf()
     private var filteredList: List<AttendanceItem> = listOf()
 
@@ -27,15 +27,15 @@ class AttendanceRecyclerViewAdapter(
         diffResult.dispatchUpdatesTo(this)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AttendanceViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding: ItemAttendanceBinding = DataBindingUtil.inflate(inflater, R.layout.item_attendance, parent, false)
 
         return AttendanceViewHolder(binding, viewModel)
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        (holder as AttendanceViewHolder).bind(filteredList[position])
+    override fun onBindViewHolder(holder: AttendanceViewHolder, position: Int) {
+        holder.bind(filteredList[position])
     }
 
     override fun getItemCount() = filteredList.size
@@ -62,7 +62,7 @@ class AttendanceRecyclerViewAdapter(
     }
 }
 
-private class AttendanceViewHolder(
+class AttendanceViewHolder(
     private val binding: ItemAttendanceBinding,
     private val viewModel: AttendanceViewModel? = null
 ) : RecyclerView.ViewHolder(binding.root) {
