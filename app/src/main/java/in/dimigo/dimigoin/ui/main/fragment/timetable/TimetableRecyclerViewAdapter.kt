@@ -26,9 +26,9 @@ class TimetableRecyclerViewAdapter(private val date: DateChangedLiveData) :
 
     override fun getItemCount(): Int = items.size
 
-    fun setItem(items: List<SubjectItem?>) {
-        this.items = items
-        notifyDataSetChanged()
+    fun updateItems(items: List<SubjectItem?>? = null) {
+        if (items != null) this.items = items
+        notifyItemRangeChanged(0, this.items.size)
     }
 }
 

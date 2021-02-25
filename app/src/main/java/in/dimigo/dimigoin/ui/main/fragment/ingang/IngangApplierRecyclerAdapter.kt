@@ -14,7 +14,7 @@ class IngangApplierRecyclerAdapter : RecyclerView.Adapter<IngangApplierViewHolde
     fun setItems(newItems: List<UserModel>, maxApplier: Int) {
         items = newItems
         this.maxApplier = maxApplier
-        notifyDataSetChanged()
+        notifyItemRangeChanged(0, maxApplier)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): IngangApplierViewHolder {

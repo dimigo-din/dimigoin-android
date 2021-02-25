@@ -23,6 +23,7 @@ import com.ethanhua.skeleton.SkeletonScreen
 class IngangFragment : Fragment() {
     private lateinit var binding: FragmentIngangBinding
     private val viewModel: IngangViewModel by sharedGraphViewModel(R.id.main_nav_graph)
+    private var isRecyclerViewSkeletonHidden = false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentIngangBinding.inflate(inflater, container, false).apply {
@@ -46,16 +47,22 @@ class IngangFragment : Fragment() {
             val maxApplier = ingangStatus.ingangMaxApplier
             ingang1Adapter.setItems(getAppliers(ingangStatus.getApplications(IngangTime.NSS1)), maxApplier)
             ingang2Adapter.setItems(getAppliers(ingangStatus.getApplications(IngangTime.NSS2)), maxApplier)
-            ingang1Skeleton.hide()
-            ingang2Skeleton.hide()
+            if (!isRecyclerViewSkeletonHidden) {
+                ingang1Skeleton.hide()
+                ingang2Skeleton.hide()
+                isRecyclerViewSkeletonHidden = true
+            }
         }
 
         viewModel.event.observeEvent(viewLifecycleOwner) { event ->
             when (event) {
                 is Event.IngangStatusRequestFail -> {
                     showAlert(R.string.failed_to_fetch_ingang_status)
-                    ingang1Skeleton.hide()
-                    ingang2Skeleton.hide()
+                    if (!isRecyclerViewSkeletonHidden) {
+                        ingang1Skeleton.hide()
+                        ingang2Skeleton.hide()
+                        isRecyclerViewSkeletonHidden = true
+                    }
                 }
                 is Event.IngangApplied -> {
                     val message = getString(R.string.ingang_applied, event.appliedTime.timeNumber)
@@ -66,7 +73,10 @@ class IngangFragment : Fragment() {
             }
         }
 
-        ingangContainer.layoutTransition.enableTransitionType(LayoutTransition.CHANGING)
+        ingangContainer.enableTransition()
+        informationLayout.enableTransition()
+        ingang1Layout.container.enableTransition()
+        ingang2Layout.container.enableTransition()
     }
 
     private fun getAppliers(ingangApplications: List<IngangApplicationModel>): List<UserModel> =
@@ -83,6 +93,10 @@ class IngangFragment : Fragment() {
             .color(R.color.grey_100)
             .count(8)
             .show()
+    }
+
+    private fun ViewGroup.enableTransition() {
+        layoutTransition.enableTransitionType(LayoutTransition.CHANGING)
     }
 
     sealed class Event {

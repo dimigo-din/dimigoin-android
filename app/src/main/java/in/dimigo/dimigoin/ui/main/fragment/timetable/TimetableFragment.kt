@@ -34,11 +34,11 @@ class TimetableFragment : Fragment() {
         }
 
         viewModel.timetable.observe(viewLifecycleOwner) {
-            adapter.setItem(it)
+            adapter.updateItems(it)
         }
 
         dateChangedLiveData.observe(viewLifecycleOwner) {
-            adapter.notifyDataSetChanged()
+            adapter.updateItems()
         }
 
         viewModel.timetableFetchFailedEvent.observe(viewLifecycleOwner) {

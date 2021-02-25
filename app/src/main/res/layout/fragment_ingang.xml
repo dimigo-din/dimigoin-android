@@ -38,11 +38,13 @@
                     app:title="@{@string/ingang}" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/informationLayout"
                     style="@style/Card"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/default_horizontal_margin"
-                    android:layout_marginTop="20dp">
+                    android:layout_marginTop="20dp"
+                    android:animateLayoutChanges="true">
 
                     <TextView
                         android:id="@+id/applicationTimeText"
