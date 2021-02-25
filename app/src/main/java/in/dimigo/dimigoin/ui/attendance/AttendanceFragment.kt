@@ -70,13 +70,13 @@ class AttendanceFragment : Fragment() {
             it.logs?.let { logs -> historyAdapter.setItem(logs) }
 
             val updatedAt: String =
-                if (!it.logs.isNullOrEmpty()) DateUtil.timeFormatter.from(it.logs[it.logs.size - 1].time)
+                if (!it.logs.isNullOrEmpty()) DateUtil.timeFormatter.from(it.logs[0].time)
                 else requireContext().getString(R.string.no_info)
             val location: AttendanceLocation =
-                it.logs?.let { logs -> AttendanceLocation.fromPlace(logs[logs.size - 1].place) }
+                it.logs?.let { logs -> AttendanceLocation.fromPlace(logs[0].place) }
                     ?: AttendanceLocation.Class
             val placeName: String =
-                it.logs?.let { logs -> logs[logs.size - 1].place.name } ?: it.student.getDefaultClassName()
+                it.logs?.let { logs -> logs[0].place.name } ?: it.student.getDefaultClassName(requireContext())
             val dialogBinding = DialogAttendanceDetailBinding.inflate(layoutInflater).apply {
                 historyRecyclerView.adapter = historyAdapter
                 this.location = location

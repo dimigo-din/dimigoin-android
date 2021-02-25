@@ -51,6 +51,9 @@
         <item name="android:textSize">14sp</item>
         <item name="android:fontFamily">@font/bold</item>
         <item name="android:textAlignment">center</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:scrollHorizontally">true</item>
+        <item name="android:maxLines">1</item>
         <item name="android:layout_weight">1</item>
         <item name="android:padding">10dp</item>
     </style>
@@ -73,6 +76,16 @@
         <item name="android:fontFamily">@font/bold</item>
         <item name="android:textColor">@color/pink_400</item>
         <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="Text.Location">
+        <item name="android:textColor">@color/grey_400</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:scrollHorizontally">true</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:fontFamily">@font/regular</item>
     </style>
 
     <style name="Button" parent="Widget.MaterialComponents.Button">

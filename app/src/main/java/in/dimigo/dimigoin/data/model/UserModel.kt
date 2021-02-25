@@ -1,5 +1,7 @@
 package `in`.dimigo.dimigoin.data.model
 
+import `in`.dimigo.dimigoin.R
+import android.content.Context
 import com.google.gson.annotations.SerializedName
 
 data class UserResponseModel(
@@ -20,7 +22,7 @@ data class UserModel(
     @SerializedName("birthdate") val birthDate: String?,
     val libraryId: String?
 ) {
-    fun getDefaultClassName() = "${grade}학년 ${klass}반"
+    fun getDefaultClassName(context: Context) = context.getString(R.string.format_student_info).format(grade, klass)
 }
 
 enum class UserType {

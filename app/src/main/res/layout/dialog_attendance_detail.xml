@@ -108,23 +108,19 @@
                     tools:src="@drawable/ic_location_ingang" />
 
                 <TextView
+                    style="@style/Text.Location"
                     android:id="@+id/place_name_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:fontFamily="@font/medium"
-                    android:includeFontPadding="false"
                     android:paddingBottom="2dp"
-                    android:ellipsize="end"
-                    android:textAlignment="center"
-                    android:textColor="@color/grey_400"
-                    android:textSize="12sp"
-                    android:maxLength="6"
                     android:text="@{placeName}"
+                    android:tooltipText="@{placeName}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/placeIcon"
                     app:layout_constraintTop_toTopOf="parent"
+                    tools:targetApi="o"
                     tools:text="인강실" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -144,19 +140,15 @@
                 app:layout_constraintTop_toBottomOf="@+id/student_name_text" />
 
             <TextView
-                style="@style/Text"
+                style="@style/Text.Location"
                 android:id="@+id/time_text"
                 android:layout_width="90dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="6dp"
                 android:layout_marginTop="6dp"
-                android:background="@drawable/bg_round_corner_square_grey_border"
-                android:fontFamily="@font/medium"
                 android:paddingBottom="2dp"
-                android:textAlignment="center"
-                android:textColor="@color/grey_400"
-                android:textSize="12sp"
                 android:text="@{updatedAt}"
+                android:background="@drawable/bg_round_corner_square_grey_border"
                 app:layout_constraintStart_toEndOf="@id/student_name_text"
                 app:layout_constraintTop_toBottomOf="@+id/register_time_text"
                 tools:text="11시 31분" />

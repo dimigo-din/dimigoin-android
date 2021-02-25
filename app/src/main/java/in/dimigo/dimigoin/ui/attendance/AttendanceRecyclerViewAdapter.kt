@@ -43,8 +43,8 @@ class AttendanceRecyclerViewAdapter(
     fun setItem(items: List<AttendanceItem>) {
         val sortedList = items.sortedBy { it.student.number }
         this.items = sortedList
+        calculateDiff(sortedList)
         this.filteredList = sortedList
-        notifyDataSetChanged()
     }
 
     fun filter(query: String) {

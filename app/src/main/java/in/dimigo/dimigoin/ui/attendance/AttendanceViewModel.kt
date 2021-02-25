@@ -102,13 +102,11 @@ class AttendanceViewModel(private val useCase: AttendanceUseCase) : ViewModel() 
             val place = it.log?.place
             val location: AttendanceLocation =
                 place?.let { log -> AttendanceLocation.fromPlace(log) } ?: AttendanceLocation.Class
-            val placeName: String =
-                place?.name ?: it.student.getDefaultClassName()
 
             AttendanceItem(
                 it.student,
                 location,
-                placeName,
+                place?.name,
                 it.log?.time?.let { time ->
                     DateUtil.toLocalDateTimeWithDefaultZone(time)
                 }
