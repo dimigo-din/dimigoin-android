@@ -47,6 +47,7 @@
     <string name="selected">선택 완료</string>
     <string name="logout_confirm">정말 로그아웃 하시겠습니까?</string>
     <string name="error_message">오류가 발생했습니다.</string>
+    <string name="location_changed">\"%s\"(으)로 변경되었습니다.</string>
     <string name="failed_to_change_location">현재 위치를 변경하지 못했습니다.</string>
     <string name="failed_to_fetch_current_location">현재 위치를 불러오지 못했습니다.</string>
     <string name="failed_to_fetch_places">장소 목록을 불러오지 못했습니다.</string>

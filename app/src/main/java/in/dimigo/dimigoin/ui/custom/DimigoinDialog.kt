@@ -23,10 +23,14 @@ class DimigoinDialog(
     private val layoutInflater = LayoutInflater.from(context)
 
     fun alert(alertType: AlertType, @StringRes messageStringId: Int) {
+        alert(alertType, context.getString(messageStringId))
+    }
+
+    fun alert(alertType: AlertType, message: String) {
         val binding = DialogAlertBinding.inflate(layoutInflater).apply {
             icon.setDrawableId(alertType.iconDrawableId)
             icon.setColorFilter(getColor(alertType.accentColorId))
-            messageText.setText(messageStringId)
+            messageText.text = message
             messageText.setTextColor(getColor(alertType.messageColorId))
         }
 

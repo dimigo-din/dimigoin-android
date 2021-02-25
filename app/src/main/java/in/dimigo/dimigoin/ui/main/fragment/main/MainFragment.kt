@@ -65,9 +65,12 @@ class MainFragment : Fragment() {
         viewModel.event.observeEvent(viewLifecycleOwner) { event ->
             when (event) {
                 is Event.LocationEtcClicked -> showEtcDialog()
-                is Event.Error -> {
-                    DimigoinDialog(requireContext()).alert(DimigoinDialog.AlertType.ERROR, event.errorMessageId)
+                is Event.AttendanceLocationChanged -> {
+                    val message = getString(R.string.location_changed, event.placeName)
+                    DimigoinDialog(requireContext()).alert(DimigoinDialog.AlertType.POSITIVE, message)
                 }
+                is Event.Error ->
+                    DimigoinDialog(requireContext()).alert(DimigoinDialog.AlertType.ERROR, event.errorMessageId)
             }
         }
 
@@ -93,7 +96,8 @@ class MainFragment : Fragment() {
 
     sealed class Event {
         object LocationEtcClicked : Event()
-        class Error(@StringRes val errorMessageId: Int) : Event()
+        data class AttendanceLocationChanged(val placeName: String) : Event()
+        data class Error(@StringRes val errorMessageId: Int) : Event()
     }
 
     // region 기타 버튼 클릭했을 때 나오는 Dialog

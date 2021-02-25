@@ -80,6 +80,7 @@ class MainFragmentViewModel(
         _attendanceRequestingCount.increase()
         try {
             attendanceUseCase.changeCurrentAttendancePlace(place ?: throw PlaceNullException())
+            _event.value = EventWrapper(MainFragment.Event.AttendanceLocationChanged(place.name))
             updateCurrentLocation()
         } catch (e: PlaceNullException) {
             e.printStackTrace()
@@ -97,6 +98,7 @@ class MainFragmentViewModel(
         _attendanceRequestingCount.increase()
         try {
             attendanceUseCase.changeCurrentAttendancePlace(place, remark)
+            _event.value = EventWrapper(MainFragment.Event.AttendanceLocationChanged(place.name))
             updateCurrentLocation()
         } catch (e: Exception) {
             e.printStackTrace()
