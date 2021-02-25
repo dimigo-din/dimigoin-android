@@ -16,6 +16,9 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.RecyclerView
+import com.ethanhua.skeleton.Skeleton
+import com.ethanhua.skeleton.SkeletonScreen
 
 class IngangFragment : Fragment() {
     private lateinit var binding: FragmentIngangBinding
@@ -36,16 +39,24 @@ class IngangFragment : Fragment() {
         val ingang2Adapter = IngangApplierRecyclerAdapter()
         ingang1Layout.applierRecyclerView.adapter = ingang1Adapter
         ingang2Layout.applierRecyclerView.adapter = ingang2Adapter
+        val ingang1Skeleton = showIngangApplierRecyclerViewSkeleton(ingang1Layout.applierRecyclerView)
+        val ingang2Skeleton = showIngangApplierRecyclerViewSkeleton(ingang2Layout.applierRecyclerView)
 
         viewModel.ingangStatus.observe(viewLifecycleOwner) { ingangStatus ->
             val maxApplier = ingangStatus.ingangMaxApplier
             ingang1Adapter.setItems(getAppliers(ingangStatus.getApplications(IngangTime.NSS1)), maxApplier)
             ingang2Adapter.setItems(getAppliers(ingangStatus.getApplications(IngangTime.NSS2)), maxApplier)
+            ingang1Skeleton.hide()
+            ingang2Skeleton.hide()
         }
 
         viewModel.event.observeEvent(viewLifecycleOwner) { event ->
             when (event) {
-                is Event.IngangStatusRequestFail -> showAlert(R.string.failed_to_fetch_ingang_status)
+                is Event.IngangStatusRequestFail -> {
+                    showAlert(R.string.failed_to_fetch_ingang_status)
+                    ingang1Skeleton.hide()
+                    ingang2Skeleton.hide()
+                }
                 is Event.IngangApplied -> {
                     val message = getString(R.string.ingang_applied, event.appliedTime.timeNumber)
                     Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
@@ -63,6 +74,15 @@ class IngangFragment : Fragment() {
 
     private fun showAlert(@StringRes stringId: Int) {
         DimigoinDialog(requireContext()).alert(DimigoinDialog.AlertType.ERROR, stringId)
+    }
+
+    private fun showIngangApplierRecyclerViewSkeleton(recyclerView: RecyclerView): SkeletonScreen {
+        return Skeleton.bind(recyclerView)
+            .adapter(recyclerView.adapter)
+            .load(R.layout.item_ingang_applier_name_skeleton)
+            .color(R.color.grey_100)
+            .count(8)
+            .show()
     }
 
     sealed class Event {
