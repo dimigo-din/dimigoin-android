@@ -5,26 +5,49 @@
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
             name="vm"
             type="in.dimigo.dimigoin.ui.attendance.AttendanceViewModel" />
     </data>
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:onRefreshListener="@{() -> vm.refresh(false)}"
+        app:refreshing="@{vm.isRefreshing}">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <include
-                layout="@layout/layout_title"
-                app:hideDivider="@{true}"
-                app:icon="@{@drawable/ic_location_class_accent}"
-                app:sub="@{@string/night_study_1}"
-                app:title="@{@string/attendance_state}" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/titleArea"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <include
+                    layout="@layout/layout_title"
+                    app:hideDivider="@{true}"
+                    app:icon="@{vm.isTeacher ? null : @drawable/ic_location_class_accent}"
+                    app:sub="@{@string/night_study_1}"
+                    app:title="@{@string/attendance_state}" />
+
+                <Button
+                    android:id="@+id/attendance_history_button"
+                    style="@style/Button.Chip"
+                    android:layout_width="wrap_content"
+                    android:layout_marginEnd="@dimen/default_horizontal_margin"
+                    android:layout_marginBottom="2dp"
+                    android:clickable="@{!vm.isRefreshing()}"
+                    android:text="@string/history"
+                    android:visibility="@{vm.isTeacher ? View.VISIBLE : View.GONE}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <include
                 android:id="@+id/attendance_table_layout"
@@ -48,7 +71,7 @@
                     android:paddingHorizontal="16dp"
                     android:paddingVertical="10dp"
                     android:text="@={vm.query}"
-                    android:textColor="@color/grey_250"
+                    android:textColor="@color/grey_750"
                     android:textSize="14sp" />
 
                 <ImageView
@@ -66,43 +89,44 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_view"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="0dp"
                 android:layout_marginHorizontal="45dp"
                 android:layout_marginTop="25dp"
+                android:layout_weight="1"
                 android:overScrollMode="never"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/item_attendance" />
 
-        </LinearLayout>
-
-        <carbon.widget.LinearLayout
-            android:id="@+id/bottom_target_picker"
-            android:layout_width="match_parent"
-            android:layout_height="330dp"
-            android:orientation="vertical"
-            app:behavior_hideable="false"
-            app:behavior_peekHeight="38dp"
-            app:carbon_elevation="18dp"
-            app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
-
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="30dp"
-                android:background="@drawable/bg_bottom_sheet">
+                android:layout_height="100dp"
+                android:background="@drawable/bg_bottom_sheet"
+                android:elevation="18dp"
+                android:orientation="vertical"
+                android:visibility="@{vm.isTeacher ? View.VISIBLE : View.GONE}">
 
-                <View
-                    android:layout_width="20dp"
-                    android:layout_height="6dp"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="6dp"
-                    android:background="@drawable/ic_handle" />
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/gradeTap"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    app:tabIndicator="@drawable/bg_tab_indicator"
+                    app:tabIndicatorHeight="3dp"
+                    app:tabTextAppearance="@style/Text.Tab" />
+
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/classTap"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    app:tabIndicator="@drawable/bg_tab_indicator"
+                    app:tabIndicatorHeight="3dp"
+                    app:tabTextAppearance="@style/Text.Tab" />
 
             </LinearLayout>
 
-        </carbon.widget.LinearLayout>
+        </LinearLayout>
 
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 </layout>

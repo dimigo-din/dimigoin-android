@@ -6,20 +6,25 @@
     <data>
 
         <import type="java.text.DecimalFormat" />
+        <import type="android.view.View" />
 
         <variable
             name="item"
             type="in.dimigo.dimigoin.ui.item.AttendanceItem" />
 
         <variable
-            name="location"
-            type="in.dimigo.dimigoin.ui.main.fragment.main.AttendanceLocation" />
+            name="updatedAt"
+            type="String" />
+
+        <variable
+            name="isTeacherMode"
+            type="Boolean" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
+        android:paddingBottom="@dimen/default_attendance_item_margin"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
@@ -32,6 +37,7 @@
             android:textColor="@color/grey_450"
             android:textSize="16sp"
             android:text="@{item.formatNumber()}"
+            app:layout_constraintEnd_toStartOf="@+id/name"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -46,10 +52,10 @@
             android:textAlignment="center"
             android:textColor="@color/grey_450"
             android:textSize="16sp"
-            android:text="@{item.name}"
+            android:text="@{item.student.name}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/location_clip"
-            app:layout_constraintHorizontal_weight="1.8"
+            app:layout_constraintHorizontal_weight="1"
             app:layout_constraintStart_toEndOf="@+id/number"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="강예원" />
@@ -58,12 +64,11 @@
             android:id="@+id/location_clip"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginEnd="28dp"
             android:background="@drawable/bg_round_corner_square_grey_border"
             android:gravity="center"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/detail"
             app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/spacer"
             app:layout_constraintStart_toEndOf="@+id/name"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -73,23 +78,21 @@
                 android:layout_height="12dp"
                 android:layout_marginStart="8dp"
                 android:contentDescription="@string/description_type_icon"
-                android:src="@{location.icon}"
+                android:src="@{item.location.icon}"
+                android:visibility="@{item.location == null ? View.GONE : View.VISIBLE}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:tint="@color/grey_400" />
+                app:tint="@color/grey_400"
+                tools:src="@drawable/ic_location_ingang" />
 
             <TextView
+                style="@style/Text.Location"
                 android:id="@+id/placeName"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/medium"
-                android:includeFontPadding="false"
                 android:paddingBottom="2dp"
-                android:textAlignment="center"
-                android:textColor="@color/grey_400"
-                android:textSize="12sp"
-                android:text="@{location.label}"
+                android:text="@{(item.placeName == null) ? String.format(@string/format_student_info, item.student.grade, item.student.klass) : item.placeName}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/placeIcon"
@@ -98,22 +101,34 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <View
+            android:id="@+id/spacer"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/detail_text"
+            app:layout_constraintHorizontal_weight="0.2"
+            app:layout_constraintStart_toEndOf="@+id/location_clip"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <TextView
-            android:id="@+id/detail"
-            android:layout_width="wrap_content"
+            android:id="@+id/detail_text"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_round_corner_square_grey"
             android:fontFamily="@font/bold"
             android:includeFontPadding="false"
-            android:paddingHorizontal="16dp"
             android:paddingVertical="2dp"
-            android:text="@string/detail"
+            android:text="@{isTeacherMode ? @string/detail : updatedAt}"
             android:textAlignment="center"
             android:textColor="@color/white"
             android:textSize="13sp"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toEndOf="@+id/spacer"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/detail" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

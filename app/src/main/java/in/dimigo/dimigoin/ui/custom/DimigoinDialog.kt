@@ -9,16 +9,22 @@ import android.app.Dialog
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
+import android.view.WindowManager
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
 
+private const val DIALOG_MARGIN_DEFAULT = 16
+private const val DIALOG_MARGIN_NARROW = 22
+
 class DimigoinDialog(
     private val context: Context,
     private val cancelable: Boolean = true,
+    private val useNarrowDialog: Boolean = false
 ) {
     private val layoutInflater = LayoutInflater.from(context)
 
@@ -74,8 +80,14 @@ class DimigoinDialog(
             val view = createView(dialog)
             dialog.apply {
                 setView(view)
-                window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
                 show()
+                window?.apply {
+                    setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+                    val displayWidth = context.resources.displayMetrics.widthPixels
+                    val marginDp = if (useNarrowDialog) DIALOG_MARGIN_NARROW else DIALOG_MARGIN_DEFAULT
+                    val dialogWidth = displayWidth - marginDp.toPixel() * 2
+                    setLayout(dialogWidth, WindowManager.LayoutParams.WRAP_CONTENT)
+                }
             }
         }
 
@@ -125,5 +137,9 @@ class DimigoinDialog(
         POSITIVE(R.drawable.ic_check, R.color.pink_400, R.color.pink_400),
         NEGATIVE(R.drawable.ic_check, R.color.grey_450, R.color.grey_450),
         ERROR(R.drawable.ic_information, R.color.amber_300, R.color.grey_450)
+    }
+
+    private fun Int.toPixel(): Int {
+        return this * context.resources.displayMetrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT
     }
 }
