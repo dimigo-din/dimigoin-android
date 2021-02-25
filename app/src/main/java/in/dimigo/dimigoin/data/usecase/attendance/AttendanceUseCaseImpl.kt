@@ -12,8 +12,8 @@ class AttendanceUseCaseImpl(private val service: DimigoinService) : AttendanceUs
         return service.getTodayAttendanceLogs().await().logs
     }
 
-    override suspend fun getCurrentAttendancePlace(): PlaceModel {
-        return getTodayAttendanceLogs().first().place
+    override suspend fun getCurrentMyAttendanceLog(): AttendanceLogModel {
+        return getTodayAttendanceLogs().first()
     }
 
     override suspend fun changeCurrentAttendancePlace(place: PlaceModel, remark: String) {

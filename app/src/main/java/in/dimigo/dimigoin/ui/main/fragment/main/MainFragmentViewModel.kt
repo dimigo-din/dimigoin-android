@@ -1,6 +1,7 @@
 package `in`.dimigo.dimigoin.ui.main.fragment.main
 
 import `in`.dimigo.dimigoin.R
+import `in`.dimigo.dimigoin.data.model.AttendanceLogModel
 import `in`.dimigo.dimigoin.data.model.PlaceModel
 import `in`.dimigo.dimigoin.data.model.PrimaryPlaceModel
 import `in`.dimigo.dimigoin.data.usecase.attendance.AttendanceUseCase
@@ -36,6 +37,7 @@ class MainFragmentViewModel(
     private val _isRefreshing = MutableLiveData(false)
     val isRefreshing: LiveData<Boolean> = _isRefreshing
 
+    var currentAttendanceLog: AttendanceLogModel? = null
     var places: List<PlaceModel>? = null
     private var primaryPlaces: List<PrimaryPlaceModel>? = null
     private var previousAttendanceLocation: AttendanceLocation? = null
@@ -113,8 +115,9 @@ class MainFragmentViewModel(
         if (primaryPlaces == null) fetchPrimaryPlaces()
         try {
             val primaryPlaces = primaryPlaces ?: throw Exception("Variable primaryPlaces is null")
-            val currentPlace = attendanceUseCase.getCurrentAttendancePlace()
-                .toPrimaryPlaceModel(primaryPlaces)
+            val currentAttendanceLog = attendanceUseCase.getCurrentMyAttendanceLog()
+            this.currentAttendanceLog = currentAttendanceLog
+            val currentPlace = currentAttendanceLog.place.toPrimaryPlaceModel(primaryPlaces)
             val location = AttendanceLocation.fromPrimaryPlace(currentPlace)
             _attendanceLocation.value = location
         } catch (e: NoSuchElementException) {

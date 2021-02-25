@@ -103,9 +103,16 @@ class MainFragment : Fragment() {
     // region 기타 버튼 클릭했을 때 나오는 Dialog
     private fun showEtcDialog() {
         var selectedPlace: PlaceModel? = null
+        var currentReason: String? = null
+        if (viewModel.attendanceLocation.value == AttendanceLocation.Etc) {
+            selectedPlace = viewModel.currentAttendanceLog?.place
+            currentReason = viewModel.currentAttendanceLog?.remark
+        }
 
         val dialogBinding = DialogEtcBinding.inflate(layoutInflater).apply {
             timeText.text = binding.timeText.text
+            selectedPlace?.let { selectPlaceEditText.setText(it.name) }
+            currentReason?.let { reasonEditText.setText(it) }
             selectPlaceEditText.setOnFocusChangeListener { v, hasFocus ->
                 if (!hasFocus) return@setOnFocusChangeListener
                 v.clearFocus()
