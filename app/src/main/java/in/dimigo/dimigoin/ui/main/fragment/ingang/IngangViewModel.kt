@@ -52,7 +52,7 @@ class IngangViewModel(private val ingangUseCase: IngangUseCase) : ViewModel() {
             _ingangStatus.value = ingangUseCase.getIngangStatus()
         } catch (e: Exception) {
             e.printStackTrace()
-            _event.value = EventWrapper(IngangFragment.Event.STATUS_REQUEST_FAIL)
+            _event.value = EventWrapper(IngangFragment.Event.IngangStatusRequestFail)
         }
         ingangStatusRequested = false
     }
@@ -60,10 +60,11 @@ class IngangViewModel(private val ingangUseCase: IngangUseCase) : ViewModel() {
     private suspend fun applyIngang(time: IngangTime) {
         try {
             ingangUseCase.applyIngang(time)
+            _event.value = EventWrapper(IngangFragment.Event.IngangApplied(time))
             fetchIngangStatus()
         } catch (e: Exception) {
             e.printStackTrace()
-            _event.value = EventWrapper(IngangFragment.Event.INGANG_APPLY_FAIL)
+            _event.value = EventWrapper(IngangFragment.Event.IngangApplyFail)
         }
     }
 
@@ -73,7 +74,7 @@ class IngangViewModel(private val ingangUseCase: IngangUseCase) : ViewModel() {
             fetchIngangStatus()
         } catch (e: Exception) {
             e.printStackTrace()
-            _event.value = EventWrapper(IngangFragment.Event.INGANG_CANCEL_FAIL)
+            _event.value = EventWrapper(IngangFragment.Event.IngangCancelFail)
         }
     }
 

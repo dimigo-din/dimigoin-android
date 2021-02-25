@@ -10,6 +10,7 @@
     <dimen name="button_height">64dp</dimen>
     <dimen name="button_slim_height">56dp</dimen>
     <dimen name="dialog_default_padding">32dp</dimen>
+    <dimen name="card_fragment_max_width">400dp</dimen>
     <dimen name="default_attendance_item_margin">20dp</dimen>
     <dimen name="last_attendance_item_margin">150dp</dimen>
 

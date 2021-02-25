@@ -42,8 +42,8 @@ data class IngangApplicationModel(
     val applier: UserModel
 )
 
-enum class IngangTime {
+enum class IngangTime(val timeNumber: Int) {
     // Night Self Study
-    NSS1,
-    NSS2
+    NSS1(1),
+    NSS2(2)
 }

@@ -12,6 +12,9 @@
             name="isEmptyPosition"
             type="boolean" />
 
+        <variable
+            name="highlightName"
+            type="boolean" />
     </data>
 
     <TextView
@@ -22,7 +25,7 @@
         android:gravity="center"
         android:padding="8dp"
         android:text="@{isEmptyPosition ? @string/can_apply : applier.name}"
-        android:textColor="@{isEmptyPosition ? @color/grey_220 : @color/grey_500 }"
+        android:textColor="@{isEmptyPosition ? @color/grey_220 : highlightName ? @color/black : @color/grey_500 }"
         tools:text="홍길동"
         tools:textColor="@color/grey_500" />
 

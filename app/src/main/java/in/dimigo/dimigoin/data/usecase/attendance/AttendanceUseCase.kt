@@ -5,7 +5,7 @@ import `in`.dimigo.dimigoin.ui.item.AttendanceDetailItem
 
 interface AttendanceUseCase {
     suspend fun getTodayAttendanceLogs(): List<AttendanceLogModel>
-    suspend fun getCurrentAttendancePlace(): PlaceModel
+    suspend fun getCurrentMyAttendanceLog(): AttendanceLogModel
     suspend fun changeCurrentAttendancePlace(place: PlaceModel, remark: String)
     suspend fun changeCurrentAttendancePlace(place: PrimaryPlaceModel)
     suspend fun getAllPlaces(): List<PlaceModel>

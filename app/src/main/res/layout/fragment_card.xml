@@ -44,11 +44,14 @@
             <Button
                 android:id="@+id/cautionButton"
                 style="@style/Button.Slim"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:backgroundTint="@color/grey_250"
                 android:fontFamily="@font/bold"
                 android:stateListAnimator="@null"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintWidth_max="@dimen/card_fragment_max_width" />
 
             <ImageView
                 android:id="@+id/cautionIcon"
@@ -161,7 +164,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cardFrontLayout"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_margin="@dimen/default_horizontal_margin"
             android:background="@drawable/bg_card"
@@ -170,7 +173,8 @@
             app:layout_constraintDimensionRatio="1.58"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_max="@dimen/card_fragment_max_width">
 
             <ImageView
                 android:id="@+id/schoolLogoImage"
@@ -302,46 +306,61 @@
                 tools:text="2312" />
 
             <TextView
-                android:id="@+id/residentTitle"
+                android:id="@+id/birthDateTitle"
                 style="@style/Text.Content"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:fontFamily="@font/nanum_bold"
-                android:text="@string/resident_number"
+                android:text="@string/birth_date"
                 app:layout_constraintEnd_toEndOf="@id/serialTitle"
                 app:layout_constraintTop_toBottomOf="@id/serialTitle" />
 
             <TextView
-                android:id="@+id/residentContent"
+                android:id="@+id/birthDateContent"
                 style="@style/Text.Content.Grey"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/nanum_light"
-                app:layout_constraintBottom_toBottomOf="@id/residentTitle"
+                android:text="@{user.birthDate}"
+                app:layout_constraintBottom_toBottomOf="@id/birthDateTitle"
                 app:layout_constraintStart_toStartOf="@id/serialContent"
-                app:layout_constraintTop_toTopOf="@id/residentTitle"
-                tools:text="040101-3******" />
+                app:layout_constraintTop_toTopOf="@id/birthDateTitle"
+                tools:text="2003-12-23" />
 
             <ImageView
-                android:id="@+id/barcode"
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:layout_marginTop="16dp"
+                android:id="@+id/barcodeImage"
+                android:layout_width="0dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="24dp"
                 android:adjustViewBounds="true"
                 android:scaleType="centerCrop"
-                android:src="@drawable/barcode_sample"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/residentTitle" />
+                app:layout_constraintTop_toBottomOf="@id/birthDateTitle" />
+
+            <TextView
+                android:id="@+id/barcodeText"
+                style="@style/Text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{user.libraryId}"
+                android:textSize="6sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/barcodeImage"
+                tools:ignore="SmallSp"
+                tools:text="BARCODE" />
 
             <ImageView
+                android:id="@+id/schoolLogoImageBottom"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="24dp"
+                android:scaleType="centerCrop"
                 android:src="@drawable/school_logo_full"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/barcode" />
+                app:layout_constraintTop_toBottomOf="@id/barcodeImage" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.motion.widget.MotionLayout>

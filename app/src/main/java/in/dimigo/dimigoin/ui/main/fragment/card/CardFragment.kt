@@ -8,6 +8,8 @@ import `in`.dimigo.dimigoin.ui.custom.DimigoinDialog
 import `in`.dimigo.dimigoin.ui.main.MainActivity
 import `in`.dimigo.dimigoin.ui.main.MainViewModel
 import `in`.dimigo.dimigoin.ui.util.sharedGraphViewModel
+import android.graphics.Bitmap
+import android.graphics.Color
 import android.graphics.Rect
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -22,6 +24,8 @@ import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.bumptech.glide.Glide
+import com.google.zxing.BarcodeFormat
+import com.google.zxing.MultiFormatWriter
 
 class CardFragment : Fragment() {
     private lateinit var binding: FragmentCardBinding
@@ -80,6 +84,12 @@ class CardFragment : Fragment() {
         activityViewModel.hideCard.observe(viewLifecycleOwner) {
             hideCard()
         }
+
+        barcodeImage.post {
+            val barcodeBitmap = renderBarcode(barcodeImage.width, barcodeImage.height)
+            barcodeImage.setImageBitmap(barcodeBitmap)
+        }
+
         cautionButton.setOnClickListener {
             val dialogView = DialogCardCautionBinding.inflate(layoutInflater).root
             DimigoinDialog(requireContext()).CustomView(dialogView, R.color.grey_450).show()
@@ -156,6 +166,19 @@ class CardFragment : Fragment() {
         val window = activity?.window ?: return 0
         window.decorView.getWindowVisibleDisplayFrame(rectangle)
         return rectangle.top
+    }
+
+    private fun renderBarcode(width: Int, height: Int): Bitmap? {
+        val barcodeString = UserDataStore.userData.libraryId ?: return null
+        val bitMatrix = MultiFormatWriter().encode(barcodeString, BarcodeFormat.CODE_39, width, height)
+        val bitmap = Bitmap.createBitmap(bitMatrix.width, bitMatrix.height, Bitmap.Config.ARGB_8888)
+        for (x in 0 until width) {
+            for (y in 0 until height) {
+                val color = if (bitMatrix[x, y]) Color.BLACK else Color.TRANSPARENT
+                bitmap.setPixel(x, y, color)
+            }
+        }
+        return bitmap
     }
 
     companion object {

@@ -2,7 +2,7 @@ buildscript {
     ext.kotlin_version = '1.4.30'
     ext.koin_version = '2.2.0'
     ext.retrofit_version = '2.9.0'
-    ext.lifecycle_ktx_version = '2.2.0'
+    ext.lifecycle_ktx_version = '2.3.0'
     repositories {
         google()
         jcenter()
@@ -11,7 +11,7 @@ buildscript {
         classpath 'com.android.tools.build:gradle:4.1.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath 'com.google.gms:google-services:4.3.5'
-        classpath 'com.google.firebase:firebase-crashlytics-gradle:2.4.1'
+        classpath 'com.google.firebase:firebase-crashlytics-gradle:2.5.0'
     }
 }
 
