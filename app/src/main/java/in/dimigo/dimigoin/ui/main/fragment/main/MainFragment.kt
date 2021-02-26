@@ -48,6 +48,11 @@ class MainFragment : Fragment() {
     }
 
     private fun initView() = with(binding) {
+        noticeViewPager.apply {
+            disableOverScrollMode()
+            //applyCarouselEffect()
+        }
+
         mealViewPager.apply {
             adapter = MealCardAdapter(this@MainFragment)
             disableOverScrollMode()
@@ -74,6 +79,10 @@ class MainFragment : Fragment() {
             }
         }
 
+        viewModel.noticeList.observe(viewLifecycleOwner) {
+            noticeViewPager.adapter = NoticeAdapter(this@MainFragment, it)
+        }
+
         binding.attendanceDetailButton.setOnClickListener {
             findNavController().navigate(R.id.attendance)
         }
@@ -92,14 +101,6 @@ class MainFragment : Fragment() {
         }
 
         mainContentLayout.layoutTransition.enableTransitionType(LayoutTransition.CHANGING)
-
-        viewModel.noticeList.observe(viewLifecycleOwner) {
-            noticeViewPager.apply {
-                adapter = NoticeAdapter(this@MainFragment, it)
-                disableOverScrollMode()
-                //applyCarouselEffect()
-            }
-        }
     }
 
     sealed class Event {

@@ -26,115 +26,119 @@
             app:onRefreshListener="@{() -> vm.refresh(false)}"
             app:refreshing="@{vm.isRefreshing}">
 
-            <androidx.core.widget.NestedScrollView
-                style="@style/LayoutScrollView"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/mainContentLayout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fillViewport="true">
+                android:layout_height="wrap_content"
+                android:animateLayoutChanges="true"
+                android:orientation="vertical">
 
-                <LinearLayout
-                    android:id="@+id/mainContentLayout"
+                <TextView
+                    android:id="@+id/timeText"
+                    style="@style/Text.Sub.Tag"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/default_horizontal_margin"
+                    android:layout_marginTop="16dp"
+                    android:text="@{BindingUtilsKt.convertToTimeName(context, vm.currentTimeCode)}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="@string/night_study_1" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/attendance_status_title_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:animateLayoutChanges="true"
-                    android:orientation="vertical">
+                    android:layout_marginHorizontal="@dimen/default_horizontal_margin"
+                    app:layout_constraintTop_toBottomOf="@id/timeText">
 
                     <TextView
-                        android:id="@+id/timeText"
-                        style="@style/Text.Sub.Tag"
+                        android:id="@+id/attendance_status_title"
+                        style="@style/Text.Sub.Big"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/default_horizontal_margin"
-                        android:layout_marginTop="16dp"
-                        android:text="@{BindingUtilsKt.convertToTimeName(context, vm.currentTimeCode)}"
-                        tools:text="@string/night_study_1" />
+                        android:text="@string/attendance_state"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="@dimen/default_horizontal_margin">
+                    <ProgressBar
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginStart="16dp"
+                        android:visibility="@{vm.isAttendanceRequesting ? View.VISIBLE : View.INVISIBLE}"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/attendance_status_title"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                        <TextView
-                            android:id="@+id/attendance_status_title"
-                            style="@style/Text.Sub.Big"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/attendance_state"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+                    <Button
+                        android:id="@+id/attendance_detail_button"
+                        style="@style/Button.Chip"
+                        android:layout_width="wrap_content"
+                        android:text="@string/short_detail"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                        <ProgressBar
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:layout_marginStart="16dp"
-                            android:visibility="@{vm.isAttendanceRequesting ? View.VISIBLE : View.INVISIBLE}"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toEndOf="@id/attendance_status_title"
-                            app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
-                        <Button
-                            android:id="@+id/attendance_detail_button"
-                            style="@style/Button.Chip"
-                            android:layout_width="wrap_content"
-                            android:text="@string/short_detail"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+                <include
+                    android:id="@+id/attendance_status_layout"
+                    layout="@layout/layout_attendance_state"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/default_horizontal_margin"
+                    android:layout_marginTop="12dp"
+                    app:layout_constraintTop_toBottomOf="@id/attendance_status_title_layout"
+                    app:vm="@{vm}" />
 
-                    </androidx.constraintlayout.widget.ConstraintLayout>
+                <View
+                    android:id="@+id/divider"
+                    style="@style/Divider.Thin"
+                    android:layout_width="match_parent"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="0dp"
+                    app:layout_constraintTop_toBottomOf="@id/attendance_status_layout" />
 
-                    <include
-                        layout="@layout/layout_attendance_state"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="@dimen/default_horizontal_margin"
-                        android:layout_marginTop="12dp"
-                        app:vm="@{vm}" />
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/noticeViewPager"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    app:layout_constraintBottom_toTopOf="@id/mealViewPagerLayout"
+                    app:layout_constraintTop_toBottomOf="@id/divider" />
 
-                    <View
-                        style="@style/Divider.Thin"
-                        android:layout_marginStart="0dp"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginEnd="0dp" />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/mealViewPagerLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="32dp"
+                    app:layout_constraintBottom_toBottomOf="parent">
 
                     <androidx.viewpager2.widget.ViewPager2
-                        android:id="@+id/noticeViewPager"
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="1" />
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/mealViewPager"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:paddingBottom="32dp">
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                        <androidx.viewpager2.widget.ViewPager2
-                            android:id="@+id/mealViewPager"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            app:layout_constraintTop_toTopOf="parent" />
+                    <com.rd.PageIndicatorView
+                        android:id="@+id/mealPageIndicator"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:elevation="@dimen/default_shadow_elevation"
+                        app:layout_constraintBottom_toBottomOf="@id/mealViewPager"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:piv_animationType="color"
+                        app:piv_count="3"
+                        app:piv_radius="4dp"
+                        app:piv_selectedColor="@color/pink_400"
+                        app:piv_unselectedColor="@color/grey_200"
+                        app:piv_viewPager="@id/mealViewPager" />
 
-                        <com.rd.PageIndicatorView
-                            android:id="@+id/mealPageIndicator"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="8dp"
-                            android:elevation="@dimen/default_shadow_elevation"
-                            app:layout_constraintBottom_toBottomOf="@id/mealViewPager"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:piv_animationType="color"
-                            app:piv_count="3"
-                            app:piv_radius="4dp"
-                            app:piv_selectedColor="@color/pink_400"
-                            app:piv_unselectedColor="@color/grey_200"
-                            app:piv_viewPager="@id/mealViewPager" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                </LinearLayout>
-
-            </androidx.core.widget.NestedScrollView>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
