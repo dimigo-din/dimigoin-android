@@ -70,7 +70,7 @@ class LoginActivity : BaseActivity() {
         startActivity(Intent(this, destinationClass))
         finish()
         showWelcomeToast()
-        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+        overridePendingTransition(R.anim.fade_in, R.anim.maintain_alpha)
     }
 
     private fun showWelcomeToast() {
