@@ -10,3 +10,5 @@
 local.properties
 *.aab
 google-services.json
+play_store_key.json
+fastlane/report.xml
