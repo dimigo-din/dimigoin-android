@@ -111,7 +111,7 @@
                     android:id="@+id/mealViewPagerLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingBottom="32dp"
+                    android:paddingBottom="16dp"
                     app:layout_constraintBottom_toBottomOf="parent">
 
                     <androidx.viewpager2.widget.ViewPager2
