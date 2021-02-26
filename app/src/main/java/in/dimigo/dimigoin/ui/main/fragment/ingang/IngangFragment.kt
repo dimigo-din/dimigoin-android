@@ -8,6 +8,7 @@ import `in`.dimigo.dimigoin.databinding.FragmentIngangBinding
 import `in`.dimigo.dimigoin.ui.custom.DimigoinDialog
 import `in`.dimigo.dimigoin.ui.util.observeEvent
 import `in`.dimigo.dimigoin.ui.util.sharedGraphViewModel
+import `in`.dimigo.dimigoin.ui.util.showSkeleton
 import android.animation.LayoutTransition
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -17,7 +18,6 @@ import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
-import com.ethanhua.skeleton.Skeleton
 import com.ethanhua.skeleton.SkeletonScreen
 
 class IngangFragment : Fragment() {
@@ -87,12 +87,7 @@ class IngangFragment : Fragment() {
     }
 
     private fun showIngangApplierRecyclerViewSkeleton(recyclerView: RecyclerView): SkeletonScreen {
-        return Skeleton.bind(recyclerView)
-            .adapter(recyclerView.adapter)
-            .load(R.layout.item_ingang_applier_name_skeleton)
-            .color(R.color.grey_100)
-            .count(8)
-            .show()
+        return recyclerView.showSkeleton(R.layout.item_ingang_applier_name_skeleton, 8)
     }
 
     private fun ViewGroup.enableTransition() {
