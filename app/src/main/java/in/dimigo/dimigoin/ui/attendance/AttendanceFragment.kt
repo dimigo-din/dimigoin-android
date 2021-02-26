@@ -21,7 +21,6 @@ import org.koin.android.viewmodel.ext.android.viewModel
 class AttendanceFragment : Fragment() {
     private val isTeacher = UserDataStore.userData.userType == UserType.TEACHER
     private val viewModel: AttendanceViewModel by viewModel()
-    private val historyAdapter = AttendanceHistoryRecyclerViewAdapter()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val attendanceAdapter = AttendanceRecyclerViewAdapter(if (isTeacher) viewModel else null)
@@ -55,6 +54,7 @@ class AttendanceFragment : Fragment() {
 
             //history dialog
             attendanceHistoryButton.setOnClickListener {
+                val historyAdapter = AttendanceHistoryRecyclerViewAdapter()
                 viewModel.attendanceLogs.value?.let { data -> historyAdapter.setItem(data) }
 
                 val dialogBinding = DialogHistoryBinding.inflate(layoutInflater).apply {
@@ -67,24 +67,24 @@ class AttendanceFragment : Fragment() {
 
         //attendance detail dialog
         viewModel.attendanceDetail.observe(viewLifecycleOwner) {
+            val historyAdapter = AttendanceHistoryRecyclerViewAdapter()
             it.logs?.let { logs -> historyAdapter.setItem(logs) }
 
-            val updatedAt: String =
-                if (!it.logs.isNullOrEmpty()) DateUtil.timeFormatter.from(it.logs[0].time)
-                else requireContext().getString(R.string.no_info)
-            val location: AttendanceLocation =
-                it.logs?.let { logs -> AttendanceLocation.fromPlace(logs[0].place) }
-                    ?: AttendanceLocation.Class
-            val placeName: String =
-                it.logs?.let { logs -> logs[0].place.name } ?: it.student.getDefaultClassName(requireContext())
             val dialogBinding = DialogAttendanceDetailBinding.inflate(layoutInflater).apply {
                 historyRecyclerView.adapter = historyAdapter
-                this.location = location
                 this.student = it.student
-                this.updatedAt = updatedAt
-                this.placeName = placeName
                 this.studentInfo = requireContext().getString(R.string.format_student_info)
                     .format(it.student.grade, it.student.klass, it.student.number)
+
+                if (it.logs.isNullOrEmpty()) {
+                    this.updatedAt = requireContext().getString(R.string.no_info)
+                    this.location = AttendanceLocation.Class
+                    this.placeName = it.student.getDefaultClassName(requireContext())
+                } else {
+                    this.updatedAt = DateUtil.timeFormatter.from(it.logs[0].time)
+                    this.location = AttendanceLocation.fromPlace(it.logs[0].place)
+                    this.placeName = it.logs[0].place.name
+                }
             }
 
             DimigoinDialog(requireContext(), useNarrowDialog = true).CustomView(dialogBinding.root).show()
@@ -102,7 +102,6 @@ class AttendanceFragment : Fragment() {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 onSelected(tab)
             }
-
             override fun onTabUnselected(tab: TabLayout.Tab?) {}
             override fun onTabReselected(tab: TabLayout.Tab?) {}
         }

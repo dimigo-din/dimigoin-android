@@ -66,7 +66,7 @@ class AttendanceViewModel(private val useCase: AttendanceUseCase) : ViewModel() 
     }
 
     //교사용, 선택된 반
-    suspend fun fetchSelectedAttendanceStatus() {
+    private suspend fun fetchSelectedAttendanceStatus() {
         try {
             val data = useCase.getSpecificAttendanceStatus(grade.value ?: 1, klass.value ?: 1)
             applyAttendanceStatus(data)
@@ -77,7 +77,7 @@ class AttendanceViewModel(private val useCase: AttendanceUseCase) : ViewModel() 
     }
 
     //교사용, 선택된 반 히스토리 조회
-    suspend fun fetchSelectedAttendanceTimeline() {
+    private suspend fun fetchSelectedAttendanceTimeline() {
         try {
             val data = useCase.getAttendanceTimeline(grade.value ?: 1, klass.value ?: 1)
             _attendanceLogs.value = data
