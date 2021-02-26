@@ -50,13 +50,14 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/pwInputLayout"
             style="@style/TextInputLayout"
+            android:id="@+id/pwInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="24dp"
             android:layout_marginTop="8dp"
             android:animateLayoutChanges="true"
+            app:passwordToggleEnabled="true"
             app:errorEnabled="@{vm.pwErrorEnabled}"
             app:errorText="@{vm.pwErrorEnabled ? @string/enter_pw : null}">
 

@@ -156,6 +156,7 @@
         <item name="errorIconDrawable">@null</item>
         <item name="endIconTint">@color/grey_300</item>
         <item name="errorTextColor">@color/red_a400</item>
+        <item name="passwordToggleTint">@color/grey_300</item>
         <item name="boxStrokeErrorColor">@color/red_a400</item>
     </style>
 
