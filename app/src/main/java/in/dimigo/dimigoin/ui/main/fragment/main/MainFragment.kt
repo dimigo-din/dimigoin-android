@@ -50,7 +50,7 @@ class MainFragment : Fragment() {
     private fun initView() = with(binding) {
         noticeViewPager.apply {
             disableOverScrollMode()
-            //applyCarouselEffect()
+            applyCarouselEffect()
         }
 
         mealViewPager.apply {
