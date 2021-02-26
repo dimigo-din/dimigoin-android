@@ -6,12 +6,7 @@ import retrofit2.await
 
 class NoticeUseCaseImpl(val service: DimigoinService, override val failedNotice: NoticeItem) : NoticeUseCase {
 
-    override suspend fun getNotice(): NoticeItem {
-        val notices = service.getCurrentNotices().await().notices
-        if (notices.isEmpty()) throw Exception("Notices not found")
-        val notice = notices.joinToString("\n\n") {
-            it.content
-        }
-        return NoticeItem(notice)
+    override suspend fun getNotice(): List<NoticeItem> {
+        return service.getCurrentNotices().await().notices.map { NoticeItem(it.title, it.content, it.author) }
     }
 }

@@ -9,6 +9,7 @@ data class NoticeResponseModel(
 data class NoticeModel(
     val title: String,
     val content: String,
+    val author: UserModel,
     val targetGrade: List<Int>,
     val startDate: Date,
     val endDate: Date

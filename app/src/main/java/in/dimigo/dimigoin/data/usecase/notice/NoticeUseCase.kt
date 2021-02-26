@@ -5,5 +5,5 @@ import `in`.dimigo.dimigoin.ui.item.NoticeItem
 interface NoticeUseCase {
     val failedNotice: NoticeItem
 
-    suspend fun getNotice(): NoticeItem
+    suspend fun getNotice(): List<NoticeItem>
 }
