@@ -20,6 +20,7 @@ import androidx.core.content.ContextCompat
 
 private const val DIALOG_MARGIN_DEFAULT = 16
 private const val DIALOG_MARGIN_NARROW = 22
+private const val DIALOG_MAX_WIDTH = 400
 
 class DimigoinDialog(
     private val context: Context,
@@ -83,9 +84,7 @@ class DimigoinDialog(
                 show()
                 window?.apply {
                     setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-                    val displayWidth = context.resources.displayMetrics.widthPixels
-                    val marginDp = if (useNarrowDialog) DIALOG_MARGIN_NARROW else DIALOG_MARGIN_DEFAULT
-                    val dialogWidth = displayWidth - marginDp.toPixel() * 2
+                    val dialogWidth = calculateDialogWidth()
                     setLayout(dialogWidth, WindowManager.LayoutParams.WRAP_CONTENT)
                 }
             }
@@ -137,6 +136,15 @@ class DimigoinDialog(
         POSITIVE(R.drawable.ic_check, R.color.pink_400, R.color.pink_400),
         NEGATIVE(R.drawable.ic_check, R.color.grey_450, R.color.grey_450),
         ERROR(R.drawable.ic_information, R.color.amber_300, R.color.grey_450)
+    }
+
+    private fun calculateDialogWidth(): Int {
+        val displayWidth = context.resources.displayMetrics.widthPixels
+        val marginDp = if (useNarrowDialog) DIALOG_MARGIN_NARROW else DIALOG_MARGIN_DEFAULT
+        var dialogWidth = displayWidth - marginDp.toPixel() * 2
+        val maxWidth = DIALOG_MAX_WIDTH.toPixel()
+        if (dialogWidth > maxWidth) dialogWidth = maxWidth
+        return dialogWidth
     }
 
     private fun Int.toPixel(): Int {
