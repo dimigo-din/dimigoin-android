@@ -26,8 +26,8 @@ class MainFragmentViewModel(
     val attendanceLocation: LiveData<AttendanceLocation> = _attendanceLocation
     private val _todayMeal = MutableLiveData<MealItem>()
     val todayMeal: LiveData<MealItem> = _todayMeal
-    private val _notice = MutableLiveData<NoticeItem>()
-    val notice: LiveData<NoticeItem> = _notice
+    private val _noticeList = MutableLiveData<List<NoticeItem>>()
+    val noticeList: LiveData<List<NoticeItem>> = _noticeList
     private val _currentTimeCode = MutableLiveData("")
     val currentTimeCode: LiveData<String> = _currentTimeCode
     private val _event = MutableLiveData<EventWrapper<MainFragment.Event>>()
@@ -154,10 +154,10 @@ class MainFragmentViewModel(
 
     private suspend fun updateNotice() {
         try {
-            _notice.value = noticeUseCase.getNotice()
+            _noticeList.value = noticeUseCase.getNotice()
         } catch (e: Exception) {
             e.printStackTrace()
-            _notice.value = noticeUseCase.failedNotice
+            _noticeList.value = listOf(noticeUseCase.failedNotice)
         }
     }
 

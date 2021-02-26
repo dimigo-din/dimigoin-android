@@ -6,6 +6,7 @@
     <data>
 
         <import type="java.text.DecimalFormat" />
+
         <import type="android.view.View" />
 
         <variable
@@ -24,9 +25,9 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="@dimen/default_attendance_item_margin"
         android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/default_attendance_item_margin">
 
         <TextView
             android:id="@+id/number"
@@ -34,11 +35,11 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/medium"
             android:includeFontPadding="false"
+            android:text="@{item.formatNumber()}"
             android:textColor="@color/grey_450"
             android:textSize="16sp"
-            android:text="@{item.formatNumber()}"
-            app:layout_constraintEnd_toStartOf="@+id/name"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/name"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="01" />
@@ -49,10 +50,10 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/medium"
             android:includeFontPadding="false"
+            android:text="@{item.student.name}"
             android:textAlignment="center"
             android:textColor="@color/grey_450"
             android:textSize="16sp"
-            android:text="@{item.student.name}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/location_clip"
             app:layout_constraintHorizontal_weight="1"
@@ -66,9 +67,9 @@
             android:layout_height="0dp"
             android:background="@drawable/bg_round_corner_square_grey_border"
             android:gravity="center"
-            app:layout_constraintHorizontal_weight="1"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/spacer"
+            app:layout_constraintHorizontal_weight="1"
             app:layout_constraintStart_toEndOf="@+id/name"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -87,8 +88,8 @@
                 tools:src="@drawable/ic_location_ingang" />
 
             <TextView
-                style="@style/Text.Location"
                 android:id="@+id/placeName"
+                style="@style/Text.Location"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:paddingBottom="2dp"
@@ -123,10 +124,10 @@
             android:textAlignment="center"
             android:textColor="@color/white"
             android:textSize="13sp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_weight="1"
             app:layout_constraintStart_toEndOf="@+id/spacer"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="@string/detail" />
 

@@ -97,31 +97,16 @@
                         android:layout_marginTop="20dp"
                         android:layout_marginEnd="0dp" />
 
-                    <FrameLayout
-                        style="@style/Card.Light"
+                    <androidx.viewpager2.widget.ViewPager2
+                        android:id="@+id/noticeViewPager"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="@dimen/default_horizontal_margin"
-                        android:layout_marginTop="28dp">
-
-                        <TextView
-                            style="@style/Text.Content.Grey"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="20dp"
-                            android:text="@{vm.notice == null ? @string/notice_loading_message : vm.notice.content}"
-                            tools:text="@string/notice_loading_message" />
-                    </FrameLayout>
-
-                    <Space
-                        android:layout_width="0dp"
                         android:layout_height="0dp"
                         android:layout_weight="1" />
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="32dp">
+                        android:paddingBottom="32dp">
 
                         <androidx.viewpager2.widget.ViewPager2
                             android:id="@+id/mealViewPager"

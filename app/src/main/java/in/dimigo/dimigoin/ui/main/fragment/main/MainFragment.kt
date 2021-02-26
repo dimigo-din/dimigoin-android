@@ -92,6 +92,14 @@ class MainFragment : Fragment() {
         }
 
         mainContentLayout.layoutTransition.enableTransitionType(LayoutTransition.CHANGING)
+
+        viewModel.noticeList.observe(viewLifecycleOwner) {
+            noticeViewPager.apply {
+                adapter = NoticeAdapter(this@MainFragment, it)
+                disableOverScrollMode()
+                //applyCarouselEffect()
+            }
+        }
     }
 
     sealed class Event {
