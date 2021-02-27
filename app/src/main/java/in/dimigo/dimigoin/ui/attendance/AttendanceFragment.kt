@@ -72,12 +72,14 @@ class AttendanceFragment : Fragment() {
             attendanceHistoryButton.setOnClickListener {
                 val attendanceLogs = viewModel.attendanceLogs.value
                 val dialogBinding = DialogHistoryBinding.inflate(layoutInflater).apply {
-                    if (attendanceLogs.isNullOrEmpty()) {
-                        noHistoryText.visibility = View.VISIBLE
-                    } else {
-                        val historyAdapter = AttendanceHistoryRecyclerViewAdapter()
-                        historyAdapter.setItems(attendanceLogs)
-                        historyRecyclerView.adapter = historyAdapter
+                    when {
+                        attendanceLogs == null -> historyFetchFailedText.visibility = View.VISIBLE
+                        attendanceLogs.isEmpty() -> noHistoryText.visibility = View.VISIBLE
+                        else -> {
+                            val historyAdapter = AttendanceHistoryRecyclerViewAdapter()
+                            historyAdapter.setItems(attendanceLogs)
+                            historyRecyclerView.adapter = historyAdapter
+                        }
                     }
                     val grade = viewModel.grade.value ?: 0
                     val klass = viewModel.klass.value ?: 0

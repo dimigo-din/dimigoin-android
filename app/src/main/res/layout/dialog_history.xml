@@ -42,7 +42,7 @@
         android:scrollbars="vertical"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintTop_toBottomOf="@id/history_text"
-        tools:listitem="@layout/item_attendance" />
+        tools:listitem="@layout/item_attendance_history" />
 
     <TextView
         android:id="@+id/no_history_text"
@@ -50,6 +50,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/no_attendance_history"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@id/history_recycler_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/history_text" />
+
+    <TextView
+        android:id="@+id/history_fetch_failed_text"
+        style="@style/Text.Content.Grey"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/failed_to_fetch_attendance_history"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@id/history_recycler_view"
         app:layout_constraintEnd_toEndOf="parent"

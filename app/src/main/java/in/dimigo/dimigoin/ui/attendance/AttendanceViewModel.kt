@@ -12,6 +12,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.launch
 
 class AttendanceViewModel(private val useCase: AttendanceUseCase) : ViewModel() {
@@ -23,8 +25,8 @@ class AttendanceViewModel(private val useCase: AttendanceUseCase) : ViewModel() 
     private val _attendanceData = MutableLiveData<List<AttendanceItem>>()
     val attendanceData: LiveData<List<AttendanceItem>> = _attendanceData
 
-    private val _attendanceLogs = MutableLiveData<List<AttendanceLogModel>>()
-    val attendanceLogs: LiveData<List<AttendanceLogModel>> = _attendanceLogs
+    private val _attendanceLogs = MutableLiveData<List<AttendanceLogModel>?>()
+    val attendanceLogs: LiveData<List<AttendanceLogModel>?> = _attendanceLogs
 
     private val _isRefreshing = MutableLiveData(false)
     val isRefreshing: LiveData<Boolean> = _isRefreshing
@@ -38,20 +40,22 @@ class AttendanceViewModel(private val useCase: AttendanceUseCase) : ViewModel() 
     val query = MutableLiveData<String>()
 
     init {
-        refresh(true)
+        refresh()
     }
 
-    fun refresh(isInitial: Boolean = false) = viewModelScope.launch {
-        if (!isInitial) _isRefreshing.value = true
+    fun refresh() = viewModelScope.launch {
+        _isRefreshing.value = true
 
         if (isTeacher) {
-            fetchSelectedAttendanceStatus()
-            fetchSelectedAttendanceTimeline()
+            awaitAll(
+                async { fetchSelectedAttendanceStatus() },
+                async { fetchSelectedAttendanceTimeline() }
+            )
         } else {
             fetchCurrentAttendanceStatus()
         }
 
-        if (!isInitial) _isRefreshing.value = false
+        _isRefreshing.value = false
     }
 
     fun onAttendanceDetailButtonClick(item: AttendanceItem) {
@@ -69,26 +73,28 @@ class AttendanceViewModel(private val useCase: AttendanceUseCase) : ViewModel() 
 
     //학생용, 본인 반
     private suspend fun fetchCurrentAttendanceStatus() {
-        try {
-            val data = useCase.getCurrentAttendanceStatus()
-            applyAttendanceStatus(data)
-            applyAttendanceTableData(data)
+        val data = try {
+            useCase.getCurrentAttendanceStatus()
         } catch (e: Exception) {
-            _event.value = EventWrapper(AttendanceFragment.Event.AttendanceFetchFailed)
             e.printStackTrace()
+            _event.value = EventWrapper(AttendanceFragment.Event.AttendanceFetchFailed)
+            listOf()
         }
+        applyAttendanceStatus(data)
+        applyAttendanceTableData(data)
     }
 
     //교사용, 선택된 반
     private suspend fun fetchSelectedAttendanceStatus() {
-        try {
-            val data = useCase.getSpecificAttendanceStatus(grade.value ?: 1, klass.value ?: 1)
-            applyAttendanceStatus(data)
-            applyAttendanceTableData(data)
+        val data = try {
+            useCase.getSpecificAttendanceStatus(grade.value ?: 1, klass.value ?: 1)
         } catch (e: Exception) {
-            _event.value = EventWrapper(AttendanceFragment.Event.AttendanceFetchFailed)
             e.printStackTrace()
+            _event.value = EventWrapper(AttendanceFragment.Event.AttendanceFetchFailed)
+            listOf()
         }
+        applyAttendanceStatus(data)
+        applyAttendanceTableData(data)
     }
 
     //교사용, 선택된 반 히스토리 조회
@@ -97,8 +103,8 @@ class AttendanceViewModel(private val useCase: AttendanceUseCase) : ViewModel() 
             val data = useCase.getAttendanceTimeline(grade.value ?: 1, klass.value ?: 1)
             _attendanceLogs.value = data
         } catch (e: Exception) {
-            _event.value = EventWrapper(AttendanceFragment.Event.AttendanceFetchFailed)
             e.printStackTrace()
+            _attendanceLogs.value = null
         }
     }
 
