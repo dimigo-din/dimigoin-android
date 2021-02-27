@@ -26,10 +26,6 @@ android {
             resValue("bool", "FIREBASE_CRASHLYTICS_ENABLED", "false")
         }
         release {
-            minifyEnabled true
-            shrinkResources true
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            manifestPlaceholders = [crashlyticsCollectionEnabled: "true"]
             resValue("bool", "FIREBASE_ANALYTICS_DEACTIVATED", "false")
             resValue("bool", "FIREBASE_CRASHLYTICS_ENABLED", "true")
         }
@@ -95,4 +91,5 @@ dependencies {
     implementation 'com.romandanylyk:pageindicatorview:1.0.3'
     implementation 'com.github.bumptech.glide:glide:4.11.0'
     implementation 'com.google.zxing:core:3.4.1' // Barcode generator
+//    androidTestImplementation 'tools.fastlane:screengrab:x.x.x'
 }

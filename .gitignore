@@ -9,6 +9,8 @@
 .cxx
 local.properties
 *.aab
+app/debug
+app/release
 google-services.json
 play_store_key.json
 fastlane/report.xml
