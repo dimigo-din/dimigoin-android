@@ -61,9 +61,9 @@
                 android:layout_marginTop="4dp"
                 android:fontFamily="@font/bold"
                 android:gravity="center"
+                android:text="@{student.name}"
                 android:textColor="@color/black"
                 android:textSize="20sp"
-                android:text="@{student.name}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/student_info_text"
@@ -108,8 +108,8 @@
                     tools:src="@drawable/ic_location_ingang" />
 
                 <TextView
-                    style="@style/Text.Location"
                     android:id="@+id/place_name_text"
+                    style="@style/Text.Location"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -140,15 +140,15 @@
                 app:layout_constraintTop_toBottomOf="@+id/student_name_text" />
 
             <TextView
-                style="@style/Text.Location"
                 android:id="@+id/time_text"
+                style="@style/Text.Location"
                 android:layout_width="90dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="6dp"
                 android:layout_marginTop="6dp"
+                android:background="@drawable/bg_round_corner_square_grey_border"
                 android:paddingBottom="2dp"
                 android:text="@{updatedAt}"
-                android:background="@drawable/bg_round_corner_square_grey_border"
                 app:layout_constraintStart_toEndOf="@id/student_name_text"
                 app:layout_constraintTop_toBottomOf="@+id/register_time_text"
                 tools:text="11시 31분" />
@@ -167,7 +167,9 @@
             android:layout_height="165dp"
             android:layout_marginHorizontal="@dimen/default_horizontal_margin"
             android:layout_marginTop="15dp"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+            android:overScrollMode="never"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/item_attendance" />
 
     </LinearLayout>
 
