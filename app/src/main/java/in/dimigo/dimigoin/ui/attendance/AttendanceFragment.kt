@@ -87,6 +87,10 @@ class AttendanceFragment : Fragment() {
         dialogBinding.apply {
             isLoading = true
             student = attendanceItem.student
+            updatedAt = attendanceItem.updatedAt?.format(DateUtil.timeFormatter)
+                ?: requireContext().getString(R.string.no_info)
+            location = attendanceItem.location
+            placeName = attendanceItem.placeName ?: attendanceItem.student.getDefaultClassName(requireContext())
             historyRecyclerView.adapter = historyRecyclerViewAdapter
         }
         DimigoinDialog(requireContext(), useNarrowDialog = true).CustomView(dialogBinding.root).show()

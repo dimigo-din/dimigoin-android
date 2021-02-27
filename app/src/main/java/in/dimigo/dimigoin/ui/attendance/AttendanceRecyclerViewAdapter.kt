@@ -73,7 +73,7 @@ class AttendanceViewHolder(
         binding.apply {
             this.item = item
             this.isTeacherMode = isViewModelNotNull
-            this.updatedAt = updatedAt ?: "정보 없음"
+            this.updatedAt = updatedAt ?: binding.root.context.getString(R.string.no_info)
 
             viewModel?.let {
                 this.detailText.setOnClickListener {
