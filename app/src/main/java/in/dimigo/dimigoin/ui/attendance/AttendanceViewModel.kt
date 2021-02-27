@@ -62,8 +62,8 @@ class AttendanceViewModel(private val useCase: AttendanceUseCase) : ViewModel() 
 
     fun fetchAttendanceDetail(item: AttendanceItem) {
         viewModelScope.launch {
-            loadAttendanceDetail(item.student)
             _detailClickedEvent.call()
+            loadAttendanceDetail(item.student)
         }
     }
 

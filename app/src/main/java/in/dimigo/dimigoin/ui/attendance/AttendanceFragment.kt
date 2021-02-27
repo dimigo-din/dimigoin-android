@@ -45,6 +45,7 @@ class AttendanceFragment : Fragment() {
 
         viewModel.attendanceFetchFailedEvent.observe(viewLifecycleOwner) {
             DimigoinDialog(requireContext()).alert(DimigoinDialog.AlertType.ERROR, R.string.failed_to_fetch_attendance)
+            progressDialog.stop()
         }
 
         return binding.root
@@ -119,9 +120,5 @@ class AttendanceFragment : Fragment() {
         }
         this.addOnTabSelectedListener(listener)
         return listener
-    }
-
-    sealed class Event {
-        object DetailButtonClicked : Event()
     }
 }
