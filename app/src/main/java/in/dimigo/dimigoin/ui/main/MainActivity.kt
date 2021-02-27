@@ -72,11 +72,12 @@ class MainActivity : BaseActivity() {
                     if (destination.id == R.id.main) View.INVISIBLE
                     else View.VISIBLE
             }
+            viewModel.navigationPos = destination.id
         }
 
         with(binding.mainBottomNav) {
             setupWithNavController(navController)
-            selectedItemId = R.id.main
+            selectedItemId = viewModel.navigationPos
             bottomNavBarBottomPadding = paddingBottom
         }
     }
