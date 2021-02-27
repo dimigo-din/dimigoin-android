@@ -45,6 +45,18 @@ class AttendanceFragment : Fragment() {
             attendanceAdapter.filter(it)
         }
 
+        viewModel.event.observeEvent(viewLifecycleOwner) { event ->
+            when (event) {
+                is Event.ShowAttendanceDetailDialog -> lifecycleScope.launch {
+                    showAttendanceDetailDialog(event.attendanceItem)
+                }
+                is Event.AttendanceFetchFailed -> {
+                    DimigoinDialog(requireContext())
+                        .alert(DimigoinDialog.AlertType.ERROR, R.string.failed_to_fetch_attendance)
+                }
+            }
+        }
+
         return binding.root
     }
 
@@ -58,25 +70,20 @@ class AttendanceFragment : Fragment() {
 
             //history dialog
             attendanceHistoryButton.setOnClickListener {
-                val historyAdapter = AttendanceHistoryRecyclerViewAdapter()
-                viewModel.attendanceLogs.value?.let { data -> historyAdapter.setItems(data) }
-
+                val attendanceLogs = viewModel.attendanceLogs.value
                 val dialogBinding = DialogHistoryBinding.inflate(layoutInflater).apply {
-                    historyRecyclerView.adapter = historyAdapter
+                    if (attendanceLogs.isNullOrEmpty()) {
+                        noHistoryText.visibility = View.VISIBLE
+                    } else {
+                        val historyAdapter = AttendanceHistoryRecyclerViewAdapter()
+                        historyAdapter.setItems(attendanceLogs)
+                        historyRecyclerView.adapter = historyAdapter
+                    }
+                    val grade = viewModel.grade.value ?: 0
+                    val klass = viewModel.klass.value ?: 0
+                    classInfoText.text = getString(R.string.grade_class_format, grade, klass)
                 }
                 DimigoinDialog(requireContext(), useNarrowDialog = true).CustomView(dialogBinding.root).show()
-            }
-        }
-
-        viewModel.event.observeEvent(viewLifecycleOwner) { event ->
-            when (event) {
-                is Event.ShowAttendanceDetailDialog -> lifecycleScope.launch {
-                    showAttendanceDetailDialog(event.attendanceItem)
-                }
-                is Event.AttendanceFetchFailed -> {
-                    DimigoinDialog(requireContext())
-                        .alert(DimigoinDialog.AlertType.ERROR, R.string.failed_to_fetch_attendance)
-                }
             }
         }
     }
@@ -88,7 +95,7 @@ class AttendanceFragment : Fragment() {
             isLoading = true
             student = attendanceItem.student
             updatedAt = attendanceItem.updatedAt?.format(DateUtil.timeFormatter)
-                ?: requireContext().getString(R.string.no_info)
+                ?: getString(R.string.no_info)
             location = attendanceItem.location
             placeName = attendanceItem.placeName ?: attendanceItem.student.getDefaultClassName(requireContext())
             historyRecyclerView.adapter = historyRecyclerViewAdapter
@@ -106,7 +113,8 @@ class AttendanceFragment : Fragment() {
             historyRecyclerViewAdapter.setItems(attendanceDetail.logs)
 
             if (attendanceDetail.logs.isNullOrEmpty()) {
-                updatedAt = requireContext().getString(R.string.no_info)
+                isHistoryEmpty = true
+                updatedAt = getString(R.string.no_info)
                 location = AttendanceLocation.Class
                 placeName = attendanceDetail.student.getDefaultClassName(requireContext())
             } else {

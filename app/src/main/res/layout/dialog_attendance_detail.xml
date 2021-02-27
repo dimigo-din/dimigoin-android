@@ -33,6 +33,10 @@
             name="isAttendanceHistoryFetchFailed"
             type="boolean" />
 
+        <variable
+            name="isHistoryEmpty"
+            type="boolean" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -153,6 +157,18 @@
             android:layout_height="wrap_content"
             android:text="@string/failed_to_fetch_attendance_history"
             android:visibility="@{isAttendanceHistoryFetchFailed ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="@id/history_recycler_view"
+            app:layout_constraintEnd_toEndOf="@id/history_recycler_view"
+            app:layout_constraintStart_toStartOf="@id/history_recycler_view"
+            app:layout_constraintTop_toTopOf="@id/history_recycler_view"
+            tools:visibility="invisible" />
+
+        <TextView
+            style="@style/Text.Content.Grey"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/no_attendance_history"
+            android:visibility="@{isHistoryEmpty ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="@id/history_recycler_view"
             app:layout_constraintEnd_toEndOf="@id/history_recycler_view"
             app:layout_constraintStart_toStartOf="@id/history_recycler_view"
