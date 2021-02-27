@@ -8,12 +8,8 @@
         <import type="android.view.View" />
 
         <variable
-            name="vm"
-            type="in.dimigo.dimigoin.ui.main.fragment.main.MainFragmentViewModel" />
-
-        <variable
-            name="position"
-            type="int" />
+            name="item"
+            type="in.dimigo.dimigoin.ui.item.NoticeItem" />
     </data>
 
     <FrameLayout
@@ -25,7 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/meal_view_pager_page_gap_offset"
-            android:layout_marginVertical="20dp"
+            android:layout_marginBottom="12dp"
             android:orientation="vertical"
             android:padding="20dp">
 
@@ -44,16 +40,16 @@
                     android:ellipsize="end"
                     android:maxLines="1"
                     android:scrollHorizontally="true"
-                    android:text="@{vm.noticeList[position].title}"
-                    android:visibility="@{vm.noticeList[position].title == null ? View.GONE : View.VISIBLE}"
+                    android:text="@{item.title}"
+                    android:visibility="@{item.title == null ? View.GONE : View.VISIBLE}"
                     tools:text="@string/notice_loading_message" />
 
                 <TextView
                     style="@style/Text.Content.Grey"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{vm.noticeList[position].author.name}"
-                    android:visibility="@{vm.noticeList[position].title == null ? View.GONE : View.VISIBLE}"
+                    android:text="@{item.author.name}"
+                    android:visibility="@{item.title == null ? View.GONE : View.VISIBLE}"
                     tools:text="@string/example_name" />
 
             </LinearLayout>
@@ -68,8 +64,7 @@
                     style="@style/Text.Content.Grey"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@{vm.noticeList[position] == null ? @string/notice_loading_message : vm.noticeList[position].content}"
-                    tools:text="@string/notice_loading_message" />
+                    android:text="@{item.content}" />
 
             </androidx.core.widget.NestedScrollView>
         </LinearLayout>
