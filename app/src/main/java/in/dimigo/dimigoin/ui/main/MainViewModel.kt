@@ -6,5 +6,5 @@ import androidx.lifecycle.ViewModel
 
 class MainViewModel : ViewModel() {
     val hideCard = MutableLiveData(null)
-    var navigationPos = R.id.main
+    var navigationPosition = R.id.main
 }
