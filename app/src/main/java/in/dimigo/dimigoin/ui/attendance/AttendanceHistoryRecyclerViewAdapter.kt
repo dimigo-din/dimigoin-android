@@ -8,7 +8,6 @@ import `in`.dimigo.dimigoin.databinding.ItemHistoryBinding
 import `in`.dimigo.dimigoin.ui.custom.CustomAccentSpan
 import android.text.Spannable
 import android.text.Spanned
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.res.ResourcesCompat
@@ -55,8 +54,6 @@ class AttendanceHistoryViewHolder(private val binding: ItemHistoryBinding) :
         )
 
         binding.messageText.text = spannable
-
-        Log.d("item", spannable.toString())
     }
 }
 
