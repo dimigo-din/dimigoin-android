@@ -7,7 +7,7 @@ import `in`.dimigo.dimigoin.data.util.UserDataStore
 import `in`.dimigo.dimigoin.ui.item.AttendanceDetailItem
 import `in`.dimigo.dimigoin.ui.item.AttendanceItem
 import `in`.dimigo.dimigoin.ui.main.fragment.main.AttendanceLocation
-import `in`.dimigo.dimigoin.ui.util.SingleLiveEvent
+import `in`.dimigo.dimigoin.ui.util.EventWrapper
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -26,17 +26,11 @@ class AttendanceViewModel(private val useCase: AttendanceUseCase) : ViewModel() 
     private val _attendanceLogs = MutableLiveData<List<AttendanceLogModel>>()
     val attendanceLogs: LiveData<List<AttendanceLogModel>> = _attendanceLogs
 
-    private val _attendanceDetail = MutableLiveData<AttendanceDetailItem>()
-    val attendanceDetail: LiveData<AttendanceDetailItem> = _attendanceDetail
-
     private val _isRefreshing = MutableLiveData(false)
     val isRefreshing: LiveData<Boolean> = _isRefreshing
 
-    private val _detailClickedEvent = SingleLiveEvent<Void>()
-    val detailClickedEvent: LiveData<Void> = _detailClickedEvent
-
-    private val _attendanceFetchFailedEvent = SingleLiveEvent<Void>()
-    val attendanceFetchFailedEvent: LiveData<Void> = _attendanceFetchFailedEvent
+    private val _event = MutableLiveData<EventWrapper<AttendanceFragment.Event>>()
+    val event: LiveData<EventWrapper<AttendanceFragment.Event>> = _event
 
     val grade = MutableLiveData(1)
     val klass = MutableLiveData(1)
@@ -60,10 +54,16 @@ class AttendanceViewModel(private val useCase: AttendanceUseCase) : ViewModel() 
         if (!isInitial) _isRefreshing.value = false
     }
 
-    fun fetchAttendanceDetail(item: AttendanceItem) {
-        viewModelScope.launch {
-            _detailClickedEvent.call()
-            loadAttendanceDetail(item.student)
+    fun onAttendanceDetailButtonClick(item: AttendanceItem) {
+        _event.value = EventWrapper(AttendanceFragment.Event.ShowAttendanceDetailDialog(item))
+    }
+
+    suspend fun fetchAttendanceDetail(userModel: UserModel): AttendanceDetailItem? {
+        return try {
+            useCase.getAttendanceDetail(userModel)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
         }
     }
 
@@ -74,7 +74,7 @@ class AttendanceViewModel(private val useCase: AttendanceUseCase) : ViewModel() 
             applyAttendanceStatus(data)
             applyAttendanceTableData(data)
         } catch (e: Exception) {
-            _attendanceFetchFailedEvent.call()
+            _event.value = EventWrapper(AttendanceFragment.Event.AttendanceFetchFailed)
             e.printStackTrace()
         }
     }
@@ -86,7 +86,7 @@ class AttendanceViewModel(private val useCase: AttendanceUseCase) : ViewModel() 
             applyAttendanceStatus(data)
             applyAttendanceTableData(data)
         } catch (e: Exception) {
-            _attendanceFetchFailedEvent.call()
+            _event.value = EventWrapper(AttendanceFragment.Event.AttendanceFetchFailed)
             e.printStackTrace()
         }
     }
@@ -97,17 +97,7 @@ class AttendanceViewModel(private val useCase: AttendanceUseCase) : ViewModel() 
             val data = useCase.getAttendanceTimeline(grade.value ?: 1, klass.value ?: 1)
             _attendanceLogs.value = data
         } catch (e: Exception) {
-            _attendanceFetchFailedEvent.call()
-            e.printStackTrace()
-        }
-    }
-
-    private suspend fun loadAttendanceDetail(userModel: UserModel) {
-        try {
-            val data = useCase.getAttendanceDetail(userModel)
-            _attendanceDetail.value = data
-        } catch (e: Exception) {
-            _attendanceFetchFailedEvent.call()
+            _event.value = EventWrapper(AttendanceFragment.Event.AttendanceFetchFailed)
             e.printStackTrace()
         }
     }
@@ -143,7 +133,6 @@ class AttendanceViewModel(private val useCase: AttendanceUseCase) : ViewModel() 
                 }
                 result[cursor]++
             } else {
-                //TODO: just for temporary, keep this way setting the default value
                 result[0]++
             }
         }

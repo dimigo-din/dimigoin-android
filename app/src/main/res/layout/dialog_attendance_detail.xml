@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
@@ -19,158 +18,178 @@
             type="in.dimigo.dimigoin.data.model.UserModel" />
 
         <variable
-            name="studentInfo"
-            type="String" />
-
-        <variable
             name="placeName"
             type="String" />
 
         <variable
             name="location"
             type="in.dimigo.dimigoin.ui.main.fragment.main.AttendanceLocation" />
+
+        <variable
+            name="isLoading"
+            type="boolean" />
+
+        <variable
+            name="isAttendanceHistoryFetchFailed"
+            type="boolean" />
+
     </data>
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="vertical"
         android:paddingTop="@dimen/dialog_default_padding">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/student_info_text"
+            style="@style/Text.Sub.Tag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{@string/format_student_info(student.grade, student.klass, student.number)}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/example_grade_class_number_of_student" />
 
-            <TextView
-                android:id="@+id/student_info_text"
-                style="@style/Text.Sub.Tag"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{studentInfo}"
-                app:layout_constraintEnd_toEndOf="parent"
+        <TextView
+            android:id="@+id/student_name_text"
+            style="@style/Text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:fontFamily="@font/bold"
+            android:gravity="center"
+            android:text="@{student.name}"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/student_info_text"
+            tools:text="@string/example_name" />
+
+        <TextView
+            android:id="@+id/current_location_text"
+            style="@style/Text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:fontFamily="@font/medium"
+            android:text="@string/current_location"
+            android:textColor="@color/grey_450"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="@+id/location_clip"
+            app:layout_constraintStart_toStartOf="@+id/location_clip"
+            app:layout_constraintTop_toBottomOf="@+id/student_name_text" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/location_clip"
+            android:layout_width="90dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:layout_marginEnd="6dp"
+            android:background="@drawable/bg_round_corner_square_grey_border"
+            android:paddingHorizontal="8dp"
+            app:layout_constraintEnd_toStartOf="@id/student_name_text"
+            app:layout_constraintTop_toBottomOf="@+id/current_location_text">
+
+            <ImageView
+                android:id="@+id/placeIcon"
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:contentDescription="@string/description_type_icon"
+                android:src="@{location.icon}"
+                android:visibility="@{location == null ? View.GONE : View.VISIBLE}"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="@string/example_grade_class_number_of_student" />
+                app:tint="@color/grey_400"
+                tools:src="@drawable/ic_location_ingang" />
 
             <TextView
-                android:id="@+id/student_name_text"
-                style="@style/Text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:fontFamily="@font/bold"
-                android:gravity="center"
-                android:text="@{student.name}"
-                android:textColor="@color/black"
-                android:textSize="20sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/student_info_text"
-                tools:text="@string/example_name" />
-
-            <TextView
-                android:id="@+id/current_location_text"
-                style="@style/Text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="14dp"
-                android:fontFamily="@font/medium"
-                android:text="@string/current_location"
-                android:textColor="@color/grey_450"
-                android:textSize="14sp"
-                app:layout_constraintEnd_toEndOf="@+id/location_clip"
-                app:layout_constraintStart_toStartOf="@+id/location_clip"
-                app:layout_constraintTop_toBottomOf="@+id/student_name_text" />
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/location_clip"
-                android:layout_width="90dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
-                android:layout_marginEnd="6dp"
-                android:background="@drawable/bg_round_corner_square_grey_border"
-                android:paddingHorizontal="8dp"
-                app:layout_constraintEnd_toStartOf="@id/student_name_text"
-                app:layout_constraintTop_toBottomOf="@+id/current_location_text">
-
-                <ImageView
-                    android:id="@+id/placeIcon"
-                    android:layout_width="12dp"
-                    android:layout_height="12dp"
-                    android:contentDescription="@string/description_type_icon"
-                    android:src="@{location.icon}"
-                    android:visibility="@{location == null ? View.GONE : View.VISIBLE}"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:tint="@color/grey_400"
-                    tools:src="@drawable/ic_location_ingang" />
-
-                <TextView
-                    android:id="@+id/place_name_text"
-                    style="@style/Text.Location"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:paddingBottom="2dp"
-                    android:text="@{placeName}"
-                    android:tooltipText="@{placeName}"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/placeIcon"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:targetApi="o"
-                    tools:text="인강실" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <TextView
-                android:id="@+id/register_time_text"
-                style="@style/Text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="14dp"
-                android:fontFamily="@font/medium"
-                android:text="@string/updatedTime"
-                android:textColor="@color/grey_450"
-                android:textSize="14sp"
-                app:layout_constraintEnd_toEndOf="@+id/time_text"
-                app:layout_constraintStart_toStartOf="@+id/time_text"
-                app:layout_constraintTop_toBottomOf="@+id/student_name_text" />
-
-            <TextView
-                android:id="@+id/time_text"
+                android:id="@+id/place_name_text"
                 style="@style/Text.Location"
-                android:layout_width="90dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="6dp"
-                android:layout_marginTop="6dp"
-                android:background="@drawable/bg_round_corner_square_grey_border"
+                android:layout_marginStart="8dp"
                 android:paddingBottom="2dp"
-                android:text="@{updatedAt}"
-                app:layout_constraintStart_toEndOf="@id/student_name_text"
-                app:layout_constraintTop_toBottomOf="@+id/register_time_text"
-                tools:text="11시 31분" />
+                android:text="@{placeName}"
+                android:tooltipText="@{placeName}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/placeIcon"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:targetApi="o"
+                tools:text="인강실" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <TextView
+            android:id="@+id/register_time_text"
+            style="@style/Text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:fontFamily="@font/medium"
+            android:text="@string/updatedTime"
+            android:textColor="@color/grey_450"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="@+id/time_text"
+            app:layout_constraintStart_toStartOf="@+id/time_text"
+            app:layout_constraintTop_toBottomOf="@+id/student_name_text" />
+
+        <TextView
+            android:id="@+id/time_text"
+            style="@style/Text.Location"
+            android:layout_width="90dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            android:layout_marginTop="6dp"
+            android:background="@drawable/bg_round_corner_square_grey_border"
+            android:paddingBottom="2dp"
+            android:text="@{updatedAt}"
+            app:layout_constraintStart_toEndOf="@id/student_name_text"
+            app:layout_constraintTop_toBottomOf="@+id/register_time_text"
+            tools:text="11시 31분" />
+
         <View
+            android:id="@+id/divider"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginTop="30dp"
-            android:background="@color/grey_200" />
+            android:background="@color/grey_200"
+            app:layout_constraintTop_toBottomOf="@id/time_text" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/history_recycler_view"
             android:layout_width="match_parent"
-            android:layout_height="165dp"
-            android:layout_marginHorizontal="@dimen/default_horizontal_margin"
-            android:layout_marginTop="15dp"
+            android:layout_height="172dp"
             android:overScrollMode="never"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/item_attendance" />
+            app:layout_constraintTop_toBottomOf="@id/divider"
+            tools:listitem="@layout/item_attendance_history"
+            tools:visibility="invisible" />
 
-    </LinearLayout>
+        <ProgressBar
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:visibility="@{isLoading ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="@id/history_recycler_view"
+            app:layout_constraintEnd_toEndOf="@id/history_recycler_view"
+            app:layout_constraintStart_toStartOf="@id/history_recycler_view"
+            app:layout_constraintTop_toTopOf="@id/history_recycler_view"
+            tools:visibility="invisible" />
+
+        <TextView
+            style="@style/Text.Content.Grey"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/failed_to_fetch_attendance_history"
+            android:visibility="@{isAttendanceHistoryFetchFailed ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="@id/history_recycler_view"
+            app:layout_constraintEnd_toEndOf="@id/history_recycler_view"
+            app:layout_constraintStart_toStartOf="@id/history_recycler_view"
+            app:layout_constraintTop_toTopOf="@id/history_recycler_view" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

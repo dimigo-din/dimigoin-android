@@ -9,20 +9,22 @@ import `in`.dimigo.dimigoin.databinding.DialogAttendanceDetailBinding
 import `in`.dimigo.dimigoin.databinding.DialogHistoryBinding
 import `in`.dimigo.dimigoin.databinding.FragmentAttendanceBinding
 import `in`.dimigo.dimigoin.ui.custom.DimigoinDialog
-import `in`.dimigo.dimigoin.ui.custom.DimigoinProgressDialog
+import `in`.dimigo.dimigoin.ui.item.AttendanceItem
 import `in`.dimigo.dimigoin.ui.main.fragment.main.AttendanceLocation
+import `in`.dimigo.dimigoin.ui.util.observeEvent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.tabs.TabLayout
+import kotlinx.coroutines.launch
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class AttendanceFragment : Fragment() {
     private val isTeacher = UserDataStore.userData.userType == UserType.TEACHER
     private val viewModel: AttendanceViewModel by viewModel()
-    private val progressDialog: DimigoinProgressDialog by lazy { DimigoinProgressDialog(requireContext()) }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val attendanceAdapter = AttendanceRecyclerViewAdapter(if (isTeacher) viewModel else null)
@@ -43,11 +45,6 @@ class AttendanceFragment : Fragment() {
             attendanceAdapter.filter(it)
         }
 
-        viewModel.attendanceFetchFailedEvent.observe(viewLifecycleOwner) {
-            DimigoinDialog(requireContext()).alert(DimigoinDialog.AlertType.ERROR, R.string.failed_to_fetch_attendance)
-            progressDialog.stop()
-        }
-
         return binding.root
     }
 
@@ -62,44 +59,57 @@ class AttendanceFragment : Fragment() {
             //history dialog
             attendanceHistoryButton.setOnClickListener {
                 val historyAdapter = AttendanceHistoryRecyclerViewAdapter()
-                viewModel.attendanceLogs.value?.let { data -> historyAdapter.setItem(data) }
+                viewModel.attendanceLogs.value?.let { data -> historyAdapter.setItems(data) }
 
                 val dialogBinding = DialogHistoryBinding.inflate(layoutInflater).apply {
                     historyRecyclerView.adapter = historyAdapter
                 }
-
                 DimigoinDialog(requireContext(), useNarrowDialog = true).CustomView(dialogBinding.root).show()
             }
         }
 
-        //attendance detail dialog
-        viewModel.detailClickedEvent.observe(viewLifecycleOwner) {
-            progressDialog.show()
-        }
-
-        viewModel.attendanceDetail.observe(viewLifecycleOwner) {
-            progressDialog.stop()
-            val historyAdapter = AttendanceHistoryRecyclerViewAdapter()
-            it.logs?.let { logs -> historyAdapter.setItem(logs) }
-
-            val dialogBinding = DialogAttendanceDetailBinding.inflate(layoutInflater).apply {
-                historyRecyclerView.adapter = historyAdapter
-                this.student = it.student
-                this.studentInfo = requireContext().getString(R.string.format_student_info)
-                    .format(it.student.grade, it.student.klass, it.student.number)
-
-                if (it.logs.isNullOrEmpty()) {
-                    this.updatedAt = requireContext().getString(R.string.no_info)
-                    this.location = AttendanceLocation.Class
-                    this.placeName = it.student.getDefaultClassName(requireContext())
-                } else {
-                    this.updatedAt = DateUtil.timeFormatter.from(it.logs[0].time)
-                    this.location = AttendanceLocation.fromPlace(it.logs[0].place)
-                    this.placeName = it.logs[0].place.name
+        viewModel.event.observeEvent(viewLifecycleOwner) { event ->
+            when (event) {
+                is Event.ShowAttendanceDetailDialog -> lifecycleScope.launch {
+                    showAttendanceDetailDialog(event.attendanceItem)
+                }
+                is Event.AttendanceFetchFailed -> {
+                    DimigoinDialog(requireContext())
+                        .alert(DimigoinDialog.AlertType.ERROR, R.string.failed_to_fetch_attendance)
                 }
             }
+        }
+    }
 
-            DimigoinDialog(requireContext(), useNarrowDialog = true).CustomView(dialogBinding.root).show()
+    private suspend fun showAttendanceDetailDialog(attendanceItem: AttendanceItem) {
+        val dialogBinding = DialogAttendanceDetailBinding.inflate(layoutInflater)
+        val historyRecyclerViewAdapter = AttendanceHistoryRecyclerViewAdapter()
+        dialogBinding.apply {
+            isLoading = true
+            student = attendanceItem.student
+            historyRecyclerView.adapter = historyRecyclerViewAdapter
+        }
+        DimigoinDialog(requireContext(), useNarrowDialog = true).CustomView(dialogBinding.root).show()
+
+        val attendanceDetail = viewModel.fetchAttendanceDetail(attendanceItem.student)
+
+        dialogBinding.apply {
+            isLoading = false
+            if (attendanceDetail == null) {
+                isAttendanceHistoryFetchFailed = true
+                return@apply
+            }
+            historyRecyclerViewAdapter.setItems(attendanceDetail.logs)
+
+            if (attendanceDetail.logs.isNullOrEmpty()) {
+                updatedAt = requireContext().getString(R.string.no_info)
+                location = AttendanceLocation.Class
+                placeName = attendanceDetail.student.getDefaultClassName(requireContext())
+            } else {
+                updatedAt = DateUtil.timeFormatter.from(attendanceDetail.logs[0].time)
+                location = AttendanceLocation.fromPlace(attendanceDetail.logs[0].place)
+                placeName = attendanceDetail.logs[0].place.name
+            }
         }
     }
 
@@ -107,6 +117,11 @@ class AttendanceFragment : Fragment() {
         viewModel.grade.value = binding.gradeTap.selectedTabPosition + 1
         viewModel.klass.value = binding.classTap.selectedTabPosition + 1
         viewModel.refresh()
+    }
+
+    sealed class Event {
+        object AttendanceFetchFailed : Event()
+        data class ShowAttendanceDetailDialog(val attendanceItem: AttendanceItem) : Event()
     }
 
     private fun TabLayout.addOnTabSelected(onSelected: (tab: TabLayout.Tab?) -> Unit): TabLayout.OnTabSelectedListener {

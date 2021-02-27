@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:paddingBottom="18dp">
+    android:paddingHorizontal="@dimen/default_horizontal_margin"
+    android:paddingVertical="8dp">
 
     <TextView
         android:id="@+id/message_text"
+        style="@style/Text.Content.Grey"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/regular"
-        android:includeFontPadding="false"
-        android:textSize="12sp" />
+        android:textSize="12sp"
+        tools:text="위치 변경 로그가 들어갈 텍스트" />
 
 </LinearLayout>

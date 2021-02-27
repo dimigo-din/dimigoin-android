@@ -67,7 +67,6 @@ class AttendanceViewHolder(
     private val viewModel: AttendanceViewModel? = null
 ) : RecyclerView.ViewHolder(binding.root) {
     fun bind(item: AttendanceItem) {
-        //TODO: just for temporary, keep this way setting the default value
         val isViewModelNotNull = viewModel != null
         val updatedAt = item.updatedAt?.format(DateUtil.timeFormatter)
 
@@ -78,7 +77,7 @@ class AttendanceViewHolder(
 
             viewModel?.let {
                 this.detailText.setOnClickListener {
-                    viewModel.fetchAttendanceDetail(item)
+                    viewModel.onAttendanceDetailButtonClick(item)
                 }
             }
         }
