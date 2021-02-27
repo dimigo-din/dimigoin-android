@@ -7,6 +7,7 @@ import `in`.dimigo.dimigoin.data.util.UserDataStore
 import `in`.dimigo.dimigoin.ui.item.AttendanceDetailItem
 import `in`.dimigo.dimigoin.ui.item.AttendanceItem
 import `in`.dimigo.dimigoin.ui.main.fragment.main.AttendanceLocation
+import `in`.dimigo.dimigoin.ui.util.SingleLiveEvent
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -32,6 +33,9 @@ class AttendanceViewModel(private val useCase: AttendanceUseCase) : ViewModel() 
     private val _isRefreshing = MutableLiveData(false)
     val isRefreshing: LiveData<Boolean> = _isRefreshing
 
+    private val _onDetailClicked = SingleLiveEvent<AttendanceFragment.Event>()
+    val onDetailClicked: LiveData<AttendanceFragment.Event> = _onDetailClicked
+
     val grade = MutableLiveData(1)
     val klass = MutableLiveData(1)
 
@@ -52,6 +56,11 @@ class AttendanceViewModel(private val useCase: AttendanceUseCase) : ViewModel() 
         }
 
         if (!isInitial) _isRefreshing.value = false
+    }
+
+    fun fetchAttendanceDetail(item: AttendanceItem) {
+        loadAttendanceDetail(item.student)
+        _onDetailClicked.value = AttendanceFragment.Event.DetailButtonClicked
     }
 
     //학생용, 본인 반
@@ -136,4 +145,6 @@ class AttendanceViewModel(private val useCase: AttendanceUseCase) : ViewModel() 
 
         _attendanceTableData.value = result
     }
+
+    enum class EVENT
 }

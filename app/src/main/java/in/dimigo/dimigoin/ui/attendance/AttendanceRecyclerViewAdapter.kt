@@ -78,7 +78,7 @@ class AttendanceViewHolder(
 
             viewModel?.let {
                 this.detailText.setOnClickListener {
-                    viewModel.loadAttendanceDetail(item.student)
+                    viewModel.fetchAttendanceDetail(item)
                 }
             }
         }

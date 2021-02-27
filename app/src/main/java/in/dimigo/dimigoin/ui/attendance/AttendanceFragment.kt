@@ -9,6 +9,7 @@ import `in`.dimigo.dimigoin.databinding.DialogAttendanceDetailBinding
 import `in`.dimigo.dimigoin.databinding.DialogHistoryBinding
 import `in`.dimigo.dimigoin.databinding.FragmentAttendanceBinding
 import `in`.dimigo.dimigoin.ui.custom.DimigoinDialog
+import `in`.dimigo.dimigoin.ui.custom.DimigoinProgressDialog
 import `in`.dimigo.dimigoin.ui.main.fragment.main.AttendanceLocation
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -21,6 +22,7 @@ import org.koin.android.viewmodel.ext.android.viewModel
 class AttendanceFragment : Fragment() {
     private val isTeacher = UserDataStore.userData.userType == UserType.TEACHER
     private val viewModel: AttendanceViewModel by viewModel()
+    private val progressDialog: DimigoinProgressDialog by lazy { DimigoinProgressDialog(requireContext()) }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val attendanceAdapter = AttendanceRecyclerViewAdapter(if (isTeacher) viewModel else null)
@@ -66,7 +68,12 @@ class AttendanceFragment : Fragment() {
         }
 
         //attendance detail dialog
+        viewModel.onDetailClicked.observe(viewLifecycleOwner) {
+            progressDialog.show()
+        }
+
         viewModel.attendanceDetail.observe(viewLifecycleOwner) {
+            progressDialog.stop()
             val historyAdapter = AttendanceHistoryRecyclerViewAdapter()
             it.logs?.let { logs -> historyAdapter.setItem(logs) }
 
@@ -102,10 +109,15 @@ class AttendanceFragment : Fragment() {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 onSelected(tab)
             }
+
             override fun onTabUnselected(tab: TabLayout.Tab?) {}
             override fun onTabReselected(tab: TabLayout.Tab?) {}
         }
         this.addOnTabSelectedListener(listener)
         return listener
+    }
+
+    sealed class Event {
+        object DetailButtonClicked : Event()
     }
 }
