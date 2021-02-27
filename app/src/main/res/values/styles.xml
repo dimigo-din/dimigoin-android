@@ -232,17 +232,6 @@
         <item name="android:textSize">14sp</item>
     </style>
 
-    <style name="ProgressDialog">
-        <item name="android:windowNoTitle">true</item>
-        <item name="android:windowFrame">@null</item>
-        <item name="android:windowContentOverlay">@null</item>
-        <item name="android:windowIsFloating">false</item>
-        <item name="android:windowLightStatusBar">true</item>
-        <item name="android:windowBackground">@color/transparent</item>
-        <item name="android:windowIsTranslucent">true</item>
-        <item name="android:windowAnimationStyle">@style/Animation.AppCompat.Dialog</item>
-    </style>
-
     <style name="ThemeOverlay.App.Widget" parent="">
         <item name="colorPrimary">@color/pink_400</item>
         <item name="widgetBackgroundColor">@color/white</item>
