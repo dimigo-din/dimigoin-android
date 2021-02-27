@@ -59,6 +59,8 @@ class CardFragment : Fragment() {
         cardFrontLayout.cameraDistance = cameraDistance
         cardBackLayout.cameraDistance = cameraDistance
 
+        profileImage.clipToOutline = true
+
         cardFrontLayout.setOnClickListener {
             if (!isCardShowing && !isCardAnimating) runWhenAuthenticated {
                 showCard()
