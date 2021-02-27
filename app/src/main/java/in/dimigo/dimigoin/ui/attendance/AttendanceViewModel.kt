@@ -8,7 +8,6 @@ import `in`.dimigo.dimigoin.ui.item.AttendanceDetailItem
 import `in`.dimigo.dimigoin.ui.item.AttendanceItem
 import `in`.dimigo.dimigoin.ui.main.fragment.main.AttendanceLocation
 import `in`.dimigo.dimigoin.ui.util.SingleLiveEvent
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -33,8 +32,11 @@ class AttendanceViewModel(private val useCase: AttendanceUseCase) : ViewModel() 
     private val _isRefreshing = MutableLiveData(false)
     val isRefreshing: LiveData<Boolean> = _isRefreshing
 
-    private val _onDetailClicked = SingleLiveEvent<AttendanceFragment.Event>()
-    val onDetailClicked: LiveData<AttendanceFragment.Event> = _onDetailClicked
+    private val _detailClickedEvent = SingleLiveEvent<Void>()
+    val detailClickedEvent: LiveData<Void> = _detailClickedEvent
+
+    private val _attendanceFetchFailedEvent = SingleLiveEvent<Void>()
+    val attendanceFetchFailedEvent: LiveData<Void> = _attendanceFetchFailedEvent
 
     val grade = MutableLiveData(1)
     val klass = MutableLiveData(1)
@@ -59,8 +61,10 @@ class AttendanceViewModel(private val useCase: AttendanceUseCase) : ViewModel() 
     }
 
     fun fetchAttendanceDetail(item: AttendanceItem) {
-        loadAttendanceDetail(item.student)
-        _onDetailClicked.value = AttendanceFragment.Event.DetailButtonClicked
+        viewModelScope.launch {
+            loadAttendanceDetail(item.student)
+            _detailClickedEvent.call()
+        }
     }
 
     //학생용, 본인 반
@@ -70,7 +74,8 @@ class AttendanceViewModel(private val useCase: AttendanceUseCase) : ViewModel() 
             applyAttendanceStatus(data)
             applyAttendanceTableData(data)
         } catch (e: Exception) {
-            Log.e("error", "msg: ${e.message}")
+            _attendanceFetchFailedEvent.call()
+            e.printStackTrace()
         }
     }
 
@@ -81,7 +86,8 @@ class AttendanceViewModel(private val useCase: AttendanceUseCase) : ViewModel() 
             applyAttendanceStatus(data)
             applyAttendanceTableData(data)
         } catch (e: Exception) {
-            Log.e("error", "msg: ${e.message}")
+            _attendanceFetchFailedEvent.call()
+            e.printStackTrace()
         }
     }
 
@@ -91,18 +97,18 @@ class AttendanceViewModel(private val useCase: AttendanceUseCase) : ViewModel() 
             val data = useCase.getAttendanceTimeline(grade.value ?: 1, klass.value ?: 1)
             _attendanceLogs.value = data
         } catch (e: Exception) {
-            Log.e("error", "msg: ${e.message}")
+            _attendanceFetchFailedEvent.call()
+            e.printStackTrace()
         }
     }
 
-    fun loadAttendanceDetail(userModel: UserModel) {
-        viewModelScope.launch {
-            try {
-                val data = useCase.getAttendanceDetail(userModel)
-                _attendanceDetail.value = data
-            } catch (e: Exception) {
-                Log.e("error", "msg: ${e.message}")
-            }
+    private suspend fun loadAttendanceDetail(userModel: UserModel) {
+        try {
+            val data = useCase.getAttendanceDetail(userModel)
+            _attendanceDetail.value = data
+        } catch (e: Exception) {
+            _attendanceFetchFailedEvent.call()
+            e.printStackTrace()
         }
     }
 
@@ -145,6 +151,4 @@ class AttendanceViewModel(private val useCase: AttendanceUseCase) : ViewModel() 
 
         _attendanceTableData.value = result
     }
-
-    enum class EVENT
 }

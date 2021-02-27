@@ -43,6 +43,10 @@ class AttendanceFragment : Fragment() {
             attendanceAdapter.filter(it)
         }
 
+        viewModel.attendanceFetchFailedEvent.observe(viewLifecycleOwner) {
+            DimigoinDialog(requireContext()).alert(DimigoinDialog.AlertType.ERROR, R.string.failed_to_fetch_attendance)
+        }
+
         return binding.root
     }
 
@@ -68,7 +72,7 @@ class AttendanceFragment : Fragment() {
         }
 
         //attendance detail dialog
-        viewModel.onDetailClicked.observe(viewLifecycleOwner) {
+        viewModel.detailClickedEvent.observe(viewLifecycleOwner) {
             progressDialog.show()
         }
 
