@@ -5,8 +5,6 @@
 
     <data>
 
-        <import type="java.text.DecimalFormat" />
-
         <import type="android.view.View" />
 
         <variable
@@ -62,48 +60,18 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:text="강예원" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <include
             android:id="@+id/location_clip"
+            layout="@layout/layout_attendance_location"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:background="@drawable/bg_round_corner_square_grey_border"
-            android:gravity="center"
-            android:tooltipText="@{(item.placeName == null) ? @string/format_student_info(item.student.grade, item.student.klass) : item.placeName}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/spacer"
             app:layout_constraintHorizontal_weight="1"
             app:layout_constraintStart_toEndOf="@+id/name"
             app:layout_constraintTop_toTopOf="parent"
-            tools:targetApi="o">
-
-            <ImageView
-                android:id="@+id/placeIcon"
-                android:layout_width="12dp"
-                android:layout_height="12dp"
-                android:layout_marginStart="8dp"
-                android:contentDescription="@string/description_type_icon"
-                android:src="@{item.location.icon}"
-                android:visibility="@{item.location == null ? View.GONE : View.VISIBLE}"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:tint="@color/grey_400"
-                tools:src="@drawable/ic_location_ingang" />
-
-            <TextView
-                android:id="@+id/placeName"
-                style="@style/Text.Location"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:paddingBottom="2dp"
-                android:text="@{(item.placeName == null) ? String.format(@string/format_student_info, item.student.grade, item.student.klass) : item.placeName}"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/placeIcon"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="인강실" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            app:location="@{item.location}"
+            app:placeName="@{(item.placeName == null) ? @string/format_student_info(item.student.grade, item.student.klass) : item.placeName}" />
 
         <View
             android:id="@+id/spacer"
