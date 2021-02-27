@@ -23,7 +23,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="32dp"
+        android:paddingHorizontal="32dp"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingVertical="12dp">
