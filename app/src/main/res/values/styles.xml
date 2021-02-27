@@ -238,4 +238,13 @@
         <item name="widgetTextColor">@color/grey_800</item>
     </style>
 
+    <style name="TabLayoutStyle">
+        <item name="tabMaxWidth">0dp</item>
+        <item name="tabGravity">fill</item>
+        <item name="tabMode">fixed</item>
+        <item name="tabIndicator">@drawable/bg_tab_indicator</item>
+        <item name="tabIndicatorHeight">3dp</item>
+        <item name="tabTextAppearance">@style/Text.Tab</item>
+    </style>
+
 </resources>

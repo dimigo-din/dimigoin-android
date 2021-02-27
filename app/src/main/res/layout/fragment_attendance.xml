@@ -97,21 +97,17 @@
 
                 <com.google.android.material.tabs.TabLayout
                     android:id="@+id/gradeTap"
+                    style="@style/TabLayoutStyle"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="1"
-                    app:tabIndicator="@drawable/bg_tab_indicator"
-                    app:tabIndicatorHeight="3dp"
-                    app:tabTextAppearance="@style/Text.Tab" />
+                    android:layout_weight="1" />
 
                 <com.google.android.material.tabs.TabLayout
                     android:id="@+id/classTap"
+                    style="@style/TabLayoutStyle"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="1"
-                    app:tabIndicator="@drawable/bg_tab_indicator"
-                    app:tabIndicatorHeight="3dp"
-                    app:tabTextAppearance="@style/Text.Tab" />
+                    android:layout_weight="1" />
 
             </LinearLayout>
 
