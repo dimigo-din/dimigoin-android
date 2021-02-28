@@ -2,7 +2,7 @@ package `in`.dimigo.dimigoin.ui.main
 
 import `in`.dimigo.dimigoin.R
 import `in`.dimigo.dimigoin.databinding.ActivityMainBinding
-import `in`.dimigo.dimigoin.ui.custom.BaseActivity
+import `in`.dimigo.dimigoin.ui.BaseActivity
 import android.os.Build
 import android.os.Bundle
 import android.view.View

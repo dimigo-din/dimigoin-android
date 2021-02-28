@@ -6,8 +6,8 @@ import `in`.dimigo.dimigoin.data.usecase.auth.AuthUseCase
 import `in`.dimigo.dimigoin.data.usecase.user.UserUseCase
 import `in`.dimigo.dimigoin.data.util.SharedPreferencesManager
 import `in`.dimigo.dimigoin.data.util.UserDataStore
+import `in`.dimigo.dimigoin.ui.BaseActivity
 import `in`.dimigo.dimigoin.ui.attendance.AttendanceActivity
-import `in`.dimigo.dimigoin.ui.custom.BaseActivity
 import `in`.dimigo.dimigoin.ui.login.LoginActivity
 import `in`.dimigo.dimigoin.ui.main.MainActivity
 import android.app.Activity

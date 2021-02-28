@@ -5,8 +5,8 @@ import `in`.dimigo.dimigoin.data.model.UserType
 import `in`.dimigo.dimigoin.data.util.UserDataStore
 import `in`.dimigo.dimigoin.databinding.ActivityLoginBinding
 import `in`.dimigo.dimigoin.databinding.DialogForgotIdPwBinding
+import `in`.dimigo.dimigoin.ui.BaseActivity
 import `in`.dimigo.dimigoin.ui.attendance.AttendanceActivity
-import `in`.dimigo.dimigoin.ui.custom.BaseActivity
 import `in`.dimigo.dimigoin.ui.custom.DimigoinDialog
 import `in`.dimigo.dimigoin.ui.main.MainActivity
 import `in`.dimigo.dimigoin.ui.util.observeEvent

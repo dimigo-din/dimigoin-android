@@ -1,4 +1,4 @@
-package `in`.dimigo.dimigoin.ui.custom
+package `in`.dimigo.dimigoin.ui
 
 import `in`.dimigo.dimigoin.R
 import android.content.pm.ActivityInfo
