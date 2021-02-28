@@ -21,18 +21,16 @@ platform :android do
     gradle(task: "test")
   end
 
-  desc "Submit a new Beta Build to Crashlytics Beta"
-  lane :beta do
-    gradle(task: "clean assembleRelease")
-    crashlytics
-  
-    # sh "your_script.sh"
-    # You can also use other beta testing services here
+  desc "Deploy a new version to the Google Play"
+  lane :deploy do |options|
+    upload_to_play_store(
+      version_code: options[:version_code],
+      aab: "./app/release/app-release.aab"
+    )
   end
 
-  desc "Deploy a new version to the Google Play"
-  lane :deploy do
-    gradle(task: "clean assembleRelease")
-    upload_to_play_store
+  desc "Frame screenshots and copy to android metadata folder"
+  lane :frame do |options|
+    frameit(path: "./fastlane/screenshots")
   end
 end

@@ -1,0 +1,43 @@
+{
+  "default": {
+    "keyword": {
+      "font": "./fonts/NanumSquareR.ttf",
+      "font_size": 60,
+      "color": "#000000"
+    },
+    "title": {
+      "font": "./fonts/NanumSquareEB.ttf",
+      "font_size": 90,
+      "color": "#000000"
+    },
+    "background": "./background.jpg",
+    "stack_title": true,
+    "padding": 100
+  },
+  "data": [
+    {
+      "filter": "Main"
+    },
+    {
+      "filter": "Meal"
+    },
+    {
+      "filter": "Timetable"
+    },
+    {
+      "filter": "Card"
+    },
+    {
+      "filter": "Ingang"
+    },
+    {
+      "filter": "Attendance"
+    },
+    {
+      "filter": "Teacher"
+    },
+    {
+      "filter": "Widget"
+    }
+  ]
+}
