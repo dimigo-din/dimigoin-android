@@ -14,7 +14,7 @@ android {
         applicationId "in.dimigo.dimigoin"
         minSdkVersion 23
         targetSdkVersion 30
-        versionCode 9
+        versionCode 10
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"

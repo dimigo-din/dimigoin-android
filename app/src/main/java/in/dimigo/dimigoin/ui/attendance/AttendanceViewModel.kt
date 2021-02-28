@@ -9,6 +9,7 @@ import `in`.dimigo.dimigoin.ui.item.AttendanceDetailItem
 import `in`.dimigo.dimigoin.ui.item.AttendanceItem
 import `in`.dimigo.dimigoin.ui.main.fragment.main.AttendanceLocation
 import `in`.dimigo.dimigoin.ui.util.EventWrapper
+import android.annotation.SuppressLint
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -109,6 +110,7 @@ class AttendanceViewModel(
     }
 
     //교사용, 선택된 반 히스토리 조회
+    @SuppressLint("NullSafeMutableLiveData")
     private suspend fun fetchSelectedAttendanceTimeline() {
         try {
             val data = useCase.getAttendanceTimeline(grade.value ?: 1, klass.value ?: 1)
