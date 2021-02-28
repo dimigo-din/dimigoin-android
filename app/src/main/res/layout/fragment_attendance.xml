@@ -7,6 +7,8 @@
 
         <import type="android.view.View" />
 
+        <import type="in.dimigo.dimigoin.ui.util.BindingUtilsKt" />
+
         <variable
             name="vm"
             type="in.dimigo.dimigoin.ui.attendance.AttendanceViewModel" />
@@ -35,7 +37,7 @@
                     layout="@layout/layout_title"
                     app:hideDivider="@{true}"
                     app:icon="@{vm.isTeacher ? null : @drawable/ic_location_class_accent}"
-                    app:sub="@{@string/night_study_1}"
+                    app:sub="@{BindingUtilsKt.convertToTimeName(context, vm.currentTimeCode)}"
                     app:title="@{@string/attendance_state}" />
 
                 <Button

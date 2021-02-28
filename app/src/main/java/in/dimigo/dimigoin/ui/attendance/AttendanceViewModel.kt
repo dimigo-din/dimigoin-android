@@ -2,6 +2,7 @@ package `in`.dimigo.dimigoin.ui.attendance
 
 import `in`.dimigo.dimigoin.data.model.*
 import `in`.dimigo.dimigoin.data.usecase.attendance.AttendanceUseCase
+import `in`.dimigo.dimigoin.data.usecase.config.ConfigUseCase
 import `in`.dimigo.dimigoin.data.util.DateUtil
 import `in`.dimigo.dimigoin.data.util.UserDataStore
 import `in`.dimigo.dimigoin.ui.item.AttendanceDetailItem
@@ -16,7 +17,10 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.launch
 
-class AttendanceViewModel(private val useCase: AttendanceUseCase) : ViewModel() {
+class AttendanceViewModel(
+    private val useCase: AttendanceUseCase,
+    private val configUseCase: ConfigUseCase
+) : ViewModel() {
     val isTeacher = UserDataStore.userData.userType == UserType.TEACHER
 
     private val _attendanceTableData = MutableLiveData<List<Int>>()
@@ -34,6 +38,9 @@ class AttendanceViewModel(private val useCase: AttendanceUseCase) : ViewModel() 
     private val _event = MutableLiveData<EventWrapper<AttendanceFragment.Event>>()
     val event: LiveData<EventWrapper<AttendanceFragment.Event>> = _event
 
+    private val _currentTimeCode = MutableLiveData("")
+    val currentTimeCode: LiveData<String> = _currentTimeCode
+
     val grade = MutableLiveData(1)
     val klass = MutableLiveData(1)
 
@@ -49,10 +56,14 @@ class AttendanceViewModel(private val useCase: AttendanceUseCase) : ViewModel() 
         if (isTeacher) {
             awaitAll(
                 async { fetchSelectedAttendanceStatus() },
-                async { fetchSelectedAttendanceTimeline() }
+                async { fetchSelectedAttendanceTimeline() },
+                async { updateCurrentTimeCode() }
             )
         } else {
-            fetchCurrentAttendanceStatus()
+            awaitAll(
+                async { fetchCurrentAttendanceStatus() },
+                async { updateCurrentTimeCode() }
+            )
         }
 
         _isRefreshing.value = false
@@ -145,5 +156,14 @@ class AttendanceViewModel(private val useCase: AttendanceUseCase) : ViewModel() 
         result[4] = dataList.size
 
         _attendanceTableData.value = result
+    }
+
+    private suspend fun updateCurrentTimeCode() {
+        try {
+            _currentTimeCode.value = configUseCase.getCurrentTimeCode()
+        } catch (e: Exception) {
+            e.printStackTrace()
+            _currentTimeCode.value = ""
+        }
     }
 }

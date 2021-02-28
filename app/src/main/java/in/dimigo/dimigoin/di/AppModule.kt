@@ -51,7 +51,7 @@ val appModule = module {
     viewModel { TimetableViewModel(get()) }
     viewModel { CardViewModel() }
     viewModel { IngangViewModel(get()) }
-    viewModel { AttendanceViewModel(get()) }
+    viewModel { AttendanceViewModel(get(), get()) }
 
     single { SharedPreferencesManager(androidContext()) }
 }
