@@ -75,7 +75,7 @@ class CardFragment : Fragment() {
 
         if (UserDataStore.userData.photos.isNotEmpty()) {
             Glide.with(requireContext())
-                .load(UserDataStore.userData.photos.last())
+                .load(UserDataStore.userData.photos.first())
                 .into(profileImage)
         }
 
