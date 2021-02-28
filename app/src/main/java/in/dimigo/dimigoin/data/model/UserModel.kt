@@ -22,7 +22,19 @@ data class UserModel(
     @SerializedName("birthdate") val birthDate: String?,
     val libraryId: String?
 ) {
+
     fun getDefaultClassName(context: Context) = context.getString(R.string.format_student_info).format(grade, klass)
+
+    fun getDepartmentName(context: Context): String {
+        val departments = context.resources.getStringArray(R.array.departments)
+        return when (klass) {
+            1 -> departments[0]
+            2 -> departments[1]
+            3, 4 -> departments[2]
+            5, 6 -> departments[3]
+            else -> departments[0]
+        }
+    }
 }
 
 enum class UserType {

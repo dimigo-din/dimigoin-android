@@ -45,7 +45,7 @@ class CardFragment : Fragment() {
             vm = viewModel
             val userModel = UserDataStore.userData
             user = userModel
-            department = resources.getStringArray(R.array.departments)[userModel.klass - 1]
+            department = userModel.getDepartmentName(requireContext())
         }
 
         initView()
