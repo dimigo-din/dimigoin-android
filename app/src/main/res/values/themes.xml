@@ -6,8 +6,6 @@
         <item name="colorPrimaryVariant">@color/grey_800</item>
         <item name="colorSecondary">@color/pink_400</item>
         <item name="android:statusBarColor">@color/white</item>
-        <item name="android:windowLightStatusBar">true</item>
-        <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">true</item>
         <item name="android:windowLayoutInDisplayCutoutMode" tools:targetApi="p">shortEdges</item>
     </style>
 

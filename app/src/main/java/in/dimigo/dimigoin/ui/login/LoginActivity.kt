@@ -10,6 +10,7 @@ import `in`.dimigo.dimigoin.ui.attendance.AttendanceActivity
 import `in`.dimigo.dimigoin.ui.custom.DimigoinDialog
 import `in`.dimigo.dimigoin.ui.main.MainActivity
 import `in`.dimigo.dimigoin.ui.util.observeEvent
+import `in`.dimigo.dimigoin.ui.util.startActivityTransition
 import android.content.Intent
 import android.os.Bundle
 import android.view.inputmethod.InputMethodManager
@@ -70,7 +71,7 @@ class LoginActivity : BaseActivity() {
         startActivity(Intent(this, destinationClass))
         finish()
         showWelcomeToast()
-        overridePendingTransition(R.anim.fade_in, R.anim.maintain_alpha)
+        startActivityTransition()
     }
 
     private fun showWelcomeToast() {

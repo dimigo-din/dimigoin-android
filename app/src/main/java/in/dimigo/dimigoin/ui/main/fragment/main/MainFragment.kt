@@ -37,23 +37,20 @@ import kotlinx.coroutines.launch
 class MainFragment : Fragment() {
     private lateinit var binding: FragmentMainBinding
     private val viewModel: MainFragmentViewModel by sharedGraphViewModel(R.id.main_nav_graph)
-    private val noticeAdapter = NoticeRecyclerViewAdapter()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentMainBinding.inflate(inflater, container, false).apply {
             lifecycleOwner = this@MainFragment
             vm = viewModel
-            noticeRecyclerView.apply {
-                adapter = noticeAdapter
-                overScrollMode = View.OVER_SCROLL_NEVER
-                isNestedScrollingEnabled = false
-            }
         }
         initView()
         return binding.root
     }
 
     private fun initView() = with(binding) {
+        val noticeAdapter = NoticeRecyclerViewAdapter()
+        noticeRecyclerView.adapter = noticeAdapter
+
         mealViewPager.apply {
             adapter = MealCardAdapter(this@MainFragment)
             disableOverScrollMode()

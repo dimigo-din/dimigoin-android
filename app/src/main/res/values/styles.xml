@@ -104,6 +104,7 @@
     <style name="Button.Chip">
         <item name="android:layout_height">40dp</item>
         <item name="android:textSize">12sp</item>
+        <item name="android:padding">0dp</item>
         <item name="shapeAppearanceOverlay">@style/ButtonAppearance.FullRounded</item>
     </style>
 

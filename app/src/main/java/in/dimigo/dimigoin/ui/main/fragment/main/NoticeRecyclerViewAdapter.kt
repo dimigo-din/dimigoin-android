@@ -8,8 +8,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 
-class NoticeRecyclerViewAdapter :
-    RecyclerView.Adapter<NoticeViewHolder>() {
+class NoticeRecyclerViewAdapter : RecyclerView.Adapter<NoticeViewHolder>() {
     private var items: List<NoticeItem> = listOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoticeViewHolder {
@@ -30,8 +29,8 @@ class NoticeRecyclerViewAdapter :
         diffCallback.oldItems = this.items
         diffCallback.newItems = items
 
-        val diffResult = DiffUtil.calculateDiff(diffCallback)
-        diffResult.dispatchUpdatesTo(this)
+        DiffUtil.calculateDiff(diffCallback).dispatchUpdatesTo(this)
+        this.items = items
     }
 
     fun setItems(items: List<NoticeItem>) {

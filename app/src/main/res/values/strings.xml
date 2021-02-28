@@ -56,6 +56,7 @@
     <string name="failed_to_fetch_attendance_history">기록을 불러오지 못했습니다.</string>
     <string name="no_attendance_history">기록이 없습니다.</string>
     <string name="not_supported_place">아직 지원하지 않는 장소입니다.</string>
+    <string name="ingang_application_time">인강실 신청 시간</string>
     <string name="welcome_student">%s님 환영합니다 :)</string>
     <string name="welcome_teacher">%s 선생님 환영합니다 :)</string>
 

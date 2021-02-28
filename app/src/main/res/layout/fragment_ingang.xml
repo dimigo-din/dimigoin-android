@@ -57,12 +57,14 @@
                         android:text="@{vm.ingangStatus.ingangApplyPeriod.toString(context)}"
                         android:textColor="@color/grey_500"
                         android:textSize="12sp"
+                        android:tooltipText="@string/ingang_application_time"
                         app:drawableStartCompat="@drawable/ic_clock"
                         app:drawableTint="@color/grey_500"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@id/verticalDivider"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
+                        tools:targetApi="o"
                         tools:text="07:00 - 08:15" />
 
                     <View

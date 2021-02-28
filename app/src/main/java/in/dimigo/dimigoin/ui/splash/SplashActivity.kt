@@ -10,6 +10,7 @@ import `in`.dimigo.dimigoin.ui.BaseActivity
 import `in`.dimigo.dimigoin.ui.attendance.AttendanceActivity
 import `in`.dimigo.dimigoin.ui.login.LoginActivity
 import `in`.dimigo.dimigoin.ui.main.MainActivity
+import `in`.dimigo.dimigoin.ui.util.startActivityTransition
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
@@ -61,7 +62,7 @@ class SplashActivity : BaseActivity() {
     private fun <T : Activity> taskFinished(destinationActivity: Class<T>) {
         startActivity(Intent(this, destinationActivity))
         finish()
-        overridePendingTransition(R.anim.fade_in, R.anim.maintain_alpha)
+        startActivityTransition()
     }
 
     companion object {

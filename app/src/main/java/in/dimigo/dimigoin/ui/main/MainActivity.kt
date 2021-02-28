@@ -3,7 +3,6 @@ package `in`.dimigo.dimigoin.ui.main
 import `in`.dimigo.dimigoin.R
 import `in`.dimigo.dimigoin.databinding.ActivityMainBinding
 import `in`.dimigo.dimigoin.ui.BaseActivity
-import android.os.Build
 import android.os.Bundle
 import android.view.View
 import androidx.core.view.forEach
@@ -44,10 +43,7 @@ class MainActivity : BaseActivity() {
     @Suppress("DEPRECATION")
     fun exitFullScreen() {
         enableBottomNavBar(true)
-        var flags = View.SYSTEM_UI_FLAG_VISIBLE or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1)
-            flags = flags or View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
-        window.decorView.systemUiVisibility = flags
+        window.decorView.systemUiVisibility = getDefaultWindowDecorViewFlags()
         binding.mainBottomNav.updatePadding(bottom = bottomNavBarBottomPadding)
         isFullScreen = false
     }

@@ -1,6 +1,7 @@
 package `in`.dimigo.dimigoin.ui.util
 
 import `in`.dimigo.dimigoin.R
+import android.app.Activity
 import android.view.View
 import androidx.annotation.LayoutRes
 import androidx.recyclerview.widget.RecyclerView
@@ -21,4 +22,9 @@ fun View.showSkeleton(@LayoutRes skeletonLayoutId: Int): SkeletonScreen {
         .load(skeletonLayoutId)
         .color(R.color.grey_200)
         .show()
+}
+
+fun Activity.startActivityTransition() {
+    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.P)
+        overridePendingTransition(R.anim.fade_in, R.anim.maintain_alpha)
 }

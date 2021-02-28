@@ -55,19 +55,13 @@
 
             </LinearLayout>
 
-            <androidx.core.widget.NestedScrollView
-                style="@style/LayoutScrollView"
+            <TextView
+                android:id="@+id/noticeTextView"
+                style="@style/Text.Content.Grey"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:text="@{item.content}" />
 
-                <TextView
-                    android:id="@+id/noticeTextView"
-                    style="@style/Text.Content.Grey"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@{item.content}" />
-
-            </androidx.core.widget.NestedScrollView>
         </LinearLayout>
 
     </FrameLayout>
