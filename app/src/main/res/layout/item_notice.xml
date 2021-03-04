@@ -59,6 +59,7 @@
                 android:id="@+id/noticeTextView"
                 style="@style/Text.Content.Grey"
                 android:layout_width="match_parent"
+                android:autoLink="all"
                 android:layout_height="wrap_content"
                 android:text="@{item.content}" />
 
