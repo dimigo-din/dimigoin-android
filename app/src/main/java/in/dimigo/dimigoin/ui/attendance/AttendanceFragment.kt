@@ -45,6 +45,14 @@ class AttendanceFragment : Fragment() {
             attendanceAdapter.filter(it)
         }
 
+        viewModel.isRefreshing.observe(viewLifecycleOwner) {
+            if(!it) {
+                viewModel.query.value?.let { query ->
+                    attendanceAdapter.filter(query)
+                }
+            }
+        }
+
         viewModel.event.observeEvent(viewLifecycleOwner) { event ->
             when (event) {
                 is Event.ShowAttendanceDetailDialog -> lifecycleScope.launch {
