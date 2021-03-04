@@ -2,12 +2,15 @@ package `in`.dimigo.dimigoin.data.model
 
 import `in`.dimigo.dimigoin.R
 import android.content.Context
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 
 data class UserResponseModel(
     val identity: UserModel
 )
 
+@Parcelize
 data class UserModel(
     val _id: String,
     val idx: Int,
@@ -21,7 +24,7 @@ data class UserModel(
     val gender: String,
     @SerializedName("birthdate") val birthDate: String?,
     val libraryId: String?
-) {
+) : Parcelable {
 
     fun getDefaultClassName(context: Context) = context.getString(R.string.format_student_info).format(grade, klass)
 
