@@ -11,69 +11,80 @@
             type="in.dimigo.dimigoin.ui.main.fragment.main.MainFragmentViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <HorizontalScrollView
+        style="@style/LayoutScrollView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:clipToPadding="false"
+        android:fillViewport="true"
+        android:paddingHorizontal="@dimen/default_horizontal_margin">
 
-        <include
-            android:id="@+id/location_class"
-            layout="@layout/item_attendance_location"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toStartOf="@id/location_health"
-            app:layout_constraintHorizontal_chainStyle="spread_inside"
-            app:layout_constraintStart_toStartOf="parent"
-            app:location="@{AttendanceLocation.Class}"
-            app:vm="@{vm}" />
+            android:layout_height="wrap_content">
 
-        <include
-            android:id="@+id/location_health"
-            layout="@layout/item_attendance_location"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toStartOf="@id/location_ingang"
-            app:layout_constraintStart_toEndOf="@id/location_class"
-            app:location="@{AttendanceLocation.Health}"
-            app:vm="@{vm}" />
+            <include
+                android:id="@+id/location_class"
+                layout="@layout/item_attendance_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toStartOf="@id/location_health"
+                app:layout_constraintHorizontal_chainStyle="spread_inside"
+                app:layout_constraintStart_toStartOf="parent"
+                app:location="@{AttendanceLocation.Class}"
+                app:vm="@{vm}" />
 
-        <include
-            android:id="@+id/location_ingang"
-            layout="@layout/item_attendance_location"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toStartOf="@id/location_laundry"
-            app:layout_constraintStart_toEndOf="@id/location_health"
-            app:location="@{AttendanceLocation.Ingang}"
-            app:vm="@{vm}" />
+            <include
+                android:id="@+id/location_health"
+                layout="@layout/item_attendance_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toStartOf="@id/location_ingang"
+                app:layout_constraintStart_toEndOf="@id/location_class"
+                app:location="@{AttendanceLocation.Health}"
+                app:vm="@{vm}" />
 
-        <include
-            android:id="@+id/location_laundry"
-            layout="@layout/item_attendance_location"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toStartOf="@id/location_club"
-            app:layout_constraintStart_toEndOf="@id/location_ingang"
-            app:location="@{AttendanceLocation.Laundry}"
-            app:vm="@{vm}" />
+            <include
+                android:id="@+id/location_ingang"
+                layout="@layout/item_attendance_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toStartOf="@id/location_laundry"
+                app:layout_constraintStart_toEndOf="@id/location_health"
+                app:location="@{AttendanceLocation.Ingang}"
+                app:vm="@{vm}" />
 
-        <include
-            android:id="@+id/location_club"
-            layout="@layout/item_attendance_location"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toStartOf="@id/location_etc"
-            app:layout_constraintStart_toEndOf="@id/location_laundry"
-            app:location="@{AttendanceLocation.Club}"
-            app:vm="@{vm}" />
+            <include
+                android:id="@+id/location_laundry"
+                layout="@layout/item_attendance_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toStartOf="@id/location_club"
+                app:layout_constraintStart_toEndOf="@id/location_ingang"
+                app:location="@{AttendanceLocation.Laundry}"
+                app:vm="@{vm}" />
 
-        <include
-            android:id="@+id/location_etc"
-            layout="@layout/item_attendance_location"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/location_club"
-            app:location="@{AttendanceLocation.Etc}"
-            app:vm="@{vm}" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <include
+                android:id="@+id/location_club"
+                layout="@layout/item_attendance_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toStartOf="@id/location_etc"
+                app:layout_constraintStart_toEndOf="@id/location_laundry"
+                app:location="@{AttendanceLocation.Club}"
+                app:vm="@{vm}" />
+
+            <include
+                android:id="@+id/location_etc"
+                layout="@layout/item_attendance_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/location_club"
+                app:location="@{AttendanceLocation.Etc}"
+                app:vm="@{vm}" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </HorizontalScrollView>
+
 </layout>

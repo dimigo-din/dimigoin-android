@@ -90,7 +90,6 @@
                         layout="@layout/layout_attendance_state"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="@dimen/default_horizontal_margin"
                         android:layout_marginTop="12dp"
                         app:vm="@{vm}" />
 
