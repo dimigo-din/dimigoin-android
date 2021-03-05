@@ -15,7 +15,7 @@
             type="String" />
     </data>
 
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+    <in.dimigo.dimigoin.ui.custom.SwipeLayoutForHorizontal
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:onRefreshListener="@{() -> vm.refresh(false)}"
@@ -47,6 +47,6 @@
 
         </LinearLayout>
 
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+    </in.dimigo.dimigoin.ui.custom.SwipeLayoutForHorizontal>
 
 </layout>

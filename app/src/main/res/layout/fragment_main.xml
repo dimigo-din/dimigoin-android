@@ -19,7 +19,7 @@
         android:layout_height="match_parent"
         android:background="@color/white">
 
-        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        <in.dimigo.dimigoin.ui.custom.SwipeLayoutForHorizontal
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -151,7 +151,7 @@
 
             </androidx.core.widget.NestedScrollView>
 
-        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+        </in.dimigo.dimigoin.ui.custom.SwipeLayoutForHorizontal>
 
         <View
             android:layout_width="match_parent"
