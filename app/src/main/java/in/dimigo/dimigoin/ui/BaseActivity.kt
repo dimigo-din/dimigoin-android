@@ -30,7 +30,9 @@ open class BaseActivity : AppCompatActivity() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putParcelable(KEY_USER_DATA, UserDataStore.userData)
+        if (UserDataStore.isUserDataExists) {
+            outState.putParcelable(KEY_USER_DATA, UserDataStore.userData)
+        }
     }
 
     @Suppress("DEPRECATION")
