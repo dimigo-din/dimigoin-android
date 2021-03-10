@@ -17,13 +17,13 @@ class AttendanceUseCaseImpl(private val service: DimigoinService) : AttendanceUs
         return getTodayAttendanceLogs().first()
     }
 
-    override suspend fun changeCurrentAttendancePlace(place: PlaceModel, remark: String) {
+    override suspend fun changeCurrentAttendancePlace(place: PlaceModel, remark: String?) {
         val attendanceLogRequestModel = AttendanceLogRequestModel(place._id, remark)
         service.createAttendanceLog(attendanceLogRequestModel).await()
     }
 
     override suspend fun changeCurrentAttendancePlace(place: PrimaryPlaceModel) {
-        changeCurrentAttendancePlace(place.toPlaceModel(), place.label)
+        changeCurrentAttendancePlace(place.toPlaceModel(), null)
     }
 
     override suspend fun getAllPlaces(): List<PlaceModel> {
