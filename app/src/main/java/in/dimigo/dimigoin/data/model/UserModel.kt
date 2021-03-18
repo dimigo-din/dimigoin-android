@@ -23,7 +23,8 @@ data class UserModel(
     val userType: UserType,
     val gender: String,
     @SerializedName("birthdate") val birthDate: String?,
-    val libraryId: String?
+    val libraryId: String?,
+    private val permissions: List<String> = listOf()
 ) : Parcelable {
 
     fun getDefaultClassName(context: Context) = context.getString(R.string.format_student_info).format(grade, klass)
@@ -38,6 +39,8 @@ data class UserModel(
             else -> departments[0]
         }
     }
+
+    fun hasPermission(permission: Permission) = permissions.contains(permission.permissionName)
 }
 
 enum class UserType {
@@ -46,4 +49,9 @@ enum class UserType {
 
     @SerializedName("S")
     STUDENT
+}
+
+enum class Permission(val permissionName: String) {
+    ATTENDANCE("attendance"),
+    TEST("test")
 }
