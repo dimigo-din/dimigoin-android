@@ -27,7 +27,7 @@ class AttendanceFragment : Fragment() {
     private val viewModel: AttendanceViewModel by viewModel()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        val attendanceAdapter = AttendanceRecyclerViewAdapter(if (isTeacher) viewModel else null)
+        val attendanceAdapter = AttendanceRecyclerViewAdapter(viewModel)
         val binding = FragmentAttendanceBinding.inflate(inflater, container, false).apply {
             lifecycleOwner = viewLifecycleOwner
             recyclerView.adapter = attendanceAdapter
@@ -46,7 +46,7 @@ class AttendanceFragment : Fragment() {
         }
 
         viewModel.isRefreshing.observe(viewLifecycleOwner) {
-            if(!it) {
+            if (!it) {
                 viewModel.query.value?.let { query ->
                     attendanceAdapter.filter(query)
                 }

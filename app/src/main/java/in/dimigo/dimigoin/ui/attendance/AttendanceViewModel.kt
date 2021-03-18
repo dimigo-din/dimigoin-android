@@ -71,6 +71,7 @@ class AttendanceViewModel(
     }
 
     fun onAttendanceDetailButtonClick(item: AttendanceItem) {
+        if (!isTeacher) return
         _event.value = EventWrapper(AttendanceFragment.Event.ShowAttendanceDetailDialog(item))
     }
 

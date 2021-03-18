@@ -8,6 +8,10 @@
         <import type="android.view.View" />
 
         <variable
+            name="vm"
+            type="in.dimigo.dimigoin.ui.attendance.AttendanceViewModel" />
+
+        <variable
             name="item"
             type="in.dimigo.dimigoin.ui.item.AttendanceItem" />
 
@@ -15,17 +19,14 @@
             name="updatedAt"
             type="String" />
 
-        <variable
-            name="isTeacherMode"
-            type="Boolean" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingHorizontal="32dp"
         android:gravity="center_vertical"
         android:orientation="horizontal"
+        android:paddingHorizontal="32dp"
         android:paddingVertical="12dp">
 
         <TextView
@@ -90,8 +91,9 @@
             android:background="@drawable/bg_round_corner_square_grey"
             android:fontFamily="@font/bold"
             android:includeFontPadding="false"
+            android:onClick="@{() -> vm.onAttendanceDetailButtonClick(item)}"
             android:paddingVertical="2dp"
-            android:text="@{isTeacherMode ? @string/detail : updatedAt}"
+            android:text="@{vm.isTeacher ? @string/detail : updatedAt}"
             android:textAlignment="center"
             android:textColor="@color/white"
             android:textSize="13sp"

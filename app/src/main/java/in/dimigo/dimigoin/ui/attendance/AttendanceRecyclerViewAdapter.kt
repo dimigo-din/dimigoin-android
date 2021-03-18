@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 
 class AttendanceRecyclerViewAdapter(
-    private val viewModel: AttendanceViewModel? = null
+    private val viewModel: AttendanceViewModel
 ) :
     RecyclerView.Adapter<AttendanceViewHolder>() {
     private var items: List<AttendanceItem> = listOf()
@@ -64,22 +64,15 @@ class AttendanceRecyclerViewAdapter(
 
 class AttendanceViewHolder(
     private val binding: ItemAttendanceBinding,
-    private val viewModel: AttendanceViewModel? = null
+    private val viewModel: AttendanceViewModel
 ) : RecyclerView.ViewHolder(binding.root) {
+
     fun bind(item: AttendanceItem) {
-        val isViewModelNotNull = viewModel != null
         val updatedAt = item.updatedAt?.format(DateUtil.timeFormatter)
-
         binding.apply {
+            vm = viewModel
             this.item = item
-            this.isTeacherMode = isViewModelNotNull
             this.updatedAt = updatedAt ?: binding.root.context.getString(R.string.no_info)
-
-            viewModel?.let {
-                this.detailText.setOnClickListener {
-                    viewModel.onAttendanceDetailButtonClick(item)
-                }
-            }
         }
     }
 }
