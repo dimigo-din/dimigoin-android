@@ -18,13 +18,13 @@ class TimetableViewModel(private val timetableUseCase: TimetableUseCase) : ViewM
     val isRefreshing: LiveData<Boolean> = _isRefreshing
 
     init {
-        refresh(true)
+        refresh()
     }
 
-    fun refresh(isInitial: Boolean) = viewModelScope.launch {
-        if (!isInitial) _isRefreshing.value = true
+    fun refresh() = viewModelScope.launch {
+        _isRefreshing.value = true
         fetchTimetable()
-        if (!isInitial) _isRefreshing.value = false
+        _isRefreshing.value = false
     }
 
     private suspend fun fetchTimetable() {
