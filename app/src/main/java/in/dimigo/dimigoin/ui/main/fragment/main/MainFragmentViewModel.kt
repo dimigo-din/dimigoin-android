@@ -8,6 +8,7 @@ import `in`.dimigo.dimigoin.data.usecase.attendance.AttendanceUseCase
 import `in`.dimigo.dimigoin.data.usecase.config.ConfigUseCase
 import `in`.dimigo.dimigoin.data.usecase.meal.MealUseCase
 import `in`.dimigo.dimigoin.data.usecase.notice.NoticeUseCase
+import `in`.dimigo.dimigoin.ui.custom.PlaceProvider
 import `in`.dimigo.dimigoin.ui.item.MealItem
 import `in`.dimigo.dimigoin.ui.item.NoticeItem
 import `in`.dimigo.dimigoin.ui.util.EventWrapper
@@ -21,7 +22,7 @@ class MainFragmentViewModel(
     private val attendanceUseCase: AttendanceUseCase,
     private val noticeUseCase: NoticeUseCase,
     private val configUseCase: ConfigUseCase
-) : ViewModel() {
+) : ViewModel(), PlaceProvider {
     private val _attendanceLocation = MutableLiveData(AttendanceLocation.Class)
     val attendanceLocation: LiveData<AttendanceLocation> = _attendanceLocation
     private val _todayMeal = MutableLiveData<MealItem>()
@@ -38,9 +39,9 @@ class MainFragmentViewModel(
     val isRefreshing: LiveData<Boolean> = _isRefreshing
 
     var currentAttendanceLog: AttendanceLogModel? = null
-    var places: List<PlaceModel>? = null
     private var primaryPlaces: List<PrimaryPlaceModel>? = null
     private var previousAttendanceLocation: AttendanceLocation? = null
+    override var places: List<PlaceModel>? = null
 
     init {
         refresh(true)
@@ -96,18 +97,20 @@ class MainFragmentViewModel(
         _attendanceRequestingCount.decrease()
     }
 
-    fun changeCurrentAttendancePlace(place: PlaceModel, remark: String) = viewModelScope.launch {
-        _attendanceRequestingCount.increase()
-        try {
-            attendanceUseCase.changeCurrentAttendancePlace(place, remark)
-            _event.value = EventWrapper(MainFragment.Event.AttendanceLocationChanged(place.name))
-            updateCurrentLocation()
-        } catch (e: Exception) {
-            e.printStackTrace()
-            _event.value = EventWrapper(MainFragment.Event.Error(R.string.failed_to_change_location))
-            _attendanceLocation.value = previousAttendanceLocation
+    override fun changeCurrentAttendancePlace(place: PlaceModel, remark: String) {
+        viewModelScope.launch {
+            _attendanceRequestingCount.increase()
+            try {
+                attendanceUseCase.changeCurrentAttendancePlace(place, remark)
+                _event.value = EventWrapper(MainFragment.Event.AttendanceLocationChanged(place.name))
+                updateCurrentLocation()
+            } catch (e: Exception) {
+                e.printStackTrace()
+                _event.value = EventWrapper(MainFragment.Event.Error(R.string.failed_to_change_location))
+                _attendanceLocation.value = previousAttendanceLocation
+            }
+            _attendanceRequestingCount.decrease()
         }
-        _attendanceRequestingCount.decrease()
     }
 
     private suspend fun updateCurrentLocation() {
@@ -141,7 +144,7 @@ class MainFragmentViewModel(
         _attendanceRequestingCount.decrease()
     }
 
-    suspend fun fetchPlaces() {
+    override suspend fun fetchPlaces() {
         _attendanceRequestingCount.increase()
         try {
             places = attendanceUseCase.getAllPlaces().sortedBy { it.type }

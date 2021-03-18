@@ -1,30 +1,22 @@
 package `in`.dimigo.dimigoin.ui.main.fragment.main
 
 import `in`.dimigo.dimigoin.R
-import `in`.dimigo.dimigoin.data.model.PlaceModel
 import `in`.dimigo.dimigoin.data.util.UserDataStore
 import `in`.dimigo.dimigoin.databinding.*
 import `in`.dimigo.dimigoin.ui.custom.DimigoinDialog
+import `in`.dimigo.dimigoin.ui.custom.LocationEtcDialog
+import `in`.dimigo.dimigoin.ui.custom.PlaceProvider
 import `in`.dimigo.dimigoin.ui.main.fragment.meal.MealTime
 import `in`.dimigo.dimigoin.ui.splash.SplashActivity
 import `in`.dimigo.dimigoin.ui.util.observeEvent
 import `in`.dimigo.dimigoin.ui.util.sharedGraphViewModel
 import android.animation.LayoutTransition
-import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.ViewGroup.LayoutParams.MATCH_PARENT
-import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
-import android.widget.RadioButton
-import android.widget.RadioGroup
-import android.widget.Toast
 import androidx.annotation.StringRes
-import androidx.appcompat.view.ContextThemeWrapper
-import androidx.core.content.ContextCompat
-import androidx.core.view.children
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -32,7 +24,6 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.rd.PageIndicatorView
-import kotlinx.coroutines.launch
 
 class MainFragment : Fragment() {
     private lateinit var binding: FragmentMainBinding
@@ -67,7 +58,14 @@ class MainFragment : Fragment() {
 
         viewModel.event.observeEvent(viewLifecycleOwner) { event ->
             when (event) {
-                is Event.LocationEtcClicked -> showEtcDialog()
+                is Event.LocationEtcClicked -> {
+                    val dialog = LocationEtcDialog(requireContext(), lifecycleScope, viewModel as PlaceProvider)
+                    dialog.show(
+                        viewModel.attendanceLocation.value,
+                        viewModel.currentAttendanceLog,
+                        binding.timeText.text.toString()
+                    )
+                }
                 is Event.AttendanceLocationChanged -> {
                     val message = getString(R.string.location_changed, event.placeName)
                     DimigoinDialog(requireContext()).alert(DimigoinDialog.AlertType.POSITIVE, message)
@@ -106,115 +104,6 @@ class MainFragment : Fragment() {
         data class AttendanceLocationChanged(val placeName: String) : Event()
         data class Error(@StringRes val errorMessageId: Int) : Event()
     }
-
-    // region 기타 버튼 클릭했을 때 나오는 Dialog
-    private fun showEtcDialog() {
-        var selectedPlace: PlaceModel? = null
-        var currentReason: String? = null
-        if (viewModel.attendanceLocation.value == AttendanceLocation.Etc) {
-            selectedPlace = viewModel.currentAttendanceLog?.place
-            currentReason = viewModel.currentAttendanceLog?.remark
-        }
-
-        val dialogBinding = DialogEtcBinding.inflate(layoutInflater).apply {
-            timeText.text = binding.timeText.text
-            selectedPlace?.let { selectPlaceEditText.setText(it.name) }
-            currentReason?.let { reasonEditText.setText(it) }
-            selectPlaceEditText.setOnFocusChangeListener { v, hasFocus ->
-                if (!hasFocus) return@setOnFocusChangeListener
-                v.clearFocus()
-                showSelectPlaceDialog(selectedPlace) { place ->
-                    selectedPlace = place
-                    selectPlaceEditText.setText(place.name)
-                }
-            }
-        }
-        DimigoinDialog(requireContext()).CustomView(dialogBinding.root).apply {
-            usePositiveButton(dismissOnClick = false) {
-                val reason = dialogBinding.reasonEditText.text
-                if (selectedPlace == null) {
-                    Toast.makeText(context, R.string.select_location, Toast.LENGTH_SHORT).show()
-                    return@usePositiveButton
-                } else if (reason.isNullOrBlank()) {
-                    Toast.makeText(context, R.string.enter_reason, Toast.LENGTH_SHORT).show()
-                    return@usePositiveButton
-                }
-                viewModel.changeCurrentAttendancePlace(requireNotNull(selectedPlace), reason.toString())
-                it.dismiss()
-            }
-            useNegativeButton()
-        }.show()
-    }
-
-    private fun showSelectPlaceDialog(previousSelectedPlace: PlaceModel?, onSelected: (PlaceModel) -> Unit) {
-        val dialog = Dialog(requireContext(), R.style.Theme_App_FullScreenDialog)
-
-        val places = viewModel.places
-        if (places == null) {
-            lifecycleScope.launch { viewModel.fetchPlaces() }
-            Toast.makeText(requireContext(), R.string.places_are_not_loaded, Toast.LENGTH_SHORT).show()
-            return
-        }
-
-        val dialogBinding = DialogSelectPlaceBinding.inflate(layoutInflater).apply {
-            val radioGroup = createPlacesRadioGroup(places)
-            radioGroup.children.forEach {
-                if (it.tag as? PlaceModel == previousSelectedPlace) radioGroup.check(it.id)
-            }
-            radioGroupScrollView.addView(radioGroup)
-
-            submitButton.setOnClickListener {
-                val checkedButtonId = radioGroup.checkedRadioButtonId
-                if (checkedButtonId < 0) {
-                    Toast.makeText(context, R.string.select_location, Toast.LENGTH_SHORT).show()
-                    return@setOnClickListener
-                }
-                val checkedRadioButton = radioGroup.findViewById<RadioButton>(checkedButtonId)
-                val selectedPlace = checkedRadioButton.tag as PlaceModel
-                onSelected(selectedPlace)
-                dialog.dismiss()
-            }
-        }
-
-        dialog.setContentView(dialogBinding.root)
-        dialog.show()
-    }
-
-    private fun createPlacesRadioGroup(places: List<PlaceModel>): RadioGroup {
-        val radioGroup = ItemPlacesRadioGroupBinding.inflate(layoutInflater)
-
-        places.forEach { place ->
-            radioGroup.placesRadioGroup.run {
-                addView(createPlaceRadioButton(place))
-                addView(createDivider())
-            }
-        }
-
-        return radioGroup.root
-    }
-
-    private fun createPlaceRadioButton(place: PlaceModel) =
-        RadioButton(ContextThemeWrapper(context, R.style.RadioButton)).apply {
-            layoutParams = ViewGroup.LayoutParams(MATCH_PARENT, WRAP_CONTENT)
-            updateRadioButtonColors(false)
-            setOnCheckedChangeListener { _, isChecked ->
-                updateRadioButtonColors(isChecked)
-            }
-            text = place.name
-            tag = place
-        }
-
-    private fun createDivider() = View(context).apply {
-        layoutParams = ViewGroup.LayoutParams(MATCH_PARENT, 3)
-        setBackgroundColor(ContextCompat.getColor(context, R.color.grey_100))
-    }
-
-    private fun RadioButton.updateRadioButtonColors(isChecked: Boolean) {
-        val textColor: Int = if (isChecked) R.color.black
-        else R.color.grey_500
-        setTextColor(ContextCompat.getColor(context, textColor))
-    }
-    // endregion
 
     // region Viewpager carousel
     private fun ViewPager2.applyCarouselEffect() {
