@@ -52,6 +52,5 @@ enum class UserType {
 }
 
 enum class Permission(val permissionName: String) {
-    ATTENDANCE("attendance"),
-    TEST("test")
+    ATTENDANCE("attendance")
 }
