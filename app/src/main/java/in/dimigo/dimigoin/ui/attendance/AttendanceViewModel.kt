@@ -5,6 +5,7 @@ import `in`.dimigo.dimigoin.data.usecase.attendance.AttendanceUseCase
 import `in`.dimigo.dimigoin.data.usecase.config.ConfigUseCase
 import `in`.dimigo.dimigoin.data.util.DateUtil
 import `in`.dimigo.dimigoin.data.util.UserDataStore
+import `in`.dimigo.dimigoin.ui.custom.PlaceProvider
 import `in`.dimigo.dimigoin.ui.item.AttendanceDetailItem
 import `in`.dimigo.dimigoin.ui.item.AttendanceItem
 import `in`.dimigo.dimigoin.ui.main.fragment.main.AttendanceLocation
@@ -21,8 +22,9 @@ import kotlinx.coroutines.launch
 class AttendanceViewModel(
     private val useCase: AttendanceUseCase,
     private val configUseCase: ConfigUseCase
-) : ViewModel() {
+) : ViewModel(), PlaceProvider {
     val isTeacher = UserDataStore.userData.userType == UserType.TEACHER
+    private val hasAttendancePermission = UserDataStore.userData.hasPermission(Permission.ATTENDANCE)
 
     private val _attendanceTableData = MutableLiveData<List<Int>>()
     val attendanceTableData: LiveData<List<Int>> = _attendanceTableData
@@ -47,6 +49,8 @@ class AttendanceViewModel(
 
     val query = MutableLiveData<String>()
 
+    override var places: List<PlaceModel>? = null
+
     init {
         refresh()
     }
@@ -67,7 +71,14 @@ class AttendanceViewModel(
             )
         }
 
+        if (isTeacher || hasAttendancePermission) fetchPlaces()
+
         _isRefreshing.value = false
+    }
+
+    fun onPlaceButtonClick(item: AttendanceItem) {
+        if (!isTeacher && !hasAttendancePermission) return
+        _event.value = EventWrapper(AttendanceFragment.Event.ShowSelectPlaceDialog(item))
     }
 
     fun onAttendanceDetailButtonClick(item: AttendanceItem) {
@@ -167,6 +178,28 @@ class AttendanceViewModel(
         } catch (e: Exception) {
             e.printStackTrace()
             _currentTimeCode.value = ""
+        }
+    }
+
+    override suspend fun fetchPlaces() {
+        try {
+            places = useCase.getAllPlaces()
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+
+    fun changeCurrentAttendancePlace(place: PlaceModel, remark: String, student: UserModel) {
+        viewModelScope.launch {
+            _isRefreshing.value = true
+            try {
+                useCase.changeCurrentAttendancePlace(place, remark, student)
+                refresh()
+            } catch (e: Exception) {
+                e.printStackTrace()
+                _event.value = EventWrapper(AttendanceFragment.Event.ChangeLocationFailed(student))
+            }
+            _isRefreshing.value = false
         }
     }
 }

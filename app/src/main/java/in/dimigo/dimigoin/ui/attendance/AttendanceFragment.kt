@@ -1,6 +1,7 @@
 package `in`.dimigo.dimigoin.ui.attendance
 
 import `in`.dimigo.dimigoin.R
+import `in`.dimigo.dimigoin.data.model.UserModel
 import `in`.dimigo.dimigoin.data.model.UserType
 import `in`.dimigo.dimigoin.data.util.DateUtil
 import `in`.dimigo.dimigoin.data.util.DateUtil.from
@@ -9,8 +10,11 @@ import `in`.dimigo.dimigoin.databinding.DialogAttendanceDetailBinding
 import `in`.dimigo.dimigoin.databinding.DialogHistoryBinding
 import `in`.dimigo.dimigoin.databinding.FragmentAttendanceBinding
 import `in`.dimigo.dimigoin.ui.custom.DimigoinDialog
+import `in`.dimigo.dimigoin.ui.custom.PlaceProvider
+import `in`.dimigo.dimigoin.ui.custom.SelectPlaceDialog
 import `in`.dimigo.dimigoin.ui.item.AttendanceItem
 import `in`.dimigo.dimigoin.ui.main.fragment.main.AttendanceLocation
+import `in`.dimigo.dimigoin.ui.util.convertToTimeName
 import `in`.dimigo.dimigoin.ui.util.observeEvent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -61,6 +65,14 @@ class AttendanceFragment : Fragment() {
                 is Event.AttendanceFetchFailed -> {
                     DimigoinDialog(requireContext())
                         .alert(DimigoinDialog.AlertType.ERROR, R.string.failed_to_fetch_attendance)
+                }
+                is Event.ShowSelectPlaceDialog -> {
+                    showSelectPlaceDialog(event.attendanceItem)
+                }
+                is Event.ChangeLocationFailed -> {
+                    val message = getString(R.string.failed_to_change_location_of_student, event.student.name)
+                    DimigoinDialog(requireContext())
+                        .alert(DimigoinDialog.AlertType.ERROR, message)
                 }
             }
         }
@@ -135,6 +147,12 @@ class AttendanceFragment : Fragment() {
         }
     }
 
+    private fun showSelectPlaceDialog(item: AttendanceItem) {
+        val dialog = SelectPlaceDialog(requireContext(), lifecycleScope, viewModel as PlaceProvider)
+        val currentTimeText = convertToTimeName(requireContext(), viewModel.currentTimeCode.value ?: "")
+        dialog.show(item.student, currentTimeText, viewModel::changeCurrentAttendancePlace)
+    }
+
     private fun onTabSelected(binding: FragmentAttendanceBinding) {
         viewModel.grade.value = binding.gradeTap.selectedTabPosition + 1
         viewModel.klass.value = binding.classTap.selectedTabPosition + 1
@@ -144,6 +162,8 @@ class AttendanceFragment : Fragment() {
     sealed class Event {
         object AttendanceFetchFailed : Event()
         data class ShowAttendanceDetailDialog(val attendanceItem: AttendanceItem) : Event()
+        data class ShowSelectPlaceDialog(val attendanceItem: AttendanceItem) : Event()
+        data class ChangeLocationFailed(val student: UserModel) : Event()
     }
 
     private fun TabLayout.addOnTabSelected(onSelected: (tab: TabLayout.Tab?) -> Unit): TabLayout.OnTabSelectedListener {

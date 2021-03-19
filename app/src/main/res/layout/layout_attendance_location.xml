@@ -15,6 +15,10 @@
             name="placeName"
             type="String" />
 
+        <variable
+            name="onClick"
+            type="android.view.View.OnClickListener" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -22,6 +26,7 @@
         android:layout_width="90dp"
         android:layout_height="wrap_content"
         android:background="@drawable/bg_round_corner_square_grey_border"
+        android:onClick="@{onClick}"
         android:paddingHorizontal="8dp"
         app:layout_constraintEnd_toStartOf="@id/student_name_text"
         app:layout_constraintTop_toBottomOf="@+id/current_location_text">
@@ -45,6 +50,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
+            android:onClick="@{onClick}"
             android:paddingBottom="2dp"
             android:text="@{placeName}"
             android:tooltipText="@{placeName}"

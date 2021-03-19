@@ -3,6 +3,7 @@ package `in`.dimigo.dimigoin.ui.custom
 import `in`.dimigo.dimigoin.R
 import `in`.dimigo.dimigoin.data.model.AttendanceLogModel
 import `in`.dimigo.dimigoin.data.model.PlaceModel
+import `in`.dimigo.dimigoin.data.model.UserModel
 import `in`.dimigo.dimigoin.databinding.DialogEtcBinding
 import `in`.dimigo.dimigoin.databinding.DialogSelectPlaceBinding
 import `in`.dimigo.dimigoin.databinding.ItemPlacesRadioGroupBinding
@@ -27,15 +28,26 @@ class SelectPlaceDialog(
     private val placeProvider: PlaceProvider
 ) {
     private val layoutInflater by lazy { LayoutInflater.from(context) }
+    private var selectedPlace: PlaceModel? = null
+    private var currentReason: String? = null
+
+    fun show(
+        student: UserModel,
+        currentTimeText: String,
+        changeCurrentAttendancePlace: (place: PlaceModel, remark: String, student: UserModel) -> Unit
+    ) = show(
+        null, null, currentTimeText,
+        { place, remark -> changeCurrentAttendancePlace(place, remark, student) },
+        context.getString(R.string.change_location_of_student, student.name)
+    )
 
     fun show(
         currentAttendanceLocation: AttendanceLocation?,
         currentAttendanceLog: AttendanceLogModel?,
         currentTimeText: String,
-        changeCurrentAttendancePlace: (place: PlaceModel, remark: String) -> Unit
+        changeCurrentAttendancePlace: (place: PlaceModel, remark: String) -> Unit,
+        title: String = context.getString(R.string.where_are_you)
     ) {
-        var selectedPlace: PlaceModel? = null
-        var currentReason: String? = null
         if (currentAttendanceLocation == AttendanceLocation.Etc) {
             selectedPlace = currentAttendanceLog?.place
             currentReason = currentAttendanceLog?.remark
@@ -43,6 +55,7 @@ class SelectPlaceDialog(
 
         val dialogBinding = DialogEtcBinding.inflate(layoutInflater).apply {
             timeText.text = currentTimeText
+            titleText.text = title
             selectedPlace?.let { selectPlaceEditText.setText(it.name) }
             currentReason?.let { reasonEditText.setText(it) }
             selectPlaceEditText.setOnFocusChangeListener { v, hasFocus ->

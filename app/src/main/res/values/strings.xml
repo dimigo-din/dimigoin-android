@@ -39,6 +39,7 @@
     <string name="failed_to_cancel_ingang">인강실 신청을 취소하지 못했습니다.</string>
     <string name="places_are_not_loaded">장소 목록을 불러오는 중입니다.</string>
     <string name="where_are_you">어디에 계신가요?</string>
+    <string name="change_location_of_student">%s님의 위치를 변경합니다.</string>
     <string name="select_location">위치를 선택해주세요</string>
     <string name="enter_reason">사유를 입력해주세요</string>
     <string name="night_study_student_location">야간자율학습 학생현황</string>
@@ -49,6 +50,7 @@
     <string name="error_message">오류가 발생했습니다.</string>
     <string name="location_changed">\"%s\"(으)로 변경되었습니다.</string>
     <string name="failed_to_change_location">현재 위치를 변경하지 못했습니다.</string>
+    <string name="failed_to_change_location_of_student">%s님의 위치를 변경하지 못했습니다.</string>
     <string name="failed_to_fetch_current_location">현재 위치를 불러오지 못했습니다.</string>
     <string name="failed_to_fetch_places">장소 목록을 불러오지 못했습니다.</string>
     <string name="failed_to_fetch_timetable">시간표를 불러오지 못했습니다.</string>

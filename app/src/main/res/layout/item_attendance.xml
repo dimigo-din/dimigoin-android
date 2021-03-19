@@ -72,6 +72,7 @@
             app:layout_constraintStart_toEndOf="@+id/name"
             app:layout_constraintTop_toTopOf="parent"
             app:location="@{item.location}"
+            app:onClick="@{() -> vm.onPlaceButtonClick(item)}"
             app:placeName="@{(item.placeName == null) ? @string/format_student_info(item.student.grade, item.student.klass) : item.placeName}" />
 
         <View
