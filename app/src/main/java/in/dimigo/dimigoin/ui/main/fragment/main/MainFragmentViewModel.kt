@@ -147,7 +147,7 @@ class MainFragmentViewModel(
     override suspend fun fetchPlaces() {
         _attendanceRequestingCount.increase()
         try {
-            places = attendanceUseCase.getAllPlaces().sortedBy { it.type }
+            places = attendanceUseCase.getAllPlaces()
         } catch (e: Exception) {
             e.printStackTrace()
             _event.value = EventWrapper(MainFragment.Event.Error(R.string.failed_to_fetch_places))
