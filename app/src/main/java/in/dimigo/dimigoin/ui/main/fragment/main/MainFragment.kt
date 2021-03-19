@@ -4,8 +4,8 @@ import `in`.dimigo.dimigoin.R
 import `in`.dimigo.dimigoin.data.util.UserDataStore
 import `in`.dimigo.dimigoin.databinding.*
 import `in`.dimigo.dimigoin.ui.custom.DimigoinDialog
-import `in`.dimigo.dimigoin.ui.custom.LocationEtcDialog
 import `in`.dimigo.dimigoin.ui.custom.PlaceProvider
+import `in`.dimigo.dimigoin.ui.custom.SelectPlaceDialog
 import `in`.dimigo.dimigoin.ui.main.fragment.meal.MealTime
 import `in`.dimigo.dimigoin.ui.splash.SplashActivity
 import `in`.dimigo.dimigoin.ui.util.observeEvent
@@ -59,7 +59,7 @@ class MainFragment : Fragment() {
         viewModel.event.observeEvent(viewLifecycleOwner) { event ->
             when (event) {
                 is Event.LocationEtcClicked -> {
-                    val dialog = LocationEtcDialog(requireContext(), lifecycleScope, viewModel as PlaceProvider)
+                    val dialog = SelectPlaceDialog(requireContext(), lifecycleScope, viewModel as PlaceProvider)
                     dialog.show(
                         viewModel.attendanceLocation.value,
                         viewModel.currentAttendanceLog,

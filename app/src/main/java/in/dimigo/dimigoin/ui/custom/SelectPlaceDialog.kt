@@ -21,7 +21,7 @@ import androidx.core.view.children
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
-class LocationEtcDialog(
+class SelectPlaceDialog(
     private val context: Context,
     private val coroutineScope: CoroutineScope,
     private val placeProvider: PlaceProvider
