@@ -97,7 +97,7 @@ class MainFragmentViewModel(
         _attendanceRequestingCount.decrease()
     }
 
-    override fun changeCurrentAttendancePlace(place: PlaceModel, remark: String) {
+    fun changeCurrentAttendancePlace(place: PlaceModel, remark: String) {
         viewModelScope.launch {
             _attendanceRequestingCount.increase()
             try {

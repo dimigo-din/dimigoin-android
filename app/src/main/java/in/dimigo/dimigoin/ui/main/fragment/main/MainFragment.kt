@@ -63,7 +63,8 @@ class MainFragment : Fragment() {
                     dialog.show(
                         viewModel.attendanceLocation.value,
                         viewModel.currentAttendanceLog,
-                        binding.timeText.text.toString()
+                        binding.timeText.text.toString(),
+                        viewModel::changeCurrentAttendancePlace
                     )
                 }
                 is Event.AttendanceLocationChanged -> {

@@ -31,7 +31,8 @@ class SelectPlaceDialog(
     fun show(
         currentAttendanceLocation: AttendanceLocation?,
         currentAttendanceLog: AttendanceLogModel?,
-        currentTimeText: String
+        currentTimeText: String,
+        changeCurrentAttendancePlace: (place: PlaceModel, remark: String) -> Unit
     ) {
         var selectedPlace: PlaceModel? = null
         var currentReason: String? = null
@@ -63,7 +64,7 @@ class SelectPlaceDialog(
                     Toast.makeText(context, R.string.enter_reason, Toast.LENGTH_SHORT).show()
                     return@usePositiveButton
                 }
-                placeProvider.changeCurrentAttendancePlace(requireNotNull(selectedPlace), reason.toString())
+                changeCurrentAttendancePlace(requireNotNull(selectedPlace), reason.toString())
                 it.dismiss()
             }
             useNegativeButton()
@@ -147,6 +148,4 @@ interface PlaceProvider {
     var places: List<PlaceModel>?
 
     suspend fun fetchPlaces()
-
-    fun changeCurrentAttendancePlace(place: PlaceModel, remark: String)
 }
