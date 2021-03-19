@@ -51,6 +51,12 @@ interface DimigoinService {
     @POST("/attendance")
     fun createAttendanceLog(@Body attendanceLogRequestModel: AttendanceLogRequestModel): Call<Void?>
 
+    @POST("/attendance/student/{studentId}")
+    fun createAttendanceLogOfStudent(
+        @Path("studentId") studentId: String,
+        @Body attendanceLogRequestModel: AttendanceLogRequestModel
+    ): Call<Void?>
+
     @GET("/attendance/date/{date}/grade/{grade}/class/{klass}/status")
     fun getAttendanceStatus(
         @Path("date") date: String,

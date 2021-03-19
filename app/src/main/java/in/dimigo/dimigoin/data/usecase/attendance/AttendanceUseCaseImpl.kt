@@ -26,6 +26,11 @@ class AttendanceUseCaseImpl(private val service: DimigoinService) : AttendanceUs
         changeCurrentAttendancePlace(place.toPlaceModel(), null)
     }
 
+    override suspend fun changeCurrentAttendancePlace(place: PlaceModel, remark: String?, studentToChange: UserModel) {
+        val attendanceLogRequestModel = AttendanceLogRequestModel(place._id, remark)
+        service.createAttendanceLogOfStudent(studentToChange._id, attendanceLogRequestModel).await()
+    }
+
     override suspend fun getAllPlaces(): List<PlaceModel> {
         return service.getAllPlaces()
             .await()

@@ -8,6 +8,7 @@ interface AttendanceUseCase {
     suspend fun getCurrentMyAttendanceLog(): AttendanceLogModel
     suspend fun changeCurrentAttendancePlace(place: PlaceModel, remark: String?)
     suspend fun changeCurrentAttendancePlace(place: PrimaryPlaceModel)
+    suspend fun changeCurrentAttendancePlace(place: PlaceModel, remark: String?, studentToChange: UserModel)
     suspend fun getAllPlaces(): List<PlaceModel>
     suspend fun getPrimaryPlaces(): List<PrimaryPlaceModel>
     suspend fun getCurrentAttendanceStatus(): List<AttendanceStatusModel>
