@@ -20,7 +20,7 @@ import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.launch
 
 class AttendanceViewModel(
-    private val useCase: AttendanceUseCase,
+    private val attendanceUseCase: AttendanceUseCase,
     private val configUseCase: ConfigUseCase
 ) : ViewModel(), PlaceProvider {
     val isTeacher = UserDataStore.userData.userType == UserType.TEACHER
@@ -88,7 +88,7 @@ class AttendanceViewModel(
 
     suspend fun fetchAttendanceDetail(userModel: UserModel): AttendanceDetailItem? {
         return try {
-            useCase.getAttendanceDetail(userModel)
+            attendanceUseCase.getAttendanceDetail(userModel)
         } catch (e: Exception) {
             e.printStackTrace()
             null
@@ -98,7 +98,7 @@ class AttendanceViewModel(
     //학생용, 본인 반
     private suspend fun fetchCurrentAttendanceStatus() {
         val data = try {
-            useCase.getCurrentAttendanceStatus()
+            attendanceUseCase.getCurrentAttendanceStatus()
         } catch (e: Exception) {
             e.printStackTrace()
             _event.value = EventWrapper(AttendanceFragment.Event.AttendanceFetchFailed)
@@ -111,7 +111,7 @@ class AttendanceViewModel(
     //교사용, 선택된 반
     private suspend fun fetchSelectedAttendanceStatus() {
         val data = try {
-            useCase.getSpecificAttendanceStatus(grade.value ?: 1, klass.value ?: 1)
+            attendanceUseCase.getSpecificAttendanceStatus(grade.value ?: 1, klass.value ?: 1)
         } catch (e: Exception) {
             e.printStackTrace()
             _event.value = EventWrapper(AttendanceFragment.Event.AttendanceFetchFailed)
@@ -125,7 +125,7 @@ class AttendanceViewModel(
     @SuppressLint("NullSafeMutableLiveData")
     private suspend fun fetchSelectedAttendanceTimeline() {
         try {
-            val data = useCase.getAttendanceTimeline(grade.value ?: 1, klass.value ?: 1)
+            val data = attendanceUseCase.getAttendanceTimeline(grade.value ?: 1, klass.value ?: 1)
             _attendanceLogs.value = data
         } catch (e: Exception) {
             e.printStackTrace()
@@ -183,7 +183,7 @@ class AttendanceViewModel(
 
     override suspend fun fetchPlaces() {
         try {
-            places = useCase.getAllPlaces()
+            places = attendanceUseCase.getAllPlaces()
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -193,7 +193,7 @@ class AttendanceViewModel(
         viewModelScope.launch {
             _isRefreshing.value = true
             try {
-                useCase.changeCurrentAttendancePlace(place, remark, student)
+                attendanceUseCase.changeCurrentAttendancePlace(place, remark, student)
                 refresh()
             } catch (e: Exception) {
                 e.printStackTrace()
