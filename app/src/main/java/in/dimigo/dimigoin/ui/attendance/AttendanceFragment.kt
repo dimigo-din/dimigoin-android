@@ -2,10 +2,8 @@ package `in`.dimigo.dimigoin.ui.attendance
 
 import `in`.dimigo.dimigoin.R
 import `in`.dimigo.dimigoin.data.model.UserModel
-import `in`.dimigo.dimigoin.data.model.UserType
 import `in`.dimigo.dimigoin.data.util.DateUtil
 import `in`.dimigo.dimigoin.data.util.DateUtil.from
-import `in`.dimigo.dimigoin.data.util.UserDataStore
 import `in`.dimigo.dimigoin.databinding.DialogAttendanceDetailBinding
 import `in`.dimigo.dimigoin.databinding.DialogHistoryBinding
 import `in`.dimigo.dimigoin.databinding.FragmentAttendanceBinding
@@ -27,7 +25,6 @@ import kotlinx.coroutines.launch
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class AttendanceFragment : Fragment() {
-    private val isTeacher = UserDataStore.userData.userType == UserType.TEACHER
     private val viewModel: AttendanceViewModel by viewModel()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -39,7 +36,7 @@ class AttendanceFragment : Fragment() {
             attendanceTableLayout.attendanceTableRoot.clipToOutline = true
         }
 
-        if (isTeacher) enterTeacherMode(binding) // Refactor
+        if (viewModel.isTeacher) enterTeacherMode(binding)
 
         viewModel.attendanceData.observe(viewLifecycleOwner) {
             attendanceAdapter.setItem(it)

@@ -23,7 +23,7 @@ class AttendanceViewModel(
     private val attendanceUseCase: AttendanceUseCase,
     private val configUseCase: ConfigUseCase
 ) : ViewModel(), PlaceProvider {
-    val isTeacher = UserDataStore.userData.userType == UserType.TEACHER
+    val isTeacher = UserDataStore.userData.isTeacher()
     val hasAttendancePermission = UserDataStore.userData.hasPermission(Permission.ATTENDANCE)
 
     private val _attendanceTableData = MutableLiveData<List<Int>>()

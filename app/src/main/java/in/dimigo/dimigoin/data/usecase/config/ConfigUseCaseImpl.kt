@@ -2,7 +2,6 @@ package `in`.dimigo.dimigoin.data.usecase.config
 
 import `in`.dimigo.dimigoin.data.model.ConfigModel
 import `in`.dimigo.dimigoin.data.model.MealTimesModel
-import `in`.dimigo.dimigoin.data.model.UserType
 import `in`.dimigo.dimigoin.data.service.DimigoinService
 import `in`.dimigo.dimigoin.data.util.UserDataStore
 import retrofit2.await
@@ -18,7 +17,7 @@ class ConfigUseCaseImpl(val service: DimigoinService) : ConfigUseCase {
      */
     override suspend fun getCurrentTimeCode(): String {
         val grade =
-            if (UserDataStore.userData.userType == UserType.STUDENT) UserDataStore.userData.grade
+            if (UserDataStore.userData.isStudent()) UserDataStore.userData.grade
             else 1
         val timeEndMinutes = getConfig()
             .SELF_STUDY_TIMES[grade]

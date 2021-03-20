@@ -20,10 +20,10 @@ data class UserModel(
     val number: Int,
     val serial: Int,
     val photos: List<String>,
-    val userType: UserType,
     val gender: String,
     @SerializedName("birthdate") val birthDate: String?,
     val libraryId: String?,
+    private val userType: UserType,
     private val permissions: List<String> = listOf()
 ) : Parcelable {
 
@@ -39,6 +39,9 @@ data class UserModel(
             else -> departments[0]
         }
     }
+
+    fun isTeacher() = userType == UserType.TEACHER
+    fun isStudent() = userType == UserType.STUDENT
 
     fun hasPermission(permission: Permission) = permissions.contains(permission.permissionName)
 }
