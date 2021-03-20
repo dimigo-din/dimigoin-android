@@ -39,7 +39,7 @@ class AttendanceFragment : Fragment() {
             attendanceTableLayout.attendanceTableRoot.clipToOutline = true
         }
 
-        if (isTeacher) enterTeacherMode(binding)
+        if (isTeacher) enterTeacherMode(binding) // Refactor
 
         viewModel.attendanceData.observe(viewLifecycleOwner) {
             attendanceAdapter.setItem(it)
@@ -59,15 +59,12 @@ class AttendanceFragment : Fragment() {
 
         viewModel.event.observeEvent(viewLifecycleOwner) { event ->
             when (event) {
-                is Event.ShowAttendanceDetailDialog -> lifecycleScope.launch {
-                    showAttendanceDetailDialog(event.attendanceItem)
-                }
+                is Event.ShowHistoryDialog -> showHistoryDialog()
+                is Event.ShowAttendanceDetailDialog -> showAttendanceDetailDialog(event.attendanceItem)
+                is Event.ShowSelectPlaceDialog -> showSelectPlaceDialog(event.attendanceItem)
                 is Event.AttendanceFetchFailed -> {
                     DimigoinDialog(requireContext())
                         .alert(DimigoinDialog.AlertType.ERROR, R.string.failed_to_fetch_attendance)
-                }
-                is Event.ShowSelectPlaceDialog -> {
-                    showSelectPlaceDialog(event.attendanceItem)
                 }
                 is Event.ChangeLocationFailed -> {
                     val message = getString(R.string.failed_to_change_location_of_student, event.student.name)
@@ -82,35 +79,14 @@ class AttendanceFragment : Fragment() {
 
     private fun enterTeacherMode(binding: FragmentAttendanceBinding) {
         with(binding) {
-            //init tab
             repeat(3) { gradeTap.addTab(gradeTap.newTab().setText("${it + 1}학년")) }
             repeat(6) { classTap.addTab(classTap.newTab().setText("${it + 1}반")) }
             gradeTap.addOnTabSelected { onTabSelected(this) }
             classTap.addOnTabSelected { onTabSelected(this) }
-
-            //history dialog
-            attendanceHistoryButton.setOnClickListener {
-                val attendanceLogs = viewModel.attendanceLogs.value
-                val dialogBinding = DialogHistoryBinding.inflate(layoutInflater).apply {
-                    when {
-                        attendanceLogs == null -> historyFetchFailedText.visibility = View.VISIBLE
-                        attendanceLogs.isEmpty() -> noHistoryText.visibility = View.VISIBLE
-                        else -> {
-                            val historyAdapter = AttendanceHistoryRecyclerViewAdapter()
-                            historyAdapter.setItems(attendanceLogs)
-                            historyRecyclerView.adapter = historyAdapter
-                        }
-                    }
-                    val grade = viewModel.grade.value ?: 0
-                    val klass = viewModel.klass.value ?: 0
-                    classInfoText.text = getString(R.string.grade_class_format, grade, klass)
-                }
-                DimigoinDialog(requireContext(), useNarrowDialog = true).CustomView(dialogBinding.root).show()
-            }
         }
     }
 
-    private suspend fun showAttendanceDetailDialog(attendanceItem: AttendanceItem) {
+    private fun showAttendanceDetailDialog(attendanceItem: AttendanceItem) = lifecycleScope.launch {
         val dialogBinding = DialogAttendanceDetailBinding.inflate(layoutInflater)
         val historyRecyclerViewAdapter = AttendanceHistoryRecyclerViewAdapter()
         dialogBinding.apply {
@@ -153,6 +129,25 @@ class AttendanceFragment : Fragment() {
         dialog.show(item.student, currentTimeText, viewModel::changeCurrentAttendancePlace)
     }
 
+    private fun showHistoryDialog() {
+        val attendanceLogs = viewModel.attendanceLogs.value
+        val dialogBinding = DialogHistoryBinding.inflate(layoutInflater).apply {
+            when {
+                attendanceLogs == null -> historyFetchFailedText.visibility = View.VISIBLE
+                attendanceLogs.isEmpty() -> noHistoryText.visibility = View.VISIBLE
+                else -> {
+                    val historyAdapter = AttendanceHistoryRecyclerViewAdapter()
+                    historyAdapter.setItems(attendanceLogs)
+                    historyRecyclerView.adapter = historyAdapter
+                }
+            }
+            val grade = viewModel.grade.value ?: 0
+            val klass = viewModel.klass.value ?: 0
+            classInfoText.text = getString(R.string.grade_class_format, grade, klass)
+        }
+        DimigoinDialog(requireContext(), useNarrowDialog = true).CustomView(dialogBinding.root).show()
+    }
+
     private fun onTabSelected(binding: FragmentAttendanceBinding) {
         viewModel.grade.value = binding.gradeTap.selectedTabPosition + 1
         viewModel.klass.value = binding.classTap.selectedTabPosition + 1
@@ -161,6 +156,7 @@ class AttendanceFragment : Fragment() {
 
     sealed class Event {
         object AttendanceFetchFailed : Event()
+        object ShowHistoryDialog : Event()
         data class ShowAttendanceDetailDialog(val attendanceItem: AttendanceItem) : Event()
         data class ShowSelectPlaceDialog(val attendanceItem: AttendanceItem) : Event()
         data class ChangeLocationFailed(val student: UserModel) : Event()

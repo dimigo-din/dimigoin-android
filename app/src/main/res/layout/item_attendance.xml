@@ -94,7 +94,7 @@
             android:includeFontPadding="false"
             android:onClick="@{() -> vm.onAttendanceDetailButtonClick(item)}"
             android:paddingVertical="2dp"
-            android:text="@{vm.isTeacher ? @string/detail : updatedAt}"
+            android:text="@{vm.isTeacher || vm.hasAttendancePermission ? @string/detail : updatedAt}"
             android:textAlignment="center"
             android:textColor="@color/white"
             android:textSize="13sp"

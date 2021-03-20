@@ -24,7 +24,7 @@ class AttendanceViewModel(
     private val configUseCase: ConfigUseCase
 ) : ViewModel(), PlaceProvider {
     val isTeacher = UserDataStore.userData.userType == UserType.TEACHER
-    private val hasAttendancePermission = UserDataStore.userData.hasPermission(Permission.ATTENDANCE)
+    val hasAttendancePermission = UserDataStore.userData.hasPermission(Permission.ATTENDANCE)
 
     private val _attendanceTableData = MutableLiveData<List<Int>>()
     val attendanceTableData: LiveData<List<Int>> = _attendanceTableData
@@ -58,22 +58,37 @@ class AttendanceViewModel(
     fun refresh() = viewModelScope.launch {
         _isRefreshing.value = true
 
-        if (isTeacher) {
-            awaitAll(
-                async { fetchSelectedAttendanceStatus() },
-                async { fetchSelectedAttendanceTimeline() },
-                async { updateCurrentTimeCode() }
-            )
-        } else {
-            awaitAll(
-                async { fetchCurrentAttendanceStatus() },
-                async { updateCurrentTimeCode() }
-            )
+        when {
+            isTeacher -> {
+                awaitAll(
+                    async { fetchSelectedAttendanceStatus() },
+                    async { fetchSelectedAttendanceTimeline() },
+                    async { updateCurrentTimeCode() },
+                    async { fetchPlaces() }
+                )
+            }
+            hasAttendancePermission -> {
+                awaitAll(
+                    async { fetchCurrentAttendanceStatus() },
+                    async { fetchCurrentAttendanceTimeline() },
+                    async { updateCurrentTimeCode() },
+                    async { fetchPlaces() }
+                )
+            }
+            else -> {
+                awaitAll(
+                    async { fetchCurrentAttendanceStatus() },
+                    async { updateCurrentTimeCode() }
+                )
+            }
         }
 
-        if (isTeacher || hasAttendancePermission) fetchPlaces()
-
         _isRefreshing.value = false
+    }
+
+    fun onHistoryButtonClick() {
+        if (!isTeacher && !hasAttendancePermission) return
+        _event.value = EventWrapper(AttendanceFragment.Event.ShowHistoryDialog)
     }
 
     fun onPlaceButtonClick(item: AttendanceItem) {
@@ -82,7 +97,7 @@ class AttendanceViewModel(
     }
 
     fun onAttendanceDetailButtonClick(item: AttendanceItem) {
-        if (!isTeacher) return
+        if (!isTeacher && !hasAttendancePermission) return
         _event.value = EventWrapper(AttendanceFragment.Event.ShowAttendanceDetailDialog(item))
     }
 
@@ -106,6 +121,18 @@ class AttendanceViewModel(
         }
         applyAttendanceStatus(data)
         applyAttendanceTableData(data)
+    }
+
+    //학생용, 본인 반 히스토리 조회
+    @SuppressLint("NullSafeMutableLiveData")
+    private suspend fun fetchCurrentAttendanceTimeline() {
+        try {
+            val data = attendanceUseCase.getCurrentAttendanceTimeline()
+            _attendanceLogs.value = data
+        } catch (e: Exception) {
+            e.printStackTrace()
+            _attendanceLogs.value = null
+        }
     }
 
     //교사용, 선택된 반

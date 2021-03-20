@@ -34,7 +34,7 @@
                 <include
                     layout="@layout/layout_title"
                     app:hideDivider="@{true}"
-                    app:icon="@{vm.isTeacher ? null : @drawable/ic_location_class_accent}"
+                    app:icon="@{vm.isTeacher || vm.hasAttendancePermission ? null : @drawable/ic_location_class_accent}"
                     app:sub="@{BindingUtilsKt.convertToTimeName(context, vm.currentTimeCode)}"
                     app:title="@{@string/attendance_state}" />
 
@@ -42,11 +42,12 @@
                     android:id="@+id/attendance_history_button"
                     style="@style/Button.Chip"
                     android:layout_width="wrap_content"
+                    android:onClick="@{() -> vm.onHistoryButtonClick()}"
                     android:layout_marginEnd="@dimen/default_horizontal_margin"
                     android:layout_marginBottom="2dp"
                     android:clickable="@{!vm.isRefreshing()}"
                     android:text="@string/history"
-                    android:visibility="@{vm.isTeacher ? View.VISIBLE : View.GONE}"
+                    android:visibility="@{vm.isTeacher || vm.hasAttendancePermission ? View.VISIBLE : View.GONE}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent" />
 

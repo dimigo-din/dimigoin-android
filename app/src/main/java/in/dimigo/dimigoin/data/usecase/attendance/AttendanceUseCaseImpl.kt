@@ -66,6 +66,10 @@ class AttendanceUseCaseImpl(private val service: DimigoinService) : AttendanceUs
         ).await().logs
     }
 
+    override suspend fun getCurrentAttendanceTimeline(): List<AttendanceLogModel> {
+        return getAttendanceTimeline(UserDataStore.userData.grade, UserDataStore.userData.klass)
+    }
+
     override suspend fun getAttendanceDetail(userModel: UserModel): AttendanceDetailItem {
         val date: String = LocalDate.now().format(DateUtil.dateFormatter)
         val logs = service.getSpecificAttendanceLogs(date, userModel._id).await().logs
