@@ -118,7 +118,7 @@ class MainFragmentViewModel(
         if (primaryPlaces == null) fetchPrimaryPlaces()
         try {
             val primaryPlaces = primaryPlaces ?: throw Exception("Variable primaryPlaces is null")
-            val currentAttendanceLog = attendanceUseCase.getCurrentMyAttendanceLog()
+            val currentAttendanceLog = attendanceUseCase.getMyCurrentAttendanceLog()
             this.currentAttendanceLog = currentAttendanceLog
             val currentPlace = currentAttendanceLog.place.toPrimaryPlaceModel(primaryPlaces)
             val location = AttendanceLocation.fromPrimaryPlace(currentPlace)

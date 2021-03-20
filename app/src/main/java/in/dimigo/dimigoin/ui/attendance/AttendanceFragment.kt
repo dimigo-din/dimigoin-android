@@ -36,7 +36,7 @@ class AttendanceFragment : Fragment() {
             attendanceTableLayout.attendanceTableRoot.clipToOutline = true
         }
 
-        if (viewModel.isTeacher) enterTeacherMode(binding)
+        if (viewModel.isTeacher) initTeacherMode(binding)
 
         viewModel.attendanceData.observe(viewLifecycleOwner) {
             attendanceAdapter.setItem(it)
@@ -74,7 +74,7 @@ class AttendanceFragment : Fragment() {
         return binding.root
     }
 
-    private fun enterTeacherMode(binding: FragmentAttendanceBinding) {
+    private fun initTeacherMode(binding: FragmentAttendanceBinding) {
         with(binding) {
             repeat(3) { gradeTap.addTab(gradeTap.newTab().setText("${it + 1}학년")) }
             repeat(6) { classTap.addTab(classTap.newTab().setText("${it + 1}반")) }

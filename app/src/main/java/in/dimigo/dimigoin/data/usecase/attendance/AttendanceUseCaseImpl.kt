@@ -3,18 +3,17 @@ package `in`.dimigo.dimigoin.data.usecase.attendance
 import `in`.dimigo.dimigoin.data.model.*
 import `in`.dimigo.dimigoin.data.service.DimigoinService
 import `in`.dimigo.dimigoin.data.util.DateUtil
-import `in`.dimigo.dimigoin.data.util.UserDataStore
 import `in`.dimigo.dimigoin.ui.item.AttendanceDetailItem
 import retrofit2.await
 import java.time.LocalDate
 
 class AttendanceUseCaseImpl(private val service: DimigoinService) : AttendanceUseCase {
-    override suspend fun getTodayAttendanceLogs(): List<AttendanceLogModel> {
+    override suspend fun getMyAttendanceLogs(): List<AttendanceLogModel> {
         return service.getTodayAttendanceLogs().await().logs
     }
 
-    override suspend fun getCurrentMyAttendanceLog(): AttendanceLogModel {
-        return getTodayAttendanceLogs().first()
+    override suspend fun getMyCurrentAttendanceLog(): AttendanceLogModel {
+        return getMyAttendanceLogs().first()
     }
 
     override suspend fun changeCurrentAttendancePlace(place: PlaceModel, remark: String?) {
@@ -31,22 +30,7 @@ class AttendanceUseCaseImpl(private val service: DimigoinService) : AttendanceUs
         service.createAttendanceLogOfStudent(studentToChange._id, attendanceLogRequestModel).await()
     }
 
-    override suspend fun getAllPlaces(): List<PlaceModel> {
-        return service.getAllPlaces()
-            .await()
-            .places
-            .sortedWith(compareBy({ it.type.indexForSort }, PlaceModel::name))
-    }
-
-    override suspend fun getPrimaryPlaces(): List<PrimaryPlaceModel> {
-        return service.getPrimaryPlaces().await().places
-    }
-
-    override suspend fun getCurrentAttendanceStatus(): List<AttendanceStatusModel> {
-        return getSpecificAttendanceStatus(UserDataStore.userData.grade, UserDataStore.userData.klass)
-    }
-
-    override suspend fun getSpecificAttendanceStatus(grade: Int, klass: Int): List<AttendanceStatusModel> {
+    override suspend fun getAttendanceStatus(grade: Int, klass: Int): List<AttendanceStatusModel> {
         val date: String = LocalDate.now().format(DateUtil.dateFormatter)
 
         return service.getAttendanceStatus(
@@ -66,14 +50,21 @@ class AttendanceUseCaseImpl(private val service: DimigoinService) : AttendanceUs
         ).await().logs
     }
 
-    override suspend fun getCurrentAttendanceTimeline(): List<AttendanceLogModel> {
-        return getAttendanceTimeline(UserDataStore.userData.grade, UserDataStore.userData.klass)
-    }
-
     override suspend fun getAttendanceDetail(userModel: UserModel): AttendanceDetailItem {
         val date: String = LocalDate.now().format(DateUtil.dateFormatter)
         val logs = service.getSpecificAttendanceLogs(date, userModel._id).await().logs
 
         return AttendanceDetailItem(userModel, logs)
+    }
+
+    override suspend fun getAllPlaces(): List<PlaceModel> {
+        return service.getAllPlaces()
+            .await()
+            .places
+            .sortedWith(compareBy({ it.type.indexForSort }, PlaceModel::name))
+    }
+
+    override suspend fun getPrimaryPlaces(): List<PrimaryPlaceModel> {
+        return service.getPrimaryPlaces().await().places
     }
 }

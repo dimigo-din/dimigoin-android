@@ -57,31 +57,20 @@ class AttendanceViewModel(
 
     fun refresh() = viewModelScope.launch {
         _isRefreshing.value = true
-
-        when {
-            isTeacher -> {
-                awaitAll(
-                    async { fetchSelectedAttendanceStatus() },
-                    async { fetchSelectedAttendanceTimeline() },
-                    async { updateCurrentTimeCode() },
-                    async { fetchPlaces() }
-                )
-            }
-            hasAttendancePermission -> {
-                awaitAll(
-                    async { fetchCurrentAttendanceStatus() },
-                    async { fetchCurrentAttendanceTimeline() },
-                    async { updateCurrentTimeCode() },
-                    async { fetchPlaces() }
-                )
-            }
-            else -> {
-                awaitAll(
-                    async { fetchCurrentAttendanceStatus() },
-                    async { updateCurrentTimeCode() }
-                )
-            }
+        if (!isTeacher) {
+            grade.value = UserDataStore.userData.grade
+            klass.value = UserDataStore.userData.klass
         }
+
+        if (isTeacher || hasAttendancePermission) awaitAll(
+            async { fetchAttendanceStatus() },
+            async { updateCurrentTimeCode() },
+            async { fetchAttendanceTimeline() },
+            async { fetchPlaces() }
+        ) else awaitAll(
+            async { fetchAttendanceStatus() },
+            async { updateCurrentTimeCode() }
+        )
 
         _isRefreshing.value = false
     }
@@ -110,10 +99,9 @@ class AttendanceViewModel(
         }
     }
 
-    //학생용, 본인 반
-    private suspend fun fetchCurrentAttendanceStatus() {
+    private suspend fun fetchAttendanceStatus() {
         val data = try {
-            attendanceUseCase.getCurrentAttendanceStatus()
+            attendanceUseCase.getAttendanceStatus(grade.value ?: 1, klass.value ?: 1)
         } catch (e: Exception) {
             e.printStackTrace()
             _event.value = EventWrapper(AttendanceFragment.Event.AttendanceFetchFailed)
@@ -123,34 +111,8 @@ class AttendanceViewModel(
         applyAttendanceTableData(data)
     }
 
-    //학생용, 본인 반 히스토리 조회
     @SuppressLint("NullSafeMutableLiveData")
-    private suspend fun fetchCurrentAttendanceTimeline() {
-        try {
-            val data = attendanceUseCase.getCurrentAttendanceTimeline()
-            _attendanceLogs.value = data
-        } catch (e: Exception) {
-            e.printStackTrace()
-            _attendanceLogs.value = null
-        }
-    }
-
-    //교사용, 선택된 반
-    private suspend fun fetchSelectedAttendanceStatus() {
-        val data = try {
-            attendanceUseCase.getSpecificAttendanceStatus(grade.value ?: 1, klass.value ?: 1)
-        } catch (e: Exception) {
-            e.printStackTrace()
-            _event.value = EventWrapper(AttendanceFragment.Event.AttendanceFetchFailed)
-            listOf()
-        }
-        applyAttendanceStatus(data)
-        applyAttendanceTableData(data)
-    }
-
-    //교사용, 선택된 반 히스토리 조회
-    @SuppressLint("NullSafeMutableLiveData")
-    private suspend fun fetchSelectedAttendanceTimeline() {
+    private suspend fun fetchAttendanceTimeline() {
         try {
             val data = attendanceUseCase.getAttendanceTimeline(grade.value ?: 1, klass.value ?: 1)
             _attendanceLogs.value = data
