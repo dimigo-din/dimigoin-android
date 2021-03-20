@@ -27,6 +27,7 @@ class AuthUseCaseImpl(
         try {
             val token = getFcmToken()
             fcmUseCase.deleteFcmToken(token)
+            FirebaseMessaging.getInstance().deleteToken().await()
         } catch (e: Exception) {
             e.printStackTrace()
         }
