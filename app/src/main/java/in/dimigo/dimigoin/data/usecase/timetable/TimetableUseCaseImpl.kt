@@ -6,8 +6,11 @@ import `in`.dimigo.dimigoin.ui.item.SubjectItem
 import retrofit2.await
 import java.time.DayOfWeek
 
-class TimetableUseCaseImpl(private val service: DimigoinService) : TimetableUseCase {
-    private val userData = UserDataStore.userData
+class TimetableUseCaseImpl(
+    private val service: DimigoinService,
+    userDataStore: UserDataStore
+) : TimetableUseCase {
+    private val userData = userDataStore.requireUserData()
 
     override suspend fun getWeeklyTimetable(): List<SubjectItem?> {
         val timetables = service.getWeeklyTimetable(userData.grade, userData.klass).await().dailyTimetables

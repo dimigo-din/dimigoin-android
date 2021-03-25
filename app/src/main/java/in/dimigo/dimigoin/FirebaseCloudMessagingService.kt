@@ -11,10 +11,11 @@ import org.koin.android.ext.android.inject
 
 class FirebaseCloudMessagingService : FirebaseMessagingService() {
     private val fcmUseCase: FcmUseCase by inject()
+    private val userDataStore: UserDataStore by inject()
     private val scope = CoroutineScope(Dispatchers.IO)
 
     override fun onNewToken(newToken: String) {
-        if (!UserDataStore.isUserDataExists) return
+        if (userDataStore.userData == null) return
         scope.launch {
             try {
                 fcmUseCase.uploadFcmToken(newToken)

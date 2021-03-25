@@ -1,8 +1,8 @@
 package `in`.dimigo.dimigoin.ui.main.fragment.main
 
 import `in`.dimigo.dimigoin.R
-import `in`.dimigo.dimigoin.data.util.UserDataStore
 import `in`.dimigo.dimigoin.databinding.*
+import `in`.dimigo.dimigoin.ui.BaseFragment
 import `in`.dimigo.dimigoin.ui.custom.DimigoinDialog
 import `in`.dimigo.dimigoin.ui.custom.PlaceProvider
 import `in`.dimigo.dimigoin.ui.custom.SelectPlaceDialog
@@ -17,7 +17,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.StringRes
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
@@ -25,7 +24,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.rd.PageIndicatorView
 
-class MainFragment : Fragment() {
+class MainFragment : BaseFragment() {
     private lateinit var binding: FragmentMainBinding
     private val viewModel: MainFragmentViewModel by sharedGraphViewModel(R.id.main_nav_graph)
 
@@ -50,9 +49,9 @@ class MainFragment : Fragment() {
             applyCarouselEffect()
         }
 
-        if (UserDataStore.userData.photos.isNotEmpty()) {
+        if (userData.photos.isNotEmpty()) {
             Glide.with(requireContext())
-                .load(UserDataStore.userData.photos.last())
+                .load(userData.photos.last())
                 .into(profileImage)
         }
 

@@ -1,12 +1,15 @@
 package `in`.dimigo.dimigoin.data.usecase.user
 
 import `in`.dimigo.dimigoin.data.service.DimigoinService
-import `in`.dimigo.dimigoin.data.util.UserDataStore
+import `in`.dimigo.dimigoin.data.util.SharedPreferencesManager
 import retrofit2.await
 
-class UserUseCaseImpl(private val service: DimigoinService) : UserUseCase {
+class UserUseCaseImpl(
+    private val service: DimigoinService,
+    private val sharedPreferencesManager: SharedPreferencesManager
+) : UserUseCase {
     override suspend fun storeUserData() {
         val userModel = service.getMyInfo().await().identity
-        UserDataStore.userData = userModel
+        sharedPreferencesManager.userData = userModel
     }
 }

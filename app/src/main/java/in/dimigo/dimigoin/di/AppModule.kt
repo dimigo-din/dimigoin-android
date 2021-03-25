@@ -19,6 +19,7 @@ import `in`.dimigo.dimigoin.data.usecase.timetable.TimetableUseCaseImpl
 import `in`.dimigo.dimigoin.data.usecase.user.UserUseCase
 import `in`.dimigo.dimigoin.data.usecase.user.UserUseCaseImpl
 import `in`.dimigo.dimigoin.data.util.SharedPreferencesManager
+import `in`.dimigo.dimigoin.data.util.UserDataStore
 import `in`.dimigo.dimigoin.ui.attendance.AttendanceViewModel
 import `in`.dimigo.dimigoin.ui.item.MealItem
 import `in`.dimigo.dimigoin.ui.item.NoticeItem
@@ -36,13 +37,13 @@ import org.koin.dsl.module
 val appModule = module {
     single<AuthUseCase> { AuthUseCaseImpl(get(), get(), get()) }
     single<MealUseCase> { MealUseCaseImpl(get(), MealItem.getFailedMealItem(androidContext())) }
-    single<UserUseCase> { UserUseCaseImpl(get()) }
-    single<IngangUseCase> { IngangUseCaseImpl(get()) }
-    single<TimetableUseCase> { TimetableUseCaseImpl(get()) }
+    single<UserUseCase> { UserUseCaseImpl(get(), get()) }
+    single<IngangUseCase> { IngangUseCaseImpl(get(), get()) }
+    single<TimetableUseCase> { TimetableUseCaseImpl(get(), get()) }
     single<AttendanceUseCase> { AttendanceUseCaseImpl(get()) }
     single<NoticeUseCase> { NoticeUseCaseImpl(get(), NoticeItem.getFailedNoticeItem(androidContext())) }
     single<FcmUseCase> { FcmUseCaseImpl(get()) }
-    single<ConfigUseCase> { ConfigUseCaseImpl(get()) }
+    single<ConfigUseCase> { ConfigUseCaseImpl(get(), get()) }
 
     viewModel { LoginViewModel(get(), get()) }
     viewModel { MainViewModel() }
@@ -51,7 +52,8 @@ val appModule = module {
     viewModel { TimetableViewModel(get()) }
     viewModel { CardViewModel() }
     viewModel { IngangViewModel(get()) }
-    viewModel { AttendanceViewModel(get(), get()) }
+    viewModel { AttendanceViewModel(get(), get(), get()) }
 
     single { SharedPreferencesManager(androidContext()) }
+    single { UserDataStore(get()) }
 }

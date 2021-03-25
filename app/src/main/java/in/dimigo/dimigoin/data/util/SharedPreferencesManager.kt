@@ -1,11 +1,13 @@
 package `in`.dimigo.dimigoin.data.util
 
 import `in`.dimigo.dimigoin.data.model.AuthModel
+import `in`.dimigo.dimigoin.data.model.UserModel
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.core.content.edit
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
+import com.google.gson.Gson
 
 class SharedPreferencesManager(private val context: Context) {
     private val sharedPreferences = createEncryptedSharedPreferences()
@@ -22,10 +24,22 @@ class SharedPreferencesManager(private val context: Context) {
             putString(KEY_REFRESH_TOKEN, value)
         }
 
+    var userData: UserModel?
+        get() = Gson().fromJson(sharedPreferences.getString(KEY_USER_DATA, null), UserModel::class.java)
+        set(value) = sharedPreferences.edit {
+            putString(KEY_USER_DATA, Gson().toJson(value))
+        }
+
 
     fun saveAuthModel(authModel: AuthModel) {
         accessToken = authModel.accessToken
         refreshToken = authModel.refreshToken
+    }
+
+    fun clear() {
+        accessToken = null
+        refreshToken = null
+        userData = null
     }
 
     private fun createEncryptedSharedPreferences(): SharedPreferences {
@@ -44,5 +58,6 @@ class SharedPreferencesManager(private val context: Context) {
     companion object {
         private const val KEY_ACCESS_TOKEN = "accessToken"
         private const val KEY_REFRESH_TOKEN = "refreshToken"
+        private const val KEY_USER_DATA = "userData"
     }
 }

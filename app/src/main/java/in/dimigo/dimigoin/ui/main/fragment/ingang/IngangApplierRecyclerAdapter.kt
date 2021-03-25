@@ -1,13 +1,14 @@
 package `in`.dimigo.dimigoin.ui.main.fragment.ingang
 
 import `in`.dimigo.dimigoin.data.model.UserModel
-import `in`.dimigo.dimigoin.data.util.UserDataStore
 import `in`.dimigo.dimigoin.databinding.ItemIngangApplierNameBinding
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
-class IngangApplierRecyclerAdapter : RecyclerView.Adapter<IngangApplierViewHolder>() {
+class IngangApplierRecyclerAdapter(
+    private val userData: UserModel
+) : RecyclerView.Adapter<IngangApplierViewHolder>() {
     private var items: List<UserModel> = listOf()
     private var maxApplier = 0
 
@@ -24,7 +25,7 @@ class IngangApplierRecyclerAdapter : RecyclerView.Adapter<IngangApplierViewHolde
     }
 
     override fun onBindViewHolder(holder: IngangApplierViewHolder, position: Int) {
-        holder.bind(items.getOrNull(position))
+        holder.bind(items.getOrNull(position), userData)
     }
 
     override fun getItemCount() = maxApplier
@@ -34,9 +35,9 @@ class IngangApplierViewHolder(
     private val binding: ItemIngangApplierNameBinding
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(applier: UserModel?) = with(binding) {
+    fun bind(applier: UserModel?, currentUser: UserModel) = with(binding) {
         this.applier = applier
         isEmptyPosition = applier == null
-        highlightName = applier?.idx == UserDataStore.userData.idx
+        highlightName = applier?.idx == currentUser.idx
     }
 }

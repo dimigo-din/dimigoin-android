@@ -1,6 +1,5 @@
 package `in`.dimigo.dimigoin.data.model
 
-import `in`.dimigo.dimigoin.data.util.UserDataStore
 import `in`.dimigo.dimigoin.ui.item.IngangStatusItem
 
 data class IngangStatusModel(
@@ -12,11 +11,11 @@ data class IngangStatusModel(
     val ingangApplyPeriod: TimePeriodModel,
     val selfStudyTimes: Map<String, TimePeriodModel>
 ) {
-    fun toIngangStatusItem(): IngangStatusItem {
+    fun toIngangStatusItem(userIdx: Int): IngangStatusItem {
         val time1Applications = applicationsInClass.filter { it.time == IngangTime.NSS1 }
         val time2Applications = applicationsInClass.filter { it.time == IngangTime.NSS2 }
         val predicate = { application: IngangApplicationModel ->
-            application.applier.idx == UserDataStore.userData.idx
+            application.applier.idx == userIdx
         }
         val time1Applied = time1Applications.any(predicate)
         val time2Applied = time2Applications.any(predicate)

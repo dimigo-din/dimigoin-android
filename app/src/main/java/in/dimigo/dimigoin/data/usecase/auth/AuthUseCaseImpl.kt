@@ -31,9 +31,7 @@ class AuthUseCaseImpl(
         } catch (e: Exception) {
             e.printStackTrace()
         }
-
-        sharedPreferencesManager.accessToken = null
-        sharedPreferencesManager.refreshToken = null
+        sharedPreferencesManager.clear()
     }
 
     private suspend fun uploadFcmToken() {

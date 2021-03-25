@@ -1,9 +1,9 @@
 package `in`.dimigo.dimigoin.ui.main.fragment.card
 
 import `in`.dimigo.dimigoin.R
-import `in`.dimigo.dimigoin.data.util.UserDataStore
 import `in`.dimigo.dimigoin.databinding.DialogCardCautionBinding
 import `in`.dimigo.dimigoin.databinding.FragmentCardBinding
+import `in`.dimigo.dimigoin.ui.BaseFragment
 import `in`.dimigo.dimigoin.ui.custom.DimigoinDialog
 import `in`.dimigo.dimigoin.ui.main.MainActivity
 import `in`.dimigo.dimigoin.ui.main.MainViewModel
@@ -21,19 +21,18 @@ import androidx.biometric.BiometricPrompt
 import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.core.content.ContextCompat
 import androidx.core.view.updatePadding
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.bumptech.glide.Glide
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.MultiFormatWriter
 
-class CardFragment : Fragment() {
+class CardFragment : BaseFragment() {
     private lateinit var binding: FragmentCardBinding
     private val viewModel: CardViewModel by sharedGraphViewModel(R.id.main_nav_graph)
     private val activityViewModel: MainViewModel by activityViewModels()
+
     private val mainActivity: MainActivity?
         get() = activity as? MainActivity
-
     private var isCardShowing = false
     private var isCardAnimating = false
 
@@ -43,9 +42,8 @@ class CardFragment : Fragment() {
         binding.apply {
             lifecycleOwner = viewLifecycleOwner
             vm = viewModel
-            val userModel = UserDataStore.userData
-            user = userModel
-            department = userModel.getDepartmentName(requireContext())
+            user = userData
+            department = userData.getDepartmentName(requireContext())
         }
 
         initView()
@@ -73,9 +71,9 @@ class CardFragment : Fragment() {
 
         cardMotionLayout.setTransitionListener(transitionListener)
 
-        if (UserDataStore.userData.photos.isNotEmpty()) {
+        if (userData.photos.isNotEmpty()) {
             Glide.with(requireContext())
-                .load(UserDataStore.userData.photos.first())
+                .load(userData.photos.first())
                 .into(profileImage)
         }
 
@@ -171,7 +169,7 @@ class CardFragment : Fragment() {
     }
 
     private fun renderBarcode(width: Int, height: Int): Bitmap? {
-        val barcodeString = UserDataStore.userData.libraryId ?: return null
+        val barcodeString = userData.libraryId ?: return null
         val bitMatrix = MultiFormatWriter().encode(barcodeString, BarcodeFormat.CODE_39, width, height)
         val bitmap = Bitmap.createBitmap(bitMatrix.width, bitMatrix.height, Bitmap.Config.ARGB_8888)
         for (x in 0 until width) {

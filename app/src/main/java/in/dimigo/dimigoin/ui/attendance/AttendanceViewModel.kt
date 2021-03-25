@@ -21,10 +21,12 @@ import kotlinx.coroutines.launch
 
 class AttendanceViewModel(
     private val attendanceUseCase: AttendanceUseCase,
-    private val configUseCase: ConfigUseCase
+    private val configUseCase: ConfigUseCase,
+    userDataStore: UserDataStore
 ) : ViewModel(), PlaceProvider {
-    val isTeacher = UserDataStore.userData.isTeacher()
-    val hasAttendancePermission = UserDataStore.userData.hasPermission(Permission.ATTENDANCE)
+    private val userData = userDataStore.requireUserData()
+    val isTeacher = userData.isTeacher()
+    val hasAttendancePermission = userData.hasPermission(Permission.ATTENDANCE)
 
     private val _attendanceTableData = MutableLiveData<List<Int>>()
     val attendanceTableData: LiveData<List<Int>> = _attendanceTableData
@@ -58,8 +60,8 @@ class AttendanceViewModel(
     fun refresh() = viewModelScope.launch {
         _isRefreshing.value = true
         if (!isTeacher) {
-            grade.value = UserDataStore.userData.grade
-            klass.value = UserDataStore.userData.klass
+            grade.value = userData.grade
+            klass.value = userData.klass
         }
 
         if (isTeacher || hasAttendancePermission) awaitAll(

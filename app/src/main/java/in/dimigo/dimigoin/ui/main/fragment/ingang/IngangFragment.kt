@@ -5,6 +5,7 @@ import `in`.dimigo.dimigoin.data.model.IngangApplicationModel
 import `in`.dimigo.dimigoin.data.model.IngangTime
 import `in`.dimigo.dimigoin.data.model.UserModel
 import `in`.dimigo.dimigoin.databinding.FragmentIngangBinding
+import `in`.dimigo.dimigoin.ui.BaseFragment
 import `in`.dimigo.dimigoin.ui.custom.DimigoinDialog
 import `in`.dimigo.dimigoin.ui.util.observeEvent
 import `in`.dimigo.dimigoin.ui.util.sharedGraphViewModel
@@ -16,11 +17,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.StringRes
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.ethanhua.skeleton.SkeletonScreen
 
-class IngangFragment : Fragment() {
+class IngangFragment : BaseFragment() {
     private lateinit var binding: FragmentIngangBinding
     private val viewModel: IngangViewModel by sharedGraphViewModel(R.id.main_nav_graph)
     private var isRecyclerViewSkeletonHidden = false
@@ -36,8 +36,8 @@ class IngangFragment : Fragment() {
     }
 
     private fun initView() = with(binding) {
-        val ingang1Adapter = IngangApplierRecyclerAdapter()
-        val ingang2Adapter = IngangApplierRecyclerAdapter()
+        val ingang1Adapter = IngangApplierRecyclerAdapter(userData)
+        val ingang2Adapter = IngangApplierRecyclerAdapter(userData)
         ingang1Layout.applierRecyclerView.adapter = ingang1Adapter
         ingang2Layout.applierRecyclerView.adapter = ingang2Adapter
         val ingang1Skeleton = showIngangApplierRecyclerViewSkeleton(ingang1Layout.applierRecyclerView)
