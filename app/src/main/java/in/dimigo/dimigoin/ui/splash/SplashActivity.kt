@@ -4,6 +4,7 @@ import `in`.dimigo.dimigoin.R
 import `in`.dimigo.dimigoin.data.usecase.auth.AuthUseCase
 import `in`.dimigo.dimigoin.data.usecase.user.UserUseCase
 import `in`.dimigo.dimigoin.data.util.SharedPreferencesManager
+import `in`.dimigo.dimigoin.di.restartKoin
 import `in`.dimigo.dimigoin.ui.BaseActivity
 import `in`.dimigo.dimigoin.ui.attendance.AttendanceActivity
 import `in`.dimigo.dimigoin.ui.login.LoginActivity
@@ -31,6 +32,7 @@ class SplashActivity : BaseActivity() {
         lifecycleScope.launch {
             if (logoutRequested) {
                 authUseCase.logout()
+                restartKoin()
                 withContext(Dispatchers.Main) { taskFinished(LoginActivity::class.java) }
             } else {
                 val autoLoginSucceeded = tryAutoLogin()
