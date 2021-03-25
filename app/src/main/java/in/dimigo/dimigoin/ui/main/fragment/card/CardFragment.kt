@@ -26,8 +26,7 @@ import com.bumptech.glide.Glide
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.MultiFormatWriter
 
-class CardFragment : BaseFragment() {
-    private lateinit var binding: FragmentCardBinding
+class CardFragment : BaseFragment<FragmentCardBinding>(R.layout.fragment_card) {
     private val viewModel: CardViewModel by sharedGraphViewModel(R.id.main_nav_graph)
     private val activityViewModel: MainViewModel by activityViewModels()
 
@@ -37,8 +36,7 @@ class CardFragment : BaseFragment() {
     private var isCardAnimating = false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        binding = FragmentCardBinding.inflate(inflater, container, false)
-
+        super.onCreateView(inflater, container, savedInstanceState)
         binding.apply {
             lifecycleOwner = viewLifecycleOwner
             vm = viewModel

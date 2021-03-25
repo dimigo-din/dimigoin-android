@@ -7,6 +7,7 @@ import `in`.dimigo.dimigoin.data.util.DateUtil.from
 import `in`.dimigo.dimigoin.databinding.DialogAttendanceDetailBinding
 import `in`.dimigo.dimigoin.databinding.DialogHistoryBinding
 import `in`.dimigo.dimigoin.databinding.FragmentAttendanceBinding
+import `in`.dimigo.dimigoin.ui.BaseFragment
 import `in`.dimigo.dimigoin.ui.custom.DimigoinDialog
 import `in`.dimigo.dimigoin.ui.custom.PlaceProvider
 import `in`.dimigo.dimigoin.ui.custom.SelectPlaceDialog
@@ -18,18 +19,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.tabs.TabLayout
 import kotlinx.coroutines.launch
 import org.koin.android.viewmodel.ext.android.viewModel
 
-class AttendanceFragment : Fragment() {
+class AttendanceFragment : BaseFragment<FragmentAttendanceBinding>(R.layout.fragment_attendance) {
     private val viewModel: AttendanceViewModel by viewModel()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        super.onCreateView(inflater, container, savedInstanceState)
         val attendanceAdapter = AttendanceRecyclerViewAdapter(viewModel)
-        val binding = FragmentAttendanceBinding.inflate(inflater, container, false).apply {
+        binding.apply {
             lifecycleOwner = viewLifecycleOwner
             recyclerView.adapter = attendanceAdapter
             vm = viewModel

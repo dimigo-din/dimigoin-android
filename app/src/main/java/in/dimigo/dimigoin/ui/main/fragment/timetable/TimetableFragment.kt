@@ -13,11 +13,11 @@ import android.view.ViewGroup
 import java.text.DateFormatSymbols
 import java.util.*
 
-class TimetableFragment : BaseFragment() {
+class TimetableFragment : BaseFragment<FragmentTimetableBinding>(R.layout.fragment_timetable) {
     private val viewModel: TimetableViewModel by sharedGraphViewModel(R.id.main_nav_graph)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        val binding = FragmentTimetableBinding.inflate(inflater, container, false)
+        super.onCreateView(inflater, container, savedInstanceState)
         val dateChangedLiveData = DateChangedLiveData(requireContext())
         val adapter = TimetableRecyclerViewAdapter(dateChangedLiveData)
         val dateFormatSymbols = DateFormatSymbols(Locale.getDefault())

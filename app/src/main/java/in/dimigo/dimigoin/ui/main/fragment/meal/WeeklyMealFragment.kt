@@ -2,22 +2,22 @@ package `in`.dimigo.dimigoin.ui.main.fragment.meal
 
 import `in`.dimigo.dimigoin.R
 import `in`.dimigo.dimigoin.databinding.FragmentWeeklyMealBinding
+import `in`.dimigo.dimigoin.ui.BaseFragment
 import `in`.dimigo.dimigoin.ui.util.sharedGraphViewModel
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import com.google.android.material.tabs.TabLayoutMediator
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.util.*
 
-class WeeklyMealFragment : Fragment() {
+class WeeklyMealFragment : BaseFragment<FragmentWeeklyMealBinding>(R.layout.fragment_weekly_meal) {
     private val viewModel: MealViewModel by sharedGraphViewModel(R.id.main_nav_graph)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        val binding = FragmentWeeklyMealBinding.inflate(inflater, container, false)
+        super.onCreateView(inflater, container, savedInstanceState)
         val shortWeekDays = listOf("월", "화", "수", "목", "금", "토", "일")
 
         binding.apply {

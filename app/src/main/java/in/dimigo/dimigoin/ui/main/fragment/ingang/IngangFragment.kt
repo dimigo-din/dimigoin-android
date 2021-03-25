@@ -20,13 +20,13 @@ import androidx.annotation.StringRes
 import androidx.recyclerview.widget.RecyclerView
 import com.ethanhua.skeleton.SkeletonScreen
 
-class IngangFragment : BaseFragment() {
-    private lateinit var binding: FragmentIngangBinding
+class IngangFragment : BaseFragment<FragmentIngangBinding>(R.layout.fragment_ingang) {
     private val viewModel: IngangViewModel by sharedGraphViewModel(R.id.main_nav_graph)
     private var isRecyclerViewSkeletonHidden = false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        binding = FragmentIngangBinding.inflate(inflater, container, false).apply {
+        super.onCreateView(inflater, container, savedInstanceState)
+        binding.apply {
             lifecycleOwner = viewLifecycleOwner
             vm = viewModel
         }

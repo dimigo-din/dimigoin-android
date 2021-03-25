@@ -24,12 +24,12 @@ import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.rd.PageIndicatorView
 
-class MainFragment : BaseFragment() {
-    private lateinit var binding: FragmentMainBinding
+class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
     private val viewModel: MainFragmentViewModel by sharedGraphViewModel(R.id.main_nav_graph)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        binding = FragmentMainBinding.inflate(inflater, container, false).apply {
+        super.onCreateView(inflater, container, savedInstanceState)
+        binding.apply {
             lifecycleOwner = this@MainFragment
             vm = viewModel
         }
