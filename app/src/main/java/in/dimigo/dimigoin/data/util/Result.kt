@@ -4,14 +4,14 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 sealed class Result<out T> {
-    fun onSuccess(block: (T) -> Unit): Result<T> {
+    inline fun onSuccess(block: (T) -> Unit): Result<T> {
         if (this is Success) {
             block(value)
         }
         return this
     }
 
-    fun onFailure(block: (Throwable) -> Unit): Result<T> {
+    inline fun onFailure(block: (Throwable) -> Unit): Result<T> {
         if (this is Failure) {
             block(throwable)
         }
