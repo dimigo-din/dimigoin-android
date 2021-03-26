@@ -1,11 +1,11 @@
 package `in`.dimigo.dimigoin.data.usecase.attendance
 
 import `in`.dimigo.dimigoin.data.model.*
+import `in`.dimigo.dimigoin.data.util.Result
 import `in`.dimigo.dimigoin.ui.item.AttendanceDetailItem
 
 interface AttendanceUseCase {
-    suspend fun getMyAttendanceLogs(): List<AttendanceLogModel>
-    suspend fun getMyCurrentAttendanceLog(): AttendanceLogModel
+    suspend fun getMyCurrentAttendanceLog(): Result<AttendanceLogModel>
 
     suspend fun changeCurrentAttendancePlace(place: PlaceModel, remark: String?)
     suspend fun changeCurrentAttendancePlace(place: PrimaryPlaceModel)

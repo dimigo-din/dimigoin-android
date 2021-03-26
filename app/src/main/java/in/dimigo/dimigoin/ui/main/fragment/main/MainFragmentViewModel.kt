@@ -116,19 +116,15 @@ class MainFragmentViewModel(
     private suspend fun updateCurrentLocation() {
         _attendanceRequestingCount.increase()
         if (primaryPlaces == null) fetchPrimaryPlaces()
-        try {
-            val primaryPlaces = primaryPlaces ?: throw Exception("Variable primaryPlaces is null")
-            val currentAttendanceLog = attendanceUseCase.getMyCurrentAttendanceLog()
+
+        attendanceUseCase.getMyCurrentAttendanceLog().onSuccess { currentAttendanceLog ->
             this.currentAttendanceLog = currentAttendanceLog
-            val currentPlace = currentAttendanceLog.place.toPrimaryPlaceModel(primaryPlaces)
+            val currentPlace = currentAttendanceLog.place.toPrimaryPlaceModel(requireNotNull(primaryPlaces))
             val location = AttendanceLocation.fromPrimaryPlace(currentPlace)
             _attendanceLocation.value = location
-        } catch (e: NoSuchElementException) {
-            e.printStackTrace()
-            _attendanceLocation.value = AttendanceLocation.Class
-        } catch (e: Exception) {
-            e.printStackTrace()
-            _event.value = EventWrapper(MainFragment.Event.Error(R.string.failed_to_fetch_current_location))
+        }.onFailure { throwable ->
+            if (throwable is NoSuchElementException) _attendanceLocation.value = AttendanceLocation.Class
+            else _event.value = EventWrapper(MainFragment.Event.Error(R.string.failed_to_fetch_current_location))
         }
         _attendanceRequestingCount.decrease()
     }

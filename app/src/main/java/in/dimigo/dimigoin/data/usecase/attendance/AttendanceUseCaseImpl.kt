@@ -3,17 +3,17 @@ package `in`.dimigo.dimigoin.data.usecase.attendance
 import `in`.dimigo.dimigoin.data.model.*
 import `in`.dimigo.dimigoin.data.service.DimigoinService
 import `in`.dimigo.dimigoin.data.util.DateUtil
+import `in`.dimigo.dimigoin.data.util.Result
+import `in`.dimigo.dimigoin.data.util.safeApiCall
 import `in`.dimigo.dimigoin.ui.item.AttendanceDetailItem
 import retrofit2.await
 import java.time.LocalDate
 
 class AttendanceUseCaseImpl(private val service: DimigoinService) : AttendanceUseCase {
-    override suspend fun getMyAttendanceLogs(): List<AttendanceLogModel> {
-        return service.getTodayAttendanceLogs().await().logs
-    }
-
-    override suspend fun getMyCurrentAttendanceLog(): AttendanceLogModel {
-        return getMyAttendanceLogs().first()
+    override suspend fun getMyCurrentAttendanceLog(): Result<AttendanceLogModel> {
+        return safeApiCall {
+            service.getTodayAttendanceLogs().await().logs.first()
+        }
     }
 
     override suspend fun changeCurrentAttendancePlace(place: PlaceModel, remark: String?) {
