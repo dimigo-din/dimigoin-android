@@ -93,21 +93,19 @@ class AttendanceViewModel(
     }
 
     suspend fun fetchAttendanceDetail(userModel: UserModel): AttendanceDetailItem? {
-        return try {
-            attendanceUseCase.getAttendanceDetail(userModel)
-        } catch (e: Exception) {
-            e.printStackTrace()
-            null
+        var result: AttendanceDetailItem? = null
+        attendanceUseCase.getAttendanceDetail(userModel).onSuccess {
+            result = it
         }
+        return result
     }
 
     private suspend fun fetchAttendanceStatus() {
-        val data = try {
-            attendanceUseCase.getAttendanceStatus(grade.value ?: 1, klass.value ?: 1)
-        } catch (e: Exception) {
-            e.printStackTrace()
+        var data: List<AttendanceStatusModel> = listOf()
+        attendanceUseCase.getAttendanceStatus(grade.value ?: 1, klass.value ?: 1).onSuccess {
+            data = it
+        }.onFailure {
             _event.value = EventWrapper(AttendanceFragment.Event.AttendanceFetchFailed)
-            listOf()
         }
         applyAttendanceStatus(data)
         applyAttendanceTableData(data)
@@ -115,11 +113,9 @@ class AttendanceViewModel(
 
     @SuppressLint("NullSafeMutableLiveData")
     private suspend fun fetchAttendanceTimeline() {
-        try {
-            val data = attendanceUseCase.getAttendanceTimeline(grade.value ?: 1, klass.value ?: 1)
-            _attendanceLogs.value = data
-        } catch (e: Exception) {
-            e.printStackTrace()
+        attendanceUseCase.getAttendanceTimeline(grade.value ?: 1, klass.value ?: 1).onSuccess {
+            _attendanceLogs.value = it
+        }.onFailure {
             _attendanceLogs.value = null
         }
     }
@@ -173,21 +169,17 @@ class AttendanceViewModel(
     }
 
     override suspend fun fetchPlaces() {
-        try {
-            places = attendanceUseCase.getAllPlaces()
-        } catch (e: Exception) {
-            e.printStackTrace()
+        attendanceUseCase.getAllPlaces().onSuccess {
+            places = it
         }
     }
 
     fun changeCurrentAttendancePlace(place: PlaceModel, remark: String, student: UserModel) {
         viewModelScope.launch {
             _isRefreshing.value = true
-            try {
-                attendanceUseCase.changeCurrentAttendancePlace(place, remark, student)
+            attendanceUseCase.changeCurrentAttendancePlace(place, remark, student).onSuccess {
                 refresh()
-            } catch (e: Exception) {
-                e.printStackTrace()
+            }.onFailure {
                 _event.value = EventWrapper(AttendanceFragment.Event.ChangeLocationFailed(student))
             }
             _isRefreshing.value = false

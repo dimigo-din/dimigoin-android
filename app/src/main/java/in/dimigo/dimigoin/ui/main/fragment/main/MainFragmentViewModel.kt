@@ -5,6 +5,7 @@ import `in`.dimigo.dimigoin.data.model.AttendanceLogModel
 import `in`.dimigo.dimigoin.data.model.PlaceModel
 import `in`.dimigo.dimigoin.data.model.PrimaryPlaceModel
 import `in`.dimigo.dimigoin.data.usecase.attendance.AttendanceUseCase
+import `in`.dimigo.dimigoin.data.usecase.attendance.PlaceNullException
 import `in`.dimigo.dimigoin.data.usecase.config.ConfigUseCase
 import `in`.dimigo.dimigoin.data.usecase.meal.MealUseCase
 import `in`.dimigo.dimigoin.data.usecase.notice.NoticeUseCase
@@ -81,17 +82,13 @@ class MainFragmentViewModel(
 
     private suspend fun changeCurrentAttendancePlace(place: PrimaryPlaceModel?) {
         _attendanceRequestingCount.increase()
-        try {
-            attendanceUseCase.changeCurrentAttendancePlace(place ?: throw PlaceNullException())
-            _event.value = EventWrapper(MainFragment.Event.AttendanceLocationChanged(place.name))
+        attendanceUseCase.changeCurrentAttendancePlace(place).onSuccess { changedPlace ->
+            _event.value = EventWrapper(MainFragment.Event.AttendanceLocationChanged(changedPlace.name))
             updateCurrentLocation()
-        } catch (e: PlaceNullException) {
-            e.printStackTrace()
-            _event.value = EventWrapper(MainFragment.Event.Error(R.string.not_supported_place))
-            _attendanceLocation.value = previousAttendanceLocation
-        } catch (e: Exception) {
-            e.printStackTrace()
-            _event.value = EventWrapper(MainFragment.Event.Error(R.string.failed_to_change_location))
+        }.onFailure {
+            if (it is PlaceNullException)
+                _event.value = EventWrapper(MainFragment.Event.Error(R.string.not_supported_place))
+            else _event.value = EventWrapper(MainFragment.Event.Error(R.string.failed_to_change_location))
             _attendanceLocation.value = previousAttendanceLocation
         }
         _attendanceRequestingCount.decrease()
@@ -100,12 +97,10 @@ class MainFragmentViewModel(
     fun changeCurrentAttendancePlace(place: PlaceModel, remark: String) {
         viewModelScope.launch {
             _attendanceRequestingCount.increase()
-            try {
-                attendanceUseCase.changeCurrentAttendancePlace(place, remark)
+            attendanceUseCase.changeCurrentAttendancePlace(place, remark).onSuccess {
                 _event.value = EventWrapper(MainFragment.Event.AttendanceLocationChanged(place.name))
                 updateCurrentLocation()
-            } catch (e: Exception) {
-                e.printStackTrace()
+            }.onFailure {
                 _event.value = EventWrapper(MainFragment.Event.Error(R.string.failed_to_change_location))
                 _attendanceLocation.value = previousAttendanceLocation
             }
@@ -131,10 +126,9 @@ class MainFragmentViewModel(
 
     private suspend fun fetchPrimaryPlaces() {
         _attendanceRequestingCount.increase()
-        try {
-            primaryPlaces = attendanceUseCase.getPrimaryPlaces()
-        } catch (e: Exception) {
-            e.printStackTrace()
+        attendanceUseCase.getPrimaryPlaces().onSuccess {
+            primaryPlaces = it
+        }.onFailure {
             _event.value = EventWrapper(MainFragment.Event.Error(R.string.failed_to_fetch_places))
         }
         _attendanceRequestingCount.decrease()
@@ -142,10 +136,9 @@ class MainFragmentViewModel(
 
     override suspend fun fetchPlaces() {
         _attendanceRequestingCount.increase()
-        try {
-            places = attendanceUseCase.getAllPlaces()
-        } catch (e: Exception) {
-            e.printStackTrace()
+        attendanceUseCase.getAllPlaces().onSuccess {
+            places = it
+        }.onFailure {
             _event.value = EventWrapper(MainFragment.Event.Error(R.string.failed_to_fetch_places))
         }
         _attendanceRequestingCount.decrease()
@@ -186,5 +179,3 @@ private fun MutableLiveData<Int>.increase() {
 private fun MutableLiveData<Int>.decrease() {
     value = (value ?: 0) - 1
 }
-
-private class PlaceNullException : Exception("Place is null")

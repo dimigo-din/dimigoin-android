@@ -16,55 +16,77 @@ class AttendanceUseCaseImpl(private val service: DimigoinService) : AttendanceUs
         }
     }
 
-    override suspend fun changeCurrentAttendancePlace(place: PlaceModel, remark: String?) {
-        val attendanceLogRequestModel = AttendanceLogRequestModel(place._id, remark)
-        service.createAttendanceLog(attendanceLogRequestModel).await()
+    override suspend fun changeCurrentAttendancePlace(place: PlaceModel, remark: String?): Result<Unit> {
+        return safeApiCall {
+            val attendanceLogRequestModel = AttendanceLogRequestModel(place._id, remark)
+            service.createAttendanceLog(attendanceLogRequestModel).await()
+        }
     }
 
-    override suspend fun changeCurrentAttendancePlace(place: PrimaryPlaceModel) {
-        changeCurrentAttendancePlace(place.toPlaceModel(), null)
+    override suspend fun changeCurrentAttendancePlace(place: PrimaryPlaceModel?): Result<PrimaryPlaceModel> {
+        return safeApiCall {
+            if (place == null) throw PlaceNullException()
+            val attendanceLogRequestModel = AttendanceLogRequestModel(place._id, null)
+            service.createAttendanceLog(attendanceLogRequestModel).await()
+            return@safeApiCall place
+        }
     }
 
-    override suspend fun changeCurrentAttendancePlace(place: PlaceModel, remark: String?, studentToChange: UserModel) {
-        val attendanceLogRequestModel = AttendanceLogRequestModel(place._id, remark)
-        service.createAttendanceLogOfStudent(studentToChange._id, attendanceLogRequestModel).await()
+    override suspend fun changeCurrentAttendancePlace(
+        place: PlaceModel,
+        remark: String?,
+        studentToChange: UserModel
+    ): Result<Unit> {
+        return safeApiCall {
+            val attendanceLogRequestModel = AttendanceLogRequestModel(place._id, remark)
+            service.createAttendanceLogOfStudent(studentToChange._id, attendanceLogRequestModel).await()
+        }
     }
 
-    override suspend fun getAttendanceStatus(grade: Int, klass: Int): List<AttendanceStatusModel> {
-        val date: String = LocalDate.now().format(DateUtil.dateFormatter)
-
-        return service.getAttendanceStatus(
-            date,
-            grade,
-            klass
-        ).await().status
+    override suspend fun getAttendanceStatus(grade: Int, klass: Int): Result<List<AttendanceStatusModel>> {
+        return safeApiCall {
+            service.getAttendanceStatus(
+                getTodayString(),
+                grade,
+                klass
+            ).await().status
+        }
     }
 
-    override suspend fun getAttendanceTimeline(grade: Int, klass: Int): List<AttendanceLogModel> {
-        val date: String = LocalDate.now().format(DateUtil.dateFormatter)
-
-        return service.getAttendanceTimeline(
-            date,
-            grade,
-            klass
-        ).await().logs
+    override suspend fun getAttendanceTimeline(grade: Int, klass: Int): Result<List<AttendanceLogModel>> {
+        return safeApiCall {
+            service.getAttendanceTimeline(
+                getTodayString(),
+                grade,
+                klass
+            ).await().logs
+        }
     }
 
-    override suspend fun getAttendanceDetail(userModel: UserModel): AttendanceDetailItem {
-        val date: String = LocalDate.now().format(DateUtil.dateFormatter)
-        val logs = service.getSpecificAttendanceLogs(date, userModel._id).await().logs
-
-        return AttendanceDetailItem(userModel, logs)
+    override suspend fun getAttendanceDetail(userModel: UserModel): Result<AttendanceDetailItem> {
+        return safeApiCall {
+            val logs = service.getSpecificAttendanceLogs(
+                getTodayString(),
+                userModel._id
+            ).await().logs
+            AttendanceDetailItem(userModel, logs)
+        }
     }
 
-    override suspend fun getAllPlaces(): List<PlaceModel> {
-        return service.getAllPlaces()
-            .await()
-            .places
-            .sortedWith(compareBy({ it.type.indexForSort }, PlaceModel::name))
+    override suspend fun getAllPlaces(): Result<List<PlaceModel>> {
+        return safeApiCall {
+            service.getAllPlaces()
+                .await()
+                .places
+                .sortedWith(compareBy({ it.type.indexForSort }, PlaceModel::name))
+        }
     }
 
-    override suspend fun getPrimaryPlaces(): List<PrimaryPlaceModel> {
-        return service.getPrimaryPlaces().await().places
+    override suspend fun getPrimaryPlaces(): Result<List<PrimaryPlaceModel>> {
+        return safeApiCall {
+            service.getPrimaryPlaces().await().places
+        }
     }
+
+    private fun getTodayString(): String = LocalDate.now().format(DateUtil.dateFormatter)
 }

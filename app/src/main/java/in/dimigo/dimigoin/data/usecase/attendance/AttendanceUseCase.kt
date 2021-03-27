@@ -7,14 +7,20 @@ import `in`.dimigo.dimigoin.ui.item.AttendanceDetailItem
 interface AttendanceUseCase {
     suspend fun getMyCurrentAttendanceLog(): Result<AttendanceLogModel>
 
-    suspend fun changeCurrentAttendancePlace(place: PlaceModel, remark: String?)
-    suspend fun changeCurrentAttendancePlace(place: PrimaryPlaceModel)
-    suspend fun changeCurrentAttendancePlace(place: PlaceModel, remark: String?, studentToChange: UserModel)
+    suspend fun changeCurrentAttendancePlace(place: PlaceModel, remark: String?): Result<Unit>
+    suspend fun changeCurrentAttendancePlace(place: PrimaryPlaceModel?): Result<PrimaryPlaceModel>
+    suspend fun changeCurrentAttendancePlace(
+        place: PlaceModel,
+        remark: String?,
+        studentToChange: UserModel
+    ): Result<Unit>
 
-    suspend fun getAttendanceStatus(grade: Int, klass: Int): List<AttendanceStatusModel>
-    suspend fun getAttendanceTimeline(grade: Int, klass: Int): List<AttendanceLogModel>
-    suspend fun getAttendanceDetail(userModel: UserModel): AttendanceDetailItem
+    suspend fun getAttendanceStatus(grade: Int, klass: Int): Result<List<AttendanceStatusModel>>
+    suspend fun getAttendanceTimeline(grade: Int, klass: Int): Result<List<AttendanceLogModel>>
+    suspend fun getAttendanceDetail(userModel: UserModel): Result<AttendanceDetailItem>
 
-    suspend fun getAllPlaces(): List<PlaceModel>
-    suspend fun getPrimaryPlaces(): List<PrimaryPlaceModel>
+    suspend fun getAllPlaces(): Result<List<PlaceModel>>
+    suspend fun getPrimaryPlaces(): Result<List<PrimaryPlaceModel>>
 }
+
+class PlaceNullException : Exception("Place is null")
