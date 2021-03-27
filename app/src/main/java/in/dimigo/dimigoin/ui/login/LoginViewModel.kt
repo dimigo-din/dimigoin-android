@@ -53,11 +53,9 @@ class LoginViewModel(private val useCase: AuthUseCase, private val userUseCase: 
             return
         }
 
-        try {
-            userUseCase.storeUserData()
+        userUseCase.storeUserData().onSuccess {
             _event.value = EventWrapper(LoginActivity.Event.LoginSuccess)
-        } catch (e: Exception) {
-            e.printStackTrace()
+        }.onFailure {
             _isLoginRequested.value = false
             _event.value = EventWrapper(LoginActivity.Event.LoginFail)
         }
