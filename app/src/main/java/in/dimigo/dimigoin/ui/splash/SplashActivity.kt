@@ -48,15 +48,15 @@ class SplashActivity : BaseActivity() {
     }
 
     private suspend fun tryAutoLogin(): Boolean {
-        try {
-            if (sharedPreferencesManager.accessToken == null) return false
-            userUseCase.storeUserData()
-            return true
-        } catch (e: Exception) {
-            e.printStackTrace()
+        if (sharedPreferencesManager.accessToken == null) return false
+
+        var result = false
+        userUseCase.storeUserData().onSuccess {
+            result = true
+        }.onFailure {
             Toast.makeText(this, R.string.login_failed_check_network, Toast.LENGTH_LONG).show()
-            return false
         }
+        return result
     }
 
     private fun <T : Activity> taskFinished(destinationActivity: Class<T>) {

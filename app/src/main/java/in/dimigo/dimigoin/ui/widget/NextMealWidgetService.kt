@@ -40,11 +40,10 @@ private class NextMealRemoteViewsFactory(
     }
 
     private fun fetchTodayMeal() = runBlocking {
-        todayMeal = try {
-            mealUseCase.getTodaysMeal()
-        } catch (e: Exception) {
-            e.printStackTrace()
-            mealUseCase.failedMeal
+        mealUseCase.getTodaysMeal().onSuccess {
+            todayMeal = it
+        }.onFailure {
+            todayMeal = mealUseCase.failedMeal
         }
     }
 

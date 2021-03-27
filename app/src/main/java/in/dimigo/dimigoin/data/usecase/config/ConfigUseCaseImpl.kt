@@ -4,7 +4,9 @@ import `in`.dimigo.dimigoin.data.model.ConfigModel
 import `in`.dimigo.dimigoin.data.model.MealTimesModel
 import `in`.dimigo.dimigoin.data.model.UserModel
 import `in`.dimigo.dimigoin.data.service.DimigoinService
+import `in`.dimigo.dimigoin.data.util.Result
 import `in`.dimigo.dimigoin.data.util.UserDataStore
+import `in`.dimigo.dimigoin.data.util.safeApiCall
 import retrofit2.await
 import java.time.LocalDateTime
 
@@ -20,7 +22,7 @@ class ConfigUseCaseImpl(
      * NSS: NightSelfStudy
      * @return "AFSC${time}", "NSS1${time}"
      */
-    override suspend fun getCurrentTimeCode(): String {
+    override suspend fun getCurrentTimeCode(): Result<String> = safeApiCall {
         val grade =
             if (userData.isStudent()) userData.grade
             else 1
@@ -38,11 +40,13 @@ class ConfigUseCaseImpl(
         val currentTime = timeEndMinutes.find { (_, endMinutes) ->
             currentMinutes <= endMinutes
         } ?: timeEndMinutes.last()
-        return currentTime.first
+        return@safeApiCall currentTime.first
     }
 
-    override suspend fun getMealTimes(): MealTimesModel {
-        return getConfig().MEAL_TIMES[userData.grade]
+    override suspend fun getMealTimes(): Result<MealTimesModel> {
+        return safeApiCall {
+            getConfig().MEAL_TIMES[userData.grade]
+        }
     }
 
     private suspend fun getConfig(): ConfigModel {

@@ -2,6 +2,8 @@ package `in`.dimigo.dimigoin.data.usecase.meal
 
 import `in`.dimigo.dimigoin.data.service.DimigoinService
 import `in`.dimigo.dimigoin.data.util.DateUtil
+import `in`.dimigo.dimigoin.data.util.Result
+import `in`.dimigo.dimigoin.data.util.safeApiCall
 import `in`.dimigo.dimigoin.ui.item.MealItem
 import retrofit2.await
 import java.time.DayOfWeek
@@ -9,11 +11,13 @@ import java.time.LocalDate
 
 class MealUseCaseImpl(private val service: DimigoinService, override val failedMeal: MealItem) : MealUseCase {
 
-    override suspend fun getTodaysMeal(): MealItem {
-        return service.getTodayMeal().await().toMealItem(failedMeal)
+    override suspend fun getTodaysMeal(): Result<MealItem> {
+        return safeApiCall {
+            service.getTodayMeal().await().toMealItem(failedMeal)
+        }
     }
 
-    override suspend fun getWeeklyMeal(): List<MealItem> {
+    override suspend fun getWeeklyMeal(): Result<List<MealItem>> = safeApiCall {
         val meals = service.getWeeklyMeal().await().meals
         val mealItems = MutableList(7) { failedMeal }
         val now = LocalDate.now()
@@ -26,6 +30,6 @@ class MealUseCaseImpl(private val service: DimigoinService, override val failedM
                 mealItems[index] = it.toMealItem(failedMeal)
             }
         }
-        return mealItems
+        return@safeApiCall mealItems
     }
 }
