@@ -22,7 +22,6 @@ import `in`.dimigo.dimigoin.data.util.SharedPreferencesManager
 import `in`.dimigo.dimigoin.data.util.UserDataStore
 import `in`.dimigo.dimigoin.ui.attendance.AttendanceViewModel
 import `in`.dimigo.dimigoin.ui.item.MealItem
-import `in`.dimigo.dimigoin.ui.item.NoticeItem
 import `in`.dimigo.dimigoin.ui.login.LoginViewModel
 import `in`.dimigo.dimigoin.ui.main.MainViewModel
 import `in`.dimigo.dimigoin.ui.main.fragment.card.CardViewModel
@@ -41,7 +40,7 @@ val appModule = module {
     single<IngangUseCase> { IngangUseCaseImpl(get(), get()) }
     single<TimetableUseCase> { TimetableUseCaseImpl(get(), get()) }
     single<AttendanceUseCase> { AttendanceUseCaseImpl(get()) }
-    single<NoticeUseCase> { NoticeUseCaseImpl(get(), NoticeItem.getFailedNoticeItem(androidContext())) }
+    single<NoticeUseCase> { NoticeUseCaseImpl(get()) }
     single<FcmUseCase> { FcmUseCaseImpl(get()) }
     single<ConfigUseCase> { ConfigUseCaseImpl(get(), get()) }
 

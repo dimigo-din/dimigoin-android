@@ -6,7 +6,7 @@ import `in`.dimigo.dimigoin.data.util.safeApiCall
 import `in`.dimigo.dimigoin.ui.item.NoticeItem
 import retrofit2.await
 
-class NoticeUseCaseImpl(val service: DimigoinService, override val failedNotice: NoticeItem) : NoticeUseCase {
+class NoticeUseCaseImpl(val service: DimigoinService) : NoticeUseCase {
 
     override suspend fun getNotice(): Result<List<NoticeItem>> = safeApiCall {
         service.getCurrentNotices()

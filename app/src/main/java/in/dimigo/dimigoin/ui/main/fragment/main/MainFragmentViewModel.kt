@@ -148,7 +148,7 @@ class MainFragmentViewModel(
         noticeUseCase.getNotice().onSuccess {
             _noticeList.value = it
         }.onFailure {
-            _noticeList.value = listOf(noticeUseCase.failedNotice)
+            _noticeList.value = listOf()
         }
     }
 
