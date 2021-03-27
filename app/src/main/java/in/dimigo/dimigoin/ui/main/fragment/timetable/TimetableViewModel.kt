@@ -28,11 +28,10 @@ class TimetableViewModel(private val timetableUseCase: TimetableUseCase) : ViewM
     }
 
     private suspend fun fetchTimetable() {
-        try {
-            _timetable.value = timetableUseCase.getWeeklyTimetable()
-        } catch (e: Exception) {
+        timetableUseCase.getWeeklyTimetable().onSuccess {
+            _timetable.value = it
+        }.onFailure {
             _timetableFetchFailedEvent.call()
-            e.printStackTrace()
         }
     }
 }

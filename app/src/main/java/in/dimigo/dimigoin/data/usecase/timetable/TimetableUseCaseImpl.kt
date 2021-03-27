@@ -1,7 +1,9 @@
 package `in`.dimigo.dimigoin.data.usecase.timetable
 
 import `in`.dimigo.dimigoin.data.service.DimigoinService
+import `in`.dimigo.dimigoin.data.util.Result
 import `in`.dimigo.dimigoin.data.util.UserDataStore
+import `in`.dimigo.dimigoin.data.util.safeApiCall
 import `in`.dimigo.dimigoin.ui.item.SubjectItem
 import retrofit2.await
 import java.time.DayOfWeek
@@ -12,8 +14,10 @@ class TimetableUseCaseImpl(
 ) : TimetableUseCase {
     private val userData = userDataStore.requireUserData()
 
-    override suspend fun getWeeklyTimetable(): List<SubjectItem?> {
-        val timetables = service.getWeeklyTimetable(userData.grade, userData.klass).await().dailyTimetables
+    override suspend fun getWeeklyTimetable(): Result<List<SubjectItem?>> = safeApiCall {
+        val timetables = service.getWeeklyTimetable(userData.grade, userData.klass)
+            .await()
+            .dailyTimetables
         val subjects = mutableListOf<SubjectItem?>()
 
         repeat(7) { i ->
@@ -25,6 +29,6 @@ class TimetableUseCaseImpl(
             }
         }
 
-        return subjects
+        return@safeApiCall subjects
     }
 }
