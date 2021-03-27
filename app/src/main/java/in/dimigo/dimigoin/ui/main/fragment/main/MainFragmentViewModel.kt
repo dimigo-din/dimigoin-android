@@ -154,10 +154,9 @@ class MainFragmentViewModel(
     }
 
     private suspend fun updateTodayMeal() {
-        try {
-            _todayMeal.value = mealUseCase.getTodaysMeal()
-        } catch (e: Exception) {
-            e.printStackTrace()
+        mealUseCase.getTodaysMeal().onSuccess {
+            _todayMeal.value = it
+        }.onFailure {
             _todayMeal.value = mealUseCase.failedMeal
         }
     }

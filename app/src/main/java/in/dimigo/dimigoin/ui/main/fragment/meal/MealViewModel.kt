@@ -37,10 +37,9 @@ class MealViewModel(
     }
 
     private suspend fun fetchWeeklyMeals() {
-        try {
-            _weeklyMeals.value = mealUseCase.getWeeklyMeal()
-        } catch (e: Exception) {
-            e.printStackTrace()
+        mealUseCase.getWeeklyMeal().onSuccess {
+            _weeklyMeals.value = it
+        }.onFailure {
             val failedData = Array(7) { mealUseCase.failedMeal }
             _weeklyMeals.value = failedData.toList()
         }
