@@ -17,11 +17,7 @@ class FirebaseCloudMessagingService : FirebaseMessagingService() {
     override fun onNewToken(newToken: String) {
         if (userDataStore.userData == null) return
         scope.launch {
-            try {
-                fcmUseCase.uploadFcmToken(newToken)
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
+            fcmUseCase.uploadFcmToken(newToken)
         }
     }
 
