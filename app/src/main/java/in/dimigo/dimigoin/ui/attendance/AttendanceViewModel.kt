@@ -160,10 +160,9 @@ class AttendanceViewModel(
     }
 
     private suspend fun updateCurrentTimeCode() {
-        try {
-            _currentTimeCode.value = configUseCase.getCurrentTimeCode()
-        } catch (e: Exception) {
-            e.printStackTrace()
+        configUseCase.getCurrentTimeCode().onSuccess {
+            _currentTimeCode.value = it
+        }.onFailure {
             _currentTimeCode.value = ""
         }
     }
