@@ -46,10 +46,9 @@ class LoginViewModel(private val useCase: AuthUseCase, private val userUseCase: 
     }
 
     private suspend fun login(loginRequestModel: LoginRequestModel) {
-        val loginSucceeded = useCase.tryLogin(loginRequestModel)
-        if (!loginSucceeded) {
-            _event.value = EventWrapper(LoginActivity.Event.LoginFail)
+        useCase.tryLogin(loginRequestModel).onFailure {
             _isLoginRequested.value = false
+            _event.value = EventWrapper(LoginActivity.Event.LoginFail)
             return
         }
 

@@ -3,7 +3,9 @@ package `in`.dimigo.dimigoin.data.usecase.auth
 import `in`.dimigo.dimigoin.data.model.LoginRequestModel
 import `in`.dimigo.dimigoin.data.service.DimigoinService
 import `in`.dimigo.dimigoin.data.usecase.fcm.FcmUseCase
+import `in`.dimigo.dimigoin.data.util.Result
 import `in`.dimigo.dimigoin.data.util.SharedPreferencesManager
+import `in`.dimigo.dimigoin.data.util.safeApiCall
 import com.google.firebase.messaging.FirebaseMessaging
 import kotlinx.coroutines.tasks.await
 import retrofit2.await
@@ -13,14 +15,11 @@ class AuthUseCaseImpl(
     private val fcmUseCase: FcmUseCase,
     private val sharedPreferencesManager: SharedPreferencesManager
 ) : AuthUseCase {
-    override suspend fun tryLogin(loginRequestModel: LoginRequestModel) = try {
+    override suspend fun tryLogin(loginRequestModel: LoginRequestModel): Result<Unit> = safeApiCall {
         val authModel = service.login(loginRequestModel).await()
         sharedPreferencesManager.saveAuthModel(authModel)
-        uploadFcmToken()
-        true
-    } catch (e: Exception) {
-        e.printStackTrace()
-        false
+        val token = getFcmToken()
+        fcmUseCase.uploadFcmToken(token)
     }
 
     override suspend fun logout() {
@@ -30,11 +29,5 @@ class AuthUseCaseImpl(
         sharedPreferencesManager.clear()
     }
 
-    private suspend fun uploadFcmToken() {
-        val token = getFcmToken()
-        fcmUseCase.uploadFcmToken(token)
-    }
-
     private suspend fun getFcmToken() = FirebaseMessaging.getInstance().token.await()
-
 }
