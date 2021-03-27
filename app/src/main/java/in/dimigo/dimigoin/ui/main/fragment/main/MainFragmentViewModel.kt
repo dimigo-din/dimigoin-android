@@ -145,10 +145,9 @@ class MainFragmentViewModel(
     }
 
     private suspend fun updateNotice() {
-        try {
-            _noticeList.value = noticeUseCase.getNotice()
-        } catch (e: Exception) {
-            e.printStackTrace()
+        noticeUseCase.getNotice().onSuccess {
+            _noticeList.value = it
+        }.onFailure {
             _noticeList.value = listOf(noticeUseCase.failedNotice)
         }
     }
