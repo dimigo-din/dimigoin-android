@@ -70,7 +70,8 @@
     <string name="forgot_id_pw">아이디 또는 비밀번호를 잊으셨나요?</string>
     <string name="forgot_id_pw_description">계정을 분실하셨다면 본관 1층 교무실 IT 특성화부 하미영 선생님께 문의 하시기 바랍니다</string>
     <string name="login_failed">로그인에 실패했습니다.\n아이디, 비밀번호를 확인해주세요.</string>
-    <string name="login_failed_check_network">로그인에 실패했습니다. 네트워크 상태를 확인해주세요.</string>
+    <string name="login_failed_check_network">로그인하지 못했습니다. 네트워크 상태를 확인해주세요.</string>
+    <string name="logout_failed_check_network">로그아웃하지 못했습니다. 네트워크 상태를 확인해주세요.</string>
     <string name="today_meal">오늘의 급식</string>
     <string name="next_meal">다음 급식</string>
     <string name="more">더보기</string>

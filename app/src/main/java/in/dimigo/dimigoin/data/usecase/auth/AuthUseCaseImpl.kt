@@ -22,7 +22,7 @@ class AuthUseCaseImpl(
         fcmUseCase.uploadFcmToken(token)
     }
 
-    override suspend fun logout() {
+    override suspend fun logout(): Result<Unit> = safeApiCall {
         val token = getFcmToken()
         fcmUseCase.deleteFcmToken(token)
         FirebaseMessaging.getInstance().deleteToken().await()

@@ -15,9 +15,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import org.koin.android.ext.android.inject
 
 class SplashActivity : BaseActivity() {
@@ -30,21 +28,30 @@ class SplashActivity : BaseActivity() {
         val logoutRequested = intent.getBooleanExtra(KEY_LOGOUT, false)
 
         lifecycleScope.launch {
-            if (logoutRequested) {
-                authUseCase.logout()
-                restartKoin()
-                withContext(Dispatchers.Main) { taskFinished(LoginActivity::class.java) }
-            } else {
-                val autoLoginSucceeded = tryAutoLogin()
-                val destinationActivity = if (autoLoginSucceeded) {
-                    if (userData.isTeacher()) AttendanceActivity::class.java
-                    else MainActivity::class.java
-                } else {
-                    LoginActivity::class.java
-                }
-                withContext(Dispatchers.Main) { taskFinished(destinationActivity) }
-            }
+            if (logoutRequested) logout()
+            else login()
         }
+    }
+
+    private suspend fun logout() {
+        authUseCase.logout().onSuccess {
+            restartKoin()
+            startActivity(LoginActivity::class.java)
+        }.onFailure {
+            Toast.makeText(this, R.string.logout_failed_check_network, Toast.LENGTH_LONG).show()
+            finish()
+        }
+    }
+
+    private suspend fun login() {
+        val autoLoginSucceeded = tryAutoLogin()
+        val destinationActivity = if (autoLoginSucceeded) {
+            if (userData.isTeacher()) AttendanceActivity::class.java
+            else MainActivity::class.java
+        } else {
+            LoginActivity::class.java
+        }
+        startActivity(destinationActivity)
     }
 
     private suspend fun tryAutoLogin(): Boolean {
@@ -59,7 +66,7 @@ class SplashActivity : BaseActivity() {
         return result
     }
 
-    private fun <T : Activity> taskFinished(destinationActivity: Class<T>) {
+    private fun <T : Activity> startActivity(destinationActivity: Class<T>) {
         startActivity(Intent(this, destinationActivity))
         finish()
         startActivityTransition()
