@@ -6,7 +6,7 @@ import `in`.dimigo.dimigoin.data.util.TokenAuthenticator
 import okhttp3.OkHttpClient
 import org.koin.dsl.module
 import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.moshi.MoshiConverterFactory
 
 val networkModule = module {
     single { AuthorizationInterceptor(get()) }
@@ -32,7 +32,7 @@ private fun buildOkHttpClient(
 private fun buildRetrofit(httpClient: OkHttpClient): Retrofit {
     return Retrofit.Builder()
         .baseUrl(DimigoinService.BASE_URL)
-        .addConverterFactory(GsonConverterFactory.create())
+        .addConverterFactory(MoshiConverterFactory.create())
         .client(httpClient)
         .build()
 }

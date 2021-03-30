@@ -1,6 +1,6 @@
 package `in`.dimigo.dimigoin.data.model
 
-import com.google.gson.annotations.SerializedName
+import com.squareup.moshi.Json
 
 class DailyTimetableModel(
     val sequence: Array<String?>,
@@ -8,5 +8,5 @@ class DailyTimetableModel(
 )
 
 data class TimetableResponseModel(
-    @SerializedName("timetable") val dailyTimetables: List<DailyTimetableModel>
+    @Json(name = "timetable") val dailyTimetables: List<DailyTimetableModel>
 )

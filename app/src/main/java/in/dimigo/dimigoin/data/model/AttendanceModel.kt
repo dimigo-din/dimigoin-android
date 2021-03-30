@@ -1,6 +1,6 @@
 package `in`.dimigo.dimigoin.data.model
 
-import com.google.gson.annotations.SerializedName
+import com.squareup.moshi.Json
 import java.util.*
 
 data class AttendanceLogsResponseModel(
@@ -13,11 +13,11 @@ data class AttendanceLogModel(
     val place: PlaceModel,
     val remark: String?,
     val updatedBy: UserModel? = null,
-    @SerializedName("updatedAt") val time: Date,
+    @Json(name = "updatedAt") val time: Date,
 )
 
 data class AttendanceLogRequestModel(
-    @SerializedName("place") val placeId: String,
+    @Json(name = "place") val placeId: String,
     val remark: String?
 )
 
@@ -31,7 +31,7 @@ data class AttendanceStatusLogModel(
     val date: Date,
     val place: PlaceModel,
     val remark: String?,
-    @SerializedName("updatedAt") val time: Date
+    @Json(name = "updatedAt") val time: Date
 )
 
 data class AttendanceStatusResponseModel(

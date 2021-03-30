@@ -2,7 +2,7 @@ package `in`.dimigo.dimigoin.data.model
 
 import `in`.dimigo.dimigoin.R
 import android.content.Context
-import com.google.gson.annotations.SerializedName
+import com.squareup.moshi.Json
 
 data class UserResponseModel(
     val identity: UserModel
@@ -13,12 +13,12 @@ data class UserModel(
     val idx: Int,
     val name: String,
     val grade: Int,
-    @SerializedName("class") val klass: Int,
+    @Json(name = "class") val klass: Int,
     val number: Int,
     val serial: Int,
     val photos: List<String>,
     val gender: String,
-    @SerializedName("birthdate") val birthDate: String?,
+    @Json(name = "birthdate") val birthDate: String?,
     val libraryId: String?,
     private val userType: UserType,
     private val permissions: List<String> = listOf()
@@ -44,10 +44,10 @@ data class UserModel(
 }
 
 enum class UserType {
-    @SerializedName("T")
+    @Json(name = "T")
     TEACHER,
 
-    @SerializedName("S")
+    @Json(name = "S")
     STUDENT
 }
 

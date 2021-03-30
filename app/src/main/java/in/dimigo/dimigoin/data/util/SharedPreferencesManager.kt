@@ -7,7 +7,6 @@ import android.content.SharedPreferences
 import androidx.core.content.edit
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
-import com.google.gson.Gson
 
 class SharedPreferencesManager(private val context: Context) {
     private val sharedPreferences = createEncryptedSharedPreferences()
@@ -25,11 +24,10 @@ class SharedPreferencesManager(private val context: Context) {
         }
 
     var userData: UserModel?
-        get() = Gson().fromJson(sharedPreferences.getString(KEY_USER_DATA, null), UserModel::class.java)
+        get() = sharedPreferences.getString(KEY_USER_DATA, null).toObject()
         set(value) = sharedPreferences.edit {
-            putString(KEY_USER_DATA, Gson().toJson(value))
+            putString(KEY_USER_DATA, value?.toJsonString())
         }
-
 
     fun saveAuthModel(authModel: AuthModel) {
         accessToken = authModel.accessToken
