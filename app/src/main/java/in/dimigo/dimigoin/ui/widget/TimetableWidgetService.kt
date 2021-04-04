@@ -5,7 +5,6 @@ import `in`.dimigo.dimigoin.data.usecase.timetable.TimetableUseCase
 import `in`.dimigo.dimigoin.ui.item.SubjectItem
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import android.widget.RemoteViews
 import android.widget.RemoteViewsService
 import kotlinx.coroutines.CoroutineScope
@@ -13,6 +12,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.runBlocking
 import org.koin.android.ext.android.inject
+import java.time.LocalDateTime
 
 class TimetableWidgetService : RemoteViewsService() {
     private val timetableUseCase: TimetableUseCase by inject()
@@ -30,15 +30,18 @@ private class TimetableRemoteViewsFactory(
     private var timetable: List<SubjectItem?>? = null
 
     override fun getViewAt(position: Int): RemoteViews {
-        fetchTimetable()
+        val date = LocalDateTime.now()
+        if (timetable == null) fetchTimetable()
+
         return RemoteViews(context.packageName, R.layout.item_widget_subject).apply {
             setTextViewText(R.id.text_subject, timetable?.get(position)?.name ?: "")
+            if (date.dayOfWeek == timetable?.get(position)?.dayOfWeek)
+                setTextColor(R.id.text_subject, context.getColor(R.color.pink_400))
         }
     }
 
     private fun fetchTimetable() = runBlocking {
         timetableUseCase.getWeeklyTimetable().onSuccess {
-            Log.d("TEST", "size: ${it.size}")
             timetable = it
         }.onFailure {
             timetable = null
