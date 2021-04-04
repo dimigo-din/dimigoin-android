@@ -35,7 +35,7 @@ private class TimetableRemoteViewsFactory(
 
     override fun getViewAt(position: Int): RemoteViews {
         val date = LocalDateTime.now()
-        if (timetable == null) fetchTimetable()
+        if (timetable == null && position == 0) fetchTimetable()
 
         return RemoteViews(context.packageName, R.layout.item_widget_subject).apply {
             setTextViewText(R.id.text_subject, timetable?.get(position)?.name ?: "")

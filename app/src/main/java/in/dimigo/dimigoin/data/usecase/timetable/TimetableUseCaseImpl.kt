@@ -10,12 +10,13 @@ import java.time.DayOfWeek
 
 class TimetableUseCaseImpl(
     private val service: DimigoinService,
-    userDataStore: UserDataStore
+    private val userDataStore: UserDataStore
 ) : TimetableUseCase {
-    private val userData = userDataStore.requireUserData()
 
     override suspend fun getWeeklyTimetable(): Result<List<SubjectItem?>> = safeApiCall {
-        val timetables = service.getWeeklyTimetable(userData.grade, userData.klass)
+        val grade = userDataStore.userData?.grade ?: 0
+        val klass = userDataStore.userData?.klass ?: 0
+        val timetables = service.getWeeklyTimetable(grade, klass)
             .await()
             .dailyTimetables
         val subjects = mutableListOf<SubjectItem?>()
