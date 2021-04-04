@@ -12,6 +12,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.runBlocking
 import org.koin.android.ext.android.inject
+import java.time.DayOfWeek
 import java.time.LocalDateTime
 
 class TimetableWidgetService : RemoteViewsService() {
@@ -35,8 +36,10 @@ private class TimetableRemoteViewsFactory(
 
         return RemoteViews(context.packageName, R.layout.item_widget_subject).apply {
             setTextViewText(R.id.text_subject, timetable?.get(position)?.name ?: "")
-            if (date.dayOfWeek == timetable?.get(position)?.dayOfWeek)
+            if (DayOfWeek.from(date) == timetable?.get(position)?.dayOfWeek)
                 setTextColor(R.id.text_subject, context.getColor(R.color.pink_400))
+            else
+                setTextColor(R.id.text_subject, context.getColor(R.color.grey_450))
         }
     }
 
@@ -61,6 +64,6 @@ private class TimetableRemoteViewsFactory(
     override fun getLoadingView(): RemoteViews? = null
     override fun getCount() = 35
     override fun getViewTypeCount() = 1
-    override fun getItemId(position: Int) = position.toLong()
+    override fun getItemId(position: Int): Long = 0
     override fun hasStableIds() = true
 }
