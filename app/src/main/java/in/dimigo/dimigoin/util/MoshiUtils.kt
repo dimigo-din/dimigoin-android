@@ -1,7 +1,7 @@
 package `in`.dimigo.dimigoin.util
 
 import com.squareup.moshi.Moshi
-import com.squareup.moshi.Rfc3339DateJsonAdapter
+import com.squareup.moshi.adapters.Rfc3339DateJsonAdapter
 import java.util.*
 
 fun buildMoshi(): Moshi =
