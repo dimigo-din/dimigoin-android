@@ -5,6 +5,8 @@
         <item name="colorPrimary">@color/pink_300</item>
         <item name="widgetBackgroundColor">@color/grey_800</item>
         <item name="widgetTextColor">@color/grey_100</item>
+        <item name="widgetTextColorDisabled">@color/grey_500</item>
+        <item name="widgetDividerColor">@color/grey_750</item>
     </style>
 
 </resources>

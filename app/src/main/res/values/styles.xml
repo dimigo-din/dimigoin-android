@@ -219,12 +219,12 @@
         <item name="android:overScrollMode">never</item>
     </style>
 
-    <style name="WidgetText">
+    <style name="WidgetText" parent="Text">
         <item name="android:textColor">?attr/widgetTextColor</item>
     </style>
 
     <style name="WidgetText.Title">
-        <item name="android:textColor">@color/pink_400</item>
+        <item name="android:textColor">?attr/colorPrimary</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">16sp</item>
     </style>
@@ -237,6 +237,8 @@
         <item name="colorPrimary">@color/pink_400</item>
         <item name="widgetBackgroundColor">@color/white</item>
         <item name="widgetTextColor">@color/grey_800</item>
+        <item name="widgetTextColorDisabled">@color/grey_450</item>
+        <item name="widgetDividerColor">@color/grey_100</item>
     </style>
 
     <style name="TabLayoutStyle">

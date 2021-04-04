@@ -5,8 +5,11 @@ import `in`.dimigo.dimigoin.data.usecase.timetable.TimetableUseCase
 import `in`.dimigo.dimigoin.ui.item.SubjectItem
 import android.content.Context
 import android.content.Intent
+import android.util.TypedValue
 import android.widget.RemoteViews
 import android.widget.RemoteViewsService
+import androidx.annotation.AttrRes
+import androidx.annotation.ColorInt
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
@@ -37,9 +40,9 @@ private class TimetableRemoteViewsFactory(
         return RemoteViews(context.packageName, R.layout.item_widget_subject).apply {
             setTextViewText(R.id.text_subject, timetable?.get(position)?.name ?: "")
             if (DayOfWeek.from(date) == timetable?.get(position)?.dayOfWeek)
-                setTextColor(R.id.text_subject, context.getColor(R.color.pink_400))
+                setTextColor(R.id.text_subject, getAttributeColor(context, R.attr.colorPrimary))
             else
-                setTextColor(R.id.text_subject, context.getColor(R.color.grey_450))
+                setTextColor(R.id.text_subject, getAttributeColor(context, R.attr.widgetTextColorDisabled))
         }
     }
 
@@ -66,4 +69,12 @@ private class TimetableRemoteViewsFactory(
     override fun getViewTypeCount() = 1
     override fun getItemId(position: Int): Long = 0
     override fun hasStableIds() = true
+
+    @ColorInt
+    private fun getAttributeColor(context: Context, @AttrRes attributeId: Int): Int {
+        val typedValue = TypedValue()
+        context.setTheme(R.style.ThemeOverlay_App_Widget)
+        context.theme.resolveAttribute(attributeId, typedValue, true)
+        return typedValue.data
+    }
 }

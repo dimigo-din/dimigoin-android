@@ -5,7 +5,9 @@ import android.appwidget.AppWidgetManager
 import android.appwidget.AppWidgetProvider
 import android.content.Context
 import android.content.Intent
+import android.util.TypedValue
 import android.widget.RemoteViews
+import androidx.annotation.ColorInt
 import java.time.DayOfWeek
 import java.time.LocalDateTime
 
@@ -34,8 +36,16 @@ class TimeTableWidget : AppWidgetProvider() {
         }
         remoteViews.apply {
             setRemoteAdapter(R.id.subjectGridView, intent)
-            if (id != null) setTextColor(id, context.getColor(R.color.pink_400))
+            if (id != null) setTextColor(id, getPrimaryColor(context))
         }
         appWidgetManager.updateAppWidget(appWidgetId, remoteViews)
+    }
+
+    @ColorInt
+    private fun getPrimaryColor(context: Context): Int {
+        val typedValue = TypedValue()
+        context.setTheme(R.style.ThemeOverlay_App_Widget)
+        context.theme.resolveAttribute(R.attr.colorPrimary, typedValue, true)
+        return typedValue.data
     }
 }

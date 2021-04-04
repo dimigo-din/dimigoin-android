@@ -4,14 +4,20 @@
     android:layout_height="match_parent"
     android:background="@drawable/bg_widget_round"
     android:orientation="vertical"
+    android:paddingHorizontal="8dp"
     android:theme="@style/ThemeOverlay.App.Widget">
 
     <include
         layout="@layout/layout_widget_weekdays"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:clipToPadding="false" />
+        android:layout_marginVertical="8dp" />
+
+    <ImageView
+        style="@style/Divider.Thin"
+        android:layout_margin="0dp"
+        android:background="?attr/widgetDividerColor"
+        android:contentDescription="@null" />
 
     <GridView
         android:id="@+id/subjectGridView"
@@ -19,11 +25,10 @@
         android:layout_height="wrap_content"
         android:clipToPadding="false"
         android:divider="@color/transparent"
-        android:dividerHeight="4dp"
         android:listSelector="@color/transparent"
         android:numColumns="5"
         android:overScrollMode="never"
-        android:paddingVertical="12dp"
+        android:paddingTop="8dp"
         android:scrollbars="none"
         tools:listitem="@layout/item_widget_subject" />
 

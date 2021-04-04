@@ -1,65 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:theme="@style/ThemeOverlay.App.Widget">
 
     <TextView
-        style="@style/Text.Sub.Grey"
         android:id="@+id/text_monday"
+        style="@style/WidgetText.Title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:text="@string/monday"
         android:textAlignment="center"
-        android:textSize="12sp"
-        tools:text="월" />
+        android:textColor="?attr/widgetTextColorDisabled" />
 
     <TextView
-        style="@style/Text.Sub.Grey"
         android:id="@+id/text_tuesday"
+        style="@style/WidgetText.Title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:text="@string/tuesday"
         android:textAlignment="center"
-        android:textSize="12sp"
-        tools:text="화" />
+        android:textColor="?attr/widgetTextColorDisabled" />
 
     <TextView
-        style="@style/Text.Sub.Grey"
         android:id="@+id/text_wednesday"
+        style="@style/WidgetText.Title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:text="@string/wednesday"
         android:textAlignment="center"
-        android:textSize="12sp"
-        tools:text="수" />
+        android:textColor="?attr/widgetTextColorDisabled" />
 
     <TextView
-        style="@style/Text.Sub.Grey"
         android:id="@+id/text_thursday"
+        style="@style/WidgetText.Title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:text="@string/thursday"
         android:textAlignment="center"
-        android:textSize="12sp"
-        tools:text="목" />
+        android:textColor="?attr/widgetTextColorDisabled" />
 
     <TextView
-        style="@style/Text.Sub.Grey"
         android:id="@+id/text_friday"
+        style="@style/WidgetText.Title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:text="@string/friday"
         android:textAlignment="center"
-        android:textSize="12sp"
-        tools:text="금" />
+        android:textColor="?attr/widgetTextColorDisabled" />
 
 </LinearLayout>
 
