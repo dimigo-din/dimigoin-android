@@ -39,18 +39,21 @@ data class UserModel(
         }
     }
 
-    fun isTeacher() = userType == UserType.TEACHER
+    fun isTeacher() = (userType == UserType.TEACHER) || (userType == UserType.DORMITORY)
     fun isStudent() = userType == UserType.STUDENT
 
     fun hasPermission(permission: Permission) = permissions.contains(permission.permissionName)
 }
 
 enum class UserType {
+    @Json(name = "S")
+    STUDENT,
+
     @Json(name = "T")
     TEACHER,
 
-    @Json(name = "S")
-    STUDENT
+    @Json(name = "D")
+    DORMITORY
 }
 
 enum class Permission(val permissionName: String) {
