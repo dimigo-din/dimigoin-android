@@ -3,6 +3,7 @@ package `in`.dimigo.dimigoin.di
 import `in`.dimigo.dimigoin.data.service.DimigoinService
 import `in`.dimigo.dimigoin.data.util.AuthorizationInterceptor
 import `in`.dimigo.dimigoin.data.util.TokenAuthenticator
+import `in`.dimigo.dimigoin.util.buildMoshi
 import okhttp3.OkHttpClient
 import org.koin.dsl.module
 import retrofit2.Retrofit
@@ -32,7 +33,7 @@ private fun buildOkHttpClient(
 private fun buildRetrofit(httpClient: OkHttpClient): Retrofit {
     return Retrofit.Builder()
         .baseUrl(DimigoinService.BASE_URL)
-        .addConverterFactory(MoshiConverterFactory.create())
+        .addConverterFactory(MoshiConverterFactory.create(buildMoshi()))
         .client(httpClient)
         .build()
 }

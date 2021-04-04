@@ -2,6 +2,8 @@ package `in`.dimigo.dimigoin.data.util
 
 import `in`.dimigo.dimigoin.data.model.AuthModel
 import `in`.dimigo.dimigoin.data.model.UserModel
+import `in`.dimigo.dimigoin.util.toJsonString
+import `in`.dimigo.dimigoin.util.toObject
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.core.content.edit
