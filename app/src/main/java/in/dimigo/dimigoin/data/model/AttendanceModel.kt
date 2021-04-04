@@ -13,11 +13,11 @@ data class AttendanceLogModel(
     val place: PlaceModel,
     val remark: String?,
     val updatedBy: UserModel? = null,
-    @Json(name = "updatedAt") val time: Date,
+    @field:Json(name = "updatedAt") val time: Date,
 )
 
 data class AttendanceLogRequestModel(
-    @Json(name = "place") val placeId: String,
+    @field:Json(name = "place") val placeId: String,
     val remark: String?
 )
 
@@ -31,7 +31,7 @@ data class AttendanceStatusLogModel(
     val date: Date,
     val place: PlaceModel,
     val remark: String?,
-    @Json(name = "updatedAt") val time: Date
+    @field:Json(name = "updatedAt") val time: Date
 )
 
 data class AttendanceStatusResponseModel(

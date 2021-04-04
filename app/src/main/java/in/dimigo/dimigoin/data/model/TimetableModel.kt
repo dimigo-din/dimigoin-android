@@ -8,5 +8,5 @@ class DailyTimetableModel(
 )
 
 data class TimetableResponseModel(
-    @Json(name = "timetable") val dailyTimetables: List<DailyTimetableModel>
+    @field:Json(name = "timetable") val dailyTimetables: List<DailyTimetableModel>
 )

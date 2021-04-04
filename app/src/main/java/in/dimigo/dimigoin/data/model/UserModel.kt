@@ -13,12 +13,12 @@ data class UserModel(
     val idx: Int,
     val name: String,
     val grade: Int,
-    @Json(name = "class") val klass: Int,
+    @field:Json(name = "class") val klass: Int,
     val number: Int,
     val serial: Int,
     val photos: List<String>,
     val gender: String,
-    @Json(name = "birthdate") val birthDate: String?,
+    @field:Json(name = "birthdate") val birthDate: String?,
     val libraryId: String?,
     private val userType: UserType,
     private val permissions: List<String> = listOf()
@@ -44,10 +44,10 @@ data class UserModel(
 }
 
 enum class UserType {
-    @Json(name = "T")
+    @field:Json(name = "T")
     TEACHER,
 
-    @Json(name = "S")
+    @field:Json(name = "S")
     STUDENT
 }
 
