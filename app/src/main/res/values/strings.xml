@@ -111,6 +111,11 @@
     <string name="format_student_info">%d학년 %d반</string>
     <string name="format_time">HH:mm</string>
     <string name="updatedTime">등록시간</string>
+    <string name="monday">월</string>
+    <string name="tuesday">화</string>
+    <string name="wednesday">수</string>
+    <string name="thursday">목</string>
+    <string name="friday">금</string>
 
     <string-array name="departments">
         <item>이비즈니스과</item>

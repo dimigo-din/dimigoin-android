@@ -1,0 +1,30 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_widget_round"
+    android:orientation="vertical"
+    android:theme="@style/ThemeOverlay.App.Widget">
+
+    <include
+        layout="@layout/layout_widget_weekdays"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:clipToPadding="false" />
+
+    <GridView
+        android:id="@+id/subjectGridView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clipToPadding="false"
+        android:divider="@color/transparent"
+        android:dividerHeight="4dp"
+        android:listSelector="@color/transparent"
+        android:numColumns="5"
+        android:overScrollMode="never"
+        android:paddingVertical="12dp"
+        android:scrollbars="none"
+        tools:listitem="@layout/item_widget_subject" />
+
+</LinearLayout>

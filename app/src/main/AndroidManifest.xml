@@ -62,12 +62,28 @@
                 android:resource="@xml/today_meal_widget_info" />
         </receiver>
 
+        <receiver
+            android:name=".ui.widget.TimeTableWidget"
+            android:label="@string/timetable">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/timetable_widget_info" />
+        </receiver>
+
         <service
             android:name=".ui.widget.TodayMealWidgetService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
 
         <service
             android:name=".ui.widget.NextMealWidgetService"
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
+
+        <service
+            android:name=".ui.widget.TimetableWidgetService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
 
         <service
