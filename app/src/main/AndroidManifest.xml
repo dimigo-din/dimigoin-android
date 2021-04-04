@@ -63,7 +63,7 @@
         </receiver>
 
         <receiver
-            android:name=".ui.widget.TimeTableWidget"
+            android:name=".ui.widget.TimetableWidget"
             android:label="@string/timetable">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />

@@ -12,7 +12,7 @@ import androidx.annotation.ColorInt
 import java.time.DayOfWeek
 import java.time.LocalDateTime
 
-class TimeTableWidget : AppWidgetProvider() {
+class TimetableWidget : AppWidgetProvider() {
     private val dayTextIds = listOf(
         R.id.text_monday,
         R.id.text_tuesday,
