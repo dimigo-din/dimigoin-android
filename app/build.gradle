@@ -69,9 +69,11 @@ dependencies {
     // Koin
     implementation "org.koin:koin-android-viewmodel:$koin_version"
 
-    // Retrofit
+    // Retrofit, Moshi
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     implementation "com.squareup.retrofit2:converter-moshi:$retrofit_version"
+    implementation "com.squareup.moshi:moshi:$moshi_version"
+    kapt "com.squareup.moshi:moshi-kotlin-codegen:$moshi_version"
     implementation 'com.squareup.moshi:moshi-adapters:1.5.0'
 
     // Firebase
