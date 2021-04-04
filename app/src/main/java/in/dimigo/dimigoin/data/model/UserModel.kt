@@ -3,25 +3,27 @@ package `in`.dimigo.dimigoin.data.model
 import `in`.dimigo.dimigoin.R
 import android.content.Context
 import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 
+@JsonClass(generateAdapter = true)
 data class UserResponseModel(
     val identity: UserModel
 )
 
+@JsonClass(generateAdapter = true)
 data class UserModel(
     val _id: String,
     val idx: Int,
     val name: String,
-    val grade: Int,
-    @field:Json(name = "class") val klass: Int,
-    val number: Int,
-    val serial: Int,
-    val photos: List<String>,
-    val gender: String,
-    @field:Json(name = "birthdate") val birthDate: String?,
+    val grade: Int = 0,
+    @Json(name = "class") val klass: Int = 0,
+    val number: Int = 0,
+    val serial: Int = 0,
+    val photos: List<String> = listOf(),
+    @Json(name = "birthdate") val birthDate: String?,
     val libraryId: String?,
-    private val userType: UserType,
-    private val permissions: List<String> = listOf()
+    val userType: UserType = UserType.STUDENT,
+    val permissions: List<String> = listOf()
 ) {
 
     fun getDefaultClassName(context: Context) = context.getString(R.string.format_student_info).format(grade, klass)
@@ -44,10 +46,10 @@ data class UserModel(
 }
 
 enum class UserType {
-    @field:Json(name = "T")
+    @Json(name = "T")
     TEACHER,
 
-    @field:Json(name = "S")
+    @Json(name = "S")
     STUDENT
 }
 

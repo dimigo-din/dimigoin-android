@@ -1,7 +1,9 @@
 package `in`.dimigo.dimigoin.data.model
 
 import `in`.dimigo.dimigoin.ui.item.IngangStatusItem
+import com.squareup.moshi.JsonClass
 
+@JsonClass(generateAdapter = true)
 data class IngangStatusModel(
     val weeklyTicketCount: Int,
     val weeklyUsedTicket: Int,
@@ -35,6 +37,7 @@ data class IngangStatusModel(
     }
 }
 
+@JsonClass(generateAdapter = true)
 data class IngangApplicationModel(
     val date: String,
     val time: IngangTime,

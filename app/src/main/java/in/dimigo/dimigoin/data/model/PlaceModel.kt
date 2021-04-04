@@ -1,9 +1,13 @@
 package `in`.dimigo.dimigoin.data.model
 
+import com.squareup.moshi.JsonClass
+
+@JsonClass(generateAdapter = true)
 data class PlacesResponseModel(
     val places: List<PlaceModel>
 )
 
+@JsonClass(generateAdapter = true)
 data class PlaceModel(
     val _id: String,
     val type: PlaceType,
@@ -15,19 +19,19 @@ data class PlaceModel(
     }
 }
 
+@JsonClass(generateAdapter = true)
 data class PrimaryPlacesResponseModel(
     val places: List<PrimaryPlaceModel>
 )
 
+@JsonClass(generateAdapter = true)
 data class PrimaryPlaceModel(
     val _id: String,
     val label: String,
     val type: PlaceType,
     val name: String,
     val location: String
-) {
-    fun toPlaceModel() = PlaceModel(_id, type, name, location)
-}
+)
 
 enum class PlaceType(val indexForSort: Int) {
     CIRCLE(0),
