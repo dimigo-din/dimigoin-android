@@ -147,7 +147,7 @@ class AttendanceViewModel(
                     PlaceType.INGANG -> 1
                     PlaceType.CIRCLE -> 2
                     PlaceType.ETC -> 3
-                    PlaceType.ABSENT -> break
+                    PlaceType.ABSENT -> 3
                 }
                 result[cursor]++
             } else {
