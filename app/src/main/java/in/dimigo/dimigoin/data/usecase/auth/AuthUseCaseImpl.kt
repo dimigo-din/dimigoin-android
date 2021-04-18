@@ -16,6 +16,7 @@ class AuthUseCaseImpl(
     private val sharedPreferencesManager: SharedPreferencesManager
 ) : AuthUseCase {
     override suspend fun tryLogin(loginRequestModel: LoginRequestModel): Result<Unit> = safeApiCall {
+        sharedPreferencesManager.clear()
         val authModel = service.login(loginRequestModel).await()
         sharedPreferencesManager.saveAuthModel(authModel)
         val token = getFcmToken()
