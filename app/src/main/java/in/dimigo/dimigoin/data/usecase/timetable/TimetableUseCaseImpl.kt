@@ -21,10 +21,13 @@ class TimetableUseCaseImpl(
         val timetables = service.getWeeklyTimetable(grade, klass)
             .await()
             .dailyTimetables
-        val now = LocalDate.now()
+
+        if (timetables.isEmpty()) return@safeApiCall List(35) { null }
+
+        val fastestDate = LocalDate.parse(timetables.first().date)
 
         return@safeApiCall List(5) {
-            now.with(DayOfWeek.MONDAY).plusDays(it.toLong()).format(DateUtil.dateFormatter)
+            fastestDate.with(DayOfWeek.MONDAY).plusDays(it.toLong()).format(DateUtil.dateFormatter)
         }.map {
             timetables.find { timetable -> timetable.date == it }?.sequence ?: arrayOf()
         }.map {
