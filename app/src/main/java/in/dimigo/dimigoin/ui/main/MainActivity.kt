@@ -71,6 +71,9 @@ class MainActivity : BaseActivity() {
             setupWithNavController(navController)
             selectedItemId = viewModel.navigationPosition
             bottomNavBarBottomPadding = paddingBottom
+            setOnNavigationItemReselectedListener {
+                // Do nothing: it was intended to prevent flickering when re-selecting the same fragment.
+            }
         }
     }
 }
