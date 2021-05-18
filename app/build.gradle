@@ -67,7 +67,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_ktx_version"
 
     // Koin
-    implementation "org.koin:koin-android-viewmodel:$koin_version"
+    implementation "io.insert-koin:koin-android-viewmodel:$koin_version"
 
     // Retrofit, Moshi
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
