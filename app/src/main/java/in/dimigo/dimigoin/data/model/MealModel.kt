@@ -19,17 +19,23 @@ data class MealResponseModel(
 
 @JsonClass(generateAdapter = true)
 data class MealModel(
-    val breakfast: MealList,
-    val lunch: MealList,
-    val dinner: MealList,
+    val breakfast: MealContent,
+    val lunch: MealContent,
+    val dinner: MealContent,
     val date: String
 ) {
     fun toMealItem(failedMealItem: MealItem) = MealItem(
-        this.breakfast.stringify(failedMealItem.breakfast),
-        this.lunch.stringify(failedMealItem.lunch),
-        this.dinner.stringify(failedMealItem.dinner)
+        this.breakfast.content.stringify(failedMealItem.breakfast),
+        this.lunch.content.stringify(failedMealItem.lunch),
+        this.dinner.content.stringify(failedMealItem.dinner)
     )
 }
+
+@JsonClass(generateAdapter = true)
+data class MealContent(
+    val content: MealList,
+    val image: String?
+)
 
 private fun MealList.stringify(failedMealString: String): String {
     return if (isNullOrEmpty()) failedMealString
